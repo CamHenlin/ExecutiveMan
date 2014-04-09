@@ -1,7 +1,7 @@
 var stage;
 var watchedElements;
 var player;
-
+var mapper;
 
 function init() {
 	stage = new createjs.Stage("gamecanvas");
@@ -10,6 +10,8 @@ function init() {
 
 	watchedElements = [];
 	player = new Player(stage);
+	mapper = new Mapper(stage);
+	mapper.initLayers();
 
 	watchedElements.push(player);
 
@@ -19,6 +21,15 @@ function init() {
 }
 
 function handleTick(event) {
+	var intersection;
+	mapper.bitmapArray.forEach(function(mapBitmap) {
+		intersection = ndgmr.checkRectCollision(player.animations, mapper.internalStage);
+	});
+
+	if (intersection) {
+		console.log(intersection);
+	}
+
 	var actions = {};
 	actions.playerJump = false;
 	actions.playerAttack = false;

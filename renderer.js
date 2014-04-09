@@ -1,28 +1,72 @@
+	var mapData2 = { "height":20,
+ "layers":[
+        {
+         "data":[0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 4, 4, 4, 4, 4, 4, 4, 13, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 112, 113, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 43, 44, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 43, 44, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 43, 44, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 43, 44, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36, 43, 44, 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 41, 43, 44, 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":20,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":30,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
 
+    },
+ "tileheight":32,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"images/map1.png",
+         "imageheight":510,
+         "imagewidth":342,
+         "margin":2,
+         "name":"mmtiles",
+         "properties":
+            {
+
+            },
+         "spacing":2,
+         "tileheight":32,
+         "tileoffset":
+            {
+             "x":2,
+             "y":0
+            },
+         "tilewidth":32
+        }],
+ "tilewidth":32,
+ "version":1,
+ "width":30
+}
+        
+        ;
 function Mapper(stage) {
-	this.tileset;
-	this.stage;
-	this.mapData;
+	this.internalStage = new createjs.Stage("offscreen");
+	this.tileset = new Image();
+	this.mapData = mapData2;
 	this.stage = stage;
+	this.bitmapArray = [];
 	// json map data at the end of this file for ease of understanding (created on Tiled map editor)
 	//mapData = mapDataJson;
 
 	// uncomment this to a second example
-	this.mapData = mapData2;
+	// this.mapData = mapData2;
 	// create EaselJS image for tileset
-	this.tileset = new Image();
+
 	// getting imagefile from first tileset
 	this.tileset.src = this.mapData.tilesets[0].image;
 	// callback for loading layers after tileset is loaded
-	this.tileset.onLoad = initLayers();
-
 
 	// loading layers
-	function initLayers() {
+	this.initLayers = function() {
 		var w = this.mapData.tilesets[0].tilewidth;
 		var h = this.mapData.tilesets[0].tileheight;
 		var imageData = {
-			images : [ tileset ],
+			images : [ this.tileset ],
 			frames : {
 				width : w,
 				height : h
@@ -30,17 +74,24 @@ function Mapper(stage) {
 		};
 		// create spritesheet
 		var tilesetSheet = new createjs.SpriteSheet(imageData);
-
+		var internalStage = this.internalStage;
 		// loading each layer at a time
-		mapData.layers.forEach(function(layer) {
-	        if (layer.type == 'tilelayer') {
-	            initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight);
-	        }
-	    });
-	}
+		var mapData = this.mapData;
+		this.mapData.layers.forEach(
+			var doLayer = function(layer) {
+				if (layer.type === 'tilelayer') {
+					return initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight, internalStage);
+				}
+			}
+
+			this.bitmapArray = doLayer(layer);
+		);
+	};
 
 	// layer initialization
-	function initLayer(layerData, tilesetSheet, tilewidth, tileheight) {
+	function initLayer(layerData, tilesetSheet, tilewidth, tileheight, internalStage) {
+		var bitmapArray = [];
+
 		for ( var y = 0; y < layerData.height; y++) {
 			for ( var x = 0; x < layerData.width; x++) {
 				// create a new Bitmap for each cell
@@ -50,65 +101,19 @@ function Mapper(stage) {
 				// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
 				cellBitmap.gotoAndStop(layerData.data[idx] - 1);
 				// isometrix tile positioning based on X Y order from Tiled
-				cellBitmap.x = 300 + x * tilewidth/2 - y * tilewidth/2;
-				cellBitmap.y = y * tileheight/2 + x * tileheight/2;
+				cellBitmap.x = x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+				cellBitmap.y = y * tileheight; // * tileheight/2 + x * tileheight/2;
 				// add bitmap to stage
 				stage.addChild(cellBitmap);
+				// internalStage.addChild(cellBitmap);
+				bitmapArray.push(cellBitmap);
 			}
 		}
+		//return internalStage;
+		return bitmapArray;
 	}
 
 	// Map data created on Tiled map editor (mapeditor.org). Use export for JSON format
-	var mapData2 = { "height":35,
-	 "layers":[
-	        {
-	         "data":[0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 3, 3, 3, 3, 3, 7, 7, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 7, 7, 7, 3, 3, 3, 3, 3, 0, 3, 3, 3, 3, 3, 3, 7, 7, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 2, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 3, 3, 3, 3, 2, 2, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 2, 2, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 2, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 2, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-	         "height":35,
-	         "name":"ground",
-	         "opacity":1,
-	         "type":"tilelayer",
-	         "visible":true,
-	         "width":15,
-	         "x":0,
-	         "y":0
-	        },
-	        {
-	         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 1, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 1, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 1, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 14, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 11, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 1, 1, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 0],
-	         "height":35,
-	         "name":"plants",
-	         "opacity":1,
-	         "type":"tilelayer",
-	         "visible":true,
-	         "width":15,
-	         "x":0,
-	         "y":0
-	        }],
-	 "orientation":"Hexagonal",
-	 "properties":
-	    {
-	     "name":"Caatinga"
-	    },
-	 "tileheight":16,
-	 "tilesets":[
-	        {
-	         "firstgid":1,
-	         "image":"map0.png",
-	         "imageheight":288,
-	         "imagewidth":320,
-	         "margin":0,
-	         "name":"tileset",
-	         "properties":
-	            {
-
-	            },
-	         "spacing":0,
-	         "tileheight":16,
-	         "tilewidth":16
-	        }],
-	 "tilewidth":16,
-	 "version":1,
-	 "width":15
-	};
 }
 
 /*

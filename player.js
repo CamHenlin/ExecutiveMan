@@ -11,10 +11,15 @@ function Player(stage) {
 				"next" : "stand",
 				"speed" : 0.125
 			},
+			"startrun" : {
+				"frames" : [2],
+				"next" : "run",
+				"speed" : 0.125
+			},
 			"run": {
 				"frames" : [3, 4, 5],
 				"next" : "run",
-				"speed" : 0.125
+				"speed" : 0.15
 
 			},
 			"jump": {
@@ -37,19 +42,20 @@ function Player(stage) {
 	this.stage.addChild(this.animations);
 
 	this.tickActions = function(actions) {
+
 		if (actions.playerLeft) {
 			this.goingRight = false;
 			this.goingLeft  = true;
 			this.animations.setTransform(120, 0, -1);
-			if (this.animations.currentAnimation !== "run" && !this.jumping) {
-				this.animations.gotoAndPlay("run");
+			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun") && !this.jumping) {
+				this.animations.gotoAndPlay("startrun");
 			}
 		} else if (actions.playerRight) {
 			this.goingRight = true;
 			this.goingLeft  = false;
 			this.animations.setTransform(0, 0, 1);
-			if (this.animations.currentAnimation !== "run" && !this.jumping) {
-				this.animations.gotoAndPlay("run");
+			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun") && !this.jumping) {
+				this.animations.gotoAndPlay("startrun");
 			}
 		} else if (actions.playerJump && !this.jumping) {
 			this.jumpspeed = -9.75;
