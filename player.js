@@ -1,16 +1,27 @@
 function Player(stage) {
 
 	var playerSpriteSheet = new createjs.SpriteSheet({
-    	"framerate": 60,
-    	"images": ["images/businessmanspritesheet.png"],
-    	"frames": {
-    		"width": 60, "height": 60, "count": 18
-    	},
-    	"animations": {
-    		"stand": [0, 0, 1, "stand", 0.125],
-    		"run": [3, 4, 5, "run", 5],
-    		"jump": [10, "jump"]
-    	}
+		"images": ["images/businessmanspritesheet.png"],
+		"frames": {
+			"width": 60, "height": 60, "count": 18
+		},
+		"animations": {
+			"stand": {
+				"frames" : [0, 0, 0, 1],
+				"next" : "stand",
+				"speed" : 0.125
+			},
+			"run": {
+				"frames" : [3, 4, 5],
+				"next" : "run",
+				"speed" : 0.125
+
+			},
+			"jump": {
+				"frames" : [10],
+				"next" : "jump"
+			}
+		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.stage      = stage;
@@ -19,8 +30,8 @@ function Player(stage) {
 	this.y          = 50;
 	this.goingLeft  = false;
 	this.goingRight = false;
-	this.jumping 	= false;
-	this.jumpspeed 	= 0;
+	this.jumping	= false;
+	this.jumpspeed	= 0;
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
@@ -30,25 +41,25 @@ function Player(stage) {
 			this.goingRight = false;
 			this.goingLeft  = true;
 			this.animations.setTransform(120, 0, -1);
-			if (this.animations.currentAnimation !== "run") {
+			if (this.animations.currentAnimation !== "run" && !this.jumping) {
 				this.animations.gotoAndPlay("run");
 			}
 		} else if (actions.playerRight) {
 			this.goingRight = true;
 			this.goingLeft  = false;
 			this.animations.setTransform(0, 0, 1);
-			if (this.animations.currentAnimation !== "run") {
+			if (this.animations.currentAnimation !== "run" && !this.jumping) {
 				this.animations.gotoAndPlay("run");
 			}
 		} else if (actions.playerJump && !this.jumping) {
-			this.jumpspeed = -9.75
+			this.jumpspeed = -9.75;
 			this.jumping = true;
 
 			this.animations.gotoAndPlay("jump");
 		} else {
 			this.goingRight = false;
 			this.goingLeft = false;
-			if (this.animations.currentAnimation !== "stand") {
+			if (this.animations.currentAnimation !== "stand"  && !this.jumping) {
 				this.animations.gotoAndPlay("stand");
 			}
 		}
