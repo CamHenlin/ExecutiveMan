@@ -1,0 +1,1 @@
+java -jar compiler.jar --js=easeljs-0.7.1.min.js --js=keymaster.js --js=renderer.js  --js=player.js --js=main.js --js_output_file=game.min.js
