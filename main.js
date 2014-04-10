@@ -51,15 +51,16 @@ function handleTick(event) {
 
 
 	var modifier = 8;
+	var xmodifier = 10;
 	var playerCollisionPoints = {
-		leftTop : { x: player.x, y: player.y + modifier },
-		leftBottom : { x: player.x, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
-		bottomLeft : { x: player.x + modifier, y: player.y + player.animations.spriteSheet._frameHeight  },
-		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - modifier, y: player.y + player.animations.spriteSheet._frameHeight },
-		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
-		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth, y: player.y - modifier },
-		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - modifier, y: player.y },
-		topLeft : { x: player.x + modifier, y: player.y }
+		leftTop : { x: player.x + xmodifier, y: player.y + modifier },
+		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
+		bottomLeft : { x: player.x + xmodifier + 4 , y: player.y + player.animations.spriteSheet._frameHeight  },
+		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + player.animations.spriteSheet._frameHeight },
+		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
+		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y - modifier },
+		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y },
+		topLeft : { x: player.x + xmodifier + 4, y: player.y }
 	};
 	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray);
 	watchedElements.forEach(function(element) {

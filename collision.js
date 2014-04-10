@@ -2,7 +2,6 @@ function TileCollisionDetector() {
 	this.checkCollisions = function(playerCollisionPoints, collisionArray) {
 		var moves = { leftmove : true, downmove : true, rightmove : true, upmove : true };
 		var tilesize = 32; // this is used as width and height!
-		
 
 		var a = Math.floor(playerCollisionPoints.leftTop.y / tilesize);
 		var b = Math.floor(playerCollisionPoints.leftTop.x / tilesize);
@@ -125,5 +124,5 @@ function TileCollisionDetector() {
 		}
 
 		return moves;
-	}
+	};
 }

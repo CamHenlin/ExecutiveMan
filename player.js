@@ -46,6 +46,7 @@ function Player(stage) {
 			this.goingRight = false;
 			this.goingLeft  = true;
 			this.animations.scaleX = -1;
+			this.animations.regX = 60;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
 			}
@@ -53,6 +54,7 @@ function Player(stage) {
 			this.goingRight = true;
 			this.goingLeft  = false;
 			this.animations.scaleX = 1;
+			this.animations.regX = 0;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
 			}
