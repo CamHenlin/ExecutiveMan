@@ -42,14 +42,14 @@
  "version":1,
  "width":30
 }
-        
+
         ;
 function Mapper(stage) {
 	this.internalStage = new createjs.Stage("offscreen");
 	this.tileset = new Image();
 	this.mapData = mapData2;
 	this.stage = stage;
-	this.bitmapArray = [];
+	this.collisionArray = [[],[]];
 	// json map data at the end of this file for ease of understanding (created on Tiled map editor)
 	//mapData = mapDataJson;
 
@@ -77,25 +77,24 @@ function Mapper(stage) {
 		var internalStage = this.internalStage;
 		// loading each layer at a time
 		var mapData = this.mapData;
-		this.mapData.layers.forEach(
-			var doLayer = function(layer) {
-				if (layer.type === 'tilelayer') {
-					return initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight, internalStage);
-				}
+		for (var i = 0; i < this.mapData.layers.length; i++) {
+			var layer = this.mapData.layers[i];
+			if (layer.type === 'tilelayer') {
+				this.collisionArray = initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight, internalStage);
 			}
+		}
 
-			this.bitmapArray = doLayer(layer);
-		);
 	};
 
 	// layer initialization
 	function initLayer(layerData, tilesetSheet, tilewidth, tileheight, internalStage) {
-		var bitmapArray = [];
-
+		var collisionArray = new Array(layerData.height);
+		console.log(collisionArray);
 		for ( var y = 0; y < layerData.height; y++) {
+			collisionArray[y] = new Array(layerData.width);
 			for ( var x = 0; x < layerData.width; x++) {
 				// create a new Bitmap for each cell
-				var cellBitmap = new createjs.BitmapAnimation(tilesetSheet);
+				var cellBitmap = new createjs.Sprite(tilesetSheet);
 				// layer data has single dimension array
 				var idx = x + y * layerData.width;
 				// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
@@ -106,11 +105,16 @@ function Mapper(stage) {
 				// add bitmap to stage
 				stage.addChild(cellBitmap);
 				// internalStage.addChild(cellBitmap);
-				bitmapArray.push(cellBitmap);
+				if (layerData.data[idx] !== 0) {
+					collisionArray[y][x] = true;
+				} else {
+					collisionArray[y][x] = false;
+				}
 			}
 		}
+		console.log(collisionArray);
 		//return internalStage;
-		return bitmapArray;
+		return collisionArray;
 	}
 
 	// Map data created on Tiled map editor (mapeditor.org). Use export for JSON format

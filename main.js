@@ -2,6 +2,7 @@ var stage;
 var watchedElements;
 var player;
 var mapper;
+var tileCollisionDetector;
 
 function init() {
 	stage = new createjs.Stage("gamecanvas");
@@ -13,24 +14,19 @@ function init() {
 	mapper = new Mapper(stage);
 	mapper.initLayers();
 
+	tileCollisionDetector = new TileCollisionDetector();
+
 	watchedElements.push(player);
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
-	createjs.Ticker.setFPS(60);
+	createjs.Ticker.setFPS(30);
 }
 
 function handleTick(event) {
-	var intersection;
-	mapper.bitmapArray.forEach(function(mapBitmap) {
-		intersection = ndgmr.checkRectCollision(player.animations, mapper.internalStage);
-	});
-
-	if (intersection) {
-		console.log(intersection);
-	}
 
 	var actions = {};
+	tileCollisionDetector.checkCollisions(player, mapper.collisionArray, actions);
 	actions.playerJump = false;
 	actions.playerAttack = false;
 	actions.playerLeft= false;
