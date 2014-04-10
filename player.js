@@ -108,7 +108,7 @@ function Player(stage) {
 		}
 
 		if (actions.playerAttack && this.shootTicks === 0) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y));
+			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX));
 			this.shootTicks = 15;
 			if (this.animations.currentAnimation === "jump") {
 				this.animations.gotoAndPlay("jumpshoot");
@@ -152,7 +152,7 @@ function Player(stage) {
 		});
 	};
 
-	var Shot = function(stage, playerX, playerY) {
+	var Shot = function(stage, playerX, playerY, direction) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": ["images/shot.png"],
 			"frames": {
@@ -167,17 +167,17 @@ function Player(stage) {
 		});
 
 		this.stage      = stage;
+		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = playerX + 30;
-		this.y          = playerY + 30;
-		this.direction  = null;
+		this.x          = playerX + ((this.direction === 1) ? 52 : -6);
+		this.y          = playerY + 27;
 		this.done       = false;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
 
 		this.tickActions = function(actions) {
-			this.x = this.x + 10;
+			this.x = this.x + (7 * this.direction);
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 
