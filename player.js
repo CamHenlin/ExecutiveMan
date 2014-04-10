@@ -7,7 +7,7 @@ function Player(stage) {
 		},
 		"animations": {
 			"stand": {
-				"frames" : [0, 0, 0, 1],
+				"frames" : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				"next" : "stand",
 				"speed" : 0.125
 			},
@@ -31,8 +31,8 @@ function Player(stage) {
 
 	this.stage      = stage;
 	this.animations = new createjs.Sprite(playerSpriteSheet, "stand");
-	this.x          = 50;
-	this.y          = 50;
+	this.x          = 30;
+	this.y          = 30;
 	this.goingLeft  = false;
 	this.goingRight = false;
 	this.jumping	= false;
@@ -42,32 +42,39 @@ function Player(stage) {
 	this.stage.addChild(this.animations);
 
 	this.tickActions = function(actions) {
-
-		if (actions.playerLeft) {
+		if (actions.playerLeft && actions.collisionResults.leftmove) {
 			this.goingRight = false;
 			this.goingLeft  = true;
-			this.animations.setTransform(120, 0, -1);
+			this.animations.scaleX = -1;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
 			}
-		} else if (actions.playerRight) {
+		} else if (actions.playerRight && actions.collisionResults.rightmove) {
 			this.goingRight = true;
 			this.goingLeft  = false;
-			this.animations.setTransform(0, 0, 1);
+			this.animations.scaleX = 1;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
 			}
-		} else if (actions.playerJump && !this.jumping) {
-			this.jumpspeed = -9.75;
-			this.jumping = true;
-
-			this.animations.gotoAndPlay("jump");
 		} else {
 			this.goingRight = false;
 			this.goingLeft = false;
 			if (this.animations.currentAnimation !== "stand"  && !this.jumping) {
 				this.animations.gotoAndPlay("stand");
 			}
+		}
+
+		if (actions.playerJump && !this.jumping && actions.collisionResults.upmove) {
+			actions.collisionResults.downmove = true;
+			this.jumpspeed = -9.75;
+			this.jumping = true;
+
+			this.animations.gotoAndPlay("jump");
+		} else if (actions.collisionResults.downmove && !this.jumping) {
+			actions.collisionResults.downmove = true;
+			this.jumpspeed = 0;
+			this.jumping = true;
+			this.animations.gotoAndPlay("jump");
 		}
 
 		if (this.goingRight || this.goingLeft) {
@@ -78,16 +85,19 @@ function Player(stage) {
 			}
 		}
 
-		if (this.jumping) {
+		if (this.jumping && actions.collisionResults.downmove) {
 			this.y += this.jumpspeed;
 			this.jumpspeed = this.jumpspeed + 0.5;
 			if (this.jumpspeed > 24) {
 				this.jumpspeed = 24;
 			}
+		} else if (this.jumping && !actions.collisionResults.downmove) {
+			this.animations.gotoAndPlay("stand");
+			this.jumping = false;
 
-			if (this.y > 400) {
-				this.jumping = false;
-				this.animations.gotoAndPlay("stand");
+			var yMod = this.y % 32;
+			if (yMod >= 2) {
+				this.y = this.y - (yMod - 4);
 			}
 		}
 

@@ -6,6 +6,7 @@ var tileCollisionDetector;
 
 function init() {
 	stage = new createjs.Stage("gamecanvas");
+	stage.snapToPixelEnabled = true;
 	stage.canvas.width = 1136;
 	stage.canvas.height = 640;
 
@@ -20,13 +21,13 @@ function init() {
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
-	createjs.Ticker.setFPS(30);
+	createjs.Ticker.setFPS(60);
 }
 
 function handleTick(event) {
 
 	var actions = {};
-	tileCollisionDetector.checkCollisions(player, mapper.collisionArray, actions);
+
 	actions.playerJump = false;
 	actions.playerAttack = false;
 	actions.playerLeft= false;
@@ -48,6 +49,19 @@ function handleTick(event) {
 		actions.playerRight = true;
 	}
 
+
+	var modifier = 8;
+	var playerCollisionPoints = {
+		leftTop : { x: player.x, y: player.y + modifier },
+		leftBottom : { x: player.x, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
+		bottomLeft : { x: player.x + modifier, y: player.y + player.animations.spriteSheet._frameHeight  },
+		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - modifier, y: player.y + player.animations.spriteSheet._frameHeight },
+		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
+		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth, y: player.y - modifier },
+		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - modifier, y: player.y },
+		topLeft : { x: player.x + modifier, y: player.y }
+	};
+	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray);
 	watchedElements.forEach(function(element) {
 		element.tickActions(actions);
 	});
