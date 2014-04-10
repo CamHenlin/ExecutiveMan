@@ -63,6 +63,7 @@ function handleTick(event) {
 		topLeft : { x: player.x + xmodifier + 4, y: player.y }
 	};
 	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray);
+
 	watchedElements.forEach(function(element) {
 		element.tickActions(actions);
 	});
