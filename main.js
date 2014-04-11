@@ -12,12 +12,14 @@ function init() {
 
 	watchedElements = [];
 	player = new Player(stage);
+	var printerguy = new PrinterGuy(stage);
 	mapper = new Mapper(stage);
 	mapper.initLayers();
 
 	tileCollisionDetector = new TileCollisionDetector();
 
 	watchedElements.push(player);
+	watchedElements.push(printerguy);
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
