@@ -11,7 +11,10 @@ function init() {
 	stage.snapToPixelEnabled = true;
 	stage.canvas.width = 1136;
 	stage.canvas.height = 640;
+	stage.canvas.style.backgroundColor = "#000";
 
+	//var bg = new createjs.Bitmap("images/city.png")
+	//stage.addChild(bg);
 	watchedElements = [];
 	mapper = new Mapper(stage);
 	mapper.initLayers();
@@ -20,10 +23,12 @@ function init() {
 	tileCollisionDetector = new TileCollisionDetector();
 	basicCollision = new BasicCollision(mapper);
 
-	enemies.push(printerguy = new PrinterGuy(stage, player, basicCollision));
+	enemies.push(new PrinterGuy(stage, player, basicCollision, 400, 100));
+	enemies.push(new PrinterGuy(stage, player, basicCollision, 700, 0));
 
 	watchedElements.push(player);
 	watchedElements.push(enemies[0]);
+	watchedElements.push(enemies[1]);
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;

@@ -10,6 +10,17 @@
          "width":25,
          "x":0,
          "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 97, 103, 103, 103, 103, 103, 103, 103, 103, 98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 104, 104, 104, 104, 104, 104, 104, 104, 118, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 97, 98, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 118, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 97, 98, 49, 3, 3, 50, 21, 22, 21, 21, 22, 22, 22, 21, 22, 21, 22, 21, 22, 22, 21, 22, 16, 8, 22, 117, 118, 22, 0, 0, 22, 23, 24, 24, 23, 24, 23, 24, 23, 24, 23, 24, 23, 24, 23, 24, 23, 97, 98, 24, 3, 3, 23, 57, 58, 24, 23, 24, 23, 24, 23, 24, 23, 24, 23, 24, 23, 24, 23, 24, 23, 24, 117, 118, 24, 0, 0, 23, 24, 23, 24, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 3, 3, 34, 57, 58, 34, 34, 34, 34, 47, 47, 47, 97, 103, 103, 103, 103, 103, 103, 103, 103, 98, 46, 46, 46, 0, 0, 46, 46, 46, 46, 46, 46, 46, 0, 0, 61, 117, 104, 104, 104, 104, 104, 104, 104, 104, 118, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 61, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":15,
+         "name":"Tile Layer 2",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":25,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":
@@ -74,7 +85,10 @@ function Mapper(stage) {
 		for (var i = 0; i < this.mapData.layers.length; i++) {
 			var layer = this.mapData.layers[i];
 			if (layer.type === 'tilelayer') {
-				this.collisionArray = initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight, internalStage, this.heightOffset, this.widthOffset);
+				if (i === 0) {
+					this.collisionArray = initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight, internalStage, this.heightOffset, this.widthOffset);
+				}
+				initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight, internalStage, this.heightOffset, this.widthOffset);
 			}
 		}
 
@@ -83,7 +97,6 @@ function Mapper(stage) {
 	// layer initialization
 	function initLayer(layerData, tilesetSheet, tilewidth, tileheight, internalStage, heightOffset, widthOffset) {
 		var collisionArray = new Array(layerData.height);
-		console.log(collisionArray);
 		for ( var y = 0; y < layerData.height; y++) {
 			collisionArray[y] = new Array(layerData.width);
 			for ( var x = 0; x < layerData.width; x++) {
@@ -106,7 +119,6 @@ function Mapper(stage) {
 				}
 			}
 		}
-		console.log(collisionArray);
 		//return internalStage;
 		return collisionArray;
 	}

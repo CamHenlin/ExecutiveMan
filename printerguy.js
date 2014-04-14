@@ -1,4 +1,4 @@
-function PrinterGuy(stage, player, basicCollision) {
+function PrinterGuy(stage, player, basicCollision, x, y) {
 
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/printerguy.png"],
@@ -26,8 +26,8 @@ function PrinterGuy(stage, player, basicCollision) {
 	this.player           = player;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
-	this.x                = 450;
-	this.y                = 330;
+	this.x                = x;
+	this.y                = y
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;
@@ -89,7 +89,7 @@ function PrinterGuy(stage, player, basicCollision) {
 		}
 
 		if (!collisionResults.down) {
-			var yMod = this.y % 4;
+			var yMod = this.y % 24;
 			if (yMod >= 2) {
 				this.y = this.y - (yMod - 4);
 			}
