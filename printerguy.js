@@ -1,7 +1,7 @@
-function PrinterGuy(stage) {
+function PrinterGuy(stage, player, basicCollision) {
 
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
-		"images": ["images/businessmanspritesheet.png"],
+		"images": ["images/printerguy.png"],
 		"frames": {
 			"width": 36, "height": 44, "count": 4
 		},
@@ -12,8 +12,7 @@ function PrinterGuy(stage) {
 			},
 			"show" : {
 				"frames" : [1],
-				"next" : "move",
-				"speed" : 0.5
+				"next" : "move"
 			},
 			"move": {
 				"frames" : [2, 3],
@@ -23,62 +22,74 @@ function PrinterGuy(stage) {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage           = stage;
-	this.animations      = new createjs.Sprite(printerGuySpriteSheet, "stand");
-	this.x               = 400;
-	this.y               = 300;
-	this.goingLeft       = false;
-	this.goingRight      = false;
-	this.jumping         = false;
-	this.jumpspeed       = 0;
-	this.shootTicks      = 0;
-	this.watchedElements = [];
+	this.basicCollision   = basicCollision;
+	this.player           = player;
+	this.stage            = stage;
+	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
+	this.x                = 450;
+	this.y                = 330;
+	this.activated        = false;
+	this.jumping          = false;
+	this.jumpspeed        = 0;
+	this.shootTicks       = 0;
+	this.watchedElements  = [];
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
-	this.tickActions = function(actions, player) {
-		if (this.shootTicks > 0) {
-			this.shootTicks--;
-
-			if (this.shootTicks === 0) {
-				if (this.animations.currentAnimation === "jumpshoot") {
-					this.animations.gotoAndPlay("jump");
-				} else if (this.animations.currentAnimation === "runshoot") {
-					this.animations.gotoAndPlay("run");
-				} else if (this.animations.currentAnimation === "standshoot") {
-					this.animations.gotoAndPlay("stand");
-				}
-			}
+	this.tickActions = function(actions) {
+		var collisionResults = this.basicCollision.basicCollision(this);
+		if (collisionResults.down && !this.jumping) {
+			this.jumpspeed = 0;
+			this.jumping = true;
 		}
 
-		var distanceFromPlayer = player.x - this.x;
-		if (abs(distanceFromPlayer) <= 300 && this.animations.currentAnimation !== "move") {
-			setTimeout(function() {
-				if (distanceFromPlayer > 0) {
-					this.goingLeft = true;
-				} else {
-					this.goingRight = true;
-					this.animations.scaleX = -1;
-					this.animations.regX = 36;
-				}
-			}.bind(this, distanceFromPlayer), 250);
+		if (this.jumping && collisionResults.down) {
+			this.jumpspeed += 0.5;
+			if (this.jumpspeed > 24) {
+				this.jumpspeed = 24;
+			}
 
+			this.y += this.jumpspeed;
+		}
+
+		if (!collisionResults.down && this.jumping) {
+			this.jumping = false;
+			this.jumpspeed = 0;
+		}
+
+		var distanceFromPlayer = this.player.x - this.x;
+		if (Math.abs(distanceFromPlayer) <= 200 && this.animations.currentAnimation !== "move") {
+			if (distanceFromPlayer > 0) {
+				this.animations.scaleX = -1;
+				this.animations.regX = 36;
+			} else {
+				this.animations.scaleX  = 1;
+			}
+			this.activated = true;
 			this.animations.gotoAndPlay("show");
 		}
 
-		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 400) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX));
+		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 150) {
+			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX));
 			this.shootTicks = 300;
-
-			this.watchedElements.push(new Shot(this.stage, this.x, this.y, this.animations.scaleX));
 		}
 
-		if (this.goingRight || this.goingLeft) {
-			this.x += (this.goingRight) ? 2.75 : -2.75;
+		if (this.activated) {
+			if (!collisionResults.left || !collisionResults.right) {
+				console.log("flipping");
+				this.animations.scaleX = this.animations.scaleX * -1;
+				if (this.animations.scaleX === -1) {
+					this.animations.regX = 36;
+				} else {
+					this.animations.regX = 0;
+				}
+			}
+			this.x += (this.animations.scaleX !== 1 ) ? 1.75 : -1.75;
 		}
 
-		var yMod = this.y % 32;
+		if (!collisionResults.down) {
+			var yMod = this.y % 4;
 			if (yMod >= 2) {
 				this.y = this.y - (yMod - 4);
 			}
@@ -109,8 +120,8 @@ function PrinterGuy(stage) {
 		this.stage      = stage;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 52 : -6);
-		this.y          = y + 27;
+		this.x          = x + ((this.direction === 1) ? 33 : -3);
+		this.y          = y + 12;
 		this.done       = false;
 
 		this.animations.play();

@@ -3,6 +3,8 @@ var watchedElements;
 var player;
 var mapper;
 var tileCollisionDetector;
+var enemies = [];
+var basicCollision;
 
 function init() {
 	stage = new createjs.Stage("gamecanvas");
@@ -11,15 +13,17 @@ function init() {
 	stage.canvas.height = 640;
 
 	watchedElements = [];
-	player = new Player(stage);
-	var printerguy = new PrinterGuy(stage);
 	mapper = new Mapper(stage);
 	mapper.initLayers();
+	player = new Player(stage, mapper.heightOffset, mapper.widthOffset);
 
 	tileCollisionDetector = new TileCollisionDetector();
+	basicCollision = new BasicCollision(mapper);
+
+	enemies.push(printerguy = new PrinterGuy(stage, player, basicCollision));
 
 	watchedElements.push(player);
-	watchedElements.push(printerguy);
+	watchedElements.push(enemies[0]);
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
@@ -30,41 +34,19 @@ function handleTick(event) {
 
 	var actions = {};
 
-	actions.playerJump = false;
-	actions.playerAttack = false;
-	actions.playerLeft= false;
-	actions.playerRight = false;
-
-	if (key.isPressed('space')) {
-		actions.playerJump = true;
-	}
-
-	if (key.isPressed('c')) {
-		actions.playerAttack = true;
-	}
-
-	if (key.isPressed('left')) {
-		actions.playerLeft = true;
-	}
-
-	if (key.isPressed('right')) {
-		actions.playerRight = true;
-	}
-
-
 	var modifier = 8;
-	var xmodifier = 10;
+	var xmodifier = 12;
 	var playerCollisionPoints = {
 		leftTop : { x: player.x + xmodifier, y: player.y + modifier },
 		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
 		bottomLeft : { x: player.x + xmodifier + 4 , y: player.y + player.animations.spriteSheet._frameHeight  },
 		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + player.animations.spriteSheet._frameHeight },
 		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
-		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y - modifier },
-		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y },
-		topLeft : { x: player.x + xmodifier + 4, y: player.y }
+		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + modifier },
+		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + modifier },
+		topLeft : { x: player.x + xmodifier + 4, y: player.y + modifier }
 	};
-	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray);
+	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.heightOffset, mapper.widthOffset);
 
 	watchedElements.forEach(function(element) {
 		element.tickActions(actions);

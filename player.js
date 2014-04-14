@@ -1,4 +1,4 @@
-function Player(stage) {
+function Player(stage, heightOffset, widthOffset) {
 
 	var playerSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
@@ -41,20 +41,102 @@ function Player(stage) {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage           = stage;
-	this.animations      = new createjs.Sprite(playerSpriteSheet, "stand");
-	this.x               = 30;
-	this.y               = 30;
-	this.goingLeft       = false;
-	this.goingRight      = false;
-	this.jumping         = false;
-	this.jumpspeed       = 0;
-	this.shootTicks      = 0;
-	this.watchedElements = [];
+	this.stage              = stage;
+	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
+	this.x                  = widthOffset + 30;
+	this.y                  = 30;
+	this.goingLeft          = false;
+	this.goingRight         = false;
+	this.goingLeftReleased  = false;
+	this.goingRightReleased = false;
+	this.jumping            = false;
+	this.falling            = false;
+	this.jumpreleased       = true;
+	this.jumpspeed          = 0;
+	this.shootTicks         = 0;
+	this.watchedElements    = [];
+	this.health             = 28;
+	this.actions            = {};
+
+	this.watchedElements.push(new HealthBar(stage, this));
+
+	document.onkeydown = function () {
+		switch (window.event.keyCode) {
+		    case 37:
+			    // keyCode 37 is left arrow
+			    this.actions.playerLeft = true;
+			    this.actions.playerRight = false;
+				this.goingLeftReleased  = false;
+			    break;
+
+			case 39:
+			    // keyCode 39 is right arrow
+			    this.actions.playerRight = true;
+			    this.actions.playerLeft = false;
+				this.goingRightReleased  = false;
+			    break;
+
+
+		    case 32:
+			    // keyCode 32 is space
+			    this.actions.playerJump = true;
+			    break;
+
+		    case 67:
+			    // keyCode 67 is c
+			    this.actions.playerAttack = true;
+			    break;
+
+
+		    case 68:
+		    	// keyCode 68 is d
+		    	this.actions.playerDebug = true;
+		    	break;
+	    }
+	}.bind(this);
+
+	document.onkeyup = function () {
+		switch (window.event.keyCode) {
+		    case 37:
+			    // keyCode 37 is left arrow
+			    this.actions.playerLeft = false;
+			    this.actions.playerRight = false;
+				this.goingLeftReleased  = true;
+			    break;
+
+			case 39:
+			    // keyCode 39 is right arrow
+			    this.actions.playerRight = false;
+			    this.actions.playerLeft = false;
+				this.goingRightReleased  = true;
+			    break;
+
+
+		    case 32:
+			    // keyCode 32 is space
+			    this.actions.playerJump = false;
+			    this.jumpreleased = true;
+			    break;
+
+		    case 67:
+			    // keyCode 67 is c
+			    this.actions.playerAttack = false;
+			    break;
+
+
+		    case 68:
+		    	// keyCode 68 is d
+		    	this.actions.playerDebug = false;
+		    	break;
+	    }
+	}.bind(this);
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	// lots of weird rules here to make the game as megaman-like as possible
+	// as we're aming to be a reimplementation of megaman physics, and not realistic physics
+	// most values are doubled from their megaman values as i am using double sized sprites
 	this.tickActions = function(actions) {
 		if (this.shootTicks > 0) {
 			this.shootTicks--;
@@ -70,32 +152,36 @@ function Player(stage) {
 			}
 		}
 
-		if (actions.playerLeft && actions.collisionResults.leftmove) {
+		if (this.actions.playerLeft && actions.collisionResults.leftmove) {
 			this.goingRight = false;
 			this.goingLeft  = true;
 			this.animations.scaleX = -1;
 			this.animations.regX = 60;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
+				this.movementTicks = 9;
 			}
-		} else if (actions.playerRight && actions.collisionResults.rightmove) {
+		} else if (this.actions.playerRight && actions.collisionResults.rightmove) {
 			this.goingRight = true;
 			this.goingLeft  = false;
 			this.animations.scaleX = 1;
 			this.animations.regX = 0;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
+				this.movementTicks = 9;
 			}
 		} else {
 			this.goingRight = false;
 			this.goingLeft = false;
 			if (this.animations.currentAnimation !== "stand" && this.animations.currentAnimation !== "standshoot" && !this.jumping) {
 				this.animations.gotoAndPlay("stand");
+				this.movementTicks = 9;
 			}
 		}
 
-		if (actions.playerJump && !this.jumping && actions.collisionResults.upmove) {
+		if (this.actions.playerJump && !this.jumping && actions.collisionResults.upmove && this.jumpreleased) {
 			actions.collisionResults.downmove = true;
+			this.jumpreleased = false;
 			this.jumpspeed = -9.75;
 			this.jumping = true;
 
@@ -103,13 +189,16 @@ function Player(stage) {
 		} else if (actions.collisionResults.downmove && !this.jumping) {
 			actions.collisionResults.downmove = true;
 			this.jumpspeed = 0;
+			this.falling = true;
 			this.jumping = true;
 			this.animations.gotoAndPlay("jump");
+		} else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 4) {
+			this.jumpspeed = 4;
 		}
 
-		if (actions.playerAttack && this.shootTicks === 0) {
+		if (this.actions.playerAttack && this.shootTicks === 0) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX));
-			this.shootTicks = 15;
+			this.shootTicks = 15; // not correct for megaman
 			if (this.animations.currentAnimation === "jump") {
 				this.animations.gotoAndPlay("jumpshoot");
 			} else if (this.animations.currentAnimation === "run") {
@@ -120,29 +209,63 @@ function Player(stage) {
 		}
 
 		if (this.goingRight || this.goingLeft) {
-			if (this.jumping) {
-				this.x += (this.goingRight) ? 2.65 : -2.65;
+			if (this.goingRight && actions.collisionResults.rightmove) {
+				if (this.jumping) {
+					this.x += 2.65; // megaman moved slower while jumping...
+				} else {
+					if (this.movementTicks > 0) {
+						this.x += 0.4; // megaman moved slower as he began moving
+						this.movementTicks--;
+					} else {
+						this.x += 2.75;
+					}
+				}
+			} else if (this.goingLeft && actions.collisionResults.leftmove) {
+				if (this.jumping) {
+					this.x += -2.65; // megaman moved slower while jumping...
+				} else {
+					if (this.movementTicks > 0) {
+						this.x += -0.4; // megaman moved slower as he began moving
+						this.movementTicks--;
+					} else {
+						this.x += -2.75;
+					}
+				}
+			}
+		} else if (this.movementTicks > 0) {
+			if (actions.collisionResults.rightmove && actions.collisionResults.leftmove) {
+				this.x += 0.8 * this.animations.scaleX;
+				this.movementTicks--;
 			} else {
-				this.x += (this.goingRight) ? 2.75 : -2.75;
+				this.movementTicks = 0;
 			}
 		}
 
-		if (this.jumping && actions.collisionResults.downmove) {
+		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
 			this.y += this.jumpspeed;
 			this.jumpspeed = this.jumpspeed + 0.5;
 			if (this.jumpspeed > 24) {
-				this.jumpspeed = 24;
+				this.jumpspeed = 24; // megaman's terminal velocity
 			}
 		} else if (this.jumping && !actions.collisionResults.downmove) {
-			this.animations.gotoAndPlay("stand");
+			if (!this.goingLeft && !this.goingRight) {
+				this.animations.gotoAndPlay("stand");
+			} else {
+				this.animations.gotoAndPlay("run");
+			}
 			this.jumping = false;
+			this.falling = false;
 
 			// correcting floor position after a jump/fall:
 			var yMod = this.y % 32;
 			if (yMod >= 2) {
 				this.y = this.y - (yMod - 4);
 			}
+		} else if (this.jumping && !actions.collisionResults.upmove) {
+			this.jumpspeed = 1; // megaman's jumpspeed set to 1 when he bonks his head
+			this.y += this.jumpspeed;
 		}
+
 
 		this.animations.x = this.x;
 		this.animations.y = this.y;
@@ -150,6 +273,10 @@ function Player(stage) {
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
 		});
+
+		if (this.actions.playerDebug) {
+			console.log(actions.collisionResults);
+		}
 	};
 
 	var Shot = function(stage, playerX, playerY, direction) {

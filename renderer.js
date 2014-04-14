@@ -1,13 +1,13 @@
 	var mapData2 = { "height":15,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 69, 69, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 69, 0, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 69, 0, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 69, 0, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 69, 0, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 69, 0, 69, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 112, 5, 5, 5, 5, 5, 5, 5, 5, 113, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 112, 113, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 112, 113, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 112, 113, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 41, 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 13, 58, 58, 58, 58, 58, 58, 58, 58, 58, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
          "height":15,
          "name":"Tile Layer 1",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":16,
+         "width":25,
          "x":0,
          "y":0
         }],
@@ -35,7 +35,7 @@
         }],
  "tilewidth":32,
  "version":1,
- "width":16
+ "width":25
 }
 
         ;
@@ -44,17 +44,12 @@ function Mapper(stage) {
 	this.tileset = new Image();
 	this.mapData = mapData2;
 	this.stage = stage;
+	this.heightOffset = null;
+	this.widthOffset = null;
 	this.collisionArray = [[],[]];
-	// json map data at the end of this file for ease of understanding (created on Tiled map editor)
-	//mapData = mapDataJson;
-
-	// uncomment this to a second example
-	// this.mapData = mapData2;
-	// create EaselJS image for tileset
 
 	// getting imagefile from first tileset
 	this.tileset.src = this.mapData.tilesets[0].image;
-	// callback for loading layers after tileset is loaded
 
 	// loading layers
 	this.initLayers = function() {
@@ -67,6 +62,10 @@ function Mapper(stage) {
 				height : h
 			}
 		};
+
+		this.heightOffset = this.stage.canvas.height - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
+		this.widthOffset = (this.stage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
+
 		// create spritesheet
 		var tilesetSheet = new createjs.SpriteSheet(imageData);
 		var internalStage = this.internalStage;
@@ -75,14 +74,14 @@ function Mapper(stage) {
 		for (var i = 0; i < this.mapData.layers.length; i++) {
 			var layer = this.mapData.layers[i];
 			if (layer.type === 'tilelayer') {
-				this.collisionArray = initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight, internalStage);
+				this.collisionArray = initLayer(layer, tilesetSheet, mapData.tilewidth, mapData.tileheight, internalStage, this.heightOffset, this.widthOffset);
 			}
 		}
 
 	};
 
 	// layer initialization
-	function initLayer(layerData, tilesetSheet, tilewidth, tileheight, internalStage) {
+	function initLayer(layerData, tilesetSheet, tilewidth, tileheight, internalStage, heightOffset, widthOffset) {
 		var collisionArray = new Array(layerData.height);
 		console.log(collisionArray);
 		for ( var y = 0; y < layerData.height; y++) {
@@ -95,8 +94,8 @@ function Mapper(stage) {
 				// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
 				cellBitmap.gotoAndStop(layerData.data[idx] - 1);
 				// isometrix tile positioning based on X Y order from Tiled
-				cellBitmap.x = x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
-				cellBitmap.y = y * tileheight; // * tileheight/2 + x * tileheight/2;
+				cellBitmap.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+				cellBitmap.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
 				// add bitmap to stage
 				stage.addChild(cellBitmap);
 				// internalStage.addChild(cellBitmap);
