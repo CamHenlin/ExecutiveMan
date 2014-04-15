@@ -17,65 +17,67 @@ function BasicCollision(mapper) {
 		var moves = { left : true, down : true, right : true, up : true };
 		var tilesize = 32; // this is used as width and height!
 
-		var a = Math.floor((playerCollisionPoints.left.y - heightOffset) / tilesize);
-		var b = Math.floor((playerCollisionPoints.left.x - widthOffset) / tilesize);
+		try {
+			var a = Math.floor((playerCollisionPoints.left.y - heightOffset) / tilesize);
+			var b = Math.floor((playerCollisionPoints.left.x - widthOffset) / tilesize);
 
-		if (a <= -1 || a > collisionArray.length) {
-			a = 0;
-		}
+			if (a <= -1 || a > collisionArray.length) {
+				a = 0;
+			}
 
-		if (b <= -1 || b > collisionArray[a].length) {
-			b = 0;
-		}
+			if (b <= -1 || b > collisionArray[a].length) {
+				b = 0;
+			}
 
-		if (collisionArray[a][b]) {
-			moves.left = false;
-		}
+			if (collisionArray[a][b]) {
+				moves.left = false;
+			}
 
-		a = Math.floor((playerCollisionPoints.bottom.y - heightOffset) / tilesize);
-		b = Math.floor((playerCollisionPoints.bottom.x - widthOffset) / tilesize);
+			a = Math.floor((playerCollisionPoints.bottom.y - heightOffset) / tilesize);
+			b = Math.floor((playerCollisionPoints.bottom.x - widthOffset) / tilesize);
 
-		if (a <= -1 || a > collisionArray.length) {
-			a = 0;
-		}
+			if (a <= -1 || a > collisionArray.length) {
+				a = 0;
+			}
 
-		if (b <= -1 || b > collisionArray[a].length) {
-			b = 0;
-		}
+			if (b <= -1 || b > collisionArray[a].length) {
+				b = 0;
+			}
 
-		if (collisionArray[a][b]) {
-			moves.down = false;
-		}
+			if (collisionArray[a][b]) {
+				moves.down = false;
+			}
 
-		a = Math.floor((playerCollisionPoints.right.y - heightOffset) / tilesize);
-		b = Math.floor((playerCollisionPoints.right.x - widthOffset) / tilesize);
+			a = Math.floor((playerCollisionPoints.right.y - heightOffset) / tilesize);
+			b = Math.floor((playerCollisionPoints.right.x - widthOffset) / tilesize);
 
-		if (a <= -1 || a > collisionArray.length) {
-			a = 0;
-		}
+			if (a <= -1 || a > collisionArray.length) {
+				a = 0;
+			}
 
-		if (b <= -1 || b > collisionArray[a].length) {
-			b = 0;
-		}
+			if (b <= -1 || b > collisionArray[a].length) {
+				b = 0;
+			}
 
-		if (collisionArray[a][b]) {
-			moves.right = false;
-		}
+			if (collisionArray[a][b]) {
+				moves.right = false;
+			}
 
-		a = Math.floor((playerCollisionPoints.top.y - heightOffset) / tilesize);
-		b = Math.floor((playerCollisionPoints.top.x - widthOffset) / tilesize);
+			a = Math.floor((playerCollisionPoints.top.y - heightOffset) / tilesize);
+			b = Math.floor((playerCollisionPoints.top.x - widthOffset) / tilesize);
 
-		if (a <= -1 || a > collisionArray.length) {
-			a = 0;
-		}
+			if (a <= -1 || a > collisionArray.length) {
+				a = 0;
+			}
 
-		if (b <= -1 || b > collisionArray[a].length) {
-			b = 0;
-		}
+			if (b <= -1 || b > collisionArray[a].length) {
+				b = 0;
+			}
 
-		if (collisionArray[a][b]) {
-			moves.up = false;
-		}
+			if (collisionArray[a][b]) {
+				moves.up = false;
+			}
+		} catch (error) {}
 
 		return moves;
 	};

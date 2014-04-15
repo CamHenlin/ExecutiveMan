@@ -1,4 +1,5 @@
 var stage;
+var gamestage;
 var watchedElements;
 var player;
 var mapper;
@@ -7,25 +8,28 @@ var enemies = [];
 var basicCollision;
 
 function init() {
-	stage = new createjs.Stage("gamecanvas");
-	stage.snapToPixelEnabled = true;
-	stage.canvas.width = 1136;
-	stage.canvas.height = 640;
-	stage.canvas.style.backgroundColor = "#000";
+	stage = new createjs.Container();
+	gamestage = new createjs.Stage("gamecanvas");
+	gamestage.snapToPixelEnabled = true;
+	gamestage.canvas.width = 1136;
+	gamestage.canvas.height = 640;
+	gamestage.canvas.style.backgroundColor = "#000";
+	gamestage.addChild(stage);
 
 	//var bg = new createjs.Bitmap("images/city.png")
 	//stage.addChild(bg);
 	watchedElements = [];
-	mapper = new Mapper(stage);
+	mapper = new Mapper(stage, gamestage);
 	mapper.initLayers();
-	player = new Player(stage, mapper.heightOffset, mapper.widthOffset);
+	player = new Player(stage, mapper.heightOffset, mapper.widthOffset, mapper, gamestage);
 
 	tileCollisionDetector = new TileCollisionDetector();
 	basicCollision = new BasicCollision(mapper);
 
 	enemies.push(new PrinterGuy(stage, player, basicCollision, 400, 100));
-	enemies.push(new PrinterGuy(stage, player, basicCollision, 700, 0));
+	enemies.push(new PrinterGuy(stage, player, basicCollision, 200, 100));
 
+	watchedElements.push(mapper);
 	watchedElements.push(player);
 	watchedElements.push(enemies[0]);
 	watchedElements.push(enemies[1]);
@@ -57,7 +61,7 @@ function handleTick(event) {
 		element.tickActions(actions);
 	});
 
-	stage.update();
+	gamestage.update();
 }
 
 init();

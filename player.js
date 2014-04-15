@@ -1,4 +1,4 @@
-function Player(stage, heightOffset, widthOffset) {
+function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 
 	var playerSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
@@ -57,8 +57,12 @@ function Player(stage, heightOffset, widthOffset) {
 	this.watchedElements    = [];
 	this.health             = 28;
 	this.actions            = {};
+	this.mapper             = mapper;
+	this.gamestage			= gamestage;
+	this.pageflips 			= 0;
+	this.advancing          = false;
 
-	this.watchedElements.push(new HealthBar(stage, this));
+	this.watchedElements.push(new HealthBar(gamestage, this));
 
 	document.onkeydown = function () {
 		switch (window.event.keyCode) {
@@ -138,6 +142,10 @@ function Player(stage, heightOffset, widthOffset) {
 	// as we're aming to be a reimplementation of megaman physics, and not realistic physics
 	// most values are doubled from their megaman values as i am using double sized sprites
 	this.tickActions = function(actions) {
+		if (this.advancing) {
+			return;
+		}
+
 		if (this.shootTicks > 0) {
 			this.shootTicks--;
 
@@ -266,7 +274,6 @@ function Player(stage, heightOffset, widthOffset) {
 			this.y += this.jumpspeed;
 		}
 
-
 		this.animations.x = this.x;
 		this.animations.y = this.y;
 
@@ -274,9 +281,45 @@ function Player(stage, heightOffset, widthOffset) {
 			element.tickActions(actions);
 		});
 
-		if (this.actions.playerDebug) {
-			console.log(actions.collisionResults);
+		if (this.actions.playerDebug) {	
+			this.mapper.nextMap(this.mapper.map2, this.x, this.y);
+			this.pageflips = 0;
+			this.advancing = true;
+			this.stage.addChild(this.animations);
+
+			setTimeout(function() {
+				this.advancing = false;
+			}.bind(this), 1000);
 		}
+		//console.log(this.x);
+		if (this.x > this.gamestage.canvas.width - 200 + 660 * this.pageflips) {
+			this.pageflips++;
+			this.advancing = true;
+			this.mapper.advance();
+
+			setTimeout(function() {
+				this.advancing = false;
+			}.bind(this), 1000);
+		} else if (this.x < 200 + 660 * this.pageflips && this.pageflips > 0) {
+			this.pageflips--;
+			this.advancing = true;
+			this.mapper.reverse();
+
+			setTimeout(function() {
+				this.advancing = false;
+			}.bind(this), 1000);
+		} else if (actions.collisionResults.nextmap) {
+			this.mapper.nextMap(this.mapper.map2, this.x, this.y);
+			this.pageflips = 0;
+			this.advancing = true;
+			this.stage.addChild(this.animations);
+
+			setTimeout(function() {
+				this.advancing = false;
+			}.bind(this), 1000);
+		}
+
+
 	};
 
 	var Shot = function(stage, playerX, playerY, direction) {

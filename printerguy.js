@@ -77,7 +77,6 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 
 		if (this.activated) {
 			if (!collisionResults.left || !collisionResults.right) {
-				console.log("flipping");
 				this.animations.scaleX = this.animations.scaleX * -1;
 				if (this.animations.scaleX === -1) {
 					this.animations.regX = 36;
