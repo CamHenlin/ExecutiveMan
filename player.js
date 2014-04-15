@@ -61,6 +61,8 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 	this.gamestage			= gamestage;
 	this.pageflips 			= 0;
 	this.advancing          = false;
+ 	createjs.Sound.registerSound("sounds/jump.wav", "jump");
+ 	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
 
 	this.watchedElements.push(new HealthBar(gamestage, this));
 
@@ -192,7 +194,8 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 			this.jumpreleased = false;
 			this.jumpspeed = -9.75;
 			this.jumping = true;
-
+			var sound = createjs.Sound.play("jump");
+			sound.volume = 0.05;
 			this.animations.gotoAndPlay("jump");
 		} else if (actions.collisionResults.downmove && !this.jumping) {
 			actions.collisionResults.downmove = true;
@@ -206,6 +209,9 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 
 		if (this.actions.playerAttack && this.shootTicks === 0) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX));
+
+			var sound = createjs.Sound.play("shoot");
+			sound.volume = 0.05;
 			this.shootTicks = 15; // not correct for megaman
 			if (this.animations.currentAnimation === "jump") {
 				this.animations.gotoAndPlay("jumpshoot");
@@ -281,18 +287,13 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 			element.tickActions(actions);
 		});
 
-		if (this.actions.playerDebug) {	
-			this.mapper.nextMap(this.mapper.map2, this.x, this.y);
-			this.pageflips = 0;
-			this.advancing = true;
-			this.stage.addChild(this.animations);
-
-			setTimeout(function() {
-				this.advancing = false;
-			}.bind(this), 1000);
+		if (this.actions.playerDebug) {
+			console.log(this);
 		}
 		//console.log(this.x);
 		if (this.x > this.gamestage.canvas.width - 200 + 660 * this.pageflips) {
+			console.log("player passed threshold for screen advance");
+			console.log("------ conditions met: x: " + this.x + " canvasw: " + this.gamestage.canvas.width + " addtl math: " + (200 + 660 * this.pageflips));
 			this.pageflips++;
 			this.advancing = true;
 			this.mapper.advance();
@@ -310,7 +311,6 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 			}.bind(this), 1000);
 		} else if (actions.collisionResults.nextmap) {
 			this.mapper.nextMap(this.mapper.map2, this.x, this.y);
-			this.pageflips = 0;
 			this.advancing = true;
 			this.stage.addChild(this.animations);
 
