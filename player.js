@@ -59,82 +59,78 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 	this.actions            = {};
 	this.mapper             = mapper;
 	this.gamestage			= gamestage;
-	this.pageflips 			= 0;
+	this.pageflips          = 0;
 	this.advancing          = false;
- 	createjs.Sound.registerSound("sounds/jump.wav", "jump");
- 	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
+	createjs.Sound.registerSound("sounds/jump.wav", "jump");
+	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
 
 	this.watchedElements.push(new HealthBar(gamestage, this));
 
 	document.onkeydown = function () {
 		switch (window.event.keyCode) {
-		    case 37:
-			    // keyCode 37 is left arrow
-			    this.actions.playerLeft = true;
-			    this.actions.playerRight = false;
+			case 37:
+				// keyCode 37 is left arrow
+				this.actions.playerLeft = true;
+				this.actions.playerRight = false;
 				this.goingLeftReleased  = false;
-			    break;
+			break;
 
 			case 39:
-			    // keyCode 39 is right arrow
-			    this.actions.playerRight = true;
-			    this.actions.playerLeft = false;
+				// keyCode 39 is right arrow
+				this.actions.playerRight = true;
+				this.actions.playerLeft = false;
 				this.goingRightReleased  = false;
-			    break;
+			break;
 
+			case 32:
+				// keyCode 32 is space
+				this.actions.playerJump = true;
+			break;
 
-		    case 32:
-			    // keyCode 32 is space
-			    this.actions.playerJump = true;
-			    break;
+			case 67:
+				// keyCode 67 is c
+				this.actions.playerAttack = true;
+			break;
 
-		    case 67:
-			    // keyCode 67 is c
-			    this.actions.playerAttack = true;
-			    break;
-
-
-		    case 68:
-		    	// keyCode 68 is d
-		    	this.actions.playerDebug = true;
-		    	break;
-	    }
+			case 68:
+				// keyCode 68 is d
+				this.actions.playerDebug = true;
+			break;
+		}
 	}.bind(this);
 
 	document.onkeyup = function () {
 		switch (window.event.keyCode) {
-		    case 37:
-			    // keyCode 37 is left arrow
-			    this.actions.playerLeft = false;
-			    this.actions.playerRight = false;
+			case 37:
+				// keyCode 37 is left arrow
+				this.actions.playerLeft = false;
+				this.actions.playerRight = false;
 				this.goingLeftReleased  = true;
-			    break;
+			break;
 
 			case 39:
-			    // keyCode 39 is right arrow
-			    this.actions.playerRight = false;
-			    this.actions.playerLeft = false;
+				// keyCode 39 is right arrow
+				this.actions.playerRight = false;
+				this.actions.playerLeft = false;
 				this.goingRightReleased  = true;
-			    break;
+			break;
 
+			case 32:
+				// keyCode 32 is space
+				this.actions.playerJump = false;
+				this.jumpreleased = true;
+			break;
 
-		    case 32:
-			    // keyCode 32 is space
-			    this.actions.playerJump = false;
-			    this.jumpreleased = true;
-			    break;
+			case 67:
+				// keyCode 67 is c
+				this.actions.playerAttack = false;
+			break;
 
-		    case 67:
-			    // keyCode 67 is c
-			    this.actions.playerAttack = false;
-			    break;
-
-
-		    case 68:
-		    	// keyCode 68 is d
-		    	this.actions.playerDebug = false;
-		    	break;
-	    }
+			case 68:
+				// keyCode 68 is d
+				this.actions.playerDebug = false;
+			break;
+		}
 	}.bind(this);
 
 	this.animations.play();
@@ -198,6 +194,7 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 			sound.volume = 0.05;
 			this.animations.gotoAndPlay("jump");
 		} else if (actions.collisionResults.downmove && !this.jumping) {
+			console.log("fall! " + actions.collisionResults.downmove);
 			actions.collisionResults.downmove = true;
 			this.jumpspeed = 0;
 			this.falling = true;
@@ -271,10 +268,7 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 			this.falling = false;
 
 			// correcting floor position after a jump/fall:
-			var yMod = this.y % 32;
-			if (yMod >= 2) {
-				this.y = this.y - (yMod - 4);
-			}
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 1; // megaman's jumpspeed set to 1 when he bonks his head
 			this.y += this.jumpspeed;

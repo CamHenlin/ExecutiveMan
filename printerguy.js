@@ -88,10 +88,7 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			var yMod = this.y % 24;
-			if (yMod >= 2) {
-				this.y = this.y - (yMod - 4);
-			}
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
 		}
 
 		this.animations.x = this.x;

@@ -124,7 +124,7 @@ function TileCollisionDetector() {
 				moves.upmove = false;
 			}
 		} catch (error) {
-			moves.nextmap = true;
+			var moves = { leftmove : false, downmove : false, rightmove : false, upmove : false, nextmap : true };
 		}
 
 		return moves;

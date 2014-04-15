@@ -139,6 +139,8 @@ function Mapper(stage, gamestage) {
 	this.reversecount = 0;
 	this.transitiondown = false;
 	this.transitioncount = 0;
+    this.heightIndex = 1;
+    this.lastHeightOffset = 0;
 
 	// figure out offsets:
 	this.heightOffset = this.gamestage.canvas.height - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
@@ -147,7 +149,7 @@ function Mapper(stage, gamestage) {
 	} else {
 		this.widthOffset = 0;
 	}
-
+    console.log(this.heightOffset);
 
 	// getting imagefile from first tileset
 	this.tileset.src = this.mapData.tilesets[0].image;
@@ -166,13 +168,19 @@ function Mapper(stage, gamestage) {
 		//this.gamestage.removeAllChildren();
 		//this.container.removeAllChildren();
 
-		this.container.x = 0;
-		this.container.y = this.gamestage.canvas.height;
+		//this.container.x = 0;
+		//this.stage.y = this.gamestage.canvas.height;
 
 
+        this.heightIndex++;
 		this.mapData = mapData;
 
-		this.heightOffset = this.gamestage.canvas.height - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height + this.container.y;
+        this.lastHeightOffset = this.heightOffset; // using lastHeightOffset because it makes up for different height screens due to its initial calculations for putting the stage at the bottom
+        var temp = (this.gamestage.canvas.height * this.heightIndex + 1) - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
+        temp = temp - (temp % 32);
+        this.heightOffset += temp; 
+        console.log(this.heightOffset);
+
 		/*if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
 		} else {
@@ -210,6 +218,7 @@ function Mapper(stage, gamestage) {
 		var mapData = this.mapData;
 		for (var i = 0; i < this.mapData.layers.length; i++) {
 			var layer = this.mapData.layers[i];
+            console.log(layer);
 			if (layer.type === 'tilelayer') {
 				if (i === 0) { // layer one is ground collision layer
 					this.collisionArray = this.initLayer(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset);
@@ -249,7 +258,7 @@ function Mapper(stage, gamestage) {
 		}
 
 		return collisionArray;
-	}
+	};
 
 	this.tickActions = function(actions) {
 		if (this.advancing) {
@@ -278,14 +287,17 @@ function Mapper(stage, gamestage) {
 			console.log("transitiondown");
 			if (this.transitioncount < 60) {
 				this.transitioncount++;
-				this.stage.y -= this.gamestage.canvas.height / 60;
+				this.stage.y -= (this.heightOffset - this.lastHeightOffset) / 60;
 			} else {
 				this.transitioncount = 0;
 				this.transitiondown = false;
 			}
 		}
 	};
-	// Map data created on Tiled map editor (mapeditor.org). Use export for JSON format
+
+    this.getCurrentHeightOffset = function() {
+        return this.heightOffset;
+    };
 }
 
 /*

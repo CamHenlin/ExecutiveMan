@@ -55,7 +55,7 @@ function handleTick(event) {
 		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + modifier },
 		topLeft : { x: player.x + xmodifier + 4, y: player.y + modifier }
 	};
-	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.heightOffset, mapper.widthOffset);
+	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.getCurrentHeightOffset(), mapper.widthOffset);
 
 	watchedElements.forEach(function(element) {
 		element.tickActions(actions);
