@@ -178,7 +178,7 @@ function Mapper(stage, gamestage) {
         this.lastHeightOffset = this.heightOffset; // using lastHeightOffset because it makes up for different height screens due to its initial calculations for putting the stage at the bottom
         var temp = (this.gamestage.canvas.height * this.heightIndex + 1) - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
         temp = temp - (temp % 32);
-        this.heightOffset += temp; 
+        this.heightOffset += temp;
         console.log(this.heightOffset);
 
 		/*if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
@@ -195,7 +195,10 @@ function Mapper(stage, gamestage) {
 		this.reversing = false;
 		this.reversecount = 0;
 
+		// clear out currently displayed map:
+		this.container.removeAllChildren();
 
+		// build new map
 		this.initLayers();
 		this.transitiondown = true;
 	};

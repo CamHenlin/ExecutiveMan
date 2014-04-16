@@ -27,7 +27,7 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
 	this.x                = x;
-	this.y                = y
+	this.y                = y;
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;
