@@ -1,23 +1,18 @@
-function PrinterGuy(stage, player, basicCollision, x, y) {
+function ShieldGuy(stage, player, basicCollision, x, y) {
 
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
-		"images": ["images/printerguy.png"],
+		"images": ["images/shieldguy.png"],
 		"frames": {
-			"width": 36, "height": 44, "count": 4
+			"width": 52, "height": 50, "count": 2
 		},
 		"animations": {
 			"sit": {
 				"frames" : [0],
 				"next" : "sit"
 			},
-			"show" : {
+			"shoot" : {
 				"frames" : [1],
-				"next" : "move"
-			},
-			"move": {
-				"frames" : [2, 3],
-				"next" : "move",
-				"speed" : 0.15
+				"next" : "shoot"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -50,6 +45,22 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 			return;
 		}
 
+		if (this.shootTicks > 0) {
+			this.shootTicks--;
+		}
+
+		if (this.player.x < this.x && this.animations.scaleX !== 1) {
+			setTimeout(function() {
+				this.animations.scaleX = 1;
+				this.regX = 0;
+			}.bind(this), 500);
+		} else if (this.player.x > this.x && this.animations.scaleX !== -1) {
+			setTimeout(function() {
+				this.animations.scaleX = -1;
+				this.animations.regX = this.animations.spriteSheet._frameWidth;
+			}.bind(this), 500);
+		}
+
 		var collisionResults = this.basicCollision.basicCollision(this);
 		if (collisionResults.down && !this.jumping) {
 			this.jumpspeed = 0;
@@ -71,33 +82,21 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 		}
 
 		var distanceFromPlayer = this.player.x - this.x;
-		if (Math.abs(distanceFromPlayer) <= 200 && this.animations.currentAnimation !== "move") {
-			if (distanceFromPlayer > 0) {
-				this.animations.scaleX = -1;
-				this.animations.regX = 36;
-			} else {
-				this.animations.scaleX  = 1;
-			}
-			this.activated = true;
-			this.hardshell = false;
-			this.animations.gotoAndPlay("show");
-		}
-
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 150) {
+		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 350) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this));
+			this.animations.gotoAndPlay("shoot");
+			this.hardshell = false;
+			this.activated =true;
 			this.shootTicks = 300;
+			setTimeout(function() {
+				this.animations.gotoAndPlay("sit")
+				this.activated = false;
+				this.hardshell = true;
+			}.bind(this), 1000);
 		}
 
 		if (this.activated) {
-			if (!collisionResults.left || !collisionResults.right) {
-				this.animations.scaleX = this.animations.scaleX * -1;
-				if (this.animations.scaleX === -1) {
-					this.animations.regX = 36;
-				} else {
-					this.animations.regX = 0;
-				}
-			}
-			this.x += (this.animations.scaleX !== 1 ) ? 1.75 : -1.75;
+			
 		}
 
 		if (!collisionResults.down) {

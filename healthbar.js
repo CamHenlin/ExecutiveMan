@@ -24,7 +24,7 @@ var HealthBar = function(stage, player) {
 
 	this.draw = function() {
 		for (var i = 0; i < this.barAnimations.length; i++) {
-			this.stage.children.removeChild(this.barAnimations[i]);
+			this.stage.removeChild(this.barAnimations[i]);
 		}
 		this.barAnimations = [];
 

@@ -4,10 +4,44 @@ var watchedElements;
 var player;
 var mapper;
 var tileCollisionDetector;
-var enemies = [];
-var basicCollision;
+var startgame;
+
+var titlescreenSpriteSheet = new createjs.SpriteSheet({
+	"images": ["images/executivemanlogo.png"],
+	"frames": {
+		"width": 632, "height": 480, "count": 2
+	},
+	"animations": {
+		"sit": {
+			"frames" : [0],
+			"next" : "shoot",
+			"speed" : 0.15
+		},
+		"shoot" : {
+			"frames" : [1],
+			"next" : "sit",
+			"speed" : 0.075
+		}
+	}
+});
+
+var titleSreenSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
 
 function init() {
+	initVars();
+	initTitleScreen();
+}
+
+function initVars() {
+	stage = null;
+	gamestage = null;
+	watchedElements = null;
+	player = null;
+	mapper = null;
+	tileCollisionDetector = null;
+}
+
+function beginGame() {
 	stage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.snapToPixelEnabled = true;
@@ -16,27 +50,56 @@ function init() {
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(stage);
 
-	//var bg = new createjs.Bitmap("images/city.png")
-	//stage.addChild(bg);
 	watchedElements = [];
 	mapper = new Mapper(stage, gamestage);
 	mapper.initLayers();
-	player = new Player(stage, mapper.heightOffset, mapper.widthOffset, mapper, gamestage);
+	watchedElements.push(mapper.player);
 
 	tileCollisionDetector = new TileCollisionDetector();
-	basicCollision = new BasicCollision(mapper);
-
-	enemies.push(new PrinterGuy(stage, player, basicCollision, 400, 100));
-	enemies.push(new PrinterGuy(stage, player, basicCollision, 200, 100));
 
 	watchedElements.push(mapper);
-	watchedElements.push(player);
-	watchedElements.push(enemies[0]);
-	watchedElements.push(enemies[1]);
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
 	createjs.Ticker.setFPS(60);
+}
+
+function initTitleScreen() {
+	startgame = false;
+	stage = new createjs.Container();
+	gamestage = new createjs.Stage("gamecanvas");
+	gamestage.snapToPixelEnabled = true;
+	gamestage.canvas.width = 1136;
+	gamestage.canvas.height = 640;
+	gamestage.canvas.style.backgroundColor = "#000";
+	gamestage.addChild(stage);
+
+	titleSreenSprite.x = gamestage.canvas.width / 2 - titleSreenSprite.spriteSheet._frameWidth / 2;
+	titleSreenSprite.y = gamestage.canvas.height / 2 - titleSreenSprite.spriteSheet._frameHeight / 2;
+
+	stage.addChild(titleSreenSprite);
+	titleSreenSprite.gotoAndPlay("sit");
+
+	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
+	createjs.Ticker.setFPS(10);
+
+	document.onkeydown = function () {
+		switch (window.event.keyCode) {
+		    case 32:
+			    // keyCode 32 is space
+			    startgame = true;
+			    break;
+	    }
+	}.bind(this);
+}
+
+function handleStartScreenTick(event) {
+	if (startgame) {
+		initVars();
+		beginGame();
+		event.remove();
+	}
+	gamestage.update();
 }
 
 function handleTick(event) {
@@ -46,20 +109,49 @@ function handleTick(event) {
 	var modifier = 8;
 	var xmodifier = 12;
 	var playerCollisionPoints = {
-		leftTop : { x: player.x + xmodifier, y: player.y + modifier },
-		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
-		bottomLeft : { x: player.x + xmodifier + 4 , y: player.y + player.animations.spriteSheet._frameHeight  },
-		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + player.animations.spriteSheet._frameHeight },
-		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
-		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + modifier },
-		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + modifier },
-		topLeft : { x: player.x + xmodifier + 4, y: player.y + modifier }
+		leftTop : { x: mapper.player.x + xmodifier, y: mapper.player.y + modifier },
+		leftBottom : { x: mapper.player.x + xmodifier, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight - modifier },
+		bottomLeft : { x: mapper.player.x + xmodifier + 4 , y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight  },
+		bottomRight : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier - 4, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight },
+		rightBottom : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight - modifier },
+		rightTop : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier, y: mapper.player.y + modifier },
+		topRight : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier - 4, y: mapper.player.y + modifier },
+		topLeft : { x: mapper.player.x + xmodifier + 4, y: mapper.player.y + modifier }
 	};
+	var playerDeathCollisionPoints = {
+		leftTop : { x: mapper.player.x + xmodifier * 2, y: mapper.player.y + modifier * 2 },
+		leftBottom : { x: mapper.player.x + xmodifier * 2, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight - modifier * 2 },
+		bottomLeft : { x: mapper.player.x + xmodifier * 2 + 4 , y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight -5  },
+		bottomRight : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier * 2 - 4, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight -5 },
+		rightBottom : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier * 2, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight - modifier * 2 },
+		rightTop : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier * 2, y: mapper.player.y + modifier * 2 },
+		topRight : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier * 2 - 4, y: mapper.player.y + modifier * 2 },
+		topLeft : { x: mapper.player.x + xmodifier * 2 + 4, y: mapper.player.y + modifier * 2 }
+	};
+
 	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.getCurrentHeightOffset(), mapper.widthOffset);
+	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerDeathCollisionPoints, mapper.deathCollisionArray, mapper.getCurrentHeightOffset(), mapper.widthOffset);
+
+
 
 	watchedElements.forEach(function(element) {
 		element.tickActions(actions);
 	});
+
+	this.mapper.enemies.forEach(function(element) {
+		element.tickActions(actions);
+	});
+
+	//  { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false }
+	if ((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) {
+		actions.playerDeath = true;
+		setTimeout(function() {
+			init();
+		}.bind(this, event), 2000);
+
+		event.remove();
+		//init();
+	}
 
 	gamestage.update();
 }

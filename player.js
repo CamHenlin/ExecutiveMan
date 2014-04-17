@@ -1,4 +1,4 @@
-function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
+function Player(mapper) {
 
 	var playerSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
@@ -34,6 +34,11 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 				"next" : "runshoot",
 				"speed" : 0.15
 			},
+			"damage": {
+				"frames" : [16],
+				"next" : "damage",
+				"speed" : 5
+			},
 			"jumpshoot": {
 				"frames" : [11],
 				"next" : "jumpshoot"
@@ -41,9 +46,9 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage              = stage;
+	this.stage              = mapper.stage;
 	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
-	this.x                  = widthOffset + 30;
+	this.x                  = mapper.widthOffset + 40;
 	this.y                  = 30;
 	this.goingLeft          = false;
 	this.goingRight         = false;
@@ -58,79 +63,87 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 	this.health             = 28;
 	this.actions            = {};
 	this.mapper             = mapper;
-	this.gamestage			= gamestage;
-	this.pageflips          = 0;
-	this.advancing          = false;
-	createjs.Sound.registerSound("sounds/jump.wav", "jump");
-	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
+	this.gamestage			= mapper.gamestage;
+	this.pageflips 			= 0;
+	this.ignoreDamage		= true;
+	this.ignoreInput        = false;
+ 	createjs.Sound.registerSound("sounds/jump.wav", "jump");
+ 	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
+	setTimeout(function() {
+		this.ignoreDamage = false;
+	}.bind(this), 2000);
 
 	this.watchedElements.push(new HealthBar(gamestage, this));
 
 	document.onkeydown = function () {
 		switch (window.event.keyCode) {
-			case 37:
-				// keyCode 37 is left arrow
-				this.actions.playerLeft = true;
-				this.actions.playerRight = false;
+		    case 37:
+			    // keyCode 37 is left arrow
+			    this.actions.playerLeft = true;
+			    this.actions.playerRight = false;
 				this.goingLeftReleased  = false;
-			break;
+			    break;
 
 			case 39:
-				// keyCode 39 is right arrow
-				this.actions.playerRight = true;
-				this.actions.playerLeft = false;
+			    // keyCode 39 is right arrow
+			    this.actions.playerRight = true;
+			    this.actions.playerLeft = false;
 				this.goingRightReleased  = false;
-			break;
+			    break;
 
-			case 32:
-				// keyCode 32 is space
-				this.actions.playerJump = true;
-			break;
 
-			case 67:
-				// keyCode 67 is c
-				this.actions.playerAttack = true;
-			break;
+		    case 32:
+			    // keyCode 32 is space
+			    this.actions.playerJump = true;
+			    break;
 
-			case 68:
-				// keyCode 68 is d
-				this.actions.playerDebug = true;
-			break;
-		}
+		    case 67:
+			    // keyCode 67 is c
+			    this.actions.playerAttack = true;
+			    break;
+
+
+		    case 68:
+		    	// keyCode 68 is d
+		    	this.actions.playerDebug = true;
+		    	break;
+	    }
 	}.bind(this);
 
 	document.onkeyup = function () {
 		switch (window.event.keyCode) {
-			case 37:
-				// keyCode 37 is left arrow
-				this.actions.playerLeft = false;
-				this.actions.playerRight = false;
+		    case 37:
+			    // keyCode 37 is left arrow
+			    this.actions.playerLeft = false;
+			    this.actions.playerRight = false;
 				this.goingLeftReleased  = true;
-			break;
+			    break;
 
 			case 39:
-				// keyCode 39 is right arrow
-				this.actions.playerRight = false;
-				this.actions.playerLeft = false;
+			    // keyCode 39 is right arrow
+			    this.actions.playerRight = false;
+			    this.actions.playerLeft = false;
 				this.goingRightReleased  = true;
-			break;
+			    break;
 
-			case 32:
-				// keyCode 32 is space
-				this.actions.playerJump = false;
-				this.jumpreleased = true;
-			break;
 
-			case 67:
-				// keyCode 67 is c
-				this.actions.playerAttack = false;
-			break;
+		    case 32:
+			    // keyCode 32 is space
+			    this.actions.playerJump = false;
+			    this.jumpreleased = true;
+			    break;
 
-			case 68:
-				// keyCode 68 is d
-				this.actions.playerDebug = false;
-			break;
-		}
+		    case 67:
+			    // keyCode 67 is c
+			    this.actions.playerAttack = false;
+			    break;
+
+
+		    case 68:
+		    	// keyCode 68 is d
+		    	this.actions.playerDebug = false;
+		    	break;
+	    }
 	}.bind(this);
 
 	this.animations.play();
@@ -140,7 +153,11 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 	// as we're aming to be a reimplementation of megaman physics, and not realistic physics
 	// most values are doubled from their megaman values as i am using double sized sprites
 	this.tickActions = function(actions) {
-		if (this.advancing) {
+		if (this.ignoreInput) {
+			if (this.ignoreDamage) {
+				this.x += 1 * -this.animations.scaleX;
+				this.animations.x = this.x;
+			}
 			return;
 		}
 
@@ -156,6 +173,15 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 					this.animations.gotoAndPlay("stand");
 				}
 			}
+		}
+
+		if (actions.playerDeath) {
+			this.health = 0;
+			this.animations.gotoAndPlay("damage");
+		}
+
+		if (this.health <= 0) {
+			actions.playerDeath = true;
 		}
 
 		if (this.actions.playerLeft && actions.collisionResults.leftmove) {
@@ -194,7 +220,6 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 			sound.volume = 0.05;
 			this.animations.gotoAndPlay("jump");
 		} else if (actions.collisionResults.downmove && !this.jumping) {
-			console.log("fall! " + actions.collisionResults.downmove);
 			actions.collisionResults.downmove = true;
 			this.jumpspeed = 0;
 			this.falling = true;
@@ -205,7 +230,7 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 		}
 
 		if (this.actions.playerAttack && this.shootTicks === 0) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX));
+			this.watchedElements.push(new Shot(stage, this));
 
 			var sound = createjs.Sound.play("shoot");
 			sound.volume = 0.05;
@@ -279,44 +304,92 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
-		});
+		}.bind(this));
 
 		if (this.actions.playerDebug) {
-			console.log(this);
+			//console.log(this);
 		}
 		//console.log(this.x);
 		if (this.x > this.gamestage.canvas.width - 200 + 660 * this.pageflips) {
-			console.log("player passed threshold for screen advance");
-			console.log("------ conditions met: x: " + this.x + " canvasw: " + this.gamestage.canvas.width + " addtl math: " + (200 + 660 * this.pageflips));
 			this.pageflips++;
-			this.advancing = true;
+			this.ignoreInput = true;
 			this.mapper.advance();
 
 			setTimeout(function() {
-				this.advancing = false;
+				this.ignoreInput = false;
 			}.bind(this), 1000);
 		} else if (this.x < 200 + 660 * this.pageflips && this.pageflips > 0) {
 			this.pageflips--;
-			this.advancing = true;
+			this.ignoreInput = true;
 			this.mapper.reverse();
 
 			setTimeout(function() {
-				this.advancing = false;
+				this.ignoreInput = false;
 			}.bind(this), 1000);
 		} else if (actions.collisionResults.nextmap) {
 			this.mapper.nextMap(this.mapper.map2, this.x, this.y);
-			this.advancing = true;
+			this.ignoreInput = true;
 			this.stage.addChild(this.animations);
 
 			setTimeout(function() {
-				this.advancing = false;
+				this.ignoreInput = false;
 			}.bind(this), 1000);
 		}
 
-
+		if (!this.ignoreDamage) {
+			this.checkEnemyCollisions();
+		}
 	};
 
-	var Shot = function(stage, playerX, playerY, direction) {
+	this.checkEnemyCollisions = function() {
+		this.mapper.enemies.forEach(function(enemy) {
+			if (enemy.health <= 0) {
+				return;
+			}
+
+			var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
+			if (intersection) {
+				this.health--;
+				this.animations.gotoAndPlay("damage");
+				this.ignoreInput = true;
+				this.ignoreDamage = true;
+
+				this.x += 1 * -this.animations.scaleX;
+				setTimeout(function() {
+					this.ignoreDamage = false;
+				}.bind(this), 1000);
+				setTimeout(function() {
+					this.ignoreInput = false;
+				}.bind(this), 250);
+			}
+
+			// check enemy shot collisions as well
+			enemy.watchedElements.forEach(function(enemyshot) {
+				if (enemyshot.disabled) {
+					return;
+				}
+
+				var intersection = ndgmrX.checkRectCollision(this.animations, enemyshot.animations);
+				if (intersection) {
+					enemyshot.removeSelf();
+					this.health--;
+					this.animations.gotoAndPlay("damage");
+					this.ignoreInput = true;
+					this.ignoreDamage = true;
+
+					this.x += 1 * -this.animations.scaleX;
+					setTimeout(function() {
+						this.ignoreDamage = false;
+					}.bind(this), 1000);
+					setTimeout(function() {
+						this.ignoreInput = false;
+					}.bind(this), 250);
+				}
+			}.bind(this));
+		}.bind(this));
+	};
+
+	var Shot = function(stage, player) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": ["images/shot.png"],
 			"frames": {
@@ -331,23 +404,63 @@ function Player(stage, heightOffset, widthOffset, mapper, gamestage) {
 		});
 
 		this.stage      = stage;
-		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = playerX + ((this.direction === 1) ? 52 : -6);
-		this.y          = playerY + 27;
+		this.x          = player.x + ((player.animations.scaleX === 1) ? 52 : -6);
+		this.y          = player.y + 27;
 		this.done       = false;
+		this.playerX    = player.x;
+		this.disabled   = false;
+		this.direction  = player.animations.scaleX;
+		this.player     = player;
+		this.yspeed     = 0;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
 
 		this.tickActions = function(actions) {
+			if (this.disabled) {
+				return;
+			}
+
 			this.x = this.x + (7 * this.direction);
+			this.y -= this.yspeed;
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 
-			if (this.x > 2000) {
-				this.done = true;
+			if (!this.checkBounds()) {
+				this.removeSelf();
 			}
+
+			this.player.mapper.enemies.forEach(function(enemy) {
+				if (enemy.health <= 0) {
+					return;
+				}
+
+				var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
+				if (intersection) {
+					if (enemy.hardshell) {
+						this.yspeed = 7;
+						this.direction = this.direction * -1;
+						return;
+					}
+
+					enemy.health--;
+					this.removeSelf();
+				}
+			}.bind(this));
+		};
+
+		this.removeSelf = function() {
+			this.stage.removeChild(this.animations);
+			this.disabled = true;
+		};
+
+		this.checkBounds = function() {
+			if (this.x < 0 || this.x > this.playerX + 2000) {
+				return false;
+			}
+
+			return true;
 		};
 	};
 }
