@@ -13,7 +13,6 @@ var HealthBar = function(stage, player) {
 	box.graphics.beginFill("#000000").drawRect(this.x, this.y, 16, this.maxheight);
 
     this.stage.addChild(box);
-    this.stage.update();
 
 	this.tickActions = function(actions) {
 		if (this.bars !== this.player.health) {
@@ -36,7 +35,6 @@ var HealthBar = function(stage, player) {
 			this.barAnimations.push(barItem);
 			this.stage.addChild(barItem);
 		}
-		this.stage.update();
 	};
 
     this.draw();

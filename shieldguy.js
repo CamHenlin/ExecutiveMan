@@ -82,7 +82,7 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 		}
 
 		var distanceFromPlayer = this.player.x - this.x;
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 350) {
+		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 550) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this));
 			this.animations.gotoAndPlay("shoot");
 			this.hardshell = false;
@@ -133,7 +133,7 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 		this.stage.addChild(this.animations);
 
 		this.tickActions = function(actions) {
-			this.x = this.x + (7 * this.direction);
+			this.x = this.x + (3 * this.direction);
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 

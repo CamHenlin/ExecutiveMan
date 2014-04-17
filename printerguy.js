@@ -50,6 +50,18 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 			return;
 		}
 
+		if (this.player.x < this.x && this.animations.scaleX !== 1) {
+			setTimeout(function() {
+				this.animations.scaleX = 1;
+				this.regX = 0;
+			}.bind(this), 500);
+		} else if (this.player.x > this.x && this.animations.scaleX !== -1) {
+			setTimeout(function() {
+				this.animations.scaleX = -1;
+				this.animations.regX = this.animations.spriteSheet._frameWidth;
+			}.bind(this), 500);
+		}
+
 		var collisionResults = this.basicCollision.basicCollision(this);
 		if (collisionResults.down && !this.jumping) {
 			this.jumpspeed = 0;
@@ -83,7 +95,7 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 			this.animations.gotoAndPlay("show");
 		}
 
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 150) {
+		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 250) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this));
 			this.shootTicks = 300;
 		}
@@ -134,7 +146,7 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 		this.stage.addChild(this.animations);
 
 		this.tickActions = function(actions) {
-			this.x = this.x + (7 * this.direction);
+			this.x = this.x + (3 * this.direction);
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 

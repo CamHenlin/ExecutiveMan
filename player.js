@@ -75,8 +75,8 @@ function Player(mapper) {
 
 	this.watchedElements.push(new HealthBar(gamestage, this));
 
-	document.onkeydown = function () {
-		switch (window.event.keyCode) {
+	document.onkeydown = function (event) {
+		switch (event.keyCode) {
 		    case 37:
 			    // keyCode 37 is left arrow
 			    this.actions.playerLeft = true;
@@ -110,8 +110,8 @@ function Player(mapper) {
 	    }
 	}.bind(this);
 
-	document.onkeyup = function () {
-		switch (window.event.keyCode) {
+	document.onkeyup = function (event) {
+		switch (event.keyCode) {
 		    case 37:
 			    // keyCode 37 is left arrow
 			    this.actions.playerLeft = false;
@@ -147,7 +147,11 @@ function Player(mapper) {
 	}.bind(this);
 
 	this.animations.play();
-	this.stage.addChild(this.animations);
+	this.ignoreInput = true;
+	setTimeout(function() {
+		this.stage.addChild(this.animations);
+		this.ignoreInput = false;
+	}.bind(this), 1000)
 
 	// lots of weird rules here to make the game as megaman-like as possible
 	// as we're aming to be a reimplementation of megaman physics, and not realistic physics
@@ -157,6 +161,10 @@ function Player(mapper) {
 			if (this.ignoreDamage) {
 				this.x += 1 * -this.animations.scaleX;
 				this.animations.x = this.x;
+
+				this.watchedElements.forEach(function(element) {
+					element.tickActions(actions);
+				}.bind(this));
 			}
 			return;
 		}
@@ -349,7 +357,7 @@ function Player(mapper) {
 
 			var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 			if (intersection) {
-				this.health--;
+				this.health -= 2;
 				this.animations.gotoAndPlay("damage");
 				this.ignoreInput = true;
 				this.ignoreDamage = true;
@@ -372,7 +380,7 @@ function Player(mapper) {
 				var intersection = ndgmrX.checkRectCollision(this.animations, enemyshot.animations);
 				if (intersection) {
 					enemyshot.removeSelf();
-					this.health--;
+					this.health -= 4;
 					this.animations.gotoAndPlay("damage");
 					this.ignoreInput = true;
 					this.ignoreDamage = true;

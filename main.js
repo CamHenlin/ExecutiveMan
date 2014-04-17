@@ -83,8 +83,8 @@ function initTitleScreen() {
 	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
 	createjs.Ticker.setFPS(10);
 
-	document.onkeydown = function () {
-		switch (window.event.keyCode) {
+	document.onkeydown = function (event) {
+		switch (event.keyCode) {
 		    case 32:
 			    // keyCode 32 is space
 			    startgame = true;
@@ -103,6 +103,9 @@ function handleStartScreenTick(event) {
 }
 
 function handleTick(event) {
+	if (!mapper.doneRendering) {
+		return;
+	}
 
 	var actions = {};
 
