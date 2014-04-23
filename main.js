@@ -29,7 +29,7 @@ var titlescreenSpriteSheet = new createjs.SpriteSheet({
 var buttonSpriteSheet = new createjs.SpriteSheet({
 	"images": ["images/buttons.png"],
 	"frames": {
-		"width": 64, "height": 64, "count": 4
+		"width": 128, "height": 128, "count": 4
 	},
 	"animations": {
 		"left": {
@@ -72,8 +72,9 @@ function beginGame() {
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
-	gamestage.canvas.width = 1136;
-	gamestage.canvas.height = 640;
+
+	gamestage.canvas.width = window.innerWidth;
+	gamestage.canvas.height = window.innerHeight;
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(stage);
 
@@ -88,11 +89,11 @@ function beginGame() {
 
 	if (mobile) {
 		leftButtonSprite.x = 32;
-		rightButtonSprite.x = 112;
-		shootButtonSprite.x = gamestage.canvas.width - 96;
-		leftButtonSprite.y = gamestage.canvas.height - 96;
-		rightButtonSprite.y = gamestage.canvas.height - 96;
-		shootButtonSprite.y = gamestage.canvas.height - 96;
+		rightButtonSprite.x = 176;
+		shootButtonSprite.x = gamestage.canvas.width - 128;
+		leftButtonSprite.y = gamestage.canvas.height - 128;
+		rightButtonSprite.y = gamestage.canvas.height - 128;
+		shootButtonSprite.y = gamestage.canvas.height - 128;
 
 		gamestage.addChild(leftButtonSprite);
 		gamestage.addChild(rightButtonSprite);
@@ -109,8 +110,9 @@ function initTitleScreen() {
 	stage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.snapToPixelEnabled = true;
-	gamestage.canvas.width = 1136;
-	gamestage.canvas.height = 640;
+
+	gamestage.canvas.width = window.innerWidth;
+	gamestage.canvas.height = window.innerHeight;
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(stage);
 

@@ -164,18 +164,25 @@ function Mapper(stage, gamestage) {
     this.heightIndex = 1;
     this.lastHeightOffset = 0;
     this.enemies = [];
-    this.player = new Player(this);
+    this.player = null;
     this.basicCollision = null;
     this.deathCollisionArray = [[],[]];
     this.doneRendering = false;
 
 	// figure out offsets:
 	this.heightOffset = this.gamestage.canvas.height - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
-	if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
+    if (this.gamestage.canvas.height > 320) {
+        this.heightOffset -= 160;
+    }
+    // correct for collisions:
+    this.heightOffset -= (this.heightOffset + 32) % 32;
+    if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 		this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
 	} else {
 		this.widthOffset = 0;
 	}
+
+    this.player = new Player(this);
 
 	// getting imagefile from first tileset
 	this.tileset.src = this.mapData.tilesets[0].image;
@@ -326,7 +333,7 @@ function Mapper(stage, gamestage) {
 		if (this.advancing) {
 			if (this.advancecount < 60) {
 				this.advancecount++;
-				this.stage.x -= 11;
+				this.stage.x -= (this.gamestage.canvas.width / 2) / 60;
 			} else {
 				this.advancecount = 0;
 				this.advancing = false;
@@ -336,7 +343,7 @@ function Mapper(stage, gamestage) {
 		if (this.reversing) {
 			if (this.reversecount < 60) {
 				this.reversecount++;
-				this.stage.x += 11;
+				this.stage.x += (this.gamestage.canvas.width / 2) / 60;
 			} else {
 				this.reversecount = 0;
 				this.reversing = false;

@@ -141,6 +141,9 @@ function PrinterGuy(stage, player, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
+		this.x = this.x + (3 * this.direction);
+		this.animations.x = this.x;
+		this.animations.y = this.y;
 
 		this.tickActions = function(actions) {
 			this.x = this.x + (3 * this.direction);

@@ -48,7 +48,7 @@ function Player(mapper) {
 
 	this.stage              = mapper.stage;
 	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
-	this.x                  = mapper.widthOffset + 40;
+	this.x                  = mapper.widthOffset + 96;
 	this.y                  = 30;
 	this.goingLeft          = false;
 	this.goingRight         = false;
@@ -67,8 +67,8 @@ function Player(mapper) {
 	this.pageflips 			= 0;
 	this.ignoreDamage		= true;
 	this.ignoreInput        = false;
- 	createjs.Sound.registerSound("sounds/jump.wav", "jump");
- 	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
+ 	//createjs.Sound.registerSound("sounds/jump.wav", "jump");
+ 	//createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
 	setTimeout(function() {
 		this.ignoreDamage = false;
 	}.bind(this), 2000);
@@ -182,7 +182,6 @@ function Player(mapper) {
 					this.touchIds[touch.identifier] = "right";
 				} else if (ndgmr.checkRectCollision(shootButtonSprite, touchSprite)) {
 					this.actions.playerAttack = true;
-			    	this.jumpreleased = false;
 					this.touchIds[touch.identifier] = "shoot";
 				} else {
 					this.actions.playerJump = true;
@@ -219,6 +218,7 @@ function Player(mapper) {
 		document.getElementById("gamecanvas").addEventListener('touchmove', eventHandler.bind(this), false);
 		document.getElementById("gamecanvas").addEventListener('touchend', endTouchEventHandler.bind(this), false);
 		document.getElementById("gamecanvas").addEventListener('touchcancel', endTouchEventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchleave', endTouchEventHandler.bind(this), false);
 	}
 
 	this.animations.play();
@@ -300,8 +300,8 @@ function Player(mapper) {
 			this.jumpreleased = false;
 			this.jumpspeed = -9.75;
 			this.jumping = true;
-			var sound = createjs.Sound.play("jump");
-			sound.volume = 0.05;
+			//var sound = createjs.Sound.play("jump");
+			//sound.volume = 0.05;
 			this.animations.gotoAndPlay("jump");
 		} else if (actions.collisionResults.downmove && !this.jumping) {
 			actions.collisionResults.downmove = true;
@@ -316,9 +316,13 @@ function Player(mapper) {
 		if (this.actions.playerAttack && this.shootTicks === 0) {
 			this.watchedElements.push(new Shot(stage, this));
 
-			var sound = createjs.Sound.play("shoot");
-			sound.volume = 0.05;
-			this.shootTicks = 15; // not correct for megaman
+			//var sound = createjs.Sound.play("shoot");
+			//sound.volume = 0.05;
+			this.shootTicks = 15; // not correct
+			if (mobile) {
+				this.shootTicks = 10; // not correct for megaman
+			}
+
 			if (this.animations.currentAnimation === "jump") {
 				this.animations.gotoAndPlay("jumpshoot");
 			} else if (this.animations.currentAnimation === "run") {
@@ -394,7 +398,7 @@ function Player(mapper) {
 			//console.log(this);
 		}
 		//console.log(this.x);
-		if (this.x > this.gamestage.canvas.width - 200 + 660 * this.pageflips) {
+		if (this.x > this.gamestage.canvas.width - (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips) {
 			this.pageflips++;
 			this.ignoreInput = true;
 			this.mapper.advance();
@@ -402,7 +406,7 @@ function Player(mapper) {
 			setTimeout(function() {
 				this.ignoreInput = false;
 			}.bind(this), 1000);
-		} else if (this.x < 200 + 660 * this.pageflips && this.pageflips > 0) {
+		} else if (this.x < (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips && this.pageflips > 0) {
 			this.pageflips--;
 			this.ignoreInput = true;
 			this.mapper.reverse();
