@@ -86,17 +86,13 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this));
 			this.animations.gotoAndPlay("shoot");
 			this.hardshell = false;
-			this.activated =true;
+			this.activated = true;
 			this.shootTicks = 300;
 			setTimeout(function() {
-				this.animations.gotoAndPlay("sit")
+				this.animations.gotoAndPlay("sit");
 				this.activated = false;
 				this.hardshell = true;
 			}.bind(this), 1000);
-		}
-
-		if (this.activated) {
-			
 		}
 
 		if (!collisionResults.down) {
@@ -125,7 +121,7 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.x          = x + ((this.direction === 1) ? 33 : -3);
-		this.y          = y + 12;
+		this.y          = y + 22;
 		this.disabled   = false;
 		this.owner      = owner;
 

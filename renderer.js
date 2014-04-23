@@ -212,6 +212,7 @@ function Mapper(stage, gamestage) {
 		// build new map
 		this.initLayers();
 		this.transitiondown = true;
+        this.gamestage.clear();
 	};
 
 	// loading layers

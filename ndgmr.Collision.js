@@ -662,9 +662,9 @@ this.ndgmrX = this.ndgmrX || {};
       gp3 = obj.localToGlobal(imgr.width-imgr.regX,0          -imgr.regY);
       gp4 = obj.localToGlobal(0         -imgr.regX,imgr.height-imgr.regY);
 
-      bounds.x = Math.min(Math.min(Math.min(gp.x,gp2.x),gp3.x),gp4.x) +6;
-      bounds.y = Math.min(Math.min(Math.min(gp.y,gp2.y),gp3.y),gp4.y) +6;
-      bounds.width = Math.max(Math.max(Math.max(gp.x,gp2.x),gp3.x),gp4.x) - bounds.x -6;
+      bounds.x = Math.min(Math.min(Math.min(gp.x,gp2.x),gp3.x),gp4.x) +20;
+      bounds.y = Math.min(Math.min(Math.min(gp.y,gp2.y),gp3.y),gp4.y) +16;
+      bounds.width = Math.max(Math.max(Math.max(gp.x,gp2.x),gp3.x),gp4.x) - bounds.x;
       bounds.height = Math.max(Math.max(Math.max(gp.y,gp2.y),gp3.y),gp4.y) - bounds.y -6;
     }
     return bounds;

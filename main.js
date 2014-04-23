@@ -5,6 +5,7 @@ var player;
 var mapper;
 var tileCollisionDetector;
 var startgame;
+var mobile = true;
 
 var titlescreenSpriteSheet = new createjs.SpriteSheet({
 	"images": ["images/executivemanlogo.png"],
@@ -25,6 +26,31 @@ var titlescreenSpriteSheet = new createjs.SpriteSheet({
 	}
 });
 
+var buttonSpriteSheet = new createjs.SpriteSheet({
+	"images": ["images/buttons.png"],
+	"frames": {
+		"width": 64, "height": 64, "count": 4
+	},
+	"animations": {
+		"left": {
+			"frames" : [0],
+			"next" : "left"
+		},
+		"right" : {
+			"frames" : [1],
+			"next" : "right"
+		},
+		"shoot" : {
+			"frames" : [2],
+			"next" : "shoot"
+		}
+	}
+});
+var leftButtonSprite = new createjs.Sprite(buttonSpriteSheet, "left");
+var rightButtonSprite = new createjs.Sprite(buttonSpriteSheet, "right");
+var shootButtonSprite = new createjs.Sprite(buttonSpriteSheet, "shoot");
+
+
 var titleSreenSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
 
 function init() {
@@ -44,6 +70,7 @@ function initVars() {
 function beginGame() {
 	stage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
+	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 	gamestage.canvas.width = 1136;
 	gamestage.canvas.height = 640;
@@ -58,6 +85,19 @@ function beginGame() {
 	tileCollisionDetector = new TileCollisionDetector();
 
 	watchedElements.push(mapper);
+
+	if (mobile) {
+		leftButtonSprite.x = 32;
+		rightButtonSprite.x = 112;
+		shootButtonSprite.x = gamestage.canvas.width - 96;
+		leftButtonSprite.y = gamestage.canvas.height - 96;
+		rightButtonSprite.y = gamestage.canvas.height - 96;
+		shootButtonSprite.y = gamestage.canvas.height - 96;
+
+		gamestage.addChild(leftButtonSprite);
+		gamestage.addChild(rightButtonSprite);
+		gamestage.addChild(shootButtonSprite);
+	}
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
@@ -91,6 +131,10 @@ function initTitleScreen() {
 			    break;
 	    }
 	}.bind(this);
+
+	document.getElementById("gamecanvas").addEventListener('touchend', function () {
+		startgame = true;
+	}.bind(this), false);
 }
 
 function handleStartScreenTick(event) {
@@ -108,6 +152,11 @@ function handleTick(event) {
 	}
 
 	var actions = {};
+
+	actions.mobile = mobile;
+	if (mobile) {
+
+	}
 
 	var modifier = 8;
 	var xmodifier = 12;
@@ -146,7 +195,7 @@ function handleTick(event) {
 	});
 
 	//  { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false }
-	if ((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) {
+	if (((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || mapper.player.health <= 0) {
 		actions.playerDeath = true;
 		setTimeout(function() {
 			init();

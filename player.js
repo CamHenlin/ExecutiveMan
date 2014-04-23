@@ -146,12 +146,87 @@ function Player(mapper) {
 	    }
 	}.bind(this);
 
+	if (mobile) {
+		var touchEventSpriteSheet = new createjs.SpriteSheet({
+			"images": ["images/businessmanspritesheet.png"],
+			"frames": {
+				"width": 1, "height": 1, "count": 1
+			},
+			"animations": {
+				"exist": {
+					"frames" : [0],
+					"next" : "exist"
+				}
+			}
+		});
+		var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
+
+		console.log("binding touch event");
+
+		this.touchIds = [];
+
+		var eventHandler = function(event) {
+			event.preventDefault();
+
+			for (var i = 0; i < event.touches.length; i++) {
+				var touch = event.touches[i];
+				touchSprite.x = touch.pageX;
+				touchSprite.y = touch.pageY;
+				if (ndgmr.checkRectCollision(leftButtonSprite, touchSprite)) {
+					this.actions.playerLeft = true;
+					this.actions.playerRight = false;
+					this.touchIds[touch.identifier] = "left";
+				} else if (ndgmr.checkRectCollision(rightButtonSprite, touchSprite)) {
+					this.actions.playerLeft = false;
+					this.actions.playerRight = true;
+					this.touchIds[touch.identifier] = "right";
+				} else if (ndgmr.checkRectCollision(shootButtonSprite, touchSprite)) {
+					this.actions.playerAttack = true;
+			    	this.jumpreleased = false;
+					this.touchIds[touch.identifier] = "shoot";
+				} else {
+					this.actions.playerJump = true;
+					this.touchIds[touch.identifier] = "jump";
+				}
+			}
+		};
+
+		var endTouchEventHandler = function(event) {
+			event.preventDefault();
+
+			for (var i = 0; i < event.changedTouches.length; i++) {
+				var touch = event.changedTouches[i];
+
+				if (this.touchIds[touch.identifier] === "left") {
+					this.actions.playerLeft = false;
+				}
+				if (this.touchIds[touch.identifier] === "right") {
+					this.actions.playerRight = false;
+				}
+				if (this.touchIds[touch.identifier] === "shoot") {
+					this.actions.playerAttack = false;
+				}
+				if (this.touchIds[touch.identifier] === "jump") {
+					this.actions.playerJump = false;
+					this.jumpreleased = true;
+				}
+
+				this.touchIds[touch.identifier] = null;
+			}
+		};
+
+		document.getElementById("gamecanvas").addEventListener('touchstart', eventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchmove', eventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchend', endTouchEventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchcancel', endTouchEventHandler.bind(this), false);
+	}
+
 	this.animations.play();
 	this.ignoreInput = true;
 	setTimeout(function() {
 		this.stage.addChild(this.animations);
 		this.ignoreInput = false;
-	}.bind(this), 1000)
+	}.bind(this), 1000);
 
 	// lots of weird rules here to make the game as megaman-like as possible
 	// as we're aming to be a reimplementation of megaman physics, and not realistic physics
@@ -189,6 +264,7 @@ function Player(mapper) {
 		}
 
 		if (this.health <= 0) {
+			console.log("dead");
 			actions.playerDeath = true;
 		}
 
@@ -357,7 +433,7 @@ function Player(mapper) {
 
 			var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 			if (intersection) {
-				this.health -= 2;
+				this.health -= 2; // should come from enemy
 				this.animations.gotoAndPlay("damage");
 				this.ignoreInput = true;
 				this.ignoreDamage = true;
@@ -369,6 +445,10 @@ function Player(mapper) {
 				setTimeout(function() {
 					this.ignoreInput = false;
 				}.bind(this), 250);
+
+				if (this.jumpspeed < 4 && this.jumping) {
+					this.jumpspeed = 4;
+				}
 			}
 
 			// check enemy shot collisions as well
@@ -380,7 +460,7 @@ function Player(mapper) {
 				var intersection = ndgmrX.checkRectCollision(this.animations, enemyshot.animations);
 				if (intersection) {
 					enemyshot.removeSelf();
-					this.health -= 4;
+					this.health -= 4; // should actually come from the enemy
 					this.animations.gotoAndPlay("damage");
 					this.ignoreInput = true;
 					this.ignoreDamage = true;
@@ -392,6 +472,10 @@ function Player(mapper) {
 					setTimeout(function() {
 						this.ignoreInput = false;
 					}.bind(this), 250);
+
+					if (this.jumpspeed < 4 && this.jumping) {
+						this.jumpspeed = 4;
+					}
 				}
 			}.bind(this));
 		}.bind(this));
