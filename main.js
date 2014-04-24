@@ -1,3 +1,25 @@
+var loader = new createjs.LoadQueue(false);
+loader.addEventListener("complete", handleComplete);
+// preload.addEventListener("progress", handleProgress);
+
+loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
+						{id: "map1", src: "images/map1.png"},
+						{id: "buttons", src: "images/buttons.png"},
+						{id: "businessman", src: "images/businessmanspritesheet.png"},
+						{id: "printerguy", src: "images/printerguy.png"},
+						{id: "shieldguy", src: "images/shieldguy.png"},
+						{id: "shot", src: "images/shot.png"},
+						{id: "health", src: "images/healthbar.png"},
+						{id: "enemyshot", src: "images/enemyshot.png"}]);
+
+function handleProgress() {
+    loadingBar.scaleX = preload.progress * loadingBarWidth;
+    progresPrecentage = Math.round(preload.progress*100);
+    loadProgressLabel.text = progresPrecentage + "% Loaded" ;
+    stage.update();
+}
+
+
 var stage;
 var gamestage;
 var watchedElements;
@@ -7,51 +29,22 @@ var tileCollisionDetector;
 var startgame;
 var mobile = true;
 
-var titlescreenSpriteSheet = new createjs.SpriteSheet({
-	"images": ["images/executivemanlogo.png"],
-	"frames": {
-		"width": 632, "height": 480, "count": 2
-	},
-	"animations": {
-		"sit": {
-			"frames" : [0],
-			"next" : "shoot",
-			"speed" : 0.15
-		},
-		"shoot" : {
-			"frames" : [1],
-			"next" : "sit",
-			"speed" : 0.075
-		}
-	}
-});
+var leftButtonSprite;
+var rightButtonSprite;
+var shootButtonSprite;
 
-var buttonSpriteSheet = new createjs.SpriteSheet({
-	"images": ["images/buttons.png"],
-	"frames": {
-		"width": 128, "height": 128, "count": 4
-	},
-	"animations": {
-		"left": {
-			"frames" : [0],
-			"next" : "left"
-		},
-		"right" : {
-			"frames" : [1],
-			"next" : "right"
-		},
-		"shoot" : {
-			"frames" : [2],
-			"next" : "shoot"
-		}
-	}
-});
-var leftButtonSprite = new createjs.Sprite(buttonSpriteSheet, "left");
-var rightButtonSprite = new createjs.Sprite(buttonSpriteSheet, "right");
-var shootButtonSprite = new createjs.Sprite(buttonSpriteSheet, "shoot");
+gamestage = new createjs.SpriteStage("gamecanvas");
+gamestage.clear();
+gamestage.snapToPixelEnabled = true;
+
+gamestage.canvas.width = window.innerWidth;
+gamestage.canvas.height = window.innerHeight;
+gamestage.canvas.style.backgroundColor = "#000";
 
 
-var titleSreenSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
+
+
+
 
 function init() {
 	initVars();
@@ -60,7 +53,7 @@ function init() {
 
 function initVars() {
 	stage = null;
-	gamestage = null;
+	// gamestage = null;
 	watchedElements = null;
 	player = null;
 	mapper = null;
@@ -68,18 +61,41 @@ function initVars() {
 }
 
 function beginGame() {
-	stage = new createjs.Container();
-	gamestage = new createjs.Stage("gamecanvas");
+	createjs.Ticker.removeEventListener("tick", handleStartScreenTick);
+	var buttonSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("buttons")],
+		"frames": {
+			"width": 128, "height": 128, "count": 4
+		},
+		"animations": {
+			"left": {
+				"frames" : [0],
+				"next" : "left"
+			},
+			"right" : {
+				"frames" : [1],
+				"next" : "right"
+			},
+			"shoot" : {
+				"frames" : [2],
+				"next" : "shoot"
+			}
+		}
+	});
+	leftButtonSprite = new createjs.Sprite(buttonSpriteSheet, "left");
+	rightButtonSprite = new createjs.Sprite(buttonSpriteSheet, "right");
+	shootButtonSprite = new createjs.Sprite(buttonSpriteSheet, "shoot");
+
+	gamestage = new createjs.SpriteStage("gamecanvas");
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 
 	gamestage.canvas.width = window.innerWidth;
 	gamestage.canvas.height = window.innerHeight;
 	gamestage.canvas.style.backgroundColor = "#000";
-	gamestage.addChild(stage);
 
 	watchedElements = [];
-	mapper = new Mapper(stage, gamestage);
+	mapper = new Mapper(gamestage);
 	mapper.initLayers();
 	watchedElements.push(mapper.player);
 
@@ -103,26 +119,42 @@ function beginGame() {
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
 	createjs.Ticker.setFPS(60);
+	gamestage.update();
 }
 
 function initTitleScreen() {
+	var titlescreenSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("logo")],
+		"frames": {
+			"width": 512, "height": 512, "count": 2
+		},
+		"animations": {
+			"sit": {
+				"frames" : [0],
+				"next" : "shoot",
+				"speed" : 0.15
+			},
+			"shoot" : {
+				"frames" : [1],
+				"next" : "sit",
+				"speed" : 0.075
+			}
+		}
+	});
+	var titleScreenSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
+
+	console.log(loader);
 	startgame = false;
-	stage = new createjs.Container();
-	gamestage = new createjs.Stage("gamecanvas");
+	gamestage = new createjs.SpriteStage("gamecanvas");
+	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 
 	gamestage.canvas.width = window.innerWidth;
 	gamestage.canvas.height = window.innerHeight;
 	gamestage.canvas.style.backgroundColor = "#000";
-	gamestage.addChild(stage);
-
-	titleSreenSprite.x = gamestage.canvas.width / 2 - titleSreenSprite.spriteSheet._frameWidth / 2;
-	titleSreenSprite.y = gamestage.canvas.height / 2 - titleSreenSprite.spriteSheet._frameHeight / 2;
-
-	stage.addChild(titleSreenSprite);
-	titleSreenSprite.gotoAndPlay("sit");
 
 	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
+	createjs.Ticker.useRAF = true;
 	createjs.Ticker.setFPS(10);
 
 	document.onkeydown = function (event) {
@@ -137,15 +169,24 @@ function initTitleScreen() {
 	document.getElementById("gamecanvas").addEventListener('touchend', function () {
 		startgame = true;
 	}.bind(this), false);
+
+	console.log(titleScreenSprite);
+	titleScreenSprite.gotoAndPlay("sit");
+	titleScreenSprite.x = gamestage.canvas.width / 2 - titleScreenSprite.spriteSheet._frameWidth / 2;
+	titleScreenSprite.y = gamestage.canvas.height / 2 - titleScreenSprite.spriteSheet._frameHeight / 2;
+
+	gamestage.addChild(titleScreenSprite);
 }
 
 function handleStartScreenTick(event) {
+	console.log("tick!");
 	if (startgame) {
 		initVars();
 		beginGame();
 		event.remove();
+	} else {
+		gamestage.update();
 	}
-	gamestage.update();
 }
 
 function handleTick(event) {
@@ -210,4 +251,16 @@ function handleTick(event) {
 	gamestage.update();
 }
 
-init();
+initVars();
+
+function handleComplete() {
+	/*backgroundImage = preload.getResult("background");
+	treesImage = preload.getResult("trees");
+	groundImage = preload.getResult("ground");
+
+	loadProgressLabel.text = "Loading complete click to start";
+	stage.update();
+
+	canvas.addEventListener("click", handleClick);*/
+	init();
+}

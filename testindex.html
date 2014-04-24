@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 <meta name=apple-mobile-web-app-capable content=yes>
 <meta name=apple-mobile-web-app-status-bar-style content=black>
 <meta name="viewport" content="minimal-ui">
@@ -20,7 +20,10 @@ canvas { display:block; }
 	<canvas id="offscreen" style="display:none;"></canvas>
 
 	<script src="easeljs-NEXT.min.js" type="text/javascript"></script>
+	<script src="preloadjs-NEXT.min.js" type="text/javascript"></script>
 	<script src="soundjs-0.5.2.min.js" type="text/javascript"></script>
+	<script src="SpriteContainer.js" type="text/javascript"></script>
+	<script src="SpriteStage.js" type="text/javascript"></script>
 
 	<script src="collision.js" type="text/javascript"></script>
 	<script src="ndgmr.Collision.js" type="text/javascript"></script>
@@ -31,6 +34,6 @@ canvas { display:block; }
 	<script src="printerguy.js" type="text/javascript"></script>
 	<script src="renderer.js" type="text/javascript"></script>
 	<script src="main.js" type="text/javascript"></script>
-
+	<div style="display:none;" id="offscreen"></div>
 </body>
 </html>

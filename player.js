@@ -3,7 +3,7 @@ function Player(mapper) {
 	var playerSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
 		"frames": {
-			"width": 60, "height": 60, "count": 18
+			"width": 60, "height": 64, "count": 18
 		},
 		"animations": {
 			"stand": {
@@ -46,7 +46,7 @@ function Player(mapper) {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage              = mapper.stage;
+	this.stage              = mapper.gamestage; // MUST BE CHANGED TO CONTAINER OBJ
 	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
 	this.x                  = mapper.widthOffset + 96;
 	this.y                  = 30;
@@ -148,7 +148,7 @@ function Player(mapper) {
 
 	if (mobile) {
 		var touchEventSpriteSheet = new createjs.SpriteSheet({
-			"images": ["images/businessmanspritesheet.png"],
+			"images": [loader.getResult("businessman")],
 			"frames": {
 				"width": 1, "height": 1, "count": 1
 			},
