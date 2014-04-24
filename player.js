@@ -319,9 +319,6 @@ function Player(mapper) {
 			//var sound = createjs.Sound.play("shoot");
 			//sound.volume = 0.05;
 			this.shootTicks = 15; // not correct
-			if (mobile) {
-				this.shootTicks = 10; // not correct for megaman
-			}
 
 			if (this.animations.currentAnimation === "jump") {
 				this.animations.gotoAndPlay("jumpshoot");

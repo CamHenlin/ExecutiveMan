@@ -10,7 +10,7 @@ var mobile = true;
 var titlescreenSpriteSheet = new createjs.SpriteSheet({
 	"images": ["images/executivemanlogo.png"],
 	"frames": {
-		"width": 632, "height": 480, "count": 2
+		"width": 512, "height": 512, "count": 2
 	},
 	"animations": {
 		"sit": {
