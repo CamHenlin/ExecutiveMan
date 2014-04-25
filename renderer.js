@@ -153,6 +153,7 @@ function Mapper(stage, gamestage, loader) {
 	this.widthOffset = null;
 	this.collisionArray = [[],[]];
 	this.container = new createjs.Container();
+    this.nextContainer = new createjs.Container();
 	this.container.x = 0;
 	this.container.y = 0;
 	this.advancing = false;
@@ -227,7 +228,7 @@ function Mapper(stage, gamestage, loader) {
 		this.deathCollisionArray = [[],[]];
 
 		// clear out currently displayed map:
-		this.container.removeAllChildren();
+		// this.container.removeAllChildren();
 		this.doneRendering = false;
 
 		// build new map
@@ -286,7 +287,7 @@ function Mapper(stage, gamestage, loader) {
             // console.log(layer);
 			if (layer.type === 'tilelayer') {
 				if (i === 1) { // layer one is ground collision layer
-					this.collisionArray = this.initLayerWithCollisionArray(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset);
+					this.initLayerWithCollisionArray(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset);
 					this.basicCollision = new BasicCollision(this);
 				} else if (i === 3) {
 					this.enemies = this.initEnemies(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset);
@@ -301,6 +302,7 @@ function Mapper(stage, gamestage, loader) {
         this.beginCaching();
 		this.stage.addChild(this.container);
 		this.doneRendering = true;
+        return container;
 	};
 
 	// layer initialization
@@ -349,33 +351,59 @@ function Mapper(stage, gamestage, loader) {
 
 	// layer initialization
 	this.initLayerWithCollisionArray = function(layerData, tilesetSheet, tilewidth, tileheight, heightOffset, widthOffset) {
-		var collisionArray = new Array(layerData.height);
+		this.collisionArray = collisionArray = new Array(layerData.height);
 		for ( var y = 0; y < layerData.height; y++) {
-			collisionArray[y] = new Array(layerData.width);
+			this.collisionArray = collisionArray[y] = new Array(layerData.width);
 			for ( var x = 0; x < layerData.width; x++) {
 				// create a new Bitmap for each cell
 				// layer data has single dimension array
 				var idx = x + y * layerData.width;
                 if (layerData.data[idx] !== 0) {
                     var cellBitmap = new createjs.Sprite(tilesetSheet);
-    				// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
-    				cellBitmap.gotoAndStop(layerData.data[idx] - 1);
-    				// isometrix tile positioning based on X Y order from Tiled
-    				cellBitmap.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
-    				cellBitmap.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
-    				// add bitmap to gamestage
-    				this.container.addChild(cellBitmap);
-    				// internalgamestage.addChild(cellBitmap);
+                    // tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
+                    cellBitmap.gotoAndStop(layerData.data[idx] - 1);
+                    // isometrix tile positioning based on X Y order from Tiled
+                    cellBitmap.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+                    cellBitmap.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
+                    // add bitmap to gamestage
+                    this.container.addChild(cellBitmap);
+                    // internalgamestage.addChild(cellBitmap);
 
-					collisionArray[y][x] = true;
+					this.collisionArray = collisionArray[y][x] = true;
 				} else {
-					collisionArray[y][x] = false;
+					this.collisionArray = collisionArray[y][x] = false;
 				}
 			}
 		}
-
-		return collisionArray;
 	};
+
+    // layer initialization
+    this.initLayerWithDeathCollisionArray = function(layerData, tilesetSheet, tilewidth, tileheight, heightOffset, widthOffset) {
+        this.deathCollisionArray = deathCollisionArray = new Array(layerData.height);
+        for ( var y = 0; y < layerData.height; y++) {
+            this.deathCollisionArray = deathCollisionArray[y] = new Array(layerData.width);
+            for ( var x = 0; x < layerData.width; x++) {
+                // create a new Bitmap for each cell
+                // layer data has single dimension array
+                var idx = x + y * layerData.width;
+                if (layerData.data[idx] !== 0) {
+                    var cellBitmap = new createjs.Sprite(tilesetSheet);
+                    // tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
+                    cellBitmap.gotoAndStop(layerData.data[idx] - 1);
+                    // isometrix tile positioning based on X Y order from Tiled
+                    cellBitmap.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+                    cellBitmap.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
+                    // add bitmap to gamestage
+                    this.container.addChild(cellBitmap);
+                    // internalgamestage.addChild(cellBitmap);
+
+                    this.deathCollisionArray = deathCollisionArray[y][x] = true;
+                } else {
+                    this.deathCollisionArray = deathCollisionArray[y][x] = false;
+                }
+            }
+        }
+    };
 
 	this.tickActions = function(actions) {
         /*
