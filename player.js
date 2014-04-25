@@ -9,17 +9,17 @@ function Player(mapper) {
 			"stand": {
 				"frames" : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				"next" : "stand",
-				"speed" : 0.125
+				"speed" : 0.125 * mapper.lowFramerate
 			},
 			"startrun" : {
 				"frames" : [2],
 				"next" : "run",
-				"speed" : 0.125
+				"speed" : 0.125 * mapper.lowFramerate
 			},
 			"run": {
 				"frames" : [3, 4, 5],
 				"next" : "run",
-				"speed" : 0.15
+				"speed" : 0.15 * mapper.lowFramerate
 			},
 			"jump": {
 				"frames" : [10],
@@ -32,12 +32,12 @@ function Player(mapper) {
 			"runshoot": {
 				"frames" : [7, 8, 9],
 				"next" : "runshoot",
-				"speed" : 0.15
+				"speed" : 0.15 * mapper.lowFramerate
 			},
 			"damage": {
 				"frames" : [16],
 				"next" : "damage",
-				"speed" : 5
+				"speed" : 5 * mapper.lowFramerate
 			},
 			"jumpshoot": {
 				"frames" : [11],
@@ -49,6 +49,7 @@ function Player(mapper) {
 	this.stage              = mapper.stage;
 	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
 	this.x                  = mapper.widthOffset + 96;
+	this.lastx				= 0;
 	this.y                  = 30;
 	this.goingLeft          = false;
 	this.goingRight         = false;
@@ -234,7 +235,7 @@ function Player(mapper) {
 	this.tickActions = function(actions) {
 		if (this.ignoreInput) {
 			if (this.ignoreDamage) {
-				this.x += 1 * -this.animations.scaleX;
+				this.x += 1 * -this.animations.scaleX * this.mapper.lowFramerate;
 				this.animations.x = this.x;
 
 				this.watchedElements.forEach(function(element) {
@@ -275,7 +276,7 @@ function Player(mapper) {
 			this.animations.regX = 60;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
-				this.movementTicks = 9;
+				this.movementTicks = 9 / this.mapper.lowFramerate;
 			}
 		} else if (this.actions.playerRight && actions.collisionResults.rightmove) {
 			this.goingRight = true;
@@ -284,14 +285,14 @@ function Player(mapper) {
 			this.animations.regX = 0;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
-				this.movementTicks = 9;
+				this.movementTicks = 9 / this.mapper.lowFramerate;
 			}
 		} else {
 			this.goingRight = false;
 			this.goingLeft = false;
 			if (this.animations.currentAnimation !== "stand" && this.animations.currentAnimation !== "standshoot" && !this.jumping) {
 				this.animations.gotoAndPlay("stand");
-				this.movementTicks = 9;
+				this.movementTicks = 9 / this.mapper.lowFramerate;
 			}
 		}
 
@@ -318,7 +319,7 @@ function Player(mapper) {
 
 			//var sound = createjs.Sound.play("shoot");
 			//sound.volume = 0.05;
-			this.shootTicks = 15; // not correct
+			this.shootTicks = 15 / this.mapper.lowFramerate; // not correct
 
 			if (this.animations.currentAnimation === "jump") {
 				this.animations.gotoAndPlay("jumpshoot");
@@ -329,42 +330,10 @@ function Player(mapper) {
 			}
 		}
 
-		if (this.goingRight || this.goingLeft) {
-			if (this.goingRight && actions.collisionResults.rightmove) {
-				if (this.jumping) {
-					this.x += 2.65; // megaman moved slower while jumping...
-				} else {
-					if (this.movementTicks > 0) {
-						this.x += 0.4; // megaman moved slower as he began moving
-						this.movementTicks--;
-					} else {
-						this.x += 2.75;
-					}
-				}
-			} else if (this.goingLeft && actions.collisionResults.leftmove) {
-				if (this.jumping) {
-					this.x += -2.65; // megaman moved slower while jumping...
-				} else {
-					if (this.movementTicks > 0) {
-						this.x += -0.4; // megaman moved slower as he began moving
-						this.movementTicks--;
-					} else {
-						this.x += -2.75;
-					}
-				}
-			}
-		} else if (this.movementTicks > 0) {
-			if (actions.collisionResults.rightmove && actions.collisionResults.leftmove) {
-				this.x += 0.8 * this.animations.scaleX;
-				this.movementTicks--;
-			} else {
-				this.movementTicks = 0;
-			}
-		}
-
+		var ignoreLeftRightCollisionThisFrame = false;
 		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
-			this.y += this.jumpspeed;
-			this.jumpspeed = this.jumpspeed + 0.5;
+			this.y += this.jumpspeed * this.mapper.lowFramerate;
+			this.jumpspeed = this.jumpspeed + 0.5 * this.mapper.lowFramerate;
 			if (this.jumpspeed > 24) {
 				this.jumpspeed = 24; // megaman's terminal velocity
 			}
@@ -379,13 +348,53 @@ function Player(mapper) {
 
 			// correcting floor position after a jump/fall:
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
+			ignoreLeftRightCollisionThisFrame = true;
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 1; // megaman's jumpspeed set to 1 when he bonks his head
-			this.y += this.jumpspeed;
+			this.y += this.jumpspeed * this.mapper.lowFramerate;
 		}
 
+		if (this.goingRight || this.goingLeft) {
+			if (this.goingRight && (actions.collisionResults.rightmove || ignoreLeftRightCollisionThisFrame)) {
+				if (this.jumping) {
+					this.x += 2.65 * this.mapper.lowFramerate; // megaman moved slower while jumping...
+				} else {
+					if (this.movementTicks > 0) {
+						this.x += 0.4 * this.mapper.lowFramerate; // megaman moved slower as he began moving
+						this.movementTicks--;
+					} else {
+						this.x += 2.75 * this.mapper.lowFramerate;
+					}
+				}
+			} else if (this.goingLeft && (actions.collisionResults.leftmove || ignoreLeftRightCollisionThisFrame)) {
+				if (this.jumping) {
+					this.x += -2.65 * this.mapper.lowFramerate; // megaman moved slower while jumping...
+				} else {
+					if (this.movementTicks > 0) {
+						this.x += -0.4 * this.mapper.lowFramerate; // megaman moved slower as he began moving
+						this.movementTicks--;
+					} else {
+						this.x += -2.75 * this.mapper.lowFramerate;
+					}
+				}
+			}
+		} else if (this.movementTicks > 0) {
+			if ((actions.collisionResults.rightmove && actions.collisionResults.leftmove) || ignoreLeftRightCollisionThisFrame) {
+				this.x += 0.8 * this.animations.scaleX * this.mapper.lowFramerate;
+				this.movementTicks--;
+			} else {
+				this.movementTicks = 0;
+			}
+		}
+
+
+
+		if ((this.animations.x > this.gamestage.canvas.width / 2 - this.animations.spriteSheet._frameWidth) && (this.mapper.getMapWidth() > this.animations.spriteSheet._frameWidth + this.animations.x + this.gamestage.canvas.width / 2)) {
+			this.mapper.advance(this.lastx - this.x);
+		}
 		this.animations.x = this.x;
 		this.animations.y = this.y;
+		this.lastx = this.x;
 
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
@@ -395,6 +404,17 @@ function Player(mapper) {
 			//console.log(this);
 		}
 		//console.log(this.x);
+		//
+
+		if (this.x + this.animations.spriteSheet._frameWidth > this.mapper.getMapWidth()) {
+			this.mapper.nextMapRight(this.mapper.mapData);
+
+			this.ignoreInput = true;
+			setTimeout(function() {
+				this.ignoreInput = false;
+			}.bind(this), 500);
+		}
+		/*
 		if (this.x > this.gamestage.canvas.width - (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips && this.mapper.allowAdvance) {
 			this.pageflips++;
 			this.ignoreInput = true;
@@ -419,7 +439,7 @@ function Player(mapper) {
 			setTimeout(function() {
 				this.ignoreInput = false;
 			}.bind(this), 1000);
-		}
+		}*/
 
 		if (!this.ignoreDamage) {
 			this.checkEnemyCollisions();
