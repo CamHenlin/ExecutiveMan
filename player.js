@@ -395,7 +395,7 @@ function Player(mapper) {
 			//console.log(this);
 		}
 		//console.log(this.x);
-		if (this.x > this.gamestage.canvas.width - (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips) {
+		if (this.x > this.gamestage.canvas.width - (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips && this.mapper.allowAdvance) {
 			this.pageflips++;
 			this.ignoreInput = true;
 			this.mapper.advance();
@@ -403,7 +403,7 @@ function Player(mapper) {
 			setTimeout(function() {
 				this.ignoreInput = false;
 			}.bind(this), 1000);
-		} else if (this.x < (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips && this.pageflips > 0) {
+		} else if (this.x < (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips && this.pageflips > 0 && this.mapper.allowReverse) {
 			this.pageflips--;
 			this.ignoreInput = true;
 			this.mapper.reverse();

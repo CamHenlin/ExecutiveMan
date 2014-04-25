@@ -6,6 +6,8 @@ var mapper;
 var tileCollisionDetector;
 var startgame;
 var mobile = true;
+var fpsLabel;
+var logFPS = true;
 
 var titlescreenSpriteSheet = new createjs.SpriteSheet({
 	"images": ["images/executivemanlogo.png"],
@@ -97,7 +99,14 @@ function beginGame() {
 
 		gamestage.addChild(leftButtonSprite);
 		gamestage.addChild(rightButtonSprite);
-		gamestage.addChild(shootButtonSprite);
+		gamestage.addChild(shootButtonSprite);	}
+
+	if (logFPS) {
+		fpsLabel = new createjs.Text("-- FPS", "bold 14px Arial", "#FFF");
+		gamestage.addChild(fpsLabel);
+
+		fpsLabel.x = gamestage.canvas.width - 200;
+		fpsLabel.y = 18;
 	}
 
 	createjs.Ticker.addEventListener("tick", handleTick);
@@ -188,13 +197,17 @@ function handleTick(event) {
 
 
 
-	watchedElements.forEach(function(element) {
-		element.tickActions(actions);
-	});
+	if (!mapper.advancing && !mapper.reversing) {
+		watchedElements.forEach(function(element) {
+			element.tickActions(actions);
+		});
 
-	this.mapper.enemies.forEach(function(element) {
-		element.tickActions(actions);
-	});
+		this.mapper.enemies.forEach(function(element) {
+			element.tickActions(actions);
+		});
+	} else {
+		mapper.tickActions(actions);
+	}
 
 	//  { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false }
 	if (((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || mapper.player.health <= 0) {
@@ -205,6 +218,10 @@ function handleTick(event) {
 
 		event.remove();
 		//init();
+	}
+
+	if (logFPS) {
+		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " FPS";
 	}
 
 	gamestage.update();
