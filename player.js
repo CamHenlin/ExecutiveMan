@@ -434,15 +434,16 @@ function Player(mapper) {
 			setTimeout(function() {
 				this.ignoreInput = false;
 			}.bind(this), 1000);
-		} else if (actions.collisionResults.nextmap) {
-			this.mapper.nextMap(this.mapper.map2, this.x, this.y);
+		} else */
+		if (actions.collisionResults.nextmap) {
+			this.mapper.nextMapDown(this.mapper.mapData);
 			this.ignoreInput = true;
 			this.stage.addChild(this.animations);
 
 			setTimeout(function() {
 				this.ignoreInput = false;
-			}.bind(this), 1000);
-		}*/
+			}.bind(this), 500);
+		}
 
 		if (!this.ignoreDamage) {
 			this.checkEnemyCollisions();
