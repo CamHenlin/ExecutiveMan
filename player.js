@@ -46,10 +46,11 @@ function Player(mapper) {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage              = mapper.stage;
+	this.stage              = mapper.gamestage;
 	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
-	this.x                  = mapper.widthOffset + 96;
-	this.lastx				= 0;
+	this.x                  = 96;
+	this.animations.x       = this.x;
+	this.lastx				= this.x;
 	this.y                  = 30;
 	this.goingLeft          = false;
 	this.goingRight         = false;
@@ -66,7 +67,7 @@ function Player(mapper) {
 	this.mapper             = mapper;
 	this.gamestage			= mapper.gamestage;
 	this.pageflips 			= 0;
-	this.ignoreDamage		= true;
+	this.ignoreDamage		= false;
 	this.ignoreInput        = false;
  	//createjs.Sound.registerSound("sounds/jump.wav", "jump");
  	//createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
@@ -236,7 +237,6 @@ function Player(mapper) {
 		if (this.ignoreInput) {
 			if (this.ignoreDamage) {
 				this.x += 1 * -this.animations.scaleX * this.mapper.lowFramerate;
-				this.animations.x = this.x;
 
 				this.watchedElements.forEach(function(element) {
 					element.tickActions(actions);
@@ -315,7 +315,7 @@ function Player(mapper) {
 		}
 
 		if (this.actions.playerAttack && this.shootTicks === 0) {
-			this.watchedElements.push(new Shot(stage, this));
+			this.watchedElements.push(new Shot(this.stage, this));
 
 			//var sound = createjs.Sound.play("shoot");
 			//sound.volume = 0.05;
@@ -389,12 +389,15 @@ function Player(mapper) {
 
 
 
-		if ((this.animations.x > this.gamestage.canvas.width / 2 - this.animations.spriteSheet._frameWidth) && (this.mapper.getMapWidth() > this.animations.spriteSheet._frameWidth + this.animations.x + this.gamestage.canvas.width / 2)) {
+		if ((this.animations.x > this.gamestage.canvas.width / 2) &&
+			(this.mapper.getMapWidth() + this.mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
+
 			this.mapper.advance(this.lastx - this.x);
+		} else {
+			this.animations.x += this.x - this.lastx;
 		}
-		this.animations.x = this.x;
-		this.animations.y = this.y;
 		this.lastx = this.x;
+		this.animations.y = this.y;
 
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
@@ -406,7 +409,7 @@ function Player(mapper) {
 		//console.log(this.x);
 		//
 
-		if (this.x + this.animations.spriteSheet._frameWidth > this.mapper.getMapWidth()) {
+		if (this.x + this.animations.spriteSheet._frameWidth > this.mapper.getMapWidth() + this.mapper.completedMapsWidthOffset) {
 			this.mapper.nextMapRight(this.mapper.mapData);
 
 			this.ignoreInput = true;
@@ -518,8 +521,8 @@ function Player(mapper) {
 
 		this.stage      = stage;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = player.x + ((player.animations.scaleX === 1) ? 52 : -6);
-		this.y          = player.y + 27;
+		this.x          = player.animations.x + ((player.animations.scaleX === 1) ? 52 : -6);
+		this.y          = player.animations.y + 27;
 		this.done       = false;
 		this.playerX    = player.x;
 		this.disabled   = false;

@@ -1,1 +1,1 @@
-java -jar compiler.jar --js=easeljs-NEXT.min.js --js=soundjs-0.5.2.min.js --js=basiccollision.js --js=collision.js  --js=ndgmr.Collision.js --js=renderer.js --js=healthbar.js --js=printerguy.js --js=shieldguy.js --js=player.js --js=main.js --js_output_file=game.min.js
+java -jar compiler.jar --compilation_level SIMPLE_OPTIMIZATIONS --js=easeljs-NEXT.min.js --js=soundjs-0.5.2.min.js --js=basiccollision.js --js=collision.js  --js=ndgmr.Collision.js --js=renderer.js --js=healthbar.js --js=printerguy.js --js=shieldguy.js --js=player.js --js=main.js --js_output_file=game.min.js

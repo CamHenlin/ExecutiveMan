@@ -63,7 +63,6 @@ function initVars() {
 }
 
 function beginGame() {
-	stage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
@@ -71,11 +70,10 @@ function beginGame() {
 	gamestage.canvas.width = window.innerWidth;
 	gamestage.canvas.height = window.innerHeight;
 	gamestage.canvas.style.backgroundColor = "#000";
-	gamestage.addChild(stage);
 
 	watchedElements = [];
-	mapper = new Mapper(stage, gamestage, loader);
-	mapper.initLayers();
+	mapper = new Mapper(gamestage, loader);
+	mapper.initMap();
 	watchedElements.push(mapper.player);
 
 	tileCollisionDetector = new TileCollisionDetector();
@@ -129,7 +127,7 @@ function beginGame() {
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
-	createjs.Ticker.setFPS(60); // NORMALLY 60
+	createjs.Ticker.setFPS(30); // NORMALLY 60
 }
 
 function initTitleScreen() {
@@ -204,6 +202,7 @@ function handleTick(event) {
 
 	}
 
+
 	var modifier = 8;
 	var xmodifier = 12;
 	var playerCollisionPoints = {
@@ -227,7 +226,7 @@ function handleTick(event) {
 		topLeft : { x: mapper.player.x + xmodifier * 2 + 4, y: mapper.player.y + modifier * 2 }
 	};
 
-	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.getCurrentHeightOffset(), mapper.widthOffset);
+	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.getCurrentHeightOffset(), (mapper.widthOffset + mapper.completedMapsWidthOffset));
 	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerDeathCollisionPoints, mapper.deathCollisionArray, mapper.getCurrentHeightOffset(), mapper.widthOffset);
 
 
