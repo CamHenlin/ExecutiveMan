@@ -127,7 +127,7 @@ function beginGame() {
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
-	createjs.Ticker.setFPS(30); // NORMALLY 60
+	createjs.Ticker.setFPS(60); // NORMALLY 60
 }
 
 function initTitleScreen() {
