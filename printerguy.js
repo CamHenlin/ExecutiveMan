@@ -40,8 +40,8 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
- 	this.tickActions = function(actions) {
- 		this.watchedElements.forEach(function(element) {
+	this.tickActions = function(actions) {
+		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
 		});
 
@@ -99,7 +99,9 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 		}
 
 		if (this.activated) {
-			if (!collisionResults.left || !collisionResults.right) {
+			if (!collisionResults.left || !collisionResults.right ||
+				this.x < mapper.completedMapsWidthOffset || this.x > mapper.completedMapsWidthOffset + mapper.getMapWidth()) {
+
 				this.animations.scaleX = this.animations.scaleX * -1;
 				if (this.animations.scaleX === -1) {
 					this.animations.regX = this.animations.spriteSheet._frameWidth;

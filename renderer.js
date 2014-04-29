@@ -600,6 +600,7 @@ function Mapper(gamestage, loader) {
                     this.player.lastx = this.player.x;
                 }
             } else {
+                this.enemyContainer.x = 0;
                 this.player.animations.x = this.widthOffset;
                 this.player.x = this.completedMapsWidthOffset;
                 this.player.lastx = this.player.x;
