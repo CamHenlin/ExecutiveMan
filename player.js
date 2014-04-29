@@ -69,13 +69,14 @@ function Player(mapper) {
 	this.pageflips 			= 0;
 	this.ignoreDamage		= false;
 	this.ignoreInput        = false;
+	this.healthbar          = new HealthBar(gamestage, this);
  	//createjs.Sound.registerSound("sounds/jump.wav", "jump");
  	//createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
 	setTimeout(function() {
 		this.ignoreDamage = false;
 	}.bind(this), 2000);
 
-	this.watchedElements.push(new HealthBar(gamestage, this));
+	this.watchedElements.push(this.healthbar);
 
 	document.onkeydown = function (event) {
 		switch (event.keyCode) {
@@ -389,7 +390,7 @@ function Player(mapper) {
 
 
 
-		if ((this.animations.x > this.gamestage.canvas.width / 2) &&
+		if ((this.x - this.mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
 			(this.mapper.getMapWidth() + this.mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
 
 			this.mapper.advance(this.lastx - this.x);
@@ -417,28 +418,10 @@ function Player(mapper) {
 				this.ignoreInput = false;
 			}.bind(this), 500);
 		}
-		/*
-		if (this.x > this.gamestage.canvas.width - (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips && this.mapper.allowAdvance) {
-			this.pageflips++;
-			this.ignoreInput = true;
-			this.mapper.advance();
 
-			setTimeout(function() {
-				this.ignoreInput = false;
-			}.bind(this), 1000);
-		} else if (this.x < (this.gamestage.canvas.width / 6) + (this.gamestage.canvas.width / 2) * this.pageflips && this.pageflips > 0 && this.mapper.allowReverse) {
-			this.pageflips--;
-			this.ignoreInput = true;
-			this.mapper.reverse();
-
-			setTimeout(function() {
-				this.ignoreInput = false;
-			}.bind(this), 1000);
-		} else */
 		if (actions.collisionResults.nextmap) {
 			this.mapper.nextMapDown(this.mapper.mapData);
 			this.ignoreInput = true;
-			this.stage.addChild(this.animations);
 
 			setTimeout(function() {
 				this.ignoreInput = false;

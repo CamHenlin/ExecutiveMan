@@ -1,4 +1,4 @@
-function ShieldGuy(stage, player, basicCollision, x, y) {
+function ShieldGuy(stage, player, basicCollision, x, y, mapper) {
 
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/shieldguy.png"],
@@ -17,6 +17,7 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
+	this.mapper           = mapper;
 	this.basicCollision   = basicCollision;
 	this.health           = 2;
 	this.player           = player;
@@ -79,7 +80,7 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 
 		var distanceFromPlayer = this.player.x - this.x;
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 550) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this));
+			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, this.mapper));
 			this.animations.gotoAndPlay("shoot");
 			this.hardshell = false;
 			this.activated = true;
@@ -95,11 +96,11 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
 		}
 
-		this.animations.x = this.x;
+		this.animations.x = this.x - this.mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 
-	var Shot = function(stage, x, y, direction, owner) {
+	var Shot = function(stage, x, y, direction, owner, mapper) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": ["images/enemyshot.png"],
 			"frames": {
@@ -113,6 +114,7 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 			}
 		});
 
+		this.mapper     = mapper;
 		this.stage      = stage;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
@@ -124,12 +126,12 @@ function ShieldGuy(stage, player, basicCollision, x, y) {
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.x = this.x + (3 * this.direction);
-		this.animations.x = this.x;
+		this.animations.x = this.x - this.mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function(actions) {
 			this.x = this.x + (3 * this.direction);
-			this.animations.x = this.x;
+			this.animations.x = this.x - this.mapper.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			if (!this.checkBounds()) {

@@ -6,11 +6,11 @@ function BasicCollision(mapper) {
 		var xmodifier = 2;
 
 		return this.checkCollisions({
-			left : { x: object.x + xmodifier, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
-			bottom : { x: object.x + object.animations.spriteSheet._frameWidth / 2 , y: object.y + object.animations.spriteSheet._frameHeight },
-			right : { x: object.x + object.animations.spriteSheet._frameWidth - xmodifier, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
-			top : { x: object.x + object.animations.spriteSheet._frameWidth / 2 , y: object.y + modifier }
-		}, this.mapper.collisionArray, this.mapper.heightOffset, this.mapper.widthOffset)
+			left : { x: object.x + xmodifier - this.mapper.completedMapsWidthOffset, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
+			bottom : { x: object.x - this.mapper.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2 , y: object.y + object.animations.spriteSheet._frameHeight },
+			right : { x: object.x - this.mapper.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth - xmodifier, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
+			top : { x: object.x - this.mapper.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2 , y: object.y + modifier }
+		}, this.mapper.collisionArray, this.mapper.heightOffset, this.mapper.widthOffset);
 	};
 
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {

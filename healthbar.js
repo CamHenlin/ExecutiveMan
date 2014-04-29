@@ -5,14 +5,8 @@ var HealthBar = function(stage, player) {
 	this.player     = player;
 
 	this.x          = 18;
-	this.y          = this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
+	this.y          = 18; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
-
-	// draw black box:
-	var box = new createjs.Shape();
-	box.graphics.beginFill("#000000").drawRect(this.x, this.y, 16, this.maxheight);
-
-    this.stage.addChild(box);
 
 	this.tickActions = function(actions) {
 		if (this.bars !== this.player.health) {
@@ -22,13 +16,18 @@ var HealthBar = function(stage, player) {
 	};
 
 	this.draw = function() {
+		var box = new createjs.Shape();
+		box.graphics.beginFill("#000000").drawRect(this.x, this.y, 16, this.maxheight);
+
+	    this.stage.addChild(box);
+
 		for (var i = 0; i < this.barAnimations.length; i++) {
 			this.stage.removeChild(this.barAnimations[i]);
 		}
 		this.barAnimations = [];
 
 		var offset = (28 - this.bars) * 4;
-		for (var i = 0; i < this.bars; i++) {
+		for (i = 0; i < this.bars; i++) {
 			var barItem = new createjs.Bitmap("images/healthbar.png");
 			barItem.x = 20;
 			barItem.y = i * 4 + offset + this.y + 2;

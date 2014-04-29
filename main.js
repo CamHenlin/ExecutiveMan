@@ -118,10 +118,10 @@ function beginGame() {
 		gamestage.addChild(shootButtonSprite);	}
 
 	if (logFPS) {
-		fpsLabel = new createjs.Text("-- FPS", "bold 14px Arial", "#FFF");
+		fpsLabel = new createjs.Text("", "bold 14px Arial", "#FFF");
 		gamestage.addChild(fpsLabel);
 
-		fpsLabel.x = gamestage.canvas.width - 200;
+		fpsLabel.x = gamestage.canvas.width - 250;
 		fpsLabel.y = 18;
 	}
 
@@ -134,7 +134,7 @@ function initTitleScreen() {
 	var titlescreenSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("logo")],
 		"frames": {
-			"width": 480, "height": 632, "count": 2
+			"width": 632, "height": 480, "count": 2
 		},
 		"animations": {
 			"sit": {
@@ -149,20 +149,20 @@ function initTitleScreen() {
 			}
 		}
 	});
+		console.log(loader.getResult("logo"));
 	titleSreenSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
 	startgame = false;
+	stage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.snapToPixelEnabled = true;
 
 	gamestage.canvas.width = window.innerWidth;
 	gamestage.canvas.height = window.innerHeight;
 	gamestage.canvas.style.backgroundColor = "#000";
+	gamestage.addChild(stage);
 
 	titleSreenSprite.x = gamestage.canvas.width / 2 - titleSreenSprite.spriteSheet._frameWidth / 2;
 	titleSreenSprite.y = gamestage.canvas.height / 2 - titleSreenSprite.spriteSheet._frameHeight / 2;
-
-	gamestage.addChild(titleSreenSprite);
-	titleSreenSprite.gotoAndPlay("sit");
 
 	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
 	createjs.Ticker.setFPS(10);
@@ -179,6 +179,8 @@ function initTitleScreen() {
 	document.getElementById("gamecanvas").addEventListener('touchend', function () {
 		startgame = true;
 	}.bind(this), false);
+
+	stage.addChild(titleSreenSprite);
 }
 
 function handleStartScreenTick(event) {
@@ -255,7 +257,7 @@ function handleTick(event) {
 	}
 
 	if (logFPS) {
-		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " FPS";
+		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " / " + Math.round(createjs.Ticker.getFPS());
 	}
 
 	gamestage.update();
