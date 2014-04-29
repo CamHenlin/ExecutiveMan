@@ -66,12 +66,12 @@ function Player(mapper) {
 	this.actions            = {};
 	this.mapper             = mapper;
 	this.gamestage			= mapper.gamestage;
-	this.pageflips 			= 0;
+	this.pageflips          = 0;
 	this.ignoreDamage		= false;
 	this.ignoreInput        = false;
 	this.healthbar          = new HealthBar(gamestage, this);
- 	//createjs.Sound.registerSound("sounds/jump.wav", "jump");
- 	//createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
+	//createjs.Sound.registerSound("sounds/jump.wav", "jump");
+	//createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
 	setTimeout(function() {
 		this.ignoreDamage = false;
 	}.bind(this), 2000);
@@ -80,73 +80,73 @@ function Player(mapper) {
 
 	document.onkeydown = function (event) {
 		switch (event.keyCode) {
-		    case 37:
-			    // keyCode 37 is left arrow
-			    this.actions.playerLeft = true;
-			    this.actions.playerRight = false;
+			case 37:
+				// keyCode 37 is left arrow
+				this.actions.playerLeft = true;
+				this.actions.playerRight = false;
 				this.goingLeftReleased  = false;
-			    break;
+				break;
 
 			case 39:
-			    // keyCode 39 is right arrow
-			    this.actions.playerRight = true;
-			    this.actions.playerLeft = false;
+				// keyCode 39 is right arrow
+				this.actions.playerRight = true;
+				this.actions.playerLeft = false;
 				this.goingRightReleased  = false;
-			    break;
+				break;
 
 
-		    case 32:
-			    // keyCode 32 is space
-			    this.actions.playerJump = true;
-			    break;
+			case 32:
+				// keyCode 32 is space
+				this.actions.playerJump = true;
+				break;
 
-		    case 67:
-			    // keyCode 67 is c
-			    this.actions.playerAttack = true;
-			    break;
+			case 67:
+				// keyCode 67 is c
+				this.actions.playerAttack = true;
+				break;
 
 
-		    case 68:
-		    	// keyCode 68 is d
-		    	this.actions.playerDebug = true;
-		    	break;
-	    }
+			case 68:
+				// keyCode 68 is d
+				this.actions.playerDebug = true;
+				break;
+		}
 	}.bind(this);
 
 	document.onkeyup = function (event) {
 		switch (event.keyCode) {
-		    case 37:
-			    // keyCode 37 is left arrow
-			    this.actions.playerLeft = false;
-			    this.actions.playerRight = false;
+			case 37:
+				// keyCode 37 is left arrow
+				this.actions.playerLeft = false;
+				this.actions.playerRight = false;
 				this.goingLeftReleased  = true;
-			    break;
+				break;
 
 			case 39:
-			    // keyCode 39 is right arrow
-			    this.actions.playerRight = false;
-			    this.actions.playerLeft = false;
+				// keyCode 39 is right arrow
+				this.actions.playerRight = false;
+				this.actions.playerLeft = false;
 				this.goingRightReleased  = true;
-			    break;
+				break;
 
 
-		    case 32:
-			    // keyCode 32 is space
-			    this.actions.playerJump = false;
-			    this.jumpreleased = true;
-			    break;
+			case 32:
+				// keyCode 32 is space
+				this.actions.playerJump = false;
+				this.jumpreleased = true;
+				break;
 
-		    case 67:
-			    // keyCode 67 is c
-			    this.actions.playerAttack = false;
-			    break;
+			case 67:
+				// keyCode 67 is c
+				this.actions.playerAttack = false;
+				break;
 
 
-		    case 68:
-		    	// keyCode 68 is d
-		    	this.actions.playerDebug = false;
-		    	break;
-	    }
+			case 68:
+				// keyCode 68 is d
+				this.actions.playerDebug = false;
+				break;
+		}
 	}.bind(this);
 
 	if (mobile) {
@@ -388,7 +388,10 @@ function Player(mapper) {
 			}
 		}
 
-
+		// prevent us from moving left after a screen transition
+		if (this.animations.x < 0 && this.goingLeft) {
+			this.x = this.lastx;
+		}
 
 		if ((this.x - this.mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
 			(this.mapper.getMapWidth() + this.mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
@@ -435,12 +438,13 @@ function Player(mapper) {
 
 	this.checkEnemyCollisions = function() {
 		this.mapper.enemies.forEach(function(enemy) {
-			if (enemy.health <= 0) {
-				return;
-			}
+
 
 			var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 			if (intersection) {
+				if (enemy.health <= 0) {
+					return;
+				}
 				this.health -= 2; // should come from enemy
 				this.animations.gotoAndPlay("damage");
 				this.ignoreInput = true;

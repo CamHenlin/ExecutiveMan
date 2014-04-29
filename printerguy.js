@@ -1,5 +1,4 @@
 function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
-	console.log("creating new printer guy");
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/printerguy.png"],
 		"frames": {
@@ -45,8 +44,16 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			element.tickActions(actions);
 		});
 
-		if (this.health <= 0) {
+		if (this.health <= 0 && this.activated) {
+			var explosion = explosionSprite.clone(true);
+			explosion.x = this.animations.x;
+			explosion.y = this.animations.y;
 			this.stage.removeChild(this.animations);
+			explosion.gotoAndPlay("explode");
+			this.stage.addChild(explosion);
+			setTimeout(function() {
+				this.stage.removeChild(explosion);
+			}.bind(this), 250);
 			this.activated = false;
 			return;
 		}

@@ -30,19 +30,32 @@ function ShieldGuy(stage, player, basicCollision, x, y, mapper) {
 	this.jumpspeed        = 0;
 	this.shootTicks       = 0;
 	this.hardshell        = true;
+	this.dead             = false;
 	this.watchedElements  = [];
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
- 	this.tickActions = function(actions) {
- 		this.watchedElements.forEach(function(element) {
+	this.tickActions = function(actions) {
+		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
 		});
 
-		if (this.health <= 0) {
+		if (this.dead) {
+			return;
+		}
+
+		if (this.health <= 0 && this.activated) {
+			var explosion = explosionSprite.clone(true);
+			explosion.x = this.animations.x;
+			explosion.y = this.animations.y;
 			this.stage.removeChild(this.animations);
-			this.activated = false;
+			explosion.gotoAndPlay("explode");
+			this.stage.addChild(explosion);
+			setTimeout(function() {
+				this.stage.removeChild(explosion);
+			}.bind(this), 250);
+			this.dead = true;
 			return;
 		}
 
@@ -78,6 +91,7 @@ function ShieldGuy(stage, player, basicCollision, x, y, mapper) {
 			this.jumpspeed = 0;
 		}
 
+		// figure out if we can shoot or not
 		var distanceFromPlayer = this.player.x - this.x;
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 550) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, this.mapper));
@@ -89,7 +103,7 @@ function ShieldGuy(stage, player, basicCollision, x, y, mapper) {
 				this.animations.gotoAndPlay("sit");
 				this.activated = false;
 				this.hardshell = true;
-			}.bind(this), 1000);
+			}.bind(this), 1250);
 		}
 
 		if (!collisionResults.down) {

@@ -10,6 +10,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "shieldguy", src: "images/shieldguy.png"},
 						{id: "shot", src: "images/shot.png"},
 						{id: "health", src: "images/healthbar.png"},
+						{id: "explosion", src: "images/explosion.png"},
 						{id: "enemyshot", src: "images/enemyshot.png"}]);
 
 function handleComplete() {
@@ -39,7 +40,7 @@ var logFPS = true;
 var buttonSpriteSheet;
 
 
-
+var explosionSprite;
 
 var leftButtonSprite;
 var rightButtonSprite;
@@ -63,6 +64,26 @@ function initVars() {
 }
 
 function beginGame() {
+	var explosionSpriteSheet = new createjs.SpriteSheet({
+			"images": [loader.getResult("explosion")],
+			"frames": {
+				"width": 50, "height": 50, "count": 4
+			},
+			"animations": {
+				"explode": {
+					"frames" : [0, 1, 2, 3],
+					"speed" : 0.125,
+					"next" : "nothing"
+				},
+				"nothing": {
+					"frames" : [4],
+					"speed" : 0.125,
+					"next" : "nothing"
+				}
+			}
+		});
+
+	explosionSprite = new createjs.Sprite(explosionSpriteSheet, "explode");
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
@@ -79,6 +100,8 @@ function beginGame() {
 	tileCollisionDetector = new TileCollisionDetector();
 
 	watchedElements.push(mapper);
+
+
 
 	if (mobile) {
 
@@ -115,7 +138,8 @@ function beginGame() {
 
 		gamestage.addChild(leftButtonSprite);
 		gamestage.addChild(rightButtonSprite);
-		gamestage.addChild(shootButtonSprite);	}
+		gamestage.addChild(shootButtonSprite);
+	}
 
 	if (logFPS) {
 		fpsLabel = new createjs.Text("", "bold 14px Arial", "#FFF");
@@ -149,7 +173,7 @@ function initTitleScreen() {
 			}
 		}
 	});
-		console.log(loader.getResult("logo"));
+
 	titleSreenSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
 	startgame = false;
 	stage = new createjs.Container();
@@ -169,11 +193,11 @@ function initTitleScreen() {
 
 	document.onkeydown = function (event) {
 		switch (event.keyCode) {
-		    case 32:
-			    // keyCode 32 is space
-			    startgame = true;
-			    break;
-	    }
+			case 32:
+				// keyCode 32 is space
+				startgame = true;
+				break;
+		}
 	}.bind(this);
 
 	document.getElementById("gamecanvas").addEventListener('touchend', function () {
