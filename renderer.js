@@ -145,7 +145,7 @@ maps[1] = { "height":15,
  "properties":
     {
      "backgroundColor":"#000000",
-     "stitchx":4800
+     "stitchx":2048
     },
  "tileheight":32,
  "tilesets":[
@@ -378,13 +378,13 @@ function Mapper(gamestage, loader) {
         this.container.y = this.gameBottom;
         this.doneRendering = false;
 
-        this.completedMapsWidthOffset += this.mapData.properties.stitchx - lastOffScreenWidth;
+        this.completedMapsWidthOffset += this.mapData.properties.stitchx;// - lastOffScreenWidth;
         // build new map
+        this.stitchingoffset = this.mapData.properties.stitchx - lastOffScreenWidth;
         this.container.addChild(this.initLayers());
-        this.container.x = this.mapData.properties.stitchx - lastOffScreenWidth;
-        this.enemyContainer.x = this.mapData.properties.stitchx - lastOffScreenWidth;
+        this.container.x = this.stitchingoffset;
+        this.enemyContainer.x = this.stitchingoffset;
 
-        this.stitchingoffset = this.mapData.properties.stitchx -  lastOffScreenWidth;
 
         this.transitiondown = true;
         this.gamestage.addChild(this.container);
@@ -696,8 +696,8 @@ function Mapper(gamestage, loader) {
     };
 
     this.getOffScreenWidth = function() {
-        if (this.player.x >= this.gamestage.canvas.width / 2) {
-            return this.player.x - this.gamestage.canvas.width / 2;
+        if (this.player.x - this.completedMapsWidthOffset >= this.gamestage.canvas.width / 2) {
+            return this.player.x - this.completedMapsWidthOffset - this.gamestage.canvas.width / 2;
         }
 
         return 0;

@@ -437,7 +437,7 @@ function Player(mapper) {
 		}
 
 		if (!this.ignoreDamage) {
-			this.checkEnemyCollisions();
+		//	this.checkEnemyCollisions();
 		}
 	};
 
