@@ -16,7 +16,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			"move": {
 				"frames" : [2, 3],
 				"next" : "move",
-				"speed" : 0.15
+				"speed" : 0.15 * mapper.lowFramerate
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -102,7 +102,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 250) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, this.mapper));
-			this.shootTicks = 300;
+			this.shootTicks = 300 / this.mapper.lowFramerate;
 		}
 
 		if (this.activated) {
@@ -152,12 +152,12 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction);
+		this.x = this.x + (3 * this.direction) * this.mapper.lowFramerate;
 		this.animations.x = this.x - this.mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function(actions) {
-			this.x = this.x + (3 * this.direction);
+			this.x = this.x + (3 * this.direction) * this.mapper.lowFramerate;
 			this.animations.x = this.x - this.mapper.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

@@ -249,7 +249,7 @@ function Player(mapper) {
 		if (this.shootTicks > 0) {
 			this.shootTicks--;
 
-			if (this.shootTicks === 0) {
+			if (this.shootTicks <= 0) {
 				if (this.animations.currentAnimation === "jumpshoot") {
 					this.animations.gotoAndPlay("jump");
 				} else if (this.animations.currentAnimation === "runshoot") {
@@ -270,33 +270,6 @@ function Player(mapper) {
 			actions.playerDeath = true;
 		}
 
-		if (this.actions.playerLeft && actions.collisionResults.leftmove) {
-			this.goingRight = false;
-			this.goingLeft  = true;
-			this.animations.scaleX = -1;
-			this.animations.regX = 60;
-			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
-				this.animations.gotoAndPlay("startrun");
-				this.movementTicks = 9 / this.mapper.lowFramerate;
-			}
-		} else if (this.actions.playerRight && actions.collisionResults.rightmove) {
-			this.goingRight = true;
-			this.goingLeft  = false;
-			this.animations.scaleX = 1;
-			this.animations.regX = 0;
-			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
-				this.animations.gotoAndPlay("startrun");
-				this.movementTicks = 9 / this.mapper.lowFramerate;
-			}
-		} else {
-			this.goingRight = false;
-			this.goingLeft = false;
-			if (this.animations.currentAnimation !== "stand" && this.animations.currentAnimation !== "standshoot" && !this.jumping) {
-				this.animations.gotoAndPlay("stand");
-				this.movementTicks = 9 / this.mapper.lowFramerate;
-			}
-		}
-
 		if (this.actions.playerJump && !this.jumping && actions.collisionResults.upmove && this.jumpreleased) {
 			actions.collisionResults.downmove = true;
 			this.jumpreleased = false;
@@ -315,8 +288,63 @@ function Player(mapper) {
 			this.jumpspeed = 4;
 		}
 
-		if (this.actions.playerAttack && this.shootTicks === 0) {
-			this.watchedElements.push(new Shot(this.stage, this));
+		var ignoreLeftRightCollisionThisFrame = false;
+		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
+			this.y += this.jumpspeed * this.mapper.lowFramerate;
+			this.jumpspeed = this.jumpspeed + 0.5 * this.mapper.lowFramerate;
+			if (this.jumpspeed > 24 / this.mapper.lowFramerate) {
+				this.jumpspeed = 24 / this.mapper.lowFramerate; // megaman's terminal velocity
+			}
+		} else if (this.jumping && !actions.collisionResults.downmove && !actions.collisionResults.nextmap) {
+			if (!this.goingLeft && !this.goingRight) {
+				this.animations.gotoAndPlay("stand");
+			} else {
+				this.animations.gotoAndPlay("run");
+			}
+			this.jumping = false;
+			this.falling = false;
+			ignoreLeftRightCollisionThisFrame = true;
+
+			// correcting floor position after a jump/fall:
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
+			if (this.y + this.animations.spriteSheet._frameHeight > this.mapper.gamestage.canvas.height) {
+				this.y -= 32;
+			}
+			ignoreLeftRightCollisionThisFrame = true;
+		} else if (this.jumping && !actions.collisionResults.upmove) {
+			this.jumpspeed = 1; // megaman's jumpspeed set to 1 when he bonks his head
+			this.y += this.jumpspeed * this.mapper.lowFramerate;
+		}
+
+		if (this.actions.playerLeft && (actions.collisionResults.leftmove || ignoreLeftRightCollisionThisFrame)) {
+			this.goingRight = false;
+			this.goingLeft  = true;
+			this.animations.scaleX = -1;
+			this.animations.regX = 60;
+			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
+				this.animations.gotoAndPlay("startrun");
+				this.movementTicks = 9 / this.mapper.lowFramerate;
+			}
+		} else if (this.actions.playerRight && (actions.collisionResults.rightmove || ignoreLeftRightCollisionThisFrame)) {
+			this.goingRight = true;
+			this.goingLeft  = false;
+			this.animations.scaleX = 1;
+			this.animations.regX = 0;
+			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
+				this.animations.gotoAndPlay("startrun");
+				this.movementTicks = 9 / this.mapper.lowFramerate;
+			}
+		} else {
+			this.goingRight = false;
+			this.goingLeft = false;
+			if (this.animations.currentAnimation !== "stand" && this.animations.currentAnimation !== "standshoot" && !this.jumping) {
+				this.animations.gotoAndPlay("stand");
+				this.movementTicks = 9 / this.mapper.lowFramerate;
+			}
+		}
+
+		if (this.actions.playerAttack && this.shootTicks <= 0) {
+			this.watchedElements.push(new Shot(this.stage, this, this.mapper));
 
 			//var sound = createjs.Sound.play("shoot");
 			//sound.volume = 0.05;
@@ -331,29 +359,6 @@ function Player(mapper) {
 			}
 		}
 
-		var ignoreLeftRightCollisionThisFrame = false;
-		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
-			this.y += this.jumpspeed * this.mapper.lowFramerate;
-			this.jumpspeed = this.jumpspeed + 0.5 * this.mapper.lowFramerate;
-			if (this.jumpspeed > 24) {
-				this.jumpspeed = 24; // megaman's terminal velocity
-			}
-		} else if (this.jumping && !actions.collisionResults.downmove) {
-			if (!this.goingLeft && !this.goingRight) {
-				this.animations.gotoAndPlay("stand");
-			} else {
-				this.animations.gotoAndPlay("run");
-			}
-			this.jumping = false;
-			this.falling = false;
-
-			// correcting floor position after a jump/fall:
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
-			ignoreLeftRightCollisionThisFrame = true;
-		} else if (this.jumping && !actions.collisionResults.upmove) {
-			this.jumpspeed = 1; // megaman's jumpspeed set to 1 when he bonks his head
-			this.y += this.jumpspeed * this.mapper.lowFramerate;
-		}
 
 		if (this.goingRight || this.goingLeft) {
 			if (this.goingRight && (actions.collisionResults.rightmove || ignoreLeftRightCollisionThisFrame)) {
@@ -493,7 +498,7 @@ function Player(mapper) {
 		}.bind(this));
 	};
 
-	var Shot = function(stage, player) {
+	var Shot = function(stage, player, mapper) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": ["images/shot.png"],
 			"frames": {
@@ -507,6 +512,7 @@ function Player(mapper) {
 			}
 		});
 
+		this.mapper     = mapper;
 		this.stage      = stage;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.x          = player.animations.x + ((player.animations.scaleX === 1) ? 52 : -6);
@@ -517,6 +523,7 @@ function Player(mapper) {
 		this.direction  = player.animations.scaleX;
 		this.player     = player;
 		this.yspeed     = 0;
+		this.bounced    = false;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
@@ -526,8 +533,8 @@ function Player(mapper) {
 				return;
 			}
 
-			this.x = this.x + (7 * this.direction);
-			this.y -= this.yspeed;
+			this.x = this.x + (7 * this.direction) * this.mapper.lowFramerate;
+			this.y -= this.yspeed * this.mapper.lowFramerate;
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 
@@ -542,7 +549,8 @@ function Player(mapper) {
 
 				var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 				if (intersection) {
-					if (enemy.hardshell) {
+					if (enemy.hardshell && !this.bounced) {
+						this.bounced = true;
 						this.yspeed = 7;
 						this.direction = this.direction * -1;
 						return;

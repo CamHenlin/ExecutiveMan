@@ -13,6 +13,13 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "explosion", src: "images/explosion.png"},
 						{id: "enemyshot", src: "images/enemyshot.png"}]);
 
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 function handleComplete() {
 	/*backgroundImage = preload.getResult("background");
 	treesImage = preload.getResult("trees");
@@ -151,7 +158,12 @@ function beginGame() {
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
-	createjs.Ticker.setFPS(60); // NORMALLY 60
+	if (getParameterByName('lowfps')) {
+		createjs.Ticker.setFPS(30); // NORMALLY 60
+		mapper.lowFramerate = 2;
+	} else {
+		createjs.Ticker.setFPS(60); // NORMALLY 60
+	}
 }
 
 function initTitleScreen() {
