@@ -38,7 +38,7 @@ function Flood(stage, player, basicCollision, x, y, mapper, original) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
-	this.tickActions = function(actions) {
+	this.tickActions = function() {
 		if (this.spent) {
 			return;
 		}

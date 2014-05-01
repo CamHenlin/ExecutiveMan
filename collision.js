@@ -1,5 +1,6 @@
 function TileCollisionDetector() {
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
+
 		var moves = { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false };
 		var tilesize = 32; // this is used as width and height!
 
@@ -124,7 +125,7 @@ function TileCollisionDetector() {
 				moves.upmove = false;
 			}
 		} catch (error) {
-			var moves = { leftmove : false, downmove : false, rightmove : false, upmove : false, nextmap : true };
+			moves = { leftmove : false, downmove : false, rightmove : false, upmove : false, nextmap : true };
 		}
 
 		return moves;

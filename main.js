@@ -46,10 +46,8 @@ var fpsLabel;
 var logFPS = true;
 var buttonSpriteSheet;
 var odd = false;
-var skipFrames = false;
 var lowFramerate = 1; // 2 for 30FPS!
 var skipFrames = 1;
-var player;
 
 
 var explosionSprite;
@@ -170,7 +168,6 @@ function beginGame() {
 	}
 
 	if (getParameterByName('skipframes')) {
-		skipFrames = true;
 		skipFrames = 2;
 	}
 }
@@ -251,7 +248,7 @@ function handleTick(event) {
 		return;
 	} else if (mapper.transitiondown) {
 
-		mapper.tickActions(actions);
+		mapper.tickActions({});
 		gamestage.update();
 		return;
 	}
@@ -319,10 +316,10 @@ function handleTick(event) {
 		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " / " + Math.round(createjs.Ticker.getFPS());
 	}
 
-	if (odd && skipFrames) {
+	if (odd && skipFrames === 2) {
 		gamestage.update();
 		odd = false;
-	} else if (!skipFrames) {
+	} else if (skipFrames === 1) {
 		gamestage.update();
 	} else {
 		odd = true;

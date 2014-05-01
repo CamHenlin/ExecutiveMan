@@ -6,7 +6,7 @@ var HealthBar = function(stage, player) {
 	this.y          = 18; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
 
-	this.tickActions = function(actions) {
+	this.tickActions = function() {
 		if (this.bars !== player.health) {
 			this.bars = player.health;
 			this.draw();

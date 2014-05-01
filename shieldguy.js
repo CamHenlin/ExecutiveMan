@@ -140,7 +140,7 @@ function ShieldGuy(stage, player, basicCollision, x, y, mapper) {
 		this.animations.x = this.x - mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
-		this.tickActions = function(actions) {
+		this.tickActions = function() {
 			this.x = this.x + (3 * this.direction) * lowFramerate;
 			this.animations.x = this.x - mapper.completedMapsWidthOffset;
 			this.animations.y = this.y;
@@ -156,11 +156,7 @@ function ShieldGuy(stage, player, basicCollision, x, y, mapper) {
 		};
 
 		this.checkBounds = function() {
-			if (this.x < 0 || this.x > player.x + 2000) {
-				return false;
-			}
-
-			return true;
+			return !(this.x < 0 || this.x > player.x + 2000);
 		};
 	};
 }

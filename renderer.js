@@ -262,28 +262,20 @@ function Mapper(gamestage, loader) {
 	this.collisionArray = [[],[]];
 	this.container = new createjs.Container();
     this.lastContainer = new createjs.Container();
-    this.nextContainer = new createjs.Container();
     this.enemyContainer = new createjs.Container();
 	this.container.x = 0;
 	this.container.y = 0;
 	this.advancing = false;
     this.mapcounter = 0;
     this.stitchingoffset = 0;
-    this.advanceAmount = null;
-    this.reverseAmount = null;
-	this.advancecount = 0;
 	this.reversing = false;
-	this.reversecount = 0;
 	this.transitiondown = false;
 	this.transitioncount = 0;
     this.heightIndex = 1;
-    this.lastHeightOffset = 0;
     this.enemies = [];
     this.basicCollision = null;
     this.deathCollisionArray = [[],[]];
     this.doneRendering = false;
-    this.allowReverse = true;
-    this.allowAdvance = true;
     this.completedMapsWidthOffset = 0;
     this.loader = loader;
 
@@ -308,10 +300,6 @@ function Mapper(gamestage, loader) {
         container.cache(0, 0, this.getMapWidth(), this.gamestage.canvas.height); //this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height);
     };
 
-    this.endCaching = function() {
-        this.container.uncache();
-    };
-
 	this.advance = function(amount) {
         this.container.x += amount;
         this.enemyContainer.x += amount;
@@ -329,7 +317,7 @@ function Mapper(gamestage, loader) {
         player.healthbar.draw();
     };
 
-	this.nextMapDown = function(mapData) {
+	this.nextMapDown = function() {
         var lastOffScreenWidth = this.getOffScreenWidth();
 
         this.heightIndex++;
@@ -345,9 +333,7 @@ function Mapper(gamestage, loader) {
 		this.collisionArray = [[],[]];
         this.deathCollisionArray = [[],[]];
 		this.advancing = false;
-		this.advancecount = 0;
 		this.reversing = false;
-		this.reversecount = 0;
 
         if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
             this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
@@ -396,16 +382,14 @@ function Mapper(gamestage, loader) {
         }
 	};
 
-    this.nextMapRight = function(mapData) {
+    this.nextMapRight = function() {
         this.completedMapsWidthOffset += this.getMapWidth();
         console.log(++this.mapcounter);
         this.mapData = maps[1];
 
         this.collisionArray = [[],[]];
         this.advancing = false;
-        this.advancecount = 0;
         this.reversing = false;
-        this.reversecount = 0;
         this.deathCollisionArray = [[],[]];
 
         if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
@@ -452,8 +436,6 @@ function Mapper(gamestage, loader) {
 	// loading layers
 	this.initLayers = function() {
         player.watchedElements = [player.healthbar];
-        this.allowReverse = true;
-        this.allowAdvance = true;
 		var w = this.mapData.tilesets[0].tilewidth;
 		var h = this.mapData.tilesets[0].tileheight;
 		this.enemies = [];
@@ -470,7 +452,6 @@ function Mapper(gamestage, loader) {
 		// create spritesheet
 		var tilesetSheet = new createjs.SpriteSheet(imageData);
 		// loading each layer at a time
-		var mapData = this.mapData;
 		for (var i = 0; i < this.mapData.layers.length; i++) {
 			var layer = this.mapData.layers[i];
             // console.log(layer);
@@ -618,7 +599,7 @@ function Mapper(gamestage, loader) {
         return container;
     };
 
-	this.tickActions = function(actions) {
+	this.tickActions = function() {
         if (this.transitionright) {
             if (this.transitioncount < (30 / lowFramerate)) {
                 this.transitioncount++;
@@ -633,7 +614,7 @@ function Mapper(gamestage, loader) {
                     this.enemyContainer.x = 0;
                 }
 
-                if (player.animations.x < this.widthOffseth) {
+                if (player.animations.x < this.widthOffset) {
                     player.animations.x = this.widthOffset;
                     player.x = this.completedMapsWidthOffset;
                     player.lastx = player.x;
