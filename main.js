@@ -47,6 +47,9 @@ var logFPS = true;
 var buttonSpriteSheet;
 var odd = false;
 var skipFrames = false;
+var lowFramerate = 1; // 2 for 30FPS!
+var skipFrames = 1;
+var player;
 
 
 var explosionSprite;
@@ -103,8 +106,10 @@ function beginGame() {
 
 	watchedElements = [];
 	mapper = new Mapper(gamestage, loader);
+	
+    player = new Player();
 	mapper.initMap();
-	watchedElements.push(mapper.player);
+	watchedElements.push(player);
 
 	tileCollisionDetector = new TileCollisionDetector();
 
@@ -159,12 +164,14 @@ function beginGame() {
 	createjs.Ticker.useRAF = true;
 	if (getParameterByName('lowfps')) {
 		createjs.Ticker.setFPS(30); // NORMALLY 60
+		lowFramerate = 2;
 	} else {
 		createjs.Ticker.setFPS(60); // NORMALLY 60
 	}
 
 	if (getParameterByName('skipframes')) {
 		skipFrames = true;
+		skipFrames = 2;
 	}
 }
 
@@ -260,24 +267,24 @@ function handleTick(event) {
 	var modifier = 8;
 	var xmodifier = 12;
 	var playerCollisionPoints = {
-		leftTop : { x: mapper.player.x + xmodifier, y: mapper.player.y + modifier },
-		leftBottom : { x: mapper.player.x + xmodifier, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight - modifier },
-		bottomLeft : { x: mapper.player.x + xmodifier + 4 , y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight  },
-		bottomRight : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier - 4, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight },
-		rightBottom : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight - modifier },
-		rightTop : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier, y: mapper.player.y + modifier },
-		topRight : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier - 4, y: mapper.player.y + modifier },
-		topLeft : { x: mapper.player.x + xmodifier + 4, y: mapper.player.y + modifier }
+		leftTop : { x: player.x + xmodifier, y: player.y + modifier },
+		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
+		bottomLeft : { x: player.x + xmodifier + 4 , y: player.y + player.animations.spriteSheet._frameHeight  },
+		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + player.animations.spriteSheet._frameHeight },
+		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
+		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + modifier },
+		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + modifier },
+		topLeft : { x: player.x + xmodifier + 4, y: player.y + modifier }
 	};
 	var playerDeathCollisionPoints = {
-		leftTop : { x: mapper.player.x + xmodifier * 2, y: mapper.player.y + modifier * 2 },
-		leftBottom : { x: mapper.player.x + xmodifier * 2, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight - modifier * 2 },
-		bottomLeft : { x: mapper.player.x + xmodifier * 2 + 4 , y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight -5  },
-		bottomRight : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier * 2 - 4, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight -5 },
-		rightBottom : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier * 2, y: mapper.player.y + mapper.player.animations.spriteSheet._frameHeight - modifier * 2 },
-		rightTop : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier * 2, y: mapper.player.y + modifier * 2 },
-		topRight : { x: mapper.player.x + mapper.player.animations.spriteSheet._frameWidth - xmodifier * 2 - 4, y: mapper.player.y + modifier * 2 },
-		topLeft : { x: mapper.player.x + xmodifier * 2 + 4, y: mapper.player.y + modifier * 2 }
+		leftTop : { x: player.x + xmodifier * 2, y: player.y + modifier * 2 },
+		leftBottom : { x: player.x + xmodifier * 2, y: player.y + player.animations.spriteSheet._frameHeight - modifier * 2 },
+		bottomLeft : { x: player.x + xmodifier * 2 + 4 , y: player.y + player.animations.spriteSheet._frameHeight -5  },
+		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier * 2 - 4, y: player.y + player.animations.spriteSheet._frameHeight -5 },
+		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier * 2, y: player.y + player.animations.spriteSheet._frameHeight - modifier * 2 },
+		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier * 2, y: player.y + modifier * 2 },
+		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier * 2 - 4, y: player.y + modifier * 2 },
+		topLeft : { x: player.x + xmodifier * 2 + 4, y: player.y + modifier * 2 }
 	};
 
 	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.getCurrentHeightOffset(), (mapper.widthOffset + mapper.completedMapsWidthOffset));
@@ -298,7 +305,7 @@ function handleTick(event) {
 	}
 
 	//  { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false }
-	if (((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || mapper.player.health <= 0) {
+	if (((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || player.health <= 0) {
 		actions.playerDeath = true;
 		setTimeout(function() {
 			init();

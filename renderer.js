@@ -279,7 +279,6 @@ function Mapper(gamestage, loader) {
     this.heightIndex = 1;
     this.lastHeightOffset = 0;
     this.enemies = [];
-    this.player = null;
     this.basicCollision = null;
     this.deathCollisionArray = [[],[]];
     this.doneRendering = false;
@@ -287,18 +286,6 @@ function Mapper(gamestage, loader) {
     this.allowAdvance = true;
     this.completedMapsWidthOffset = 0;
     this.loader = loader;
-    this.lowFramerate = 1; // 2 for 30FPS!
-    this.skipFrames = 1;
-
-    if (getParameterByName('lowfps')) {
-        this.lowFramerate = 2;
-    } else {
-        createjs.Ticker.setFPS(60); // NORMALLY 60
-    }
-
-    if (getParameterByName('skipframes')) {
-        this.skipFrames = 2;
-    }
 
 	// figure out offsets:
 	this.heightOffset = this.gamestage.canvas.height - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
@@ -313,8 +300,6 @@ function Mapper(gamestage, loader) {
 	} else {
 		this.widthOffset = 0;
 	}
-
-    this.player = new Player(this);
 
 	// getting imagefile from first tileset
 	this.tileset.src = this.mapData.tilesets[0].image;
@@ -341,7 +326,7 @@ function Mapper(gamestage, loader) {
         this.gamestage.addChild(this.container);
 
         this.gamestage.addChild(this.enemyContainer);
-        this.player.healthbar.draw();
+        player.healthbar.draw();
     };
 
 	this.nextMapDown = function(mapData) {
@@ -399,11 +384,11 @@ function Mapper(gamestage, loader) {
         this.transitiondown = true;
         this.gamestage.addChild(this.container);
         this.gamestage.addChild(this.lastContainer);
-        this.gamestage.removeChild(this.player.animations);
-        this.gamestage.addChild(this.player.animations);
+        this.gamestage.removeChild(player.animations);
+        this.gamestage.addChild(player.animations);
         this.gamestage.removeChild(this.enemyContainer);
         this.gamestage.addChild(this.enemyContainer);
-        this.player.healthbar.draw();
+        player.healthbar.draw();
         gamestage.addChild(fpsLabel);
 
         if (mobile) {
@@ -452,11 +437,11 @@ function Mapper(gamestage, loader) {
         this.transitionright = true;
         this.gamestage.addChild(this.container);
         this.gamestage.addChild(this.lastContainer);
-        this.gamestage.removeChild(this.player.animations);
-        this.gamestage.addChild(this.player.animations);
+        this.gamestage.removeChild(player.animations);
+        this.gamestage.addChild(player.animations);
         this.gamestage.removeChild(this.enemyContainer);
         this.gamestage.addChild(this.enemyContainer);
-        this.player.healthbar.draw();
+        player.healthbar.draw();
         gamestage.addChild(fpsLabel);
 
         if (mobile) {
@@ -466,7 +451,7 @@ function Mapper(gamestage, loader) {
 
 	// loading layers
 	this.initLayers = function() {
-        this.player.watchedElements = [this.player.healthbar];
+        player.watchedElements = [player.healthbar];
         this.allowReverse = true;
         this.allowAdvance = true;
 		var w = this.mapData.tilesets[0].tilewidth;
@@ -518,11 +503,11 @@ function Mapper(gamestage, loader) {
 
 				if (layerData.data[idx] !== 0) {
 					if (layerData.data[idx] === 3) {
-                       enemyArray.push(new PrinterGuy(this.enemyContainer, this.player, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, mapper));
+                       enemyArray.push(new PrinterGuy(this.enemyContainer, player, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, mapper));
 					} else if (layerData.data[idx] === 1) {
-						enemyArray.push(new ShieldGuy(this.enemyContainer, this.player, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, mapper));
+						enemyArray.push(new ShieldGuy(this.enemyContainer, player, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, mapper));
 					} else if (layerData.data[idx] === 2) {
-                        enemyArray.push(new Flood(this.enemyContainer, this.player, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, mapper, true));
+                        enemyArray.push(new Flood(this.enemyContainer, player, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, mapper, true));
                     }
 				}
 			}
@@ -635,29 +620,29 @@ function Mapper(gamestage, loader) {
 
 	this.tickActions = function(actions) {
         if (this.transitionright) {
-            if (this.transitioncount < (30 / this.lowFramerate)) {
+            if (this.transitioncount < (30 / lowFramerate)) {
                 this.transitioncount++;
-                this.container.x -= this.gamestage.canvas.width / (30 / this.lowFramerate);
-                this.enemyContainer.x -= this.gamestage.canvas.width / (30 / this.lowFramerate);
-                this.lastContainer.x -= this.gamestage.canvas.width / (30 / this.lowFramerate);
-                this.player.animations.x -= (this.gamestage.canvas.width) / (30 / this.lowFramerate);
-                this.player.x += this.player.animations.spriteSheet._frameWidth / (30 / this.lowFramerate);
+                this.container.x -= this.gamestage.canvas.width / (30 / lowFramerate);
+                this.enemyContainer.x -= this.gamestage.canvas.width / (30 / lowFramerate);
+                this.lastContainer.x -= this.gamestage.canvas.width / (30 / lowFramerate);
+                player.animations.x -= (this.gamestage.canvas.width) / (30 / lowFramerate);
+                player.x += player.animations.spriteSheet._frameWidth / (30 / lowFramerate);
 
                 if (this.container.x < 0) {
                     this.container.x = 0;
                     this.enemyContainer.x = 0;
                 }
 
-                if (this.player.animations.x < this.widthOffseth) {
-                    this.player.animations.x = this.widthOffset;
-                    this.player.x = this.completedMapsWidthOffset;
-                    this.player.lastx = this.player.x;
+                if (player.animations.x < this.widthOffseth) {
+                    player.animations.x = this.widthOffset;
+                    player.x = this.completedMapsWidthOffset;
+                    player.lastx = player.x;
                 }
             } else {
                 this.enemyContainer.x = 0;
-                this.player.animations.x = this.widthOffset;
-                this.player.x = this.completedMapsWidthOffset;
-                this.player.lastx = this.player.x;
+                player.animations.x = this.widthOffset;
+                player.x = this.completedMapsWidthOffset;
+                player.lastx = player.x;
                 this.transitioncount = 0;
                 this.transitionright = false;
                 this.lastContainer.removeAllChildren();
@@ -666,19 +651,19 @@ function Mapper(gamestage, loader) {
         }
 
 		if (this.transitiondown) {
-			if (this.transitioncount < (30 / this.lowFramerate)) {
+			if (this.transitioncount < (30 / lowFramerate)) {
 				this.transitioncount++;
-				this.container.y -= this.gameBottom / (30 / this.lowFramerate);
-                this.enemyContainer.y -= this.gameBottom / (30 / this.lowFramerate);
-                this.lastContainer.y -= this.gameBottom / (30 / this.lowFramerate);
-                this.player.animations.y -= this.gameBottom / (30 / this.lowFramerate);
-                this.player.y -= this.gameBottom / (30 / this.lowFramerate);
+				this.container.y -= this.gameBottom / (30 / lowFramerate);
+                this.enemyContainer.y -= this.gameBottom / (30 / lowFramerate);
+                this.lastContainer.y -= this.gameBottom / (30 / lowFramerate);
+                player.animations.y -= this.gameBottom / (30 / lowFramerate);
+                player.y -= this.gameBottom / (30 / lowFramerate);
 
                 if (this.stitchingoffset !== 0) {
-                    this.lastContainer.x -= this.stitchingoffset / (30 / this.lowFramerate);
-                    this.container.x -= this.stitchingoffset / (30 / this.lowFramerate);
-                    this.enemyContainer.x -= this.stitchingoffset / (30 / this.lowFramerate);
-                    this.player.animations.x -= this.stitchingoffset / (30 / this.lowFramerate);
+                    this.lastContainer.x -= this.stitchingoffset / (30 / lowFramerate);
+                    this.container.x -= this.stitchingoffset / (30 / lowFramerate);
+                    this.enemyContainer.x -= this.stitchingoffset / (30 / lowFramerate);
+                    player.animations.x -= this.stitchingoffset / (30 / lowFramerate);
                 }
 
                 if (this.container.y < 0) {
@@ -686,17 +671,17 @@ function Mapper(gamestage, loader) {
                     this.enemyContainer.y = 0;
                 }
 
-                if (this.player.animations.y < 0) {
-                    this.player.animations.y = 0;
-                    this.player.y = 0;
+                if (player.animations.y < 0) {
+                    player.animations.y = 0;
+                    player.y = 0;
                 }
 			} else {
-                this.player.lastx = this.player.x;
+                player.lastx = player.x;
                 this.stitchingoffset = 0;
                 this.container.x = 0;
                 this.enemyContainer.x = 0;
-                this.player.animations.y = 0;
-                this.player.y = 0;
+                player.animations.y = 0;
+                player.y = 0;
                 this.transitioncount = 0;
                 this.transitiondown = false;
                 this.lastContainer.removeAllChildren();
@@ -718,11 +703,11 @@ function Mapper(gamestage, loader) {
     };
 
     this.getOffScreenWidth = function() {
-        if (this.player.animations.x - this.gamestage.canvas.width / 2 >= 0 && this.player.animations.x - this.gamestage.canvas.width / 2 <= 1) {
-            return this.player.x - this.gamestage.canvas.width / 2;
-        } else if (this.player.animations.x - this.gamestage.canvas.width / 2 < 0) {
+        if (player.animations.x - this.gamestage.canvas.width / 2 >= 0 && player.animations.x - this.gamestage.canvas.width / 2 <= 1) {
+            return player.x - this.gamestage.canvas.width / 2;
+        } else if (player.animations.x - this.gamestage.canvas.width / 2 < 0) {
             return this.completedMapsWidthOffset;
-        } else if (this.player.animations.x - this.gamestage.canvas.width / 2 > 1) {
+        } else if (player.animations.x - this.gamestage.canvas.width / 2 > 1) {
             return this.completedMapsWidthOffset + this.getMapWidth() - this.gamestage.canvas.width;
         }
 

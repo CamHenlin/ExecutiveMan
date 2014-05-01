@@ -1,4 +1,4 @@
-function Player(mapper) {
+function Player() {
 
 	var Shot = function(player, mapper) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
@@ -14,13 +14,11 @@ function Player(mapper) {
 			}
 		});
 
-		this.mapper     = mapper;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.x          = -15;
 		this.y          = -15;
 		this.disabled   = true;
 		this.direction  = 0;
-		this.player     = player;
 		this.yspeed     = 0;
 		this.bounced    = false;
 
@@ -29,8 +27,8 @@ function Player(mapper) {
 				return;
 			}
 
-			this.x = this.x + (7 * this.direction) * this.mapper.lowFramerate;
-			this.y -= this.yspeed * this.mapper.lowFramerate;
+			this.x = this.x + (7 * this.direction) * lowFramerate;
+			this.y -= this.yspeed * lowFramerate;
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 
@@ -38,8 +36,8 @@ function Player(mapper) {
 				this.removeSelf();
 			}
 
-			this.player.mapper.enemies.forEach(function(enemy) {
-				if (enemy.health <= 0 || Math.abs(enemy.x - (this.x + this.mapper.completedMapsWidthOffset)) > 50) {
+			mapper.enemies.forEach(function(enemy) {
+				if (enemy.health <= 0 || Math.abs(enemy.x - (this.x + mapper.completedMapsWidthOffset)) > 50) {
 					return;
 				}
 
@@ -59,31 +57,31 @@ function Player(mapper) {
 		};
 
 		this.fireUp = function() {
-			//console.log(this.player.x - this.mapper.completedMapsWidthOffset);
-			this.x = this.player.x - this.mapper.completedMapsWidthOffset + ((this.player.animations.scaleX === 1) ? 52 : -6);
-			this.y = this.player.y + 27;
+			//console.log(player.x - mapper.completedMapsWidthOffset);
+			this.x = player.x - mapper.completedMapsWidthOffset + ((player.animations.scaleX === 1) ? 52 : -6);
+			this.y = player.y + 27;
 			this.yspeed = 0;
 			this.disabled = false;
 			this.bounced = false;
-			this.direction = this.player.animations.scaleX;
+			this.direction = player.animations.scaleX;
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 			this.animations.play();
-			this.mapper.enemyContainer.addChild(this.animations);
+			mapper.enemyContainer.addChild(this.animations);
 		};
 
 		this.removeSelf = function() {
 			//console.log("removing");
-			this.mapper.enemyContainer.removeChild(this.animations);
+			mapper.enemyContainer.removeChild(this.animations);
 			this.disabled = true;
 		};
 
 		this.checkBounds = function() {
-			if (this.y < 0 || Math.abs(this.y - this.player.y) > this.mapper.gamestage.canvas.height) {
+			if (this.y < 0 || Math.abs(this.y - player.y) > mapper.gamestage.canvas.height) {
 				return false;
 			}
 
-			if (this.x < 0 || Math.abs(this.x - (this.player.x - this.mapper.completedMapsWidthOffset)) > this.mapper.gamestage.canvas.width) {
+			if (this.x < 0 || Math.abs(this.x - (player.x - mapper.completedMapsWidthOffset)) > mapper.gamestage.canvas.width) {
 				return false;
 			}
 
@@ -100,17 +98,17 @@ function Player(mapper) {
 			"stand": {
 				"frames" : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				"next" : "stand",
-				"speed" : (0.125 * mapper.lowFramerate) * mapper.skipFrames
+				"speed" : (0.15 * lowFramerate) * skipFrames
 			},
 			"startrun" : {
 				"frames" : [2],
 				"next" : "run",
-				"speed" : (0.125 * mapper.lowFramerate) * mapper.skipFrames
+				"speed" : (0.15 * lowFramerate) * skipFrames
 			},
 			"run": {
 				"frames" : [3, 4, 5],
 				"next" : "run",
-				"speed" : (0.15 * mapper.lowFramerate) * mapper.skipFrames
+				"speed" : (0.25 * lowFramerate) * skipFrames
 			},
 			"jump": {
 				"frames" : [10],
@@ -123,12 +121,12 @@ function Player(mapper) {
 			"runshoot": {
 				"frames" : [7, 8, 9],
 				"next" : "runshoot",
-				"speed" : (0.15 * mapper.lowFramerate) * mapper.skipFrames
+				"speed" : (0.25 * lowFramerate) * skipFrames
 			},
 			"damage": {
 				"frames" : [16],
 				"next" : "damage",
-				"speed" : (5 * mapper.lowFramerate) * mapper.skipFrames
+				"speed" : (5 * lowFramerate) * skipFrames
 			},
 			"jumpshoot": {
 				"frames" : [11],
@@ -137,7 +135,6 @@ function Player(mapper) {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage              = mapper.gamestage;
 	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
 	this.x                  = 96;
 	this.animations.x       = this.x;
@@ -155,7 +152,6 @@ function Player(mapper) {
 	this.watchedElements    = [];
 	this.health             = 28;
 	this.actions            = {};
-	this.mapper             = mapper;
 	this.gamestage			= mapper.gamestage;
 	this.pageflips          = 0;
 	this.ignoreDamage		= false;
@@ -330,7 +326,7 @@ function Player(mapper) {
 	this.animations.play();
 	this.ignoreInput = true;
 	setTimeout(function() {
-		this.stage.addChild(this.animations);
+		this.gamestage.addChild(this.animations);
 		this.ignoreInput = false;
 	}.bind(this), 1000);
 
@@ -340,16 +336,16 @@ function Player(mapper) {
 	this.tickActions = function(actions) {
 		if (this.ignoreInput) {
 			if (this.ignoreDamage) {
-				this.x += 1 * -this.animations.scaleX * this.mapper.lowFramerate;
+				this.x += 1 * -this.animations.scaleX * lowFramerate;
 				// prevent us from moving left after a screen transition
 				if (this.animations.x < 0 && this.goingLeft) {
 					this.x = this.lastx;
 				}
 
-				if ((this.x - this.mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
-					(this.mapper.getMapWidth() + this.mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
+				if ((this.x - mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
+					(mapper.getMapWidth() + mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
 
-					this.mapper.advance(this.lastx - this.x);
+					mapper.advance(this.lastx - this.x);
 				} else {
 					this.animations.x += this.x - this.lastx;
 				}
@@ -409,10 +405,10 @@ function Player(mapper) {
 
 		var ignoreLeftRightCollisionThisFrame = false;
 		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
-			this.y += this.jumpspeed * this.mapper.lowFramerate;
-			this.jumpspeed = this.jumpspeed + 0.5 * this.mapper.lowFramerate;
-			if (this.jumpspeed > 24 / this.mapper.lowFramerate) {
-				this.jumpspeed = 24 / this.mapper.lowFramerate; // megaman's terminal velocity
+			this.y += this.jumpspeed * lowFramerate;
+			this.jumpspeed = this.jumpspeed + 0.5 * lowFramerate;
+			if (this.jumpspeed > 24 / lowFramerate) {
+				this.jumpspeed = 24 / lowFramerate; // megaman's terminal velocity
 			}
 		} else if (this.jumping && !actions.collisionResults.downmove && !actions.collisionResults.nextmap) {
 			if (!this.goingLeft && !this.goingRight) {
@@ -426,13 +422,13 @@ function Player(mapper) {
 
 			// correcting floor position after a jump/fall:
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
-			if (this.y + this.animations.spriteSheet._frameHeight > this.mapper.gamestage.canvas.height) {
+			if (this.y + this.animations.spriteSheet._frameHeight > mapper.gamestage.canvas.height) {
 				this.y -= 32;
 			}
 			ignoreLeftRightCollisionThisFrame = true;
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 1; // megaman's jumpspeed set to 1 when he bonks his head
-			this.y += this.jumpspeed * this.mapper.lowFramerate;
+			this.y += this.jumpspeed * lowFramerate;
 		}
 
 		if (this.actions.playerLeft && (actions.collisionResults.leftmove || ignoreLeftRightCollisionThisFrame)) {
@@ -442,7 +438,7 @@ function Player(mapper) {
 			this.animations.regX = 60;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
-				this.movementTicks = 9 / this.mapper.lowFramerate;
+				this.movementTicks = 9 / lowFramerate;
 			}
 		} else if (this.actions.playerRight && (actions.collisionResults.rightmove || ignoreLeftRightCollisionThisFrame)) {
 			this.goingRight = true;
@@ -451,19 +447,19 @@ function Player(mapper) {
 			this.animations.regX = 0;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
-				this.movementTicks = 9 / this.mapper.lowFramerate;
+				this.movementTicks = 9 / lowFramerate;
 			}
 		} else {
 			this.goingRight = false;
 			this.goingLeft = false;
 			if (this.animations.currentAnimation !== "stand" && this.animations.currentAnimation !== "standshoot" && !this.jumping) {
 				this.animations.gotoAndPlay("stand");
-				this.movementTicks = 9 / this.mapper.lowFramerate;
+				this.movementTicks = 9 / lowFramerate;
 			}
 		}
 
 		if (this.actions.playerAttack && this.shootTicks <= 0) {
-			//this.watchedElements.push(new Shot(this.stage, this, this.mapper));
+			//this.watchedElements.push(new Shot(this.stage, this, mapper));
 			var shot = this.shots[this.shotIndex++ % 27];
 			if (shot.disabled) {
 				shot.fireUp();
@@ -471,7 +467,7 @@ function Player(mapper) {
 
 			//var sound = createjs.Sound.play("shoot");
 			//sound.volume = 0.05;
-			this.shootTicks = 15 / this.mapper.lowFramerate; // not correct
+			this.shootTicks = 15 / lowFramerate; // not correct
 
 			if (this.animations.currentAnimation === "jump") {
 				this.animations.gotoAndPlay("jumpshoot");
@@ -486,30 +482,30 @@ function Player(mapper) {
 		if (this.goingRight || this.goingLeft) {
 			if (this.goingRight && (actions.collisionResults.rightmove || ignoreLeftRightCollisionThisFrame)) {
 				if (this.jumping) {
-					this.x += 2.65 * this.mapper.lowFramerate; // megaman moved slower while jumping...
+					this.x += 2.65 * lowFramerate; // megaman moved slower while jumping...
 				} else {
 					if (this.movementTicks > 0) {
-						this.x += 0.4 * this.mapper.lowFramerate; // megaman moved slower as he began moving
+						this.x += 0.4 * lowFramerate; // megaman moved slower as he began moving
 						this.movementTicks--;
 					} else {
-						this.x += 2.75 * this.mapper.lowFramerate;
+						this.x += 2.75 * lowFramerate;
 					}
 				}
 			} else if (this.goingLeft && (actions.collisionResults.leftmove || ignoreLeftRightCollisionThisFrame)) {
 				if (this.jumping) {
-					this.x += -2.65 * this.mapper.lowFramerate; // megaman moved slower while jumping...
+					this.x += -2.65 * lowFramerate; // megaman moved slower while jumping...
 				} else {
 					if (this.movementTicks > 0) {
-						this.x += -0.4 * this.mapper.lowFramerate; // megaman moved slower as he began moving
+						this.x += -0.4 * lowFramerate; // megaman moved slower as he began moving
 						this.movementTicks--;
 					} else {
-						this.x += -2.75 * this.mapper.lowFramerate;
+						this.x += -2.75 * lowFramerate;
 					}
 				}
 			}
 		} else if (this.movementTicks > 0) {
 			if ((actions.collisionResults.rightmove && actions.collisionResults.leftmove) || ignoreLeftRightCollisionThisFrame) {
-				this.x += 0.8 * this.animations.scaleX * this.mapper.lowFramerate;
+				this.x += 0.8 * this.animations.scaleX * lowFramerate;
 				this.movementTicks--;
 			} else {
 				this.movementTicks = 0;
@@ -521,10 +517,10 @@ function Player(mapper) {
 			this.x = this.lastx;
 		}
 
-		if ((this.x - this.mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
-			(this.mapper.getMapWidth() + this.mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
+		if ((this.x - mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
+			(mapper.getMapWidth() + mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
 
-			this.mapper.advance(this.lastx - this.x);
+			mapper.advance(this.lastx - this.x);
 		} else {
 			this.animations.x += this.x - this.lastx;
 		}
@@ -545,8 +541,8 @@ function Player(mapper) {
 		//console.log(this.x);
 		//
 
-		if (this.x + this.animations.spriteSheet._frameWidth > this.mapper.getMapWidth() + this.mapper.completedMapsWidthOffset) {
-			this.mapper.nextMapRight(this.mapper.mapData);
+		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset) {
+			mapper.nextMapRight(mapper.mapData);
 
 			this.ignoreInput = true;
 			setTimeout(function() {
@@ -555,7 +551,7 @@ function Player(mapper) {
 		}
 
 		if (actions.collisionResults.nextmap) {
-			this.mapper.nextMapDown(this.mapper.mapData);
+			mapper.nextMapDown(mapper.mapData);
 			this.ignoreInput = true;
 
 			setTimeout(function() {
@@ -569,7 +565,7 @@ function Player(mapper) {
 	};
 
 	this.checkEnemyCollisions = function() {
-		this.mapper.enemies.forEach(function(enemy) {
+		mapper.enemies.forEach(function(enemy) {
 
 			if (Math.abs(enemy.x - this.x) < 50) {
 				if (enemy.health <= 0) {

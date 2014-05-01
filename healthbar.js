@@ -2,15 +2,13 @@ var HealthBar = function(stage, player) {
 	this.maxheight  = 28 * 4 + 2; // 28 bars taking 4px each vertically
 	this.stage      = stage;
 	this.bars       = 28;
-	this.player     = player;
-
 	this.x          = 18;
 	this.y          = 18; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
 
 	this.tickActions = function(actions) {
-		if (this.bars !== this.player.health) {
-			this.bars = this.player.health;
+		if (this.bars !== player.health) {
+			this.bars = player.health;
 			this.draw();
 		}
 	};

@@ -16,15 +16,13 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			"move": {
 				"frames" : [2, 3],
 				"next" : "move",
-				"speed" : (0.15 * mapper.lowFramerate) * mapper.skipFrames
+				"speed" : (0.15 * lowFramerate) * skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.mapper           = mapper;
 	this.basicCollision   = basicCollision;
 	this.health           = 2;
-	this.player           = player;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
 	this.x                = x;
@@ -60,10 +58,10 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 		}
 
 
-		if (this.player.x < this.x && this.animations.scaleX !== 1 && !this.activated) {
+		if (player.x < this.x && this.animations.scaleX !== 1 && !this.activated) {
 			this.animations.scaleX = 1;
 			this.animations.regX = 0;
-		} else if (this.player.x > this.x && this.animations.scaleX !== -1 && !this.activated) {
+		} else if (player.x > this.x && this.animations.scaleX !== -1 && !this.activated) {
 			this.animations.scaleX = -1;
 			this.animations.regX = this.animations.spriteSheet._frameWidth;
 		}
@@ -89,7 +87,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			this.jumpspeed = 0;
 		}
 
-		var distanceFromPlayer = this.player.x - this.x;
+		var distanceFromPlayer = player.x - this.x;
 		if (Math.abs(distanceFromPlayer) <= 200 && this.animations.currentAnimation !== "move" && !this.lastDirectionChangeFromCollision && !this.activated) {
 			if (distanceFromPlayer > 0) {
 				this.animations.scaleX = -1;
@@ -103,8 +101,8 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 		}
 
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 250) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, this.mapper));
-			this.shootTicks = 300 / this.mapper.lowFramerate;
+			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, mapper));
+			this.shootTicks = 300 / lowFramerate;
 		}
 
 		if (this.activated) {
@@ -125,11 +123,11 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
 		}
 
-		this.animations.x = this.x - this.mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 
-	var Shot = function(stage, x, y, direction, owner, mapper) {
+	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": ["images/enemyshot.png"],
 			"frames": {
@@ -143,7 +141,6 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			}
 		});
 
-		this.mapper    = mapper;
 		this.stage      = stage;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
@@ -154,13 +151,13 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction) * this.mapper.lowFramerate;
-		this.animations.x = this.x - this.mapper.completedMapsWidthOffset;
+		this.x = this.x + (3 * this.direction) * lowFramerate;
+		this.animations.x = this.x - mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function(actions) {
-			this.x = this.x + (3 * this.direction) * this.mapper.lowFramerate;
-			this.animations.x = this.x - this.mapper.completedMapsWidthOffset;
+			this.x = this.x + (3 * this.direction) * lowFramerate;
+			this.animations.x = this.x - mapper.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			if (!this.checkBounds()) {
@@ -174,7 +171,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 		};
 
 		this.checkBounds = function() {
-			if (this.x < 0 || this.x > this.owner.player.x + 2000) {
+			if (this.x < 0 || this.x > player.x + 2000) {
 				return false;
 			}
 
