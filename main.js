@@ -144,10 +144,7 @@ function beginGame() {
 		leftButtonSprite.y = gamestage.canvas.height - 128;
 		rightButtonSprite.y = gamestage.canvas.height - 128;
 		shootButtonSprite.y = gamestage.canvas.height - 128;
-
-		gamestage.addChild(leftButtonSprite);
-		gamestage.addChild(rightButtonSprite);
-		gamestage.addChild(shootButtonSprite);
+		initTouchControls();
 	}
 
 	if (logFPS) {
@@ -169,6 +166,15 @@ function beginGame() {
 	if (getParameterByName('skipframes')) {
 		skipFrames = true;
 	}
+}
+
+function initTouchControls() {
+	gamestage.removeChild(leftButtonSprite);
+	gamestage.removeChild(rightButtonSprite);
+	gamestage.removeChild(shootButtonSprite);
+	gamestage.addChild(leftButtonSprite);
+	gamestage.addChild(rightButtonSprite);
+	gamestage.addChild(shootButtonSprite);
 }
 
 function initTitleScreen() {
