@@ -1,5 +1,96 @@
 function Player(mapper) {
 
+	var Shot = function(player, mapper) {
+		var shotSpriteSheet = new createjs.SpriteSheet({
+			"images": ["images/shot.png"],
+			"frames": {
+				"width": 16, "height": 16, "count": 1
+			},
+			"animations": {
+				"shot": {
+					"frames" : [0],
+					"next" : "shot"
+				}
+			}
+		});
+
+		this.mapper     = mapper;
+		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
+		this.x          = -15;
+		this.y          = -15;
+		this.disabled   = true;
+		this.direction  = 0;
+		this.player     = player;
+		this.yspeed     = 0;
+		this.bounced    = false;
+
+		this.tickActions = function(actions) {
+			if (this.disabled) {
+				return;
+			}
+
+			this.x = this.x + (7 * this.direction) * this.mapper.lowFramerate;
+			this.y -= this.yspeed * this.mapper.lowFramerate;
+			this.animations.x = this.x;
+			this.animations.y = this.y;
+
+			if (!this.checkBounds()) {
+				this.removeSelf();
+			}
+
+			this.player.mapper.enemies.forEach(function(enemy) {
+				if (enemy.health <= 0 || Math.abs(enemy.x - (this.x + this.mapper.completedMapsWidthOffset)) > 50) {
+					return;
+				}
+
+				var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
+				if (intersection) {
+					if (enemy.hardshell) {
+						this.yspeed = 7;
+						this.direction = this.direction * (this.bounced) ? 0 : -1;
+						this.bounced = true;
+						return;
+					}
+
+					enemy.health--;
+					this.removeSelf();
+				}
+			}.bind(this));
+		};
+
+		this.fireUp = function() {
+			//console.log(this.player.x - this.mapper.completedMapsWidthOffset);
+			this.x = this.player.x - this.mapper.completedMapsWidthOffset + ((this.player.animations.scaleX === 1) ? 52 : -6);
+			this.y = this.player.y + 27;
+			this.yspeed = 0;
+			this.disabled = false;
+			this.bounced = false;
+			this.direction = this.player.animations.scaleX;
+			this.animations.x = this.x;
+			this.animations.y = this.y;
+			this.animations.play();
+			this.mapper.enemyContainer.addChild(this.animations);
+		};
+
+		this.removeSelf = function() {
+			//console.log("removing");
+			this.mapper.enemyContainer.removeChild(this.animations);
+			this.disabled = true;
+		};
+
+		this.checkBounds = function() {
+			if (this.y < 0 || Math.abs(this.y - this.player.y) > this.mapper.gamestage.canvas.height) {
+				return false;
+			}
+
+			if (this.x < 0 || Math.abs(this.x - (this.player.x - this.mapper.completedMapsWidthOffset)) > this.mapper.gamestage.canvas.width) {
+				return false;
+			}
+
+			return true;
+		};
+	};
+
 	var playerSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
 		"frames": {
@@ -9,17 +100,17 @@ function Player(mapper) {
 			"stand": {
 				"frames" : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				"next" : "stand",
-				"speed" : 0.125 * mapper.lowFramerate
+				"speed" : (0.125 * mapper.lowFramerate) * mapper.skipFrames
 			},
 			"startrun" : {
 				"frames" : [2],
 				"next" : "run",
-				"speed" : 0.125 * mapper.lowFramerate
+				"speed" : (0.125 * mapper.lowFramerate) * mapper.skipFrames
 			},
 			"run": {
 				"frames" : [3, 4, 5],
 				"next" : "run",
-				"speed" : 0.15 * mapper.lowFramerate
+				"speed" : (0.15 * mapper.lowFramerate) * mapper.skipFrames
 			},
 			"jump": {
 				"frames" : [10],
@@ -32,12 +123,12 @@ function Player(mapper) {
 			"runshoot": {
 				"frames" : [7, 8, 9],
 				"next" : "runshoot",
-				"speed" : 0.15 * mapper.lowFramerate
+				"speed" : (0.15 * mapper.lowFramerate) * mapper.skipFrames
 			},
 			"damage": {
 				"frames" : [16],
 				"next" : "damage",
-				"speed" : 5 * mapper.lowFramerate
+				"speed" : (5 * mapper.lowFramerate) * mapper.skipFrames
 			},
 			"jumpshoot": {
 				"frames" : [11],
@@ -70,6 +161,18 @@ function Player(mapper) {
 	this.ignoreDamage		= false;
 	this.ignoreInput        = false;
 	this.healthbar          = new HealthBar(gamestage, this);
+	this.shotIndex          = 0;
+
+	this.shots = [new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
+
 	//createjs.Sound.registerSound("sounds/jump.wav", "jump");
 	//createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
 	setTimeout(function() {
@@ -238,9 +341,25 @@ function Player(mapper) {
 		if (this.ignoreInput) {
 			if (this.ignoreDamage) {
 				this.x += 1 * -this.animations.scaleX * this.mapper.lowFramerate;
+				// prevent us from moving left after a screen transition
+				if (this.animations.x < 0 && this.goingLeft) {
+					this.x = this.lastx;
+				}
 
+				if ((this.x - this.mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
+					(this.mapper.getMapWidth() + this.mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
+
+					this.mapper.advance(this.lastx - this.x);
+				} else {
+					this.animations.x += this.x - this.lastx;
+				}
+				this.lastx = this.x;
+				this.animations.y = this.y;
 				this.watchedElements.forEach(function(element) {
 					element.tickActions(actions);
+				}.bind(this));
+				this.shots.forEach(function(shot) {
+					shot.tickActions(actions);
 				}.bind(this));
 			}
 			return;
@@ -344,7 +463,11 @@ function Player(mapper) {
 		}
 
 		if (this.actions.playerAttack && this.shootTicks <= 0) {
-			this.watchedElements.push(new Shot(this.stage, this, this.mapper));
+			//this.watchedElements.push(new Shot(this.stage, this, this.mapper));
+			var shot = this.shots[this.shotIndex++ % 27];
+			if (shot.disabled) {
+				shot.fireUp();
+			}
 
 			//var sound = createjs.Sound.play("shoot");
 			//sound.volume = 0.05;
@@ -412,6 +535,10 @@ function Player(mapper) {
 			element.tickActions(actions);
 		}.bind(this));
 
+		this.shots.forEach(function(shot) {
+			shot.tickActions(actions);
+		}.bind(this));
+
 		if (this.actions.playerDebug) {
 			//console.log(this);
 		}
@@ -424,7 +551,7 @@ function Player(mapper) {
 			this.ignoreInput = true;
 			setTimeout(function() {
 				this.ignoreInput = false;
-			}.bind(this), 500);
+			}.bind(this), 300);
 		}
 
 		if (actions.collisionResults.nextmap) {
@@ -437,40 +564,42 @@ function Player(mapper) {
 		}
 
 		if (!this.ignoreDamage) {
-		//	this.checkEnemyCollisions();
+			this.checkEnemyCollisions();
 		}
 	};
 
 	this.checkEnemyCollisions = function() {
 		this.mapper.enemies.forEach(function(enemy) {
 
-
-			var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
-			if (intersection) {
+			if (Math.abs(enemy.x - this.x) < 50) {
 				if (enemy.health <= 0) {
 					return;
 				}
-				this.health -= 2; // should come from enemy
-				this.animations.gotoAndPlay("damage");
-				this.ignoreInput = true;
-				this.ignoreDamage = true;
 
-				this.x += 1 * -this.animations.scaleX;
-				setTimeout(function() {
-					this.ignoreDamage = false;
-				}.bind(this), 1000);
-				setTimeout(function() {
-					this.ignoreInput = false;
-				}.bind(this), 250);
+				var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
+				if (intersection) {
+					this.health -= 2; // should come from enemy
+					this.animations.gotoAndPlay("damage");
+					this.ignoreInput = true;
+					this.ignoreDamage = true;
 
-				if (this.jumpspeed < 4 && this.jumping) {
-					this.jumpspeed = 4;
+					this.x += 1 * -this.animations.scaleX;
+					setTimeout(function() {
+						this.ignoreDamage = false;
+					}.bind(this), 1000);
+					setTimeout(function() {
+						this.ignoreInput = false;
+					}.bind(this), 250);
+
+					if (this.jumpspeed < 4 && this.jumping) {
+						this.jumpspeed = 4;
+					}
 				}
 			}
 
 			// check enemy shot collisions as well
 			enemy.watchedElements.forEach(function(enemyshot) {
-				if (enemyshot.disabled) {
+				if (enemyshot.disabled || Math.abs(enemyshot.x - this.x) > 50) {
 					return;
 				}
 
@@ -488,7 +617,7 @@ function Player(mapper) {
 					}.bind(this), 1000);
 					setTimeout(function() {
 						this.ignoreInput = false;
-					}.bind(this), 250);
+					}.bind(this), 500);
 
 					if (this.jumpspeed < 4 && this.jumping) {
 						this.jumpspeed = 4;
@@ -496,83 +625,5 @@ function Player(mapper) {
 				}
 			}.bind(this));
 		}.bind(this));
-	};
-
-	var Shot = function(stage, player, mapper) {
-		var shotSpriteSheet = new createjs.SpriteSheet({
-			"images": ["images/shot.png"],
-			"frames": {
-				"width": 16, "height": 16, "count": 1
-			},
-			"animations": {
-				"shot": {
-					"frames" : [0],
-					"next" : "shot"
-				}
-			}
-		});
-
-		this.mapper     = mapper;
-		this.stage      = stage;
-		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = player.animations.x + ((player.animations.scaleX === 1) ? 52 : -6);
-		this.y          = player.animations.y + 27;
-		this.done       = false;
-		this.playerX    = player.x;
-		this.disabled   = false;
-		this.direction  = player.animations.scaleX;
-		this.player     = player;
-		this.yspeed     = 0;
-		this.bounced    = false;
-
-		this.animations.play();
-		this.stage.addChild(this.animations);
-
-		this.tickActions = function(actions) {
-			if (this.disabled) {
-				return;
-			}
-
-			this.x = this.x + (7 * this.direction) * this.mapper.lowFramerate;
-			this.y -= this.yspeed * this.mapper.lowFramerate;
-			this.animations.x = this.x;
-			this.animations.y = this.y;
-
-			if (!this.checkBounds()) {
-				this.removeSelf();
-			}
-
-			this.player.mapper.enemies.forEach(function(enemy) {
-				if (enemy.health <= 0) {
-					return;
-				}
-
-				var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
-				if (intersection) {
-					if (enemy.hardshell && !this.bounced) {
-						this.bounced = true;
-						this.yspeed = 7;
-						this.direction = this.direction * -1;
-						return;
-					}
-
-					enemy.health--;
-					this.removeSelf();
-				}
-			}.bind(this));
-		};
-
-		this.removeSelf = function() {
-			this.stage.removeChild(this.animations);
-			this.disabled = true;
-		};
-
-		this.checkBounds = function() {
-			if (this.x < 0 || this.x > this.playerX + 2000) {
-				return false;
-			}
-
-			return true;
-		};
 	};
 }

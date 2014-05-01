@@ -45,6 +45,8 @@ var mobile = true;
 var fpsLabel;
 var logFPS = true;
 var buttonSpriteSheet;
+var odd = false;
+var skipFrames = false;
 
 
 var explosionSprite;
@@ -160,9 +162,12 @@ function beginGame() {
 	createjs.Ticker.useRAF = true;
 	if (getParameterByName('lowfps')) {
 		createjs.Ticker.setFPS(30); // NORMALLY 60
-		mapper.lowFramerate = 2;
 	} else {
 		createjs.Ticker.setFPS(60); // NORMALLY 60
+	}
+
+	if (getParameterByName('skipframes')) {
+		skipFrames = true;
 	}
 }
 
@@ -231,6 +236,11 @@ function handleStartScreenTick(event) {
 function handleTick(event) {
 	if (!mapper.doneRendering) {
 		return;
+	} else if (mapper.transitiondown) {
+
+		mapper.tickActions(actions);
+		gamestage.update();
+		return;
 	}
 
 	var actions = {};
@@ -265,7 +275,7 @@ function handleTick(event) {
 	};
 
 	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.getCurrentHeightOffset(), (mapper.widthOffset + mapper.completedMapsWidthOffset));
-	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerDeathCollisionPoints, mapper.deathCollisionArray, mapper.getCurrentHeightOffset(), mapper.widthOffset);
+	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerDeathCollisionPoints, mapper.deathCollisionArray, mapper.getCurrentHeightOffset(), (mapper.widthOffset + mapper.completedMapsWidthOffset));
 
 
 
@@ -296,5 +306,12 @@ function handleTick(event) {
 		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " / " + Math.round(createjs.Ticker.getFPS());
 	}
 
-	gamestage.update();
+	if (odd && skipFrames) {
+		gamestage.update();
+		odd = false;
+	} else if (!skipFrames) {
+		gamestage.update();
+	} else {
+		odd = true;
+	}
 }

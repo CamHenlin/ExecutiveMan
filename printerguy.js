@@ -16,7 +16,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			"move": {
 				"frames" : [2, 3],
 				"next" : "move",
-				"speed" : 0.15 * mapper.lowFramerate
+				"speed" : (0.15 * mapper.lowFramerate) * mapper.skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -35,6 +35,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 	this.shootTicks       = 0;
 	this.hardshell        = true;
 	this.watchedElements  = [];
+	this.lastDirectionChangeFromCollision = false;
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
@@ -79,6 +80,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 				this.jumpspeed = 24;
 			}
 
+			this.x += (this.animations.scaleX !== 1 ) ? 1 : -1;
 			this.y += this.jumpspeed;
 		}
 
@@ -88,7 +90,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 		}
 
 		var distanceFromPlayer = this.player.x - this.x;
-		if (Math.abs(distanceFromPlayer) <= 200 && this.animations.currentAnimation !== "move") {
+		if (Math.abs(distanceFromPlayer) <= 200 && this.animations.currentAnimation !== "move" && !this.lastDirectionChangeFromCollision && !this.activated) {
 			if (distanceFromPlayer > 0) {
 				this.animations.scaleX = -1;
 				this.animations.regX = this.animations.spriteSheet._frameWidth;
