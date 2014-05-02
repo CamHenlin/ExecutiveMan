@@ -556,8 +556,8 @@ function Player() {
 		mapper.enemies.forEach(function(enemy) {
 
 			if (enemy.health > 0) {
-				//var intersection = fastCollisionPlayer(this.animations, enemy);v
-				var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
+				var intersection = fastCollisionPlayer(this, enemy);
+				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 				if (intersection) {
 					this.health -= 2; // should come from enemy
 					this.animations.gotoAndPlay("damage");
@@ -584,8 +584,8 @@ function Player() {
 					return;
 				}
 
-				//var intersection = fastCollisionPlayer(this.animations, enemyshot);
-				var intersection = ndgmrX.checkRectCollision(this.animations, enemyshot.animations);
+				var intersection = fastCollisionPlayer(this, enemyshot);
+				//var intersection = ndgmrX.checkRectCollision(this.animations, enemyshot.animations);
 				if (intersection) {
 					enemyshot.removeSelf();
 					this.health -= 4; // should actually come from the enemy

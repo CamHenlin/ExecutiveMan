@@ -22,14 +22,13 @@ function fastCollisionX(object1, object2) {
     );
 }
 
-function fastCollisionPlayer(obj1, object2) {
-    var obj2 = object2.animations;
+function fastCollisionPlayer(obj1, obj2) {
 
     return !(
-            obj1.y + obj1.spriteSheet._frameHeight < obj2.y ||
-            obj1.y > obj2.y + obj2.spriteSheet._frameHeight ||
-            obj1.x > obj2.x + obj2.spriteSheet._frameWidth  ||
-            obj1.x + obj1.spriteSheet._frameWidth < obj2.x
+            obj1.y + obj1.animations.spriteSheet._frameHeight - 10 < obj2.y ||
+            obj1.y + 20 > obj2.y + obj2.animations.spriteSheet._frameHeight ||
+            obj1.x + 20 > obj2.x + obj2.animations.spriteSheet._frameWidth  ||
+            obj1.x + obj1.animations.spriteSheet._frameWidth - 20 < obj2.x
     );
 }
 
