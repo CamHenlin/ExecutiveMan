@@ -316,11 +316,11 @@ function handleTick(event) {
 		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " / " + Math.round(createjs.Ticker.getFPS());
 	}
 
-	if (odd && skipFrames === 2) {
+	if (skipFrames === 1) {
+		gamestage.update();
+	} else if (odd && skipFrames === 2) {
 		gamestage.update();
 		odd = false;
-	} else if (skipFrames === 1) {
-		gamestage.update();
 	} else {
 		odd = true;
 	}

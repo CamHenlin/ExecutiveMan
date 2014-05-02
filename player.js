@@ -94,17 +94,17 @@ function Player() {
 			"stand": {
 				"frames" : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				"next" : "stand",
-				"speed" : (0.15 * lowFramerate) * skipFrames
+				"speed" : (0.175 * lowFramerate) * skipFrames
 			},
 			"startrun" : {
 				"frames" : [2],
 				"next" : "run",
-				"speed" : (0.15 * lowFramerate) * skipFrames
+				"speed" : (0.175 * lowFramerate) * skipFrames
 			},
 			"run": {
 				"frames" : [3, 4, 5],
 				"next" : "run",
-				"speed" : (0.25 * lowFramerate) * skipFrames
+				"speed" : (0.2 * lowFramerate) * skipFrames
 			},
 			"jump": {
 				"frames" : [10],
@@ -117,7 +117,7 @@ function Player() {
 			"runshoot": {
 				"frames" : [7, 8, 9],
 				"next" : "runshoot",
-				"speed" : (0.25 * lowFramerate) * skipFrames
+				"speed" : (0.2 * lowFramerate) * skipFrames
 			},
 			"damage": {
 				"frames" : [16],
@@ -263,15 +263,15 @@ function Player() {
                 var touch = event.touches[i];
                 touchSprite.x = touch.pageX;
                 touchSprite.y = touch.pageY;
-                if (ndgmr.checkRectCollision(leftButtonSprite, touchSprite)) {
+                if (fastCollisionSprite(leftButtonSprite, touchSprite)) {
                     this.actions.playerLeft = true;
                     this.actions.playerRight = false;
                     this.touchIds[touch.identifier] = "left";
-                } else if (ndgmr.checkRectCollision(rightButtonSprite, touchSprite)) {
+                } else if (fastCollisionSprite(rightButtonSprite, touchSprite)) {
                     this.actions.playerLeft = false;
                     this.actions.playerRight = true;
                     this.touchIds[touch.identifier] = "right";
-                } else if (ndgmr.checkRectCollision(shootButtonSprite, touchSprite)) {
+                } else if (fastCollisionSprite(shootButtonSprite, touchSprite)) {
                     this.actions.playerAttack = true;
                     this.touchIds[touch.identifier] = "shoot";
                 } else {
@@ -555,11 +555,8 @@ function Player() {
 	this.checkEnemyCollisions = function() {
 		mapper.enemies.forEach(function(enemy) {
 
-			if (Math.abs(enemy.x - this.x) < 50) {
-				if (enemy.health <= 0) {
-					return;
-				}
-
+			if (enemy.health > 0) {
+				//var intersection = fastCollisionPlayer(this.animations, enemy);v
 				var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 				if (intersection) {
 					this.health -= 2; // should come from enemy
@@ -583,10 +580,11 @@ function Player() {
 
 			// check enemy shot collisions as well
 			enemy.watchedElements.forEach(function(enemyshot) {
-				if (enemyshot.disabled || Math.abs(enemyshot.x - this.x) > 50) {
+				if (enemyshot.disabled) {
 					return;
 				}
 
+				//var intersection = fastCollisionPlayer(this.animations, enemyshot);
 				var intersection = ndgmrX.checkRectCollision(this.animations, enemyshot.animations);
 				if (intersection) {
 					enemyshot.removeSelf();

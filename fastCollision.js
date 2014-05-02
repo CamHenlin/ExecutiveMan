@@ -1,29 +1,43 @@
 function fastCollision(object1, object2) {
-    var obj1an = object1.animations;
-    var obj2an = object2.animations;
+    var obj1 = object1.animations;
+    var obj2 = object2.animations;
 
-    if (obj1an.x + obj1an.spriteSheet._frameWidth >= obj2an.x  &&
-        obj1an.x <= obj2an.x + obj2an.spriteSheet._frameWidth  &&
-        obj1an.y + obj1an.spriteSheet._frameHeight >= obj2an.y &&
-        obj1an.y <= obj2an.y + obj2an.spriteSheet._frameWidth) {
-
-        return true;
-    }
-
-    return false;
+    return !(
+            obj1.y + obj1.spriteSheet._frameHeight < obj2.y ||
+            obj1.y > obj2.y + obj2.spriteSheet._frameHeight ||
+            obj1.x > obj2.x + obj2.spriteSheet._frameWidth  ||
+            obj1.x + obj1.spriteSheet._frameWidth < obj2.x
+    );
 }
 
 function fastCollisionX(object1, object2) {
-    var obj1an = object1.animations;
-    var obj2an = object2.animations;
+    var obj1 = object1.animations;
+    var obj2 = object2.animations;
 
-    if (obj1an.x + obj1an.spriteSheet._frameWidth - 10 >= obj2an.x  &&
-        obj1an.x <= obj2an.x + obj2an.spriteSheet._frameWidth - 10  &&
-        obj1an.y + obj1an.spriteSheet._frameHeight - 10 >= obj2an.y &&
-        obj1an.y <= obj2an.y + obj2an.spriteSheet._frameWidth - 10) {
+    return !(
+            obj1.y + obj1.spriteSheet._frameHeight - 10 < obj2.y ||
+            obj1.y > obj2.y + obj2.spriteSheet._frameHeight - 10 ||
+            obj1.x > obj2.x + obj2.spriteSheet._frameWidth - 10  ||
+            obj1.x + obj1.spriteSheet._frameWidth - 10 < obj2.x
+    );
+}
 
-        return true;
-    }
+function fastCollisionPlayer(obj1, object2) {
+    var obj2 = object2.animations;
 
-    return false;
+    return !(
+            obj1.y + obj1.spriteSheet._frameHeight < obj2.y ||
+            obj1.y > obj2.y + obj2.spriteSheet._frameHeight ||
+            obj1.x > obj2.x + obj2.spriteSheet._frameWidth  ||
+            obj1.x + obj1.spriteSheet._frameWidth < obj2.x
+    );
+}
+
+function fastCollisionSprite(obj1, obj2) {
+    return !(
+            obj1.y + obj1.spriteSheet._frameHeight < obj2.y ||
+            obj1.y > obj2.y + obj2.spriteSheet._frameHeight ||
+            obj1.x > obj2.x + obj2.spriteSheet._frameWidth  ||
+            obj1.x + obj1.spriteSheet._frameWidth < obj2.x
+    );
 }
