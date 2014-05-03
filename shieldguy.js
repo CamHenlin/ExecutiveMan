@@ -1,7 +1,7 @@
 function ShieldGuy(stage, basicCollision, x, y) {
 
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
-		"images": ["images/shieldguy.png"],
+		"images": [loader.getResult("shieldguy")],
 		"frames": {
 			"width": 52, "height": 50, "count": 2
 		},
@@ -114,7 +114,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
-			"images": ["images/enemyshot.png"],
+			"images": [loader.getResult("enemyshot")],
 			"frames": {
 				"width": 16, "height": 16, "count": 1
 			},

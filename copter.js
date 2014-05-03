@@ -1,7 +1,7 @@
 function Copter(stage, x, y) {
 
 	var copterSpriteSheet = new createjs.SpriteSheet({
-		"images": ["images/copter.png"],
+		"images": [loader.getResult("copter")],
 		"frames": {
 			"width": 34, "height": 28, "count": 2
 		},

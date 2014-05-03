@@ -1,7 +1,7 @@
 function FilingCabinet(stage, basicCollision, x, y) {
 
 	var filingCabinetSpriteSheet = new createjs.SpriteSheet({
-		"images": ["images/filingcabinet.png"],
+		"images": [loader.getResult("filingcabinet")],
 		"frames": {
 			"width": 44, "height": 94, "count": 2
 		},

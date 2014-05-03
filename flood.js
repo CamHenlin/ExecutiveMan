@@ -1,7 +1,7 @@
 function Flood(stage, basicCollision, x, y, original) {
 
 	var floodSpriteSheet = new createjs.SpriteSheet({
-		"images": ["images/flood.png"],
+		"images": [loader.getResult("flood")],
 		"frames": {
 			"width": 32, "height": 32, "count": 4
 		},

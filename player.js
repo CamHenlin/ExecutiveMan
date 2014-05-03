@@ -2,7 +2,7 @@ function Player() {
 
 	var Shot = function(player, mapper) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
-			"images": ["images/shot.png"],
+			"images": [loader.getResult("shot")],
 			"frames": {
 				"width": 16, "height": 16, "count": 1
 			},
@@ -151,6 +151,7 @@ function Player() {
 	this.ignoreInput        = false;
 	this.healthbar          = new HealthBar(gamestage, this);
 	this.shotIndex          = 0;
+	var skipThisCheck       = false;
 
 	this.shots = [new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
 				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
@@ -524,7 +525,7 @@ function Player() {
 		}.bind(this));
 
 		if (this.actions.playerDebug) {
-			//console.log(this);
+			mapper.container.visible = (mapper.container.visible) ? false : true;
 		}
 		//console.log(this.x);
 		//
@@ -548,7 +549,12 @@ function Player() {
 		}
 
 		if (!this.ignoreDamage) {
-			this.checkEnemyCollisions();
+			if (!skipThisCheck) {
+				this.checkEnemyCollisions();
+				skipThisCheck = true;
+			} else {
+				skipThisCheck = false;
+			}
 		}
 	};
 

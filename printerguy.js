@@ -1,6 +1,6 @@
 function PrinterGuy(stage, basicCollision, x, y) {
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
-		"images": ["images/printerguy.png"],
+		"images": [loader.getResult("printerguy")],
 		"frames": {
 			"width": 36, "height": 44, "count": 4
 		},
@@ -151,7 +151,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
-			"images": ["images/enemyshot.png"],
+			"images": [loader.getResult("enemyshot")],
 			"frames": {
 				"width": 16, "height": 16, "count": 1
 			},

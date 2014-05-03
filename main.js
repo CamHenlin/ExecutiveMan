@@ -11,7 +11,9 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "shot", src: "images/shot.png"},
 						{id: "health", src: "images/healthbar.png"},
 						{id: "explosion", src: "images/explosion.png"},
+						{id: "flood", src: "images/flood.png"},
 						{id: "enemyshot", src: "images/enemyshot.png"},
+						{id: "filingcabinet", src: "images/filingcabinet.png"},
 						{id: "copter", src: "images/copter.png"}]);
 
 function getParameterByName(name) {
@@ -46,7 +48,7 @@ var mobile = true;
 var fpsLabel;
 var logFPS = true;
 var buttonSpriteSheet;
-var odd = false;
+var skipCounter = 0;
 var lowFramerate = 1; // 2 for 30FPS!
 var skipFrames = 1;
 
@@ -104,8 +106,8 @@ function beginGame() {
 	gamestage.canvas.style.backgroundColor = "#000";
 
 	watchedElements = [];
-	mapper = new Mapper(gamestage, loader);
-	
+	mapper = new Mapper(gamestage);
+
     player = new Player();
 	mapper.initMap();
 	watchedElements.push(player);
@@ -169,7 +171,7 @@ function beginGame() {
 	}
 
 	if (getParameterByName('skipframes')) {
-		skipFrames = 2;
+		skipFrames = parseInt(getParameterByName('skipframes'));
 	}
 }
 
@@ -290,17 +292,13 @@ function handleTick(event) {
 
 
 
-	if (!mapper.advancing && !mapper.reversing) {
-		watchedElements.forEach(function(element) {
-			element.tickActions(actions);
-		});
+	watchedElements.forEach(function(element) {
+		element.tickActions(actions);
+	});
 
-		this.mapper.enemies.forEach(function(element) {
-			element.tickActions(actions);
-		});
-	} else {
-		mapper.tickActions(actions);
-	}
+	this.mapper.enemies.forEach(function(element) {
+		element.tickActions(actions);
+	});
 
 	//  { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false }
 	if (((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || player.health <= 0) {
@@ -319,10 +317,10 @@ function handleTick(event) {
 
 	if (skipFrames === 1) {
 		gamestage.update();
-	} else if (odd && skipFrames === 2) {
+	} else if (skipCounter === skipFrames) {
+		skipCounter = 0;
 		gamestage.update();
-		odd = false;
-	} else {
-		odd = true;
 	}
+
+	skipCounter++;
 }
