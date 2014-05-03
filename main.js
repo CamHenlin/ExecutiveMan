@@ -11,7 +11,8 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "shot", src: "images/shot.png"},
 						{id: "health", src: "images/healthbar.png"},
 						{id: "explosion", src: "images/explosion.png"},
-						{id: "enemyshot", src: "images/enemyshot.png"}]);
+						{id: "enemyshot", src: "images/enemyshot.png"},
+						{id: "copter", src: "images/copter.png"}]);
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

@@ -1,4 +1,4 @@
-function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
+function PrinterGuy(stage, basicCollision, x, y) {
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/printerguy.png"],
 		"frames": {
@@ -16,7 +16,11 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			"move": {
 				"frames" : [2, 3],
 				"next" : "move",
-				"speed" : (0.15 * lowFramerate) * skipFrames
+				"speed" : (0.15 / lowFramerate) / skipFrames
+			},
+			"showlong" : {
+				"frames" : [1],
+				"next" : "showlong"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -43,13 +47,18 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			element.tickActions(actions);
 		});
 
-		if (this.health <= 0 && this.activated) {
+		if (this.health === -1) {
+			return;
+		}
+
+		if (this.health <= 0) {
 			var explosion = explosionSprite.clone(true);
 			explosion.x = this.animations.x;
 			explosion.y = this.animations.y;
 			this.stage.removeChild(this.animations);
 			explosion.gotoAndPlay("explode");
 			this.stage.addChild(explosion);
+			this.health = -1;
 			setTimeout(function() {
 				this.stage.removeChild(explosion);
 			}.bind(this), 250);
@@ -78,7 +87,7 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 				this.jumpspeed = 24;
 			}
 
-			this.x += (this.animations.scaleX !== 1 ) ? 1 : -1;
+			this.x += (this.animations.scaleX !== 1) ? 1 : -1;
 			this.y += this.jumpspeed;
 		}
 
@@ -100,9 +109,18 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 			this.animations.gotoAndPlay("show");
 		}
 
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 250) {
+		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 350 && !this.activated && this.health > 0) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, mapper));
 			this.shootTicks = 300 / lowFramerate;
+			this.hardshell = false;
+			this.animations.gotoAndPlay("showlong");
+
+			setTimeout(function() {
+				if (!this.activated && this.health > 0) {
+					this.hardshell = true;
+					this.animations.gotoAndPlay("sit");
+				}
+			}.bind(this), 250);
 		}
 
 		if (this.activated) {
@@ -121,6 +139,10 @@ function PrinterGuy(stage, player, basicCollision, x, y, mapper) {
 
 		if (!collisionResults.down) {
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
+		}
+
+		if (this.shootTicks > 0) {
+			this.shootTicks--;
 		}
 
 		this.animations.x = this.x - mapper.completedMapsWidthOffset;

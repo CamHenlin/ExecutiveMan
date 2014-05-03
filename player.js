@@ -94,17 +94,17 @@ function Player() {
 			"stand": {
 				"frames" : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				"next" : "stand",
-				"speed" : (0.175 * lowFramerate) * skipFrames
+				"speed" : (0.175 / lowFramerate) / skipFrames
 			},
 			"startrun" : {
 				"frames" : [2],
 				"next" : "run",
-				"speed" : (0.175 * lowFramerate) * skipFrames
+				"speed" : (0.175 / lowFramerate) / skipFrames
 			},
 			"run": {
 				"frames" : [3, 4, 5],
 				"next" : "run",
-				"speed" : (0.2 * lowFramerate) * skipFrames
+				"speed" : (0.2 / lowFramerate) / skipFrames
 			},
 			"jump": {
 				"frames" : [10],
@@ -117,12 +117,12 @@ function Player() {
 			"runshoot": {
 				"frames" : [7, 8, 9],
 				"next" : "runshoot",
-				"speed" : (0.2 * lowFramerate) * skipFrames
+				"speed" : (0.2 / lowFramerate) / skipFrames
 			},
 			"damage": {
 				"frames" : [16],
 				"next" : "damage",
-				"speed" : (5 * lowFramerate) * skipFrames
+				"speed" : (5  / lowFramerate) / skipFrames
 			},
 			"jumpshoot": {
 				"frames" : [11],
@@ -555,7 +555,7 @@ function Player() {
 	this.checkEnemyCollisions = function() {
 		mapper.enemies.forEach(function(enemy) {
 
-			if (enemy.health > 0) {
+			if (enemy.health > 0 || typeof(enemy.health) === "undefined") {
 				var intersection = fastCollisionPlayer(this, enemy);
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 				if (intersection) {

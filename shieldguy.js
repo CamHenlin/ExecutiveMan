@@ -1,4 +1,4 @@
-function ShieldGuy(stage, player, basicCollision, x, y, mapper) {
+function ShieldGuy(stage, basicCollision, x, y) {
 
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/shieldguy.png"],

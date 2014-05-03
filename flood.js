@@ -1,4 +1,4 @@
-function Flood(stage, player, basicCollision, x, y, mapper, original) {
+function Flood(stage, basicCollision, x, y, original) {
 
 	var floodSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/flood.png"],
@@ -9,12 +9,12 @@ function Flood(stage, player, basicCollision, x, y, mapper, original) {
 			"current": {
 				"frames" : [0, 1],
 				"next" : "current",
-				"speed" : (0.15 * lowFramerate) * skipFrames
+				"speed" : (0.15 / lowFramerate) / skipFrames
 			},
 			"flooded" : {
 				"frames" : [2, 3],
 				"next" : "flooded",
-				"speed" : (0.15  * lowFramerate) * skipFrames
+				"speed" : (0.15  / lowFramerate) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -52,7 +52,7 @@ function Flood(stage, player, basicCollision, x, y, mapper, original) {
 				this.x += 5;
 				var collisionResults = this.basicCollision.basicCollision(this);
 				if (collisionResults.right) {
-					mapper.enemies.push(new Flood(this.stage, player, this.basicCollision, this.x + 27, this.y, mapper, false));
+					mapper.enemies.push(new Flood(this.stage, this.basicCollision, this.x + 27, this.y, false));
 				}
 				this.x -= 5;
 				this.spent = true;
