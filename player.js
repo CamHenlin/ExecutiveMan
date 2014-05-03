@@ -4,7 +4,7 @@ function Player() {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("shot")],
 			"frames": {
-				"width": 16, "height": 16, "count": 1
+				"width": 8, "height": 8, "count": 1
 			},
 			"animations": {
 				"shot": {
@@ -15,8 +15,8 @@ function Player() {
 		});
 
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = -15;
-		this.y          = -15;
+		this.x          = -7.5;
+		this.y          = -7.5;
 		this.disabled   = true;
 		this.direction  = 0;
 		this.yspeed     = 0;
@@ -27,7 +27,7 @@ function Player() {
 				return;
 			}
 
-			this.x = this.x + (7 * this.direction) * lowFramerate;
+			this.x = this.x + (3.5 * this.direction) * lowFramerate;
 			this.y -= this.yspeed * lowFramerate;
 			this.animations.x = this.x;
 			this.animations.y = this.y;
@@ -44,7 +44,7 @@ function Player() {
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 				if (fastCollisionX(this, enemy)) {
 					if (enemy.hardshell) {
-						this.yspeed = 7;
+						this.yspeed = 3.5;
 						this.direction = this.direction * (this.bounced) ? 0 : -1;
 						this.bounced = true;
 						return;
@@ -58,8 +58,8 @@ function Player() {
 
 		this.fireUp = function() {
 			//console.log(player.x - mapper.completedMapsWidthOffset);
-			this.x = player.x - mapper.completedMapsWidthOffset + ((player.animations.scaleX === 1) ? 52 : -6);
-			this.y = player.y + 27;
+			this.x = player.x - mapper.completedMapsWidthOffset + ((player.animations.scaleX === 1) ? 26 : -3);
+			this.y = player.y + 13.5;
 			this.yspeed = 0;
 			this.disabled = false;
 			this.bounced = false;
@@ -88,7 +88,7 @@ function Player() {
 	var playerSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
 		"frames": {
-			"width": 60, "height": 60, "count": 18
+			"width": 30, "height": 30, "count": 18
 		},
 		"animations": {
 			"stand": {
@@ -218,23 +218,22 @@ function Player() {
 				this.actions.playerLeft = false;
 				break;
 
+	        case 32:
+	            // keyCode 32 is space
+	            this.actions.playerJump = false;
+	            this.jumpreleased = true;
+	            break;
 
-        case 32:
-            // keyCode 32 is space
-            this.actions.playerJump = false;
-            this.jumpreleased = true;
-            break;
-
-        case 67:
-            // keyCode 67 is c
-            this.actions.playerAttack = false;
-            break;
+	        case 67:
+	            // keyCode 67 is c
+	            this.actions.playerAttack = false;
+	            break;
 
 
-        case 68:
-            // keyCode 68 is d
-            this.actions.playerDebug = false;
-            break;
+	        case 68:
+	            // keyCode 68 is d
+	            this.actions.playerDebug = false;
+	            break;
         }
     }.bind(this);
 
@@ -262,8 +261,8 @@ function Player() {
 
             for (var i = 0; i < event.touches.length; i++) {
                 var touch = event.touches[i];
-                touchSprite.x = touch.pageX;
-                touchSprite.y = touch.pageY;
+                touchSprite.x = touch.pageX /2;
+                touchSprite.y = touch.pageY /2;
                 if (fastCollisionSprite(leftButtonSprite, touchSprite)) {
                     this.actions.playerLeft = true;
                     this.actions.playerRight = false;
@@ -378,7 +377,7 @@ function Player() {
         if (this.actions.playerJump && !this.jumping && actions.collisionResults.upmove && this.jumpreleased) {
             actions.collisionResults.downmove = true;
             this.jumpreleased = false;
-            this.jumpspeed = -9.75;
+            this.jumpspeed = -4.875;
             this.jumping = true;
             //var sound = createjs.Sound.play("jump");
             //sound.volume = 0.05;
@@ -389,16 +388,16 @@ function Player() {
             this.falling = true;
             this.jumping = true;
             this.animations.gotoAndPlay("jump");
-        } else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 4) {
-            this.jumpspeed = 4;
+        } else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 2) {
+            this.jumpspeed = 2;
 		}
 
 		var ignoreLeftRightCollisionThisFrame = false;
 		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
 			this.y += this.jumpspeed * lowFramerate;
-			this.jumpspeed = this.jumpspeed + 0.5 * lowFramerate;
-			if (this.jumpspeed > 24 / lowFramerate) {
-				this.jumpspeed = 24 / lowFramerate; // megaman's terminal velocity
+			this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
+			if (this.jumpspeed > 12 / lowFramerate) {
+				this.jumpspeed = 12 / lowFramerate; // megaman's terminal velocity
 			}
 		} else if (this.jumping && !actions.collisionResults.downmove && !actions.collisionResults.nextmap) {
 			if (!this.goingLeft && !this.goingRight) {
@@ -410,13 +409,13 @@ function Player() {
 			this.falling = false;
 
 			// correcting floor position after a jump/fall:
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 			if (this.y + this.animations.spriteSheet._frameHeight > mapper.gamestage.canvas.height) {
-				this.y -= 32;
+				this.y -= 16;
 			}
 			ignoreLeftRightCollisionThisFrame = true;
 		} else if (this.jumping && !actions.collisionResults.upmove) {
-			this.jumpspeed = 1; // megaman's jumpspeed set to 1 when he bonks his head
+			this.jumpspeed = 0.5; // megaman's jumpspeed set to .5 when he bonks his head
 			this.y += this.jumpspeed * lowFramerate;
 		}
 
@@ -424,7 +423,7 @@ function Player() {
 			this.goingRight = false;
 			this.goingLeft  = true;
 			this.animations.scaleX = -1;
-			this.animations.regX = 60;
+			this.animations.regX = 30;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
 				this.movementTicks = 9 / lowFramerate;
@@ -471,30 +470,30 @@ function Player() {
 		if (this.goingRight || this.goingLeft) {
 			if (this.goingRight && (actions.collisionResults.rightmove || ignoreLeftRightCollisionThisFrame)) {
 				if (this.jumping) {
-					this.x += 2.65 * lowFramerate; // megaman moved slower while jumping...
+					this.x += 1.325 * lowFramerate; // megaman moved slower while jumping...
 				} else {
 					if (this.movementTicks > 0) {
-						this.x += 0.4 * lowFramerate; // megaman moved slower as he began moving
+						this.x += 0.2 * lowFramerate; // megaman moved slower as he began moving
 						this.movementTicks--;
 					} else {
-						this.x += 2.75 * lowFramerate;
+						this.x += 1.375 * lowFramerate;
 					}
 				}
 			} else if (this.goingLeft && (actions.collisionResults.leftmove || ignoreLeftRightCollisionThisFrame)) {
 				if (this.jumping) {
-					this.x += -2.65 * lowFramerate; // megaman moved slower while jumping...
+					this.x += -1.325 * lowFramerate; // megaman moved slower while jumping...
 				} else {
 					if (this.movementTicks > 0) {
-						this.x += -0.4 * lowFramerate; // megaman moved slower as he began moving
+						this.x += -0.2 * lowFramerate; // megaman moved slower as he began moving
 						this.movementTicks--;
 					} else {
-						this.x += -2.75 * lowFramerate;
+						this.x += -1.375 * lowFramerate;
 					}
 				}
 			}
 		} else if (this.movementTicks > 0) {
 			if ((actions.collisionResults.rightmove && actions.collisionResults.leftmove) || ignoreLeftRightCollisionThisFrame) {
-				this.x += 0.8 * this.animations.scaleX * lowFramerate;
+				this.x += 0.4 * this.animations.scaleX * lowFramerate;
 				this.movementTicks--;
 			} else {
 				this.movementTicks = 0;
@@ -578,8 +577,8 @@ function Player() {
 						this.ignoreInput = false;
 					}.bind(this), 250);
 
-					if (this.jumpspeed < 4 && this.jumping) {
-						this.jumpspeed = 4;
+					if (this.jumpspeed < 2 && this.jumping) {
+						this.jumpspeed = 2;
 					}
 				}
 			}
@@ -607,8 +606,8 @@ function Player() {
 						this.ignoreInput = false;
 					}.bind(this), 500);
 
-					if (this.jumpspeed < 4 && this.jumping) {
-						this.jumpspeed = 4;
+					if (this.jumpspeed < 2 && this.jumping) {
+						this.jumpspeed = 2;
 					}
 				}
 			}.bind(this));

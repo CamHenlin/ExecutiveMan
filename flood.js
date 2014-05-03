@@ -3,7 +3,7 @@ function Flood(stage, basicCollision, x, y, original) {
 	var floodSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("flood")],
 		"frames": {
-			"width": 32, "height": 32, "count": 4
+			"width": 16, "height": 16, "count": 4
 		},
 		"animations": {
 			"current": {
@@ -44,22 +44,22 @@ function Flood(stage, basicCollision, x, y, original) {
 		}
 
 		var distanceFromPlayer = player.x - this.x;
-		if (Math.abs(distanceFromPlayer) <= 400 || !this.original) {
+		if (Math.abs(distanceFromPlayer) <= 200 || !this.original) {
 
 			if (this.advanceTicks !== 0) {
 				this.advanceTicks--;
 			} else if (this.advanceTicks === 0) {
-				this.x += 5;
+				this.x += 2.5;
 				var collisionResults = this.basicCollision.basicCollision(this);
 				if (collisionResults.right) {
-					mapper.enemies.push(new Flood(this.stage, this.basicCollision, this.x + 27, this.y, false));
+					mapper.enemies.push(new Flood(this.stage, this.basicCollision, this.x + 13.5, this.y, false));
 				}
-				this.x -= 5;
+				this.x -= 2.5;
 				this.spent = true;
 				this.animations.gotoAndPlay("flooded");
 			}
 		}
-		this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
+		this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		this.animations.x = this.x - mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};

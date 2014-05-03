@@ -15,7 +15,7 @@ function BasicCollision(mapper) {
 
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
 		var moves = { left : true, down : true, right : true, up : true };
-		var tilesize = 32; // this is used as width and height!
+		var tilesize = 16; // this is used as width and height!
 
 		try {
 			var a = Math.floor((playerCollisionPoints.left.y - heightOffset) / tilesize);

@@ -62,13 +62,13 @@ maps[0] = { "height":15,
      "backgroundColor":"#3399FF",
      "stitchx":"0"
     },
- "tileheight":32,
+ "tileheight":16,
  "tilesets":[
         {
          "firstgid":1,
          "image":"images\/map1.png",
-         "imageheight":480,
-         "imagewidth":320,
+         "imageheight":240,
+         "imagewidth":160,
          "margin":0,
          "name":"map1",
          "properties":
@@ -76,10 +76,10 @@ maps[0] = { "height":15,
 
             },
          "spacing":0,
-         "tileheight":32,
-         "tilewidth":32
+         "tileheight":16,
+         "tilewidth":16
         }],
- "tilewidth":32,
+ "tilewidth":16,
  "version":1,
  "width":75
 };
@@ -146,13 +146,13 @@ maps[1] = { "height":15,
     {
      "backgroundColor":"#333333"
     },
- "tileheight":32,
+ "tileheight":16,
  "tilesets":[
         {
          "firstgid":1,
          "image":"images\/map1.png",
-         "imageheight":480,
-         "imagewidth":320,
+         "imageheight":240,
+         "imagewidth":160,
          "margin":0,
          "name":"map1",
          "properties":
@@ -160,10 +160,10 @@ maps[1] = { "height":15,
 
             },
          "spacing":0,
-         "tileheight":32,
-         "tilewidth":32
+         "tileheight":16,
+         "tilewidth":16
         }],
- "tilewidth":32,
+ "tilewidth":16,
  "version":1,
  "width":75
 };
@@ -231,15 +231,15 @@ maps[2] = { "height":15,
  "properties":
     {
      "backgroundColor":"#000000",
-     "stitchx": 2048
+     "stitchx": 1024
     },
- "tileheight":32,
+ "tileheight":16,
  "tilesets":[
         {
          "firstgid":1,
          "image":"images\/map1.png",
-         "imageheight":480,
-         "imagewidth":320,
+         "imageheight":240,
+         "imagewidth":160,
          "margin":0,
          "name":"map1",
          "properties":
@@ -247,10 +247,10 @@ maps[2] = { "height":15,
 
             },
          "spacing":0,
-         "tileheight":32,
-         "tilewidth":32
+         "tileheight":16,
+         "tilewidth":16
         }],
- "tilewidth":32,
+ "tilewidth":16,
  "version":1,
  "width":75
 };
@@ -282,11 +282,11 @@ function Mapper(gamestage) {
 
 	// figure out offsets:
 	this.heightOffset = this.gamestage.canvas.height - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
-    if (this.gamestage.canvas.height > 320) {
-        this.heightOffset -= 120;
+    if (this.gamestage.canvas.height > 160) {
+        this.heightOffset -= 60;
     }
     // correct for collisions:
-    this.heightOffset -= (this.heightOffset + 32) % 32;
+    this.heightOffset -= (this.heightOffset + 16) % 16;
 
     if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 		this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
@@ -326,13 +326,13 @@ function Mapper(gamestage) {
         this.gamestage.removeChild(this.container);
         this.container = new createjs.Container();
         this.gamestage.addChild(this.container);
-        /*var fillColor = new createjs.Shape();
+        var fillColor = new createjs.Shape();
         fillColor.graphics.beginFill(this.mapData.properties.backgroundColor).drawRect(0, 0, this.getMapWidth(), this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
         this.backgroundContainer1.addChild(fillColor);
         fillColor = new createjs.Shape();
         fillColor.graphics.beginFill(this.mapData.properties.backgroundColor).drawRect(0, 0, this.getMapWidth(), this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
         this.backgroundContainer2.addChild(fillColor);
-*/
+
         this.enemyContainer.removeAllChildren();
         this.doneRendering = false;
     };

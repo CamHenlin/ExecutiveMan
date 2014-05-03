@@ -3,7 +3,7 @@ function Copter(stage, x, y) {
 	var copterSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("copter")],
 		"frames": {
-			"width": 34, "height": 28, "count": 2
+			"width": 17, "height": 14, "count": 2
 		},
 		"animations": {
 			"operate": {
@@ -70,12 +70,12 @@ function Copter(stage, x, y) {
 		} else {
 
 			var distanceFromPlayer = player.x - this.x;
-			if (Math.abs(distanceFromPlayer) <= 300) {
+			if (Math.abs(distanceFromPlayer) <= 150) {
 				this.activated = true;
 				this.targetY = player.y + 20;
 				this.movementTicks = 100 / lowFramerate;
 
-				this.xStepSize = (this.x - player.x + (64 * this.animations.scaleX)) / this.movementTicks;
+				this.xStepSize = (this.x - player.x + (32 * this.animations.scaleX)) / this.movementTicks;
 				this.yStepSize = (this.y - this.targetY) / (this.movementTicks);
 			}
 		}

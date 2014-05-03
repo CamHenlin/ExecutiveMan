@@ -2,7 +2,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("printerguy")],
 		"frames": {
-			"width": 36, "height": 44, "count": 4
+			"width": 18, "height": 22, "count": 4
 		},
 		"animations": {
 			"sit": {
@@ -82,9 +82,9 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		}
 
 		if (this.jumping && collisionResults.down) {
-			this.jumpspeed += 0.5;
-			if (this.jumpspeed > 24) {
-				this.jumpspeed = 24;
+			this.jumpspeed += 0.25;
+			if (this.jumpspeed > 12) {
+				this.jumpspeed = 12;
 			}
 
 			this.x += (this.animations.scaleX !== 1) ? 1 : -1;
@@ -97,7 +97,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		}
 
 		var distanceFromPlayer = player.x - this.x;
-		if (Math.abs(distanceFromPlayer) <= 200 && this.animations.currentAnimation !== "move" && !this.lastDirectionChangeFromCollision && !this.activated) {
+		if (Math.abs(distanceFromPlayer) <= 100 && this.animations.currentAnimation !== "move" && !this.lastDirectionChangeFromCollision && !this.activated) {
 			if (distanceFromPlayer > 0) {
 				this.animations.scaleX = -1;
 				this.animations.regX = this.animations.spriteSheet._frameWidth;
@@ -109,7 +109,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 			this.animations.gotoAndPlay("show");
 		}
 
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 350 && !this.activated && this.health > 0) {
+		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 175 && !this.activated && this.health > 0) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, mapper));
 			this.shootTicks = 300 / lowFramerate;
 			this.hardshell = false;
@@ -134,11 +134,11 @@ function PrinterGuy(stage, basicCollision, x, y) {
 					this.animations.regX = 0;
 				}
 			}
-			this.x += (this.animations.scaleX !== 1 ) ? 1.75 : -1.75;
+			this.x += (this.animations.scaleX !== 1 ) ? 0.875 : -0.875;
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		}
 
 		if (this.shootTicks > 0) {
@@ -153,7 +153,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("enemyshot")],
 			"frames": {
-				"width": 16, "height": 16, "count": 1
+				"width": 8, "height": 8, "count": 1
 			},
 			"animations": {
 				"shot": {
@@ -166,19 +166,19 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		this.stage      = stage;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 33 : -3);
-		this.y          = y + 12;
+		this.x          = x + ((this.direction === 1) ? 16 : -2);
+		this.y          = y + 6;
 		this.disabled   = false;
 		this.owner      = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction) * lowFramerate;
+		this.x = this.x + (1.5 * this.direction) * lowFramerate;
 		this.animations.x = this.x - mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
-			this.x = this.x + (3 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction) * lowFramerate;
 			this.animations.x = this.x - mapper.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
@@ -193,7 +193,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		};
 
 		this.checkBounds = function() {
-			return !(this.x < 0 || this.x > player.x + 2000);
+			return !(this.x < 0 || this.x > player.x + 1000);
 
 
 		};

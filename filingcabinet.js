@@ -3,7 +3,7 @@ function FilingCabinet(stage, basicCollision, x, y) {
 	var filingCabinetSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("filingcabinet")],
 		"frames": {
-			"width": 44, "height": 94, "count": 2
+			"width": 22, "height": 47, "count": 2
 		},
 		"animations": {
 			"sit": {
@@ -73,9 +73,9 @@ function FilingCabinet(stage, basicCollision, x, y) {
 		}
 
 		if (this.jumping && collisionResults.down) {
-			this.jumpspeed += 0.5;
-			if (this.jumpspeed > 12 * lowFramerate) {
-				this.jumpspeed = 12 * lowFramerate;
+			this.jumpspeed += 0.25;
+			if (this.jumpspeed > 6 * lowFramerate) {
+				this.jumpspeed = 6 * lowFramerate;
 			}
 
 			this.y += this.jumpspeed;
@@ -89,17 +89,17 @@ function FilingCabinet(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		}
 
 
 		// figure out if we can shoot or not
 		var distanceFromPlayer = player.x - this.x;
-		if (this.jumpTicks === 0 && Math.abs(distanceFromPlayer) < 350 && !this.jumping) {
+		if (this.jumpTicks === 0 && Math.abs(distanceFromPlayer) < 175 && !this.jumping) {
 			this.jumpTicks = 90 / lowFramerate;
-			this.y -= 10;
+			this.y -= 5;
 			this.jumping = true;
-			this.jumpspeed = -10 * lowFramerate;
+			this.jumpspeed = -5 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 			this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60) / lowFramerate;
 		}

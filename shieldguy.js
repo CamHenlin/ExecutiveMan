@@ -3,7 +3,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("shieldguy")],
 		"frames": {
-			"width": 52, "height": 50, "count": 2
+			"width": 26, "height": 25, "count": 2
 		},
 		"animations": {
 			"sit": {
@@ -76,9 +76,9 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		}
 
 		if (this.jumping && collisionResults.down) {
-			this.jumpspeed += 0.5;
-			if (this.jumpspeed > 24) {
-				this.jumpspeed = 24;
+			this.jumpspeed += 0.25;
+			if (this.jumpspeed > 12) {
+				this.jumpspeed = 12;
 			}
 
 			this.y += this.jumpspeed;
@@ -91,7 +91,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 
 		// figure out if we can shoot or not
 		var distanceFromPlayer = player.x - this.x;
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 550) {
+		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, mapper));
 			this.animations.gotoAndPlay("shoot");
 			this.hardshell = false;
@@ -105,7 +105,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 32;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		}
 
 		this.animations.x = this.x - mapper.completedMapsWidthOffset;
@@ -116,7 +116,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("enemyshot")],
 			"frames": {
-				"width": 16, "height": 16, "count": 1
+				"width": 8, "height": 8, "count": 1
 			},
 			"animations": {
 				"shot": {
@@ -129,8 +129,8 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		this.stage      = stage;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 33 : -3);
-		this.y          = y + 22;
+		this.x          = x + ((this.direction === 1) ? 16 : -2);
+		this.y          = y + 11;
 		this.disabled   = false;
 		this.owner      = owner;
 
@@ -141,7 +141,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
-			this.x = this.x + (3 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction) * lowFramerate;
 			this.animations.x = this.x - mapper.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
@@ -156,7 +156,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		};
 
 		this.checkBounds = function() {
-			return !(this.x < 0 || this.x > player.x + 2000);
+			return !(this.x < 0 || this.x > player.x + 1000);
 		};
 	};
 }

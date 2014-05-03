@@ -13,6 +13,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "explosion", src: "images/explosion.png"},
 						{id: "flood", src: "images/flood.png"},
 						{id: "enemyshot", src: "images/enemyshot.png"},
+						{id: "bossframe", src: "images/bossframe.png"},
 						{id: "filingcabinet", src: "images/filingcabinet.png"},
 						{id: "copter", src: "images/copter.png"}]);
 
@@ -80,7 +81,7 @@ function beginGame() {
 	var explosionSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("explosion")],
 			"frames": {
-				"width": 50, "height": 50, "count": 4
+				"width": 25, "height": 25, "count": 4
 			},
 			"animations": {
 				"explode": {
@@ -101,8 +102,8 @@ function beginGame() {
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 
-	gamestage.canvas.width = window.innerWidth;
-	gamestage.canvas.height = window.innerHeight;
+	gamestage.canvas.width = window.innerWidth / 2;
+	gamestage.canvas.height = window.innerHeight / 2;
 	gamestage.canvas.style.backgroundColor = "#000";
 
 	watchedElements = [];
@@ -123,7 +124,7 @@ function beginGame() {
 		buttonSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("buttons")],
 			"frames": {
-				"width": 128, "height": 128, "count": 4
+				"width": 64, "height": 64, "count": 4
 			},
 			"animations": {
 				"left": {
@@ -144,12 +145,12 @@ function beginGame() {
 		rightButtonSprite = new createjs.Sprite(buttonSpriteSheet, "right");
 		shootButtonSprite = new createjs.Sprite(buttonSpriteSheet, "shoot");
 
-		leftButtonSprite.x = 32;
-		rightButtonSprite.x = 176;
-		shootButtonSprite.x = gamestage.canvas.width - 128;
-		leftButtonSprite.y = gamestage.canvas.height - 128;
-		rightButtonSprite.y = gamestage.canvas.height - 128;
-		shootButtonSprite.y = gamestage.canvas.height - 128;
+		leftButtonSprite.x = 16;
+		rightButtonSprite.x = 96;
+		shootButtonSprite.x = gamestage.canvas.width - 64;
+		leftButtonSprite.y = gamestage.canvas.height - 64;
+		rightButtonSprite.y = gamestage.canvas.height - 64;
+		shootButtonSprite.y = gamestage.canvas.height - 64;
 		initTouchControls();
 	}
 
@@ -188,7 +189,7 @@ function initTitleScreen() {
 	var titlescreenSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("logo")],
 		"frames": {
-			"width": 632, "height": 480, "count": 2
+			"width": 316, "height": 240, "count": 2
 		},
 		"animations": {
 			"sit": {
@@ -210,8 +211,8 @@ function initTitleScreen() {
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.snapToPixelEnabled = true;
 
-	gamestage.canvas.width = window.innerWidth;
-	gamestage.canvas.height = window.innerHeight;
+	gamestage.canvas.width = window.innerWidth / 2;
+	gamestage.canvas.height = window.innerHeight / 2;
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(stage);
 
@@ -246,6 +247,63 @@ function handleStartScreenTick(event) {
 	gamestage.update();
 }
 
+
+function initTitleScreen() {
+	var bossframeSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("bossframe")],
+		"frames": {
+			"width": 48, "height": 48, "count": 1
+		},
+		"animations": {
+			"frame": {
+				"frames" : [0],
+				"next" : "frame"
+			}
+		}
+	});
+
+	titleSreenSprite = new createjs.Sprite(titlescreenSpriteSheet, "frame");
+	startgame = false;
+	stage = new createjs.Container();
+	gamestage = new createjs.Stage("gamecanvas");
+	gamestage.snapToPixelEnabled = true;
+
+	gamestage.canvas.width = window.innerWidth / 2;
+	gamestage.canvas.height = window.innerHeight / 2;
+	gamestage.canvas.style.backgroundColor = "#000";
+	gamestage.addChild(stage);
+
+	titleSreenSprite.x = gamestage.canvas.width / 2 - titleSreenSprite.spriteSheet._frameWidth / 2;
+	titleSreenSprite.y = gamestage.canvas.height / 2 - titleSreenSprite.spriteSheet._frameHeight / 2;
+
+	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
+	createjs.Ticker.setFPS(10);
+
+	document.onkeydown = function (event) {
+		switch (event.keyCode) {
+			case 32:
+				// keyCode 32 is space
+				startgame = true;
+				break;
+		}
+	}.bind(this);
+
+	document.getElementById("gamecanvas").addEventListener('touchend', function () {
+		startgame = true;
+	}.bind(this), false);
+
+	stage.addChild(titleSreenSprite);
+}
+
+function handleBossScreenTick(event) {
+	if (startgame) {
+		initVars();
+		beginGame();
+		event.remove();
+	}
+	gamestage.update();
+}
+
 function handleTick(event) {
 	if (!mapper.doneRendering) {
 		return;
@@ -264,8 +322,8 @@ function handleTick(event) {
 	}
 
 
-	var modifier = 8;
-	var xmodifier = 12;
+	var modifier = 4;
+	var xmodifier = 6;
 	var playerCollisionPoints = {
 		leftTop : { x: player.x + xmodifier, y: player.y + modifier },
 		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
