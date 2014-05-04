@@ -18,7 +18,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.basicCollision   = basicCollision;
-	this.health           = 2;
+	this.health           = 4;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
 	this.x                = x;
@@ -101,7 +101,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 				this.animations.gotoAndPlay("sit");
 				this.activated = false;
 				this.hardshell = true;
-			}.bind(this), 1250);
+			}.bind(this), 750);
 		}
 
 		if (!collisionResults.down) {

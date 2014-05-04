@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;"/>
-<meta name=apple-mobile-web-app-capable content=yes>
+<meta name="viewport" content="width=device-width, initial-scale=4, maximum-scale=4, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
 <meta name=apple-mobile-web-app-status-bar-style content=black>
 <meta name="viewport" content="minimal-ui">
 <title>Executive Man</title>
@@ -11,6 +11,15 @@
 * { margin:0; padding:0; } /* to remove the top and left whitespace */
 html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
 canvas { display:block; }
+canvas {
+    image-rendering: optimizeSpeed;             // Older versions of FF
+    image-rendering: -moz-crisp-edges;          // FF 6.0+
+    image-rendering: -webkit-optimize-contrast; // Webkit
+                                                //  (Safari now, Chrome soon)
+    image-rendering: -o-crisp-edges;            // OS X & Windows Opera (12.02+)
+    image-rendering: optimize-contrast;         // Possible future browsers.
+    -ms-interpolation-mode: nearest-neighbor;   // IE
+}
 </style>
 </head>
 
