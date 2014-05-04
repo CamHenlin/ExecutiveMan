@@ -261,8 +261,8 @@ function Player() {
 
             for (var i = 0; i < event.touches.length; i++) {
                 var touch = event.touches[i];
-                touchSprite.x = touch.pageX /2;
-                touchSprite.y = touch.pageY /2;
+                touchSprite.x = touch.pageX /gamezoom;
+                touchSprite.y = touch.pageY /gamezoom;
                 if (fastCollisionSprite(leftButtonSprite, touchSprite)) {
                     this.actions.playerLeft = true;
                     this.actions.playerRight = false;
@@ -323,6 +323,10 @@ function Player() {
     // as we're aming to be a reimplementation of megaman physics, and not realistic physics
     // most values are doubled from their megaman values as i am using double sized sprites
     this.tickActions = function(actions) {
+    	if (mapper.transitiondown) {
+    		return;
+    	}
+
         if (this.ignoreInput) {
             if (this.ignoreDamage) {
                 this.x += -this.animations.scaleX * lowFramerate;
@@ -524,7 +528,7 @@ function Player() {
 		}.bind(this));
 
 		if (this.actions.playerDebug) {
-			mapper.container.visible = (mapper.container.visible) ? false : true;
+
 		}
 		//console.log(this.x);
 		//

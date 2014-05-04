@@ -41,6 +41,7 @@ function Copter(stage, x, y) {
 
 		if (this.health <= 0) {
 			var explosion = explosionSprite.clone(true);
+			score += 2;
 			explosion.x = this.animations.x;
 			explosion.y = this.animations.y;
 			this.stage.removeChild(this.animations);

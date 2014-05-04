@@ -40,6 +40,8 @@ function handleComplete() {
 	}, 100);
 }
 
+var lives = 2;
+var gamezoom = 2;
 var stage;
 var altstage;
 var gamestage;
@@ -53,12 +55,14 @@ var startlevel = false;
 var bossscreenCounter = 0;
 var mobile = true;
 var fpsLabel;
-var logFPS = true;
+var scoreLabel;
+var logFPS = false;
 var buttonSpriteSheet;
 var skipCounter = 0;
 var lowFramerate = 1; // 2 for 30FPS!
 var skipFrames = 1;
 var menuUp = false;
+var score = 0;
 
 var bossframes = [];
 
@@ -85,7 +89,10 @@ function initVars() {
 	tileCollisionDetector = null;
 }
 
-function beginGame() {
+function beginGame(newGame) {
+	if (newGame) {
+		lives = 2;
+	}
 	var explosionSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("explosion")],
 			"frames": {
@@ -110,8 +117,16 @@ function beginGame() {
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 
-	gamestage.canvas.width = window.innerWidth / 2;
-	gamestage.canvas.height = window.innerHeight / 2;
+	if (window.innerWidth > 1500) {
+		gamezoom = 3;
+		gamestage.canvas.width = window.innerWidth / 3;
+		gamestage.canvas.height = window.innerHeight / 3;
+		document.getElementById("gamecanvas").style.zoom = 3;
+		document.getElementById("gamecanvas").style.MozTransform = "scale(3)";
+	} else {
+		gamestage.canvas.width = window.innerWidth / 2;
+		gamestage.canvas.height = window.innerHeight / 2;
+	}
 	gamestage.canvas.style.backgroundColor = "#000";
 
 	watchedElements = [];
@@ -170,6 +185,12 @@ function beginGame() {
 		fpsLabel.y = 18;
 	}
 
+	scoreLabel = new createjs.Text("SCORE: ", "bold 10px Arial", "#FFF");
+	gamestage.addChild(scoreLabel);
+
+	scoreLabel.x = gamestage.canvas.width - 96;
+	scoreLabel.y = 18;
+
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
 	if (getParameterByName('lowfps')) {
@@ -219,8 +240,16 @@ function initTitleScreen() {
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.snapToPixelEnabled = true;
 
-	gamestage.canvas.width = window.innerWidth / 2;
-	gamestage.canvas.height = window.innerHeight / 2;
+	if (window.innerWidth > 1500) {
+		gamezoom = 3;
+		gamestage.canvas.width = window.innerWidth / 3;
+		gamestage.canvas.height = window.innerHeight / 3;
+		document.getElementById("gamecanvas").style.zoom = 3;
+		document.getElementById("gamecanvas").style.MozTransform = "scale(3)";
+	} else {
+		gamestage.canvas.width = window.innerWidth / 2;
+		gamestage.canvas.height = window.innerHeight / 2;
+	}
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(stage);
 
@@ -292,8 +321,16 @@ function initShowOffBossScreen(bossnumber) {
 	gamestage.snapToPixelEnabled = true;
 	var bossLabel = new createjs.Text("WASTE MAN", "bold 10px Arial", "#FFF");
 
-	gamestage.canvas.width = window.innerWidth / 2;
-	gamestage.canvas.height = window.innerHeight / 2;
+	if (window.innerWidth > 1500) {
+		gamezoom = 3;
+		gamestage.canvas.width = window.innerWidth / 3;
+		gamestage.canvas.height = window.innerHeight / 3;
+		document.getElementById("gamecanvas").style.zoom = 3;
+		document.getElementById("gamecanvas").style.MozTransform = "scale(3)";
+	} else {
+		gamestage.canvas.width = window.innerWidth / 2;
+		gamestage.canvas.height = window.innerHeight / 2;
+	}
 	gamestage.canvas.style.backgroundColor = "#FFF";
 	gamestage.addChild(altstage);
 	gamestage.addChild(stage);
@@ -331,7 +368,7 @@ function handleShowOffBossScreenTick(event) {
 	} else if (showOffBossScreenCounter === 150) {
 		var wastemanLabel = new createjs.Text("WASTE MAN", "bold 10px Arial", "#FFF");
 		wastemanLabel.y = gamestage.canvas.height / 2 + 20;
-		wastemanLabel.x = gamestage.canvas.width / 2 - 33;
+		wastemanLabel.x = gamestage.canvas.width / 2 - 30;
 		gamestage.addChild(wastemanLabel);
 	} else if (showOffBossScreenCounter === 130) {
 		var wastemanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -375,7 +412,7 @@ function handleShowOffBossScreenTick(event) {
 	    bossShowOffScreenShape2.x = 0;
 	    altstage.addChild(bossShowOffScreenShape2);
 	} else if (showOffBossScreenCounter === 105) {
-	    altstage.removeChild(bossShowOffScreenShape2); 
+	    altstage.removeChild(bossShowOffScreenShape2);
 	    bossShowOffScreenShape = new createjs.Shape();
 	    bossShowOffScreenShape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
 	    bossShowOffScreenShape.x = 0;
@@ -387,7 +424,7 @@ function handleShowOffBossScreenTick(event) {
 	    bossShowOffScreenShape2.x = 0;
 	    altstage.addChild(bossShowOffScreenShape2);
 	} else if (showOffBossScreenCounter === 95) {
-	    altstage.removeChild(bossShowOffScreenShape2); 
+	    altstage.removeChild(bossShowOffScreenShape2);
 	    bossShowOffScreenShape = new createjs.Shape();
 	    bossShowOffScreenShape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
 	    bossShowOffScreenShape.x = 0;
@@ -457,15 +494,23 @@ function initBossScreen() {
 	altstage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.snapToPixelEnabled = true;
-	gamestage.canvas.width = window.innerWidth / 2;
-	gamestage.canvas.height = window.innerHeight / 2;
+	if (window.innerWidth > 1500) {
+		gamezoom = 3;
+		gamestage.canvas.width = window.innerWidth / 3;
+		gamestage.canvas.height = window.innerHeight / 3;
+		document.getElementById("gamecanvas").style.zoom = 3;
+		document.getElementById("gamecanvas").style.MozTransform = "scale(3)";
+	} else {
+		gamestage.canvas.width = window.innerWidth / 2;
+		gamestage.canvas.height = window.innerHeight / 2;
+	}
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(altstage);
 	gamestage.addChild(stage);
 	stage.x = -gamestage.canvas.width;
 	altstage.x = gamestage.canvas.width;
     var fillColor = new createjs.Shape();
-    fillColor.graphics.beginFill("0000FF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
+    fillColor.graphics.beginFill("#0000FF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
     altstage.addChild(fillColor);
 
 	var width = bossframes[0].spriteSheet._frameWidth;
@@ -533,8 +578,8 @@ function bossClickHandler(event) {
     if (event.type === "touch") {
 	    for (var i = 0; i < event.touches.length; i++) {
 	        var touch = event.touches[i];
-	        touchSprite.x = touch.pageX /2;
-	        touchSprite.y = touch.pageY /2;
+	        touchSprite.x = touch.pageX / gamezoom;
+	        touchSprite.y = touch.pageY / gamezoom;
 	        for (var j = 0; j < 9; j++) {
 	            if (fastCollisionSprite(bossframes[j], touchSprite)) {
 	               	initVars();
@@ -545,8 +590,8 @@ function bossClickHandler(event) {
 	        }
 	    }
 	} else {
-	        touchSprite.x = event.clientX /2;
-	        touchSprite.y = event.clientY /2;
+	        touchSprite.x = event.clientX / gamezoom;
+	        touchSprite.y = event.clientY / gamezoom;
 	        for (var k = 0; k < 9; k++) {
 	            if (fastCollisionSprite(bossframes[k], touchSprite)) {
 	               	initVars();
@@ -567,7 +612,7 @@ function handleBossScreenTick(event) {
 	}
 	if (startlevel) {
 		initVars();
-		beginGame();
+		beginGame(true);
 		event.remove();
 	}
 	gamestage.update();
@@ -576,9 +621,14 @@ function handleBossScreenTick(event) {
 function handleTick(event) {
 	if (!mapper.doneRendering) {
 		return;
-	} else if (mapper.transitiondown) {
+	} else if (mapper.transitiondown || mapper.transitionright) {
 
 		mapper.tickActions({});
+		gamestage.update();
+		return;
+	}
+
+	if (mapper.showingReadyLabel) {
 		gamestage.update();
 		return;
 	}
@@ -634,17 +684,30 @@ function handleTick(event) {
 	//  { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false }
 	if (((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || player.health <= 0) {
 		actions.playerDeath = true;
-		setTimeout(function() {
-			init();
-		}.bind(this, event), 2000);
+		lives--;
 
-		event.remove();
+		if (lives < 0) {
+			setTimeout(function() {
+				initVars();
+				initBossScreen();
+			}.bind(this), 2000);
+
+			event.remove();
+		} else {
+			setTimeout(function() {
+				initVars();
+				beginGame(false);
+			}.bind(this), 2000);
+
+			event.remove();
+		}
 		//init();
 	}
 
 	if (logFPS) {
 		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " / " + Math.round(createjs.Ticker.getFPS());
 	}
+	scoreLabel.text = "SCORE: " + score;
 
 	if (skipFrames === 1) {
 		gamestage.update();

@@ -28,7 +28,7 @@ function Flood(stage, basicCollision, x, y, original) {
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;
-	this.advanceTicks     = ((this.original) ? 120 : 30) / lowFramerate;
+	this.advanceTicks     = ((this.original) ? 60 : 20) / lowFramerate;
 	this.hardshell        = false;
 	this.watchedElements  = [];
 	this.spent            = false;
@@ -44,7 +44,7 @@ function Flood(stage, basicCollision, x, y, original) {
 		}
 
 		var distanceFromPlayer = player.x - this.x;
-		if (Math.abs(distanceFromPlayer) <= 200 || !this.original) {
+		if (Math.abs(distanceFromPlayer) <= 300 || !this.original) {
 
 			if (this.advanceTicks !== 0) {
 				this.advanceTicks--;

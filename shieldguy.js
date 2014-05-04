@@ -45,6 +45,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 
 		if (this.health <= 0 && this.activated) {
 			var explosion = explosionSprite.clone(true);
+			score += 25;
 			explosion.x = this.animations.x;
 			explosion.y = this.animations.y;
 			this.stage.removeChild(this.animations);
