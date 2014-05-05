@@ -20,6 +20,7 @@ function Flood(stage, basicCollision, x, y, original) {
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.original         = original;
+	this.damage           = 3;
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(floodSpriteSheet, "current");

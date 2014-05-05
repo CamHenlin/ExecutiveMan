@@ -21,7 +21,9 @@ function Copter(stage, x, y) {
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;
+	this.damage           = 1;
 	this.health           = 1;
+	this.flee             = false;
 	this.targetY          = 0;
 	this.yStepSize        = 0;
 	this.xStepSize        = 0;
@@ -65,7 +67,9 @@ function Copter(stage, x, y) {
 
 
 		if (this.movementTicks > 0) {
-			this.y -= this.yStepSize;
+			if (!this.flee) {
+				this.y -= this.yStepSize;
+			}
 			this.x -= this.xStepSize;
 			this.movementTicks--;
 		} else {
@@ -80,7 +84,14 @@ function Copter(stage, x, y) {
 				this.yStepSize = (this.y - this.targetY) / (this.movementTicks);
 			}
 		}
+		if (this.flee) {
+			this.y--;
+		}
 		this.animations.x = this.x - mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
+	};
+
+	this.playerCollisionActions = function() {
+		this.flee = true;
 	};
 }

@@ -18,6 +18,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.basicCollision   = basicCollision;
+	this.damage	          = 2;
 	this.health           = 4;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
@@ -128,6 +129,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		});
 
 		this.stage      = stage;
+		this.damage     = 4;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.x          = x + ((this.direction === 1) ? 16 : -2);

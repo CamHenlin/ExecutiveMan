@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="90" height="15" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="backgroundColor" value="#000"/>
+  <property name="stitchx" value="608"/>
+ </properties>
+ <tileset firstgid="1" name="map1" tilewidth="16" tileheight="16">
+  <image source="images/map1.png" width="160" height="240"/>
+ </tileset>
+ <layer name="background" width="90" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzt0dsNgCAMRuF6mZAN9EUX0C3UlekIJiU/KOck3yNJW5KZJeAnLkjckHggUfufe0FERNRKi9sKW6UbaBrcWHuIDprcHHh/uL2wMzBPq0XvTO/64p0ze84TWg==
+  </data>
+ </layer>
+ <layer name="collision" width="90" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztlD0KgDAMRnsMFx38QRfnXsGz6NajOHheI1iQglolSVvNgw+KhDZ9DWolUDJADESHbuTjiGcexDMP4pkH8cyDeOajV889G4L6u5qnZ8bGG89YXLlL3auLr+ezexuPNQUlpCI+A4sRMin+ecZ4gxbSOd/sfWJi6ylT154pZhJrzxxSeNTF4D7UPGPg6zkE7tsePS9BOvoH1vO8x/5LUkgNaRLreQUsdSAx
+  </data>
+ </layer>
+ <layer name="kill" width="90" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzt0AENAAAIwzAM4d8eLk4IrYJlVQAAXNfbAU/4nOEzAJAwSGcAiA==
+  </data>
+ </layer>
+ <layer name="enemies" width="90" height="15">
+  <data encoding="base64" compression="zlib">
+   eJzt17EKACAIBUCJ/v+bG1qCJiUo4m50eLxFwQhg1ZPzSlY1D+B1bhv8xU4D7Px5U7tdAA4YrIcAIw==
+  </data>
+ </layer>
+ <layer name="foreground" width="90" height="15">
+  <data encoding="base64" compression="zlib">
+   eJztzkEJAAAIADGLaP+Y2kKRDe5/EQAAAADwU061PcFJDZEUADw=
+  </data>
+ </layer>
+</map>

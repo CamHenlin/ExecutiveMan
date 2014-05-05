@@ -19,6 +19,7 @@ function FilingCabinet(stage, basicCollision, x, y) {
 
 	this.basicCollision   = basicCollision;
 	this.health           = 8;
+	this.damage           = 3;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(filingCabinetSpriteSheet, "sit");
 	this.x                = x;
@@ -74,7 +75,7 @@ function FilingCabinet(stage, basicCollision, x, y) {
 		}
 
 		if (this.jumping && collisionResults.down) {
-			this.jumpspeed += 0.25;
+			this.jumpspeed += 0.125;
 			if (this.jumpspeed > 6 * lowFramerate) {
 				this.jumpspeed = 6 * lowFramerate;
 			}

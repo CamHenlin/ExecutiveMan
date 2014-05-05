@@ -139,6 +139,7 @@ function Player() {
 	this.goingLeft          = false;
 	this.goingRight         = false;
 	this.jumping            = false;
+	this.ignoreBounceBack   = false;
 	this.falling            = false;
 	this.jumpreleased       = true;
 	this.jumpspeed          = 0;
@@ -328,7 +329,7 @@ function Player() {
     	}
 
         if (this.ignoreInput) {
-            if (this.ignoreDamage) {
+            if (this.ignoreDamage && !this.ignoreBounceBack) {
                 this.x += -this.animations.scaleX * lowFramerate;
                 // prevent us from moving left after a screen transition
                 if (this.animations.x < 0 && this.goingLeft) {
@@ -568,21 +569,28 @@ function Player() {
 				var intersection = fastCollisionPlayer(this, enemy);
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 				if (intersection) {
-					this.health -= 2; // should come from enemy
-					this.animations.gotoAndPlay("damage");
-					this.ignoreInput = true;
-					this.ignoreDamage = true;
 
-					this.x += -this.animations.scaleX;
-					setTimeout(function() {
-						this.ignoreDamage = false;
-					}.bind(this), 1000);
-					setTimeout(function() {
-						this.ignoreInput = false;
-					}.bind(this), 250);
+					if (enemy.damage !== 0) {
+						this.health -= enemy.damage; // should come from enemy
+						this.animations.gotoAndPlay("damage");
+						this.ignoreInput = true;
+						this.ignoreDamage = true;
+
+						this.x += -this.animations.scaleX;
+						setTimeout(function() {
+							this.ignoreDamage = false;
+						}.bind(this), 1000);
+						setTimeout(function() {
+							this.ignoreInput = false;
+						}.bind(this), 200);
+					}
 
 					if (this.jumpspeed < 2 && this.jumping) {
 						this.jumpspeed = 2;
+					}
+
+					if (typeof(enemy.playerCollisionActions) === "function") {
+						enemy.playerCollisionActions();
 					}
 				}
 			}
@@ -597,7 +605,7 @@ function Player() {
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemyshot.animations);
 				if (intersection) {
 					enemyshot.removeSelf();
-					this.health -= 4; // should actually come from the enemy
+					this.health -= enemyshot.damage; // should actually come from the enemy
 					this.animations.gotoAndPlay("damage");
 					this.ignoreInput = true;
 					this.ignoreDamage = true;
@@ -608,7 +616,7 @@ function Player() {
 					}.bind(this), 1000);
 					setTimeout(function() {
 						this.ignoreInput = false;
-					}.bind(this), 500);
+					}.bind(this), 300);
 
 					if (this.jumpspeed < 2 && this.jumping) {
 						this.jumpspeed = 2;

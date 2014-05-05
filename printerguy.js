@@ -27,6 +27,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 
 	this.basicCollision   = basicCollision;
 	this.health           = 2;
+	this.damage           = 1;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
 	this.x                = x;
@@ -165,6 +166,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		});
 
 		this.stage      = stage;
+		this.damage     = 4;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.x          = x + ((this.direction === 1) ? 16 : -2);

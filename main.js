@@ -17,6 +17,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "wastemanframe", src: "images/wastemanframe.png"},
 						{id: "filingcabinet", src: "images/filingcabinet.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
+						{id: "door", src: "images/door.png"},
 						{id: "copter", src: "images/copter.png"}]);
 
 function getParameterByName(name) {
@@ -117,7 +118,7 @@ function beginGame(newGame) {
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 
-	if (window.innerWidth > 1500) {
+	if (window.innerWidth > 1500 || window.innerHeight > 800) {
 		gamezoom = 3;
 		gamestage.canvas.width = window.innerWidth / 3;
 		gamestage.canvas.height = window.innerHeight / 3;
@@ -240,7 +241,7 @@ function initTitleScreen() {
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.snapToPixelEnabled = true;
 
-	if (window.innerWidth > 1500) {
+	if (window.innerWidth > 1500 || window.innerHeight > 800) {
 		gamezoom = 3;
 		gamestage.canvas.width = window.innerWidth / 3;
 		gamestage.canvas.height = window.innerHeight / 3;
@@ -321,7 +322,7 @@ function initShowOffBossScreen(bossnumber) {
 	gamestage.snapToPixelEnabled = true;
 	var bossLabel = new createjs.Text("WASTE MAN", "bold 10px Arial", "#FFF");
 
-	if (window.innerWidth > 1500) {
+	if (window.innerWidth > 1500 || window.innerHeight > 800) {
 		gamezoom = 3;
 		gamestage.canvas.width = window.innerWidth / 3;
 		gamestage.canvas.height = window.innerHeight / 3;
@@ -494,7 +495,7 @@ function initBossScreen() {
 	altstage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.snapToPixelEnabled = true;
-	if (window.innerWidth > 1500) {
+	if (window.innerWidth > 1500 || window.innerHeight > 800) {
 		gamezoom = 3;
 		gamestage.canvas.width = window.innerWidth / 3;
 		gamestage.canvas.height = window.innerHeight / 3;
@@ -546,6 +547,18 @@ function initBossScreen() {
 
 	document.getElementById("gamecanvas").addEventListener('touchstart', bossClickHandler, false);
 	document.getElementById("gamecanvas").addEventListener('click', bossClickHandler, false);
+	document.onkeydown = function (event) {
+		switch (event.keyCode) {
+			case 32:
+				// keyCode 32 is space
+	               	initVars();
+	               	initShowOffBossScreen();
+	               	document.getElementById("gamecanvas").removeEventListener('touchstart', bossClickHandler);
+					document.getElementById("gamecanvas").removeEventListener('click', bossClickHandler);
+				break;
+		}
+	}.bind(this);
+
 
 	stage.addChild(executivemanTopper);
 	for (i = 0; i < bossframes.length; i++) {
