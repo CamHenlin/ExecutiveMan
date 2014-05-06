@@ -1,19 +1,21 @@
-var HealthBar = function(stage, player) {
+var BossHealthBar = function(stage, boss) {
 	this.maxheight  = 14 * 4 + 1; // 28 bars taking 2px each vertically
 	this.stage      = stage;
+	this.boss       = boss;
 	this.bars       = 28;
-	this.x          = 18;
+	this.x          = mapper.gamestage.canvas.width - 36;
 	this.y          = 18; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
 
 	this.tickActions = function() {
-		if (this.bars !== player.health) {
-			this.bars = player.health;
+		if (this.bars !== this.boss.health) {
+			this.bars = this.boss.health;
 			this.draw();
 		}
 	};
 
 	this.draw = function() {
+		console.log("drawing boss health bar!");
 		var box = new createjs.Shape();
 		box.graphics.beginFill("#000000").drawRect(this.x, this.y, 8, this.maxheight);
 
@@ -26,13 +28,15 @@ var HealthBar = function(stage, player) {
 
 		var offset = (28 - this.bars) * 2;
 		for (i = 0; i < this.bars; i++) {
-			var barItem = new createjs.Bitmap("images/healthbar.png");
-			barItem.x = 19;
+			var barItem = new createjs.Bitmap("images/bosshealthbar.png");
+			barItem.x = mapper.gamestage.canvas.width - 35;
 			barItem.y = i * 2 + offset + this.y + 1;
 			this.barAnimations.push(barItem);
 			this.stage.addChild(barItem);
 		}
 	};
 
-    this.draw();
+	setTimeout(function() {
+    	this.draw();
+	}.bind(this), 250);
 };

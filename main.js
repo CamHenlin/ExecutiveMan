@@ -15,8 +15,11 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "enemyshot", src: "images/enemyshot.png"},
 						{id: "bossframe", src: "images/bossframe.png"},
 						{id: "wastemanframe", src: "images/wastemanframe.png"},
+						{id: "wasteman", src: "images/wastemanspritesheet.png"},
+						{id: "wastemanshot", src: "images/wastemanshot.png"},
 						{id: "filingcabinet", src: "images/filingcabinet.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
+						{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
 						{id: "door", src: "images/door.png"},
 						{id: "copter", src: "images/copter.png"}]);
 
@@ -189,7 +192,7 @@ function beginGame(newGame) {
 	scoreLabel = new createjs.Text("SCORE: ", "bold 10px Arial", "#FFF");
 	gamestage.addChild(scoreLabel);
 
-	scoreLabel.x = gamestage.canvas.width - 96;
+	scoreLabel.x = gamestage.canvas.width - 256;
 	scoreLabel.y = 18;
 
 	createjs.Ticker.addEventListener("tick", handleTick);
@@ -659,7 +662,7 @@ function handleTick(event) {
 
 
 	var modifier = 4;
-	var xmodifier = 6;
+	var xmodifier = 7;
 	var playerCollisionPoints = {
 		leftTop : { x: player.x + xmodifier, y: player.y + modifier },
 		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },

@@ -132,7 +132,7 @@ function Player() {
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
-	this.x                  = 96;
+	this.x                  = 96 + mapper.widthOffset;
 	this.animations.x       = this.x;
 	this.lastx				= this.x;
 	this.y                  = 30;
@@ -177,13 +177,11 @@ function Player() {
 			case 37:
 				// keyCode 37 is left arrow
 				this.actions.playerLeft = true;
-				this.actions.playerRight = false;
 				break;
 
 			case 39:
 				// keyCode 39 is right arrow
 				this.actions.playerRight = true;
-				this.actions.playerLeft = false;
 				break;
 
 
@@ -210,13 +208,11 @@ function Player() {
 			case 37:
 				// keyCode 37 is left arrow
 				this.actions.playerLeft = false;
-				this.actions.playerRight = false;
 				break;
 
 			case 39:
 				// keyCode 39 is right arrow
 				this.actions.playerRight = false;
-				this.actions.playerLeft = false;
 				break;
 
 	        case 32:
@@ -534,7 +530,7 @@ function Player() {
 		//console.log(this.x);
 		//
 
-		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset) {
+		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset + mapper.widthOffset) {
 			mapper.nextMapRight(mapper.mapData);
 
 			this.ignoreInput = true;

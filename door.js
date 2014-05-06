@@ -18,7 +18,7 @@ function Door(stage, basicCollision, x, y) {
 			"holdopen": {
 				"frames" : [6],
 				"next" : "holdopen"
-			},
+			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
