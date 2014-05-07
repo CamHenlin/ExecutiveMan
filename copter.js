@@ -22,7 +22,7 @@ function Copter(stage, x, y) {
 	this.jumping          = false;
 	this.jumpspeed        = 0;
 	this.damage           = 1;
-	this.health           = 1;
+	this.health           = 2;
 	this.flee             = false;
 	this.targetY          = 0;
 	this.yStepSize        = 0;
@@ -42,6 +42,7 @@ function Copter(stage, x, y) {
 		}
 
 		if (this.health <= 0) {
+			mapper.itemDrop(this.x, this.y);
 			var explosion = explosionSprite.clone(true);
 			score += 2;
 			explosion.x = this.animations.x;

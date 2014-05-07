@@ -53,6 +53,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		}
 
 		if (this.health <= 0) {
+			mapper.itemDrop(this.x, this.y);
 			score += 5;
 			var explosion = explosionSprite.clone(true);
 			explosion.x = this.animations.x;

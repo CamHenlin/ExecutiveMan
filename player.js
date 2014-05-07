@@ -50,7 +50,9 @@ function Player() {
 						return;
 					}
 
-					enemy.health--;
+					if (enemy.damage > 0) {
+						enemy.health -= 2;
+					}
 					this.removeSelf();
 				}
 			}.bind(this));
@@ -73,6 +75,15 @@ function Player() {
 		this.removeSelf = function() {
 			//console.log("removing");
 			mapper.enemyContainer.removeChild(this.animations);
+			var explosion = shotExplosionSprite.clone(true);
+			explosion.x = this.animations.x - this.animations.spriteSheet._frameWidth / 2;
+			explosion.y = this.animations.y - this.animations.spriteSheet._frameHeight / 2;
+			mapper.enemyContainer.removeChild(this.animations);
+			explosion.gotoAndPlay("explode");
+			mapper.enemyContainer.addChild(explosion);
+			setTimeout(function() {
+				mapper.enemyContainer.removeChild(explosion);
+			}.bind(this), 15.625); // approx 2 frames
 			this.disabled = true;
 		};
 
@@ -102,7 +113,7 @@ function Player() {
 				"speed" : (0.175 / lowFramerate) / skipFrames
 			},
 			"run": {
-				"frames" : [3, 4, 5],
+				"frames" : [3, 4, 5, 3],
 				"next" : "run",
 				"speed" : (0.2 / lowFramerate) / skipFrames
 			},
@@ -115,7 +126,7 @@ function Player() {
 				"next" : "standshoot"
 			},
 			"runshoot": {
-				"frames" : [7, 8, 9],
+				"frames" : [7, 8, 9, 8],
 				"next" : "runshoot",
 				"speed" : (0.2 / lowFramerate) / skipFrames
 			},
@@ -127,6 +138,10 @@ function Player() {
 			"jumpshoot": {
 				"frames" : [11],
 				"next" : "jumpshoot"
+			},
+			"thumbsup": {
+				"frames" : [18],
+				"next" : "thumbsup"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -147,6 +162,7 @@ function Player() {
 	this.watchedElements    = [];
 	this.health             = 28;
 	this.actions            = {};
+	this.gameActions        = {};
 	this.gamestage			= mapper.gamestage;
 	this.ignoreDamage		= false;
 	this.ignoreInput        = false;
@@ -320,6 +336,7 @@ function Player() {
     // as we're aming to be a reimplementation of megaman physics, and not realistic physics
     // most values are doubled from their megaman values as i am using double sized sprites
     this.tickActions = function(actions) {
+    	this.gameActions = actions;
     	if (mapper.transitiondown) {
     		return;
     	}
@@ -563,10 +580,12 @@ function Player() {
 
 			if (enemy.health > 0 || typeof(enemy.health) === "undefined") {
 				var intersection = fastCollisionPlayer(this, enemy);
+				if (enemy.damage < 1) { // for non enemy objects
+					intersection = fastCollisionPlayerLoose(this, enemy);
+				}
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 				if (intersection) {
-
-					if (enemy.damage !== 0) {
+					if (enemy.damage > 0) {
 						this.health -= enemy.damage; // should come from enemy
 						this.animations.gotoAndPlay("damage");
 						this.ignoreInput = true;
@@ -579,6 +598,9 @@ function Player() {
 						setTimeout(function() {
 							this.ignoreInput = false;
 						}.bind(this), 200);
+					} else if (enemy.damage < 0) { // this is actually health!
+						this.health -= enemy.damage;
+						enemy.health = -1;
 					}
 
 					if (this.jumpspeed < 2 && this.jumping) {
@@ -620,5 +642,22 @@ function Player() {
 				}
 			}.bind(this));
 		}.bind(this));
+	};
+
+	this.defeatedBoss = function() {
+		this.gameActions.event.remove();
+		this.ignoreDamage = true;
+		this.ignoreInput = true;
+		this.ignoreBounceBack = true;
+		setTimeout(function() {
+			player.animations.gotoAndPlay("thumbsup");
+		}, 1500);
+		setTimeout(function() {
+			this.ignoreDamage = false;
+			this.ignoreInput = false;
+			this.ignoreBounceBack = false;
+			initVars();
+			initBossScreen();
+		}, 3000);
 	};
 }

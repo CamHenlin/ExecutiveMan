@@ -11,6 +11,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "shot", src: "images/shot.png"},
 						{id: "health", src: "images/healthbar.png"},
 						{id: "explosion", src: "images/explosion.png"},
+						{id: "shotexplosion", src: "images/shotexplode.png"},
 						{id: "flood", src: "images/flood.png"},
 						{id: "enemyshot", src: "images/enemyshot.png"},
 						{id: "bossframe", src: "images/bossframe.png"},
@@ -18,6 +19,8 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "wasteman", src: "images/wastemanspritesheet.png"},
 						{id: "wastemanshot", src: "images/wastemanshot.png"},
 						{id: "filingcabinet", src: "images/filingcabinet.png"},
+						{id: "bighealth", src: "images/bighealth.png"},
+						{id: "littlehealth", src: "images/littlehealth.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
 						{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
 						{id: "door", src: "images/door.png"},
@@ -44,6 +47,7 @@ function handleComplete() {
 	}, 100);
 }
 
+var itemDropCount = 0;
 var lives = 2;
 var gamezoom = 2;
 var stage;
@@ -71,6 +75,7 @@ var score = 0;
 var bossframes = [];
 
 var explosionSprite;
+var shotExplosionSprite;
 
 var leftButtonSprite;
 var rightButtonSprite;
@@ -117,6 +122,20 @@ function beginGame(newGame) {
 		});
 
 	explosionSprite = new createjs.Sprite(explosionSpriteSheet, "explode");
+	var shotExplosionSpriteSheet = new createjs.SpriteSheet({
+			"images": [loader.getResult("shotexplosion")],
+			"frames": {
+				"width": 16, "height": 16, "count": 1
+			},
+			"animations": {
+				"explode": {
+					"frames" : [0],
+					"next" : "explode"
+				}
+			}
+		});
+
+	shotExplosionSprite = new createjs.Sprite(shotExplosionSpriteSheet, "explode");
 	gamestage = new createjs.Stage("gamecanvas");
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
@@ -322,6 +341,7 @@ function initShowOffBossScreen(bossnumber) {
 	stage = new createjs.Container();
 	altstage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
+	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 	var bossLabel = new createjs.Text("WASTE MAN", "bold 10px Arial", "#FFF");
 
@@ -361,6 +381,9 @@ function initShowOffBossScreen(bossnumber) {
 var bossShowOffScreenShape;
 var bossShowOffScreenShape2;
 function handleShowOffBossScreenTick(event) {
+
+	document.getElementById("gamecanvas").addEventListener('touchstart', function () {}, false);
+	document.getElementById("gamecanvas").addEventListener('click', function () {}, false);
 	if (showOffBossScreenCounter < 0) {
 		initVars();
 		startlevel = true;
@@ -538,12 +561,6 @@ function initBossScreen() {
 	executivemanTopper.y = centery - width * 2 - width / 2;
 	startlevel = false;
 
-
-
-
-
-
-
 	createjs.Ticker.addEventListener("tick", handleBossScreenTick);
 	createjs.Ticker.setFPS(60);
 
@@ -635,6 +652,12 @@ function handleBossScreenTick(event) {
 }
 
 function handleTick(event) {
+	itemDropCount++;
+	if (itemDropCount === 5) {
+		itemDropCount = 0;
+	}
+
+
 	if (!mapper.doneRendering) {
 		return;
 	} else if (mapper.transitiondown || mapper.transitionright) {
@@ -653,7 +676,7 @@ function handleTick(event) {
 		return;
 	}
 
-	var actions = {};
+	var actions = {"event" : event};
 
 	actions.mobile = mobile;
 	if (mobile) {

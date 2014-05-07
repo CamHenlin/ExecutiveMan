@@ -7,6 +7,9 @@ var HealthBar = function(stage, player) {
 	this.barAnimations = [];
 
 	this.tickActions = function() {
+		if (player.health > 28) {
+			player.health = 28;
+		}
 		if (this.bars !== player.health) {
 			this.bars = player.health;
 			this.draw();

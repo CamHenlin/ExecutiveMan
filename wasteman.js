@@ -88,7 +88,6 @@ function WasteMan(stage, basicCollision, x, y) {
 				this.stage.addChild(explosions[i]);
 				explosions[i].gotoAndPlay("explode");
 			}
-			score += 500000;
 			explosions[0].x = this.animations.x + this.animations.spriteSheet._frameWidth / 2;
 			explosions[0].y = this.animations.y + this.animations.spriteSheet._frameHeight / 2;
 
@@ -111,6 +110,8 @@ function WasteMan(stage, basicCollision, x, y) {
 					this.stage.removeChild(explosions[i]);
 				}
 			}.bind(this), 300);
+			score += 500000;
+			player.defeatedBoss();
 			this.dead = true;
 			return;
 		}
@@ -145,10 +146,16 @@ function WasteMan(stage, basicCollision, x, y) {
 			this.jumping = true;
 		}
 
+		var distanceFromPlayer = player.x - this.x;
 		if (this.jumping && collisionResults.down) {
 			this.jumpspeed += 0.25;
 			if (this.jumpspeed > 12 / lowFramerate) {
 				this.jumpspeed = 12 / lowFramerate;
+				if (distanceFromPlayer < 0) {
+					this.runningLeft = true;
+				} else {
+					this.runningRight = true;
+				}
 			}
 
 			this.y += this.jumpspeed;
@@ -197,7 +204,6 @@ function WasteMan(stage, basicCollision, x, y) {
 
 
 		// figure out if we can shoot or not
-		var distanceFromPlayer = player.x - this.x;
 		if (distanceFromPlayer < 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is left!
 		    //console.log("player is left");
 		    this.lastRunDirRight = false;                                                                                     // ''
@@ -226,7 +232,7 @@ function WasteMan(stage, basicCollision, x, y) {
 		    this.lastRunDirLeft = false;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningRight && collisionResults.right) {
-			this.x += (this.health < 14) ? 2.3 : 1.9; // faster than executiveman!
+			this.x += (this.health < 14) ? 1.9 : 1.5; // faster than executiveman!
 			if (Math.abs(distanceFromPlayer) > 256 && !this.lastRunDirRight) {
 				this.lastRunDirRight = true;
 				this.runningRight = false;

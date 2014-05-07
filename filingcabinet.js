@@ -46,6 +46,7 @@ function FilingCabinet(stage, basicCollision, x, y) {
 		}
 
 		if (this.health <= 0) {
+			mapper.itemDrop(this.x, this.y);
 			var explosion = explosionSprite.clone(true);
 			score += 50;
 			explosion.x = this.animations.x + this.animations.spriteSheet._frameWidth / 2;
