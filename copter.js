@@ -22,7 +22,7 @@ function Copter(stage, x, y) {
 	this.jumping          = false;
 	this.jumpspeed        = 0;
 	this.damage           = 1;
-	this.health           = 2;
+	this.health           = 1;
 	this.flee             = false;
 	this.targetY          = 0;
 	this.yStepSize        = 0;

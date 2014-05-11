@@ -1,7 +1,7 @@
 function TileCollisionDetector() {
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
 
-		var moves = { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false };
+		var moves = { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false, nextmapup : false };
 		var tilesize = 16; // this is used as width and height!
 
 		try {
@@ -100,6 +100,7 @@ function TileCollisionDetector() {
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
+				moves.nextmapup = true;
 			}
 
 			if (b <= -1 || b > collisionArray[a].length) {
@@ -125,7 +126,7 @@ function TileCollisionDetector() {
 				moves.upmove = false;
 			}
 		} catch (error) {
-			moves = { leftmove : false, downmove : false, rightmove : false, upmove : false, nextmap : true };
+			moves = { leftmove : false, downmove : false, rightmove : false, upmove : false, nextmap : true, nextmapup : false };
 		}
 
 		return moves;

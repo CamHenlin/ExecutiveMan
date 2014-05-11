@@ -51,7 +51,7 @@ function Player() {
 					}
 
 					if (enemy.damage > 0) {
-						enemy.health -= 2;
+						enemy.health -= 1;
 					}
 					this.removeSelf();
 				}
@@ -265,8 +265,6 @@ function Player() {
         });
         var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-        console.log("binding touch event");
-
         this.touchIds = [];
 
         var eventHandler = function(event) {
@@ -339,6 +337,10 @@ function Player() {
     	this.gameActions = actions;
     	if (mapper.transitiondown) {
     		return;
+    	}
+
+    	if (this.gameActions.collisionResults.nextmapup && mapper.getNextMapDirection() === "up") {
+    		mapper.nextMapUp();
     	}
 
         if (this.ignoreInput) {
