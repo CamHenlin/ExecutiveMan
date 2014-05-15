@@ -25,6 +25,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
 						{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
 						{id: "door", src: "images/door.png"},
+					//	{id: "wastemansoundloop", src: "sounds/wastemansoundloop.mp3"},
 						{id: "copter", src: "images/copter.png"}]);
 
 function getParameterByName(name) {
@@ -40,6 +41,7 @@ var check = false;
 return check; };
 
 function handleComplete() {
+	loader.installPlugin(createjs.SoundJS);
 	/*backgroundImage = preload.getResult("background");
 	treesImage = preload.getResult("trees");
 	groundImage = preload.getResult("ground");
@@ -120,6 +122,7 @@ window.onresize = function(event) {
 };
 
 function beginGame(newGame) {
+
 	if (newGame) {
 		lives = 2;
 	}
@@ -218,6 +221,7 @@ function beginGame(newGame) {
 		rightButtonSprite.y = gamestage.canvas.height - 64;
 		shootButtonSprite.y = gamestage.canvas.height - 64;
 		initTouchControls();
+		//var music = createjs.Sound.play(loader.getResult("wastemansoundloop"), {loop:-1});
 	}
 
 	if (logFPS) {

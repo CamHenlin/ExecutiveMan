@@ -113,9 +113,9 @@ function Player() {
 				"speed" : (0.175 / lowFramerate) / skipFrames
 			},
 			"run": {
-				"frames" : [3, 4, 5, 3],
+				"frames" : [3, 4, 5, 4],
 				"next" : "run",
-				"speed" : (0.2 / lowFramerate) / skipFrames
+				"speed" : (0.175 / lowFramerate) / skipFrames
 			},
 			"jump": {
 				"frames" : [10],
@@ -126,9 +126,9 @@ function Player() {
 				"next" : "standshoot"
 			},
 			"runshoot": {
-				"frames" : [7, 8, 9, 8],
+				"frames" : [7, 8],
 				"next" : "runshoot",
-				"speed" : (0.2 / lowFramerate) / skipFrames
+				"speed" : (0.175 / lowFramerate) / skipFrames
 			},
 			"damage": {
 				"frames" : [16],
@@ -154,8 +154,10 @@ function Player() {
 	this.goingLeft          = false;
 	this.goingRight         = false;
 	this.jumping            = false;
+	this.onplatform         = false;
 	this.ignoreBounceBack   = false;
 	this.falling            = false;
+	this.transitionedUp     = false;
 	this.jumpreleased       = true;
 	this.jumpspeed          = 0;
 	this.shootTicks         = 0;
@@ -180,8 +182,8 @@ function Player() {
 				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
 				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
 
-	//createjs.Sound.registerSound("sounds/jump.wav", "jump");
-	//createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
+	createjs.Sound.registerSound("sounds/jump.wav", "jump");
+	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
 	setTimeout(function() {
 		this.ignoreDamage = false;
 	}.bind(this), 2000);
@@ -335,12 +337,18 @@ function Player() {
     // most values are doubled from their megaman values as i am using double sized sprites
     this.tickActions = function(actions) {
     	this.gameActions = actions;
-    	if (mapper.transitiondown) {
+    	if (mapper.transitiondown || mapper.transitionup) {
     		return;
     	}
 
     	if (this.gameActions.collisionResults.nextmapup && mapper.getNextMapDirection() === "up") {
     		mapper.nextMapUp();
+    	}
+
+    	if (this.transitionedUp) {
+            this.y += this.jumpspeed * lowFramerate;
+			this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
+			this.animations.y = this.y;
     	}
 
         if (this.ignoreInput) {
@@ -402,7 +410,7 @@ function Player() {
             //var sound = createjs.Sound.play("jump");
             //sound.volume = 0.05;
             this.animations.gotoAndPlay("jump");
-        } else if (actions.collisionResults.downmove && !this.jumping) {
+        } else if ((actions.collisionResults.downmove && !this.onplatform) && !this.jumping) {
             actions.collisionResults.downmove = true;
             this.jumpspeed = 0;
             this.falling = true;
@@ -419,7 +427,7 @@ function Player() {
 			if (this.jumpspeed > 12 / lowFramerate) {
 				this.jumpspeed = 12 / lowFramerate; // megaman's terminal velocity
 			}
-		} else if (this.jumping && !actions.collisionResults.downmove && !actions.collisionResults.nextmap) {
+		} else if ((this.jumping || this.onplatform) && !actions.collisionResults.downmove && !actions.collisionResults.nextmap) {
 			if (!this.goingLeft && !this.goingRight) {
 				this.animations.gotoAndPlay("stand");
 			} else {
@@ -427,6 +435,7 @@ function Player() {
 			}
 			this.jumping = false;
 			this.falling = false;
+			this.onplatform = false;
 
 			// correcting floor position after a jump/fall:
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
@@ -437,6 +446,11 @@ function Player() {
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 0.5; // megaman's jumpspeed set to .5 when he bonks his head
 			this.y += this.jumpspeed * lowFramerate;
+		} else if (this.onplatform && !actions.collisionResults.upmove) {
+			this.y += 38;
+			this.onplatform = false;
+			this.falling = true;
+			this.animations.gotoAndPlay("jump");
 		}
 
 		if (this.actions.playerLeft && (actions.collisionResults.leftmove || ignoreLeftRightCollisionThisFrame)) {
@@ -583,9 +597,13 @@ function Player() {
 			if (enemy.health > 0 || typeof(enemy.health) === "undefined") {
 				var intersection = fastCollisionPlayer(this, enemy);
 				if (enemy.damage < 1) { // for non enemy objects
-					intersection = fastCollisionPlayerLoose(this, enemy);
+					if (enemy.constructor === Platform) {
+						intersection = fastCollisionPlatform(this, enemy);
+					} else {
+						intersection = fastCollisionPlayerLoose(this, enemy);
+					}
 				}
-				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
+
 				if (intersection) {
 					if (enemy.damage > 0) {
 						this.health -= enemy.damage; // should come from enemy
