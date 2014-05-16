@@ -75,6 +75,34 @@ maps[0] = { "height":15,
                  "width":0,
                  "x":240,
                  "y":144
+                }, 
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "offduration":"180",
+                     "onduration":"120",
+                     "starttimer":"120"
+                    },
+                 "type":"disappearingplatform",
+                 "visible":true,
+                 "width":0,
+                 "x":544,
+                 "y":144
+                }, 
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "duration":"60"
+                    },
+                 "type":"droppingplatform",
+                 "visible":true,
+                 "width":0,
+                 "x":368,
+                 "y":128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -300,7 +328,7 @@ function Mapper(gamestage) {
 		setTimeout(function() {
 			this.showingReadyLabel = false;
 		}.bind(this), 3000);
-		 setTimeout(function() {
+		setTimeout(function() {
 			player.animations.visible = true;
 			this.enemyContainer.visible = true;
 		}.bind(this), 3100);
@@ -525,8 +553,19 @@ function Mapper(gamestage) {
 				for (var j = 0; j < layer.objects.length; j++) {
 					if (layer.objects[j].type === "platform") {
 						this.enemies.push(new Platform(this.enemyContainer, this.basicCollision, layer.objects[j].x, layer.objects[j].y,
-						                  layer.objects[j].properties.yrange, layer.objects[j].properties.yduration,
-						                  layer.objects[j].properties.xrange, layer.objects[j].properties.xduration));
+														layer.objects[j].properties.yrange, layer.objects[j].properties.yduration,
+														layer.objects[j].properties.xrange, layer.objects[j].properties.xduration));
+					}
+
+					if (layer.objects[j].type === "disappearingplatform") {
+						this.enemies.push(new DisappearingPlatform(this.enemyContainer, this.basicCollision, layer.objects[j].x, layer.objects[j].y,
+																	parseInt(layer.objects[j].properties.starttimer), parseInt(layer.objects[j].properties.onduration),
+																	parseInt(layer.objects[j].properties.offduration)));
+					}
+
+					if (layer.objects[j].type === "droppingplatform") {
+						this.enemies.push(new DroppingPlatform(this.enemyContainer, this.basicCollision, layer.objects[j].x, layer.objects[j].y,
+																	parseInt(layer.objects[j].properties.duration)));
 					}
 				}
 			}
@@ -553,17 +592,17 @@ function Mapper(gamestage) {
 					} else if (layerData.data[idx] === 2) {
 						enemyArray.push(new Flood(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, true));
 					} else if (layerData.data[idx] === 3) {
-					   enemyArray.push(new PrinterGuy(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+						enemyArray.push(new PrinterGuy(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 4) {
-					   enemyArray.push(new Copter(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+						enemyArray.push(new Copter(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 5) {
-					   enemyArray.push(new FilingCabinet(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+						enemyArray.push(new FilingCabinet(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 6) {
-					   enemyArray.push(new Door(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+						enemyArray.push(new Door(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 99) {
-					   enemyArray.push(new BigHealth(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
+						enemyArray.push(new BigHealth(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 100) {
-					   enemyArray.push(new WasteMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+						enemyArray.push(new WasteMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					}
 				}
 			}

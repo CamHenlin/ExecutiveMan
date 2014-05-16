@@ -1,6 +1,6 @@
-function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xduration) {
+function DroppingPlatform(stage, basicCollision, x, y, duration) {
 
-	var platformSpriteSheet = new createjs.SpriteSheet({
+	var droppingPlatformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("door")],
 		"frames": {
 			"width": 16, "height": 16, "count": 7
@@ -16,16 +16,12 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.damage           = 0;
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
-	this.animations       = new createjs.Sprite(platformSpriteSheet, "still");
+	this.animations       = new createjs.Sprite(droppingPlatformSpriteSheet, "still");
 	this.x                = x;// - 32;
 	this.y                = y;
-	this.initialY         = y;
-	this.initialX         = x;
-	this.xrange           = xrange;
-	this.xSpeed           = xrange / xduration;
-	this.lastx            = x;
-	this.yrange           = yrange;
-	this.ySpeed           = yrange / yduration;
+	this.ySpeed           = y;
+	this.timer            = 0;
+	this.duration         = duration;
 	this.activated        = false;
 	this.hardshell        = true;
 	this.goingup          = false;
@@ -38,42 +34,33 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.stage.addChild(this.animations);
 
 	this.tickActions = function() {
-		this.y += (this.goingup) ? -this.ySpeed : this.ySpeed;
-		this.animations.y = this.y;
-		this.x += (this.goingright) ? -this.xSpeed : this.xSpeed;
-		this.animations.x = this.x;
-
 		if (this.activated) {
-			if (!player.onplatform) {
-				this.activated = false;
-			}
-
 			if (!fastCollisionPlatform(player, this)) { // player no longer on platform
 				player.onplatform = false;
-				this.activated = false;
 			} else {
-				player.y = this.y - player.animations.spriteSheet._frameHeight - ((this.goingup) ? 0 : -this.ySpeed);
-				player.x += this.x - this.lastx;
+				player.y = this.y - player.animations.spriteSheet._frameHeight;
+			}
+
+			this.timer++;
+		}
+
+		if (this.timer > duration) {
+			player.onplatform = false;
+			this.y += this.ySpeed;
+			this.ySpeed += 0.25;
+
+			if (this.ySpeed > 12) {
+				this.ySpeed = 12;
 			}
 		}
 
-		if (this.y > this.initialY) {
-			this.goingup = true;
-		} else if (this.y < this.initialY - this.yrange) {
-			this.goingup = false;
-		}
-
-		if (this.x > this.initialX) {
-			this.goingright = true;
-		} else if (this.x < this.initialX - this.xrange) {
-			this.goingright = false;
-		}
-
-		this.lastx = this.x;
+		this.animations.x = this.x;
+		this.animations.y = this.y;
 	};
 
 	this.playerCollisionActions = function() {
-		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
+		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated ||
+			player.jumpspeed < 0) { // player definitely missed the platform
 			return;
 		}
 

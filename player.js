@@ -172,15 +172,15 @@ function Player() {
 	this.shotIndex          = 0;
 	var skipThisCheck       = false;
 
-	this.shots = [new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-				  new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
+	this.shots = [	new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
+					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
 
 	createjs.Sound.registerSound("sounds/jump.wav", "jump");
 	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
@@ -233,22 +233,22 @@ function Player() {
 				this.actions.playerRight = false;
 				break;
 
-	        case 32:
-	            // keyCode 32 is space
-	            this.actions.playerJump = false;
-	            this.jumpreleased = true;
-	            break;
+			case 32:
+				// keyCode 32 is space
+				this.actions.playerJump = false;
+				this.jumpreleased = true;
+				break;
 
-	        case 67:
-	            // keyCode 67 is c
-	            this.actions.playerAttack = false;
-	            break;
+			case 67:
+				// keyCode 67 is c
+				this.actions.playerAttack = false;
+				break;
 
 
-	        case 68:
-	            // keyCode 68 is d
-	            this.actions.playerDebug = false;
-	            break;
+			case 68:
+				// keyCode 68 is d
+				this.actions.playerDebug = false;
+				break;
         }
     }.bind(this);
 
@@ -336,20 +336,20 @@ function Player() {
     // as we're aming to be a reimplementation of megaman physics, and not realistic physics
     // most values are doubled from their megaman values as i am using double sized sprites
     this.tickActions = function(actions) {
-    	this.gameActions = actions;
-    	if (mapper.transitiondown || mapper.transitionup) {
-    		return;
-    	}
+		this.gameActions = actions;
+		if (mapper.transitiondown || mapper.transitionup) {
+			return;
+		}
 
-    	if (this.gameActions.collisionResults.nextmapup && mapper.getNextMapDirection() === "up") {
-    		mapper.nextMapUp();
-    	}
+		if (this.gameActions.collisionResults.nextmapup && mapper.getNextMapDirection() === "up") {
+			mapper.nextMapUp();
+		}
 
-    	if (this.transitionedUp) {
-            this.y += this.jumpspeed * lowFramerate;
+		if (this.transitionedUp) {
+			this.y += this.jumpspeed * lowFramerate;
 			this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
 			this.animations.y = this.y;
-    	}
+		}
 
         if (this.ignoreInput) {
             if (this.ignoreDamage && !this.ignoreBounceBack) {
@@ -623,7 +623,7 @@ function Player() {
 						enemy.health = -1;
 					}
 
-					if (this.jumpspeed < 2 && this.jumping) {
+					if (this.jumpspeed < 2 && this.jumping && (enemy.constructor === DisappearingPlatform && enemy.animations.visible)) {
 						this.jumpspeed = 2;
 					}
 

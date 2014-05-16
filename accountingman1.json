@@ -74,6 +74,34 @@
                  "width":0,
                  "x":240,
                  "y":144
+                }, 
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "offduration":"180",
+                     "onduration":"120",
+                     "starttimer":"120"
+                    },
+                 "type":"disappearingplatform",
+                 "visible":true,
+                 "width":0,
+                 "x":544,
+                 "y":144
+                }, 
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "duration":"60"
+                    },
+                 "type":"droppingplatform",
+                 "visible":true,
+                 "width":0,
+                 "x":368,
+                 "y":128
                 }],
          "opacity":1,
          "type":"objectgroup",

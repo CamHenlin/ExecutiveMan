@@ -1,6 +1,6 @@
-function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xduration) {
+function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuration, offDuration) {
 
-	var platformSpriteSheet = new createjs.SpriteSheet({
+	var disappearingPlatformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("door")],
 		"frames": {
 			"width": 16, "height": 16, "count": 7
@@ -16,16 +16,14 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.damage           = 0;
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
-	this.animations       = new createjs.Sprite(platformSpriteSheet, "still");
+	this.animations       = new createjs.Sprite(disappearingPlatformSpriteSheet, "still");
 	this.x                = x;// - 32;
 	this.y                = y;
-	this.initialY         = y;
-	this.initialX         = x;
-	this.xrange           = xrange;
-	this.xSpeed           = xrange / xduration;
-	this.lastx            = x;
-	this.yrange           = yrange;
-	this.ySpeed           = yrange / yduration;
+	this.startTimer       = startTimer;
+	this.onDuration       = onDuration;
+	this.offDuration      = offDuration;
+	this.started          = false;
+	this.timer            = 0;
 	this.activated        = false;
 	this.hardshell        = true;
 	this.goingup          = false;
@@ -36,44 +34,45 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
+	this.animations.visible = false;
 
 	this.tickActions = function() {
-		this.y += (this.goingup) ? -this.ySpeed : this.ySpeed;
-		this.animations.y = this.y;
-		this.x += (this.goingright) ? -this.xSpeed : this.xSpeed;
-		this.animations.x = this.x;
-
 		if (this.activated) {
 			if (!player.onplatform) {
 				this.activated = false;
 			}
 
-			if (!fastCollisionPlatform(player, this)) { // player no longer on platform
+			if (!fastCollisionPlatform(player, this) || !this.animations.isVisible()) { // player no longer on platform
 				player.onplatform = false;
 				this.activated = false;
 			} else {
-				player.y = this.y - player.animations.spriteSheet._frameHeight - ((this.goingup) ? 0 : -this.ySpeed);
-				player.x += this.x - this.lastx;
+				player.y = this.y - player.animations.spriteSheet._frameHeight;
 			}
 		}
 
-		if (this.y > this.initialY) {
-			this.goingup = true;
-		} else if (this.y < this.initialY - this.yrange) {
-			this.goingup = false;
+		if (this.startTimer === this.timer && !this.started) {
+			this.animations.visible = true;
+			this.started = true;
+			this.timer = 0;
 		}
 
-		if (this.x > this.initialX) {
-			this.goingright = true;
-		} else if (this.x < this.initialX - this.xrange) {
-			this.goingright = false;
+		if (this.timer === this.onDuration) {
+			this.animations.visible = false;
+			player.onplatform = false;
+			this.activated = false;
 		}
 
-		this.lastx = this.x;
+		if (this.timer === this.onDuration + this.offDuration) {
+			this.animations.visible = true;
+			this.timer = 0;
+		}
+
+		this.timer++;
 	};
 
 	this.playerCollisionActions = function() {
-		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
+		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated || 
+			!this.animations.isVisible() || player.jumpspeed < 0) { // player definitely missed the platform
 			return;
 		}
 
