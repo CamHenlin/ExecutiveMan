@@ -52,6 +52,16 @@ function fastCollisionPlatform(obj1, obj2) {
     );
 }
 
+function fastInitialCollisionPlatform(obj1, obj2) {
+
+    return !(
+            obj1.y + obj1.animations.spriteSheet._frameHeight < obj2.y - 1 ||
+            obj1.y > obj2.y + obj2.animations.spriteSheet._frameHeight / 2 ||
+            obj1.x > obj2.x + obj2.animations.spriteSheet._frameWidth - 5  ||
+            obj1.x + obj1.animations.spriteSheet._frameWidth - 5 < obj2.x
+    );
+}
+
 function fastCollisionSprite(obj1, obj2) {
     return !(
             obj1.y + obj1.spriteSheet._frameHeight < obj2.y ||

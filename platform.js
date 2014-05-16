@@ -77,6 +77,9 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 			return;
 		}
 
+		var jumplandSound = createjs.Sound.play("jumpland");
+		jumplandSound.volume = 0.05;
+
 		this.activated = true;
 		player.onplatform = true;
 		player.jumping = false;

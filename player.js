@@ -42,11 +42,14 @@ function Player() {
 				}
 
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
-				if (fastCollisionX(this, enemy)) {
+				if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform)) {
 					if (enemy.hardshell) {
 						this.yspeed = 3.5;
-						this.direction = this.direction * (this.bounced) ? 0 : -1;
+						this.direction = this.direction * (this.bounced) ? 1 : -1;
 						this.bounced = true;
+
+			            var shotbounce = createjs.Sound.play("shotbounce");
+			            shotbounce.volume = 0.25;
 						return;
 					}
 
@@ -80,6 +83,11 @@ function Player() {
 			explosion.y = this.animations.y - this.animations.spriteSheet._frameHeight / 2;
 			mapper.enemyContainer.removeChild(this.animations);
 			explosion.gotoAndPlay("explode");
+
+			if (this.checkBounds()) {
+            	var shotexplode = createjs.Sound.play("shotexplode");
+            	shotexplode.volume = 0.25;
+        	}
 			mapper.enemyContainer.addChild(explosion);
 			setTimeout(function() {
 				mapper.enemyContainer.removeChild(explosion);
@@ -92,7 +100,7 @@ function Player() {
 				return false;
 			}
 
-			return !(this.x < 0 || Math.abs(this.x - (player.x - mapper.completedMapsWidthOffset)) > mapper.gamestage.canvas.width);
+			return !(this.x < 0 || Math.abs(this.x - (player.x - mapper.completedMapsWidthOffset)) > 400);
 		};
 	};
 
@@ -182,8 +190,10 @@ function Player() {
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
 
-	createjs.Sound.registerSound("sounds/jump.wav", "jump");
+	createjs.Sound.registerSound("sounds/jumpland.wav", "jumpland");
+	createjs.Sound.registerSound("sounds/shotbounce.wav", "shotbounce");
 	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
+	createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
 	setTimeout(function() {
 		this.ignoreDamage = false;
 	}.bind(this), 2000);
@@ -407,8 +417,9 @@ function Player() {
             this.jumpreleased = false;
             this.jumpspeed = -4.875;
             this.jumping = true;
-            //var sound = createjs.Sound.play("jump");
-            //sound.volume = 0.05;
+            var sound = createjs.Sound.play("jump");
+            sound.volume = 0.25;
+
             this.animations.gotoAndPlay("jump");
         } else if ((actions.collisionResults.downmove && !this.onplatform) && !this.jumping) {
             actions.collisionResults.downmove = true;
@@ -436,6 +447,9 @@ function Player() {
 			this.jumping = false;
 			this.falling = false;
 			this.onplatform = false;
+
+			var jumplandSound = createjs.Sound.play("jumpland");
+			jumplandSound.volume = 0.25;
 
 			// correcting floor position after a jump/fall:
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
@@ -487,8 +501,8 @@ function Player() {
 				shot.fireUp();
 			}
 
-			//var sound = createjs.Sound.play("shoot");
-			//sound.volume = 0.05;
+			var shootSound = createjs.Sound.play("shoot");
+			shootSound.volume = 0.25;
 			this.shootTicks = 15 / lowFramerate; // not correct
 
 			if (this.animations.currentAnimation === "jump") {
@@ -598,7 +612,7 @@ function Player() {
 				var intersection = fastCollisionPlayer(this, enemy);
 				if (enemy.damage < 1) { // for non enemy objects
 					if (enemy.constructor === Platform) {
-						intersection = fastCollisionPlatform(this, enemy);
+						intersection = fastInitialCollisionPlatform(this, enemy);
 					} else {
 						intersection = fastCollisionPlayerLoose(this, enemy);
 					}

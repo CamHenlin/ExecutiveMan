@@ -19,12 +19,13 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 	this.animations       = new createjs.Sprite(droppingPlatformSpriteSheet, "still");
 	this.x                = x;// - 32;
 	this.y                = y;
-	this.ySpeed           = y;
+	this.ySpeed           = 0;
 	this.timer            = 0;
 	this.duration         = duration;
 	this.activated        = false;
 	this.hardshell        = true;
 	this.goingup          = false;
+	this.offScreen        = false;
 	this.goingright       = false;
 	this.watchedElements  = [];
 	this.animations.x = this.x - mapper.completedMapsWidthOffset;
@@ -34,6 +35,14 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 	this.stage.addChild(this.animations);
 
 	this.tickActions = function() {
+		if (this.offScreen) {
+			return;
+		}
+
+		if (this.y > gamestage.canvas.height + 32) {
+			this.offScreen = true;
+		}
+
 		if (this.activated) {
 			if (!fastCollisionPlatform(player, this)) { // player no longer on platform
 				player.onplatform = false;
@@ -52,10 +61,8 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 			if (this.ySpeed > 12) {
 				this.ySpeed = 12;
 			}
+			this.animations.y = this.y;
 		}
-
-		this.animations.x = this.x;
-		this.animations.y = this.y;
 	};
 
 	this.playerCollisionActions = function() {
@@ -63,6 +70,11 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 			player.jumpspeed < 0) { // player definitely missed the platform
 			return;
 		}
+
+	
+		var jumplandSound = createjs.Sound.play("jumpland");
+		jumplandSound.volume = 0.05;
+
 
 		this.activated = true;
 		player.onplatform = true;

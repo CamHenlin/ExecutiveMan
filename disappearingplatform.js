@@ -76,6 +76,9 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 			return;
 		}
 
+		var jumplandSound = createjs.Sound.play("jumpland");
+		jumplandSound.volume = 0.05;
+
 		this.activated = true;
 		player.onplatform = true;
 		player.jumping = false;

@@ -127,7 +127,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		}
 
 		if (this.activated) {
-			if (!collisionResults.left || !collisionResults.right ||
+			if ((!collisionResults.left && this.animations.scaleX === 1) || (!collisionResults.right && this.animations.scaleX === -1) ||
 				this.x < mapper.completedMapsWidthOffset || this.x > mapper.completedMapsWidthOffset + mapper.getMapWidth()) {
 
 				this.animations.scaleX = this.animations.scaleX * -1;
