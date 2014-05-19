@@ -4,7 +4,7 @@ var BossHealthBar = function(stage, boss) {
 	this.boss       = boss;
 	this.bars       = 28;
 	this.x          = mapper.gamestage.canvas.width - 36;
-	this.y          = 18; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
+	this.y          = 48; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
 
 	this.tickActions = function() {
@@ -19,7 +19,7 @@ var BossHealthBar = function(stage, boss) {
 		var box = new createjs.Shape();
 		box.graphics.beginFill("#000000").drawRect(this.x, this.y, 8, this.maxheight);
 
-	    this.stage.addChild(box);
+		this.stage.addChild(box);
 
 		for (var i = 0; i < this.barAnimations.length; i++) {
 			this.stage.removeChild(this.barAnimations[i]);
@@ -37,6 +37,6 @@ var BossHealthBar = function(stage, boss) {
 	};
 
 	setTimeout(function() {
-    	this.draw();
+		this.draw();
 	}.bind(this), 250);
 };

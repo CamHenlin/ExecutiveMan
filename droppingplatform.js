@@ -71,7 +71,6 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 			return;
 		}
 
-	
 		var jumplandSound = createjs.Sound.play("jumpland");
 		jumplandSound.volume = 0.05;
 
