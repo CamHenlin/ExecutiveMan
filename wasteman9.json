@@ -54,6 +54,32 @@
          "width":90,
          "x":0,
          "y":0
+        }, 
+        {
+         "height":15,
+         "name":"",
+         "objects":[
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+                     "offduration":"180",
+                     "onduration":"120",
+                     "starttimer":"120"
+                    },
+                 "type":"disappearingplatform",
+                 "visible":true,
+                 "width":0,
+                 "x":704,
+                 "y":192
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":90,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":

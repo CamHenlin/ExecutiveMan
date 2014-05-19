@@ -1,3 +1,7 @@
+/**
+ * this file should contain all global variables and the main game loop and the function for starting the main game loop
+ */
+
 var loader = new createjs.LoadQueue(false);
 loader.addEventListener("complete", handleComplete);
 // preload.addEventListener("progress", handleProgress);
@@ -20,6 +24,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "wasteman", src: "images/wastemanspritesheet.png"},
 						{id: "wastemanshot", src: "images/wastemanshot.png"},
 						{id: "filingcabinet", src: "images/filingcabinet.png"},
+						{id: "extralife", src: "images/extralife.png"},
 						{id: "bighealth", src: "images/bighealth.png"},
 						{id: "littlehealth", src: "images/littlehealth.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
@@ -27,6 +32,15 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "door", src: "images/door.png"},
 					//	{id: "wastemansoundloop", src: "sounds/wastemansoundloop.mp3"},
 						{id: "copter", src: "images/copter.png"}]);
+
+
+createjs.Sound.registerSound("sounds/jumpland.wav", "jumpland");
+createjs.Sound.registerSound("sounds/shotbounce.wav", "shotbounce");
+createjs.Sound.registerSound("sounds/pauseopen.wav", "pauseopen");
+createjs.Sound.registerSound("sounds/pauseclose.wav", "pauseclose");
+createjs.Sound.registerSound("sounds/playerdamaged.wav", "playerdamaged");
+createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
+createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -61,6 +75,7 @@ var gamezoom = 2;
 var stage;
 var altstage;
 var gamestage;
+var pausestage;
 var watchedElements;
 var player;
 var mapper;
@@ -92,6 +107,7 @@ var shotExplosionSprite;
 var leftButtonSprite;
 var rightButtonSprite;
 var shootButtonSprite;
+var pauseButtonSprite;
 
 
 var titleSreenSprite;
@@ -123,7 +139,7 @@ window.onresize = function(event) {
 
 function beginGame(newGame) {
 
-	if (newGame) {
+	if (newGame && lives < 2) {
 		lives = 2;
 	}
 
@@ -207,12 +223,17 @@ function beginGame(newGame) {
 				"shoot" : {
 					"frames" : [2],
 					"next" : "shoot"
+				},
+				"pause" : {
+					"frames" : [3],
+					"next" : "pause"
 				}
 			}
 		});
 		leftButtonSprite = new createjs.Sprite(buttonSpriteSheet, "left");
 		rightButtonSprite = new createjs.Sprite(buttonSpriteSheet, "right");
 		shootButtonSprite = new createjs.Sprite(buttonSpriteSheet, "shoot");
+		pauseButtonSprite = new createjs.Sprite(buttonSpriteSheet, "pause");
 
 		leftButtonSprite.x = 16;
 		rightButtonSprite.x = 96;
@@ -220,6 +241,8 @@ function beginGame(newGame) {
 		leftButtonSprite.y = gamestage.canvas.height - 64;
 		rightButtonSprite.y = gamestage.canvas.height - 64;
 		shootButtonSprite.y = gamestage.canvas.height - 64;
+		pauseButtonSprite.y = -32;
+		pauseButtonSprite.x = 0;
 		initTouchControls();
 		//var music = createjs.Sound.play(loader.getResult("wastemansoundloop"), {loop:-1});
 	}
@@ -256,501 +279,23 @@ function initTouchControls() {
 	gamestage.removeChild(leftButtonSprite);
 	gamestage.removeChild(rightButtonSprite);
 	gamestage.removeChild(shootButtonSprite);
+	gamestage.removeChild(pauseButtonSprite);
 	gamestage.addChild(leftButtonSprite);
 	gamestage.addChild(rightButtonSprite);
 	gamestage.addChild(shootButtonSprite);
+	gamestage.addChild(pauseButtonSprite);
 }
 
-function initTitleScreen() {
-	var titlescreenSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("logo")],
-		"frames": {
-			"width": 316, "height": 240, "count": 2
-		},
-		"animations": {
-			"sit": {
-				"frames" : [0],
-				"next" : "shoot",
-				"speed" : 0.15
-			},
-			"shoot" : {
-				"frames" : [1],
-				"next" : "sit",
-				"speed" : 0.075
-			}
-		}
-	});
 
-	titleSreenSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
-	startgame = false;
-	stage = new createjs.Container();
-	gamestage = new createjs.Stage("gamecanvas");
-	gamestage.snapToPixelEnabled = true;
-	var zoomAmount = window.innerHeight / 240;
-
-	gamezoom = zoomAmount;
-	gamestage.canvas.width = window.innerWidth / zoomAmount;
-	gamestage.canvas.height = window.innerHeight / zoomAmount;
-	document.getElementById("gamecanvas").style.zoom = zoomAmount;
-	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
-	gamestage.canvas.style.backgroundColor = "#000";
-	gamestage.addChild(stage);
-
-	titleSreenSprite.x = gamestage.canvas.width / 2 - titleSreenSprite.spriteSheet._frameWidth / 2;
-	titleSreenSprite.y = gamestage.canvas.height / 2 - titleSreenSprite.spriteSheet._frameHeight / 2;
-
-	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
-	createjs.Ticker.setFPS(10);
-
-	document.onkeydown = function (event) {
-		switch (event.keyCode) {
-			case 32:
-				// keyCode 32 is space
-				startgame = true;
-				document.getElementById("gamecanvas").removeEventListener("touchend", startScreenListener);
-				break;
-		}
-	}.bind(this);
-
-	document.getElementById("gamecanvas").addEventListener('touchend', startScreenListener.bind(this), false);
-
-	stage.addChild(titleSreenSprite);
-}
-
-function startScreenListener() {
-	startgame = true;
-	document.getElementById("gamecanvas").removeEventListener("touchend", startScreenListener);
-}
-
-function handleStartScreenTick(event) {
-	if (startgame) {
-		initVars();
-		initBossScreen();
-		event.remove();
-	}
-	gamestage.update();
-}
 
 var bossnumber = 0;
-function initShowOffBossScreen(bossnumber) {
-	console.log("BOSS #" + bossnumber);
-	if (!bossnumber) {
-		bossnumber = 0;
-	}
-	this.bossnumber = bossnumber;
-
-	var wastemanFrameSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("wastemanframe")],
-		"frames": {
-			"width": 24, "height": 24, "count": 2
-		},
-		"animations": {
-			"frame": {
-				"frames" : [0],
-				"next" : "breathout",
-				"speed" : 0.01
-			},
-			"breathout" : {
-				"frames" : [1],
-				"next" : "frame",
-				"speed" : 0.09
-			},
-			"still": {
-				"frames" : [0],
-				"next" : "still"
-			}
-		}
-	});
-
-	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("wastemanframe")],
-		"frames": {
-			"width": 1, "height": 1, "count": 2
-		},
-		"animations": {
-			"frame": {
-				"frames" : [0],
-				"next" : "breathout",
-				"speed" : 0.01
-			},
-			"breathout" : {
-				"frames" : [1],
-				"next" : "frame",
-				"speed" : 0.09
-			},
-			"still": {
-				"frames" : [0],
-				"next" : "still"
-			}
-		}
-	});
-	var bossFrame;
-	var bossLabel;
-	if (bossnumber === 0) {
-		bossFrame = new createjs.Sprite(wastemanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("WASTE MAN", "bold 10px Arial", "#FFF");
-	} else if (bossnumber === 1) {
-		bossFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("ACCOUNTING MAN", "bold 10px Arial", "#FFF");
-	}
-	showOffBossScreenCounter = 270;
-	startgame = false;
-	stage = new createjs.Container();
-	altstage = new createjs.Container();
-	gamestage = new createjs.Stage("gamecanvas");
-	gamestage.clear();
-	gamestage.snapToPixelEnabled = true;
-
-	var zoomAmount = window.innerHeight / 240;
-
-	gamezoom = zoomAmount;
-	gamestage.canvas.width = window.innerWidth / zoomAmount;
-	gamestage.canvas.height = window.innerHeight / zoomAmount;
-	document.getElementById("gamecanvas").style.zoom = zoomAmount;
-	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
-	gamestage.canvas.style.backgroundColor = "#FFF";
-	gamestage.addChild(altstage);
-	gamestage.addChild(stage);
-
-	bossFrame.x = gamestage.canvas.width / 2 - bossFrame.spriteSheet._frameWidth / 2;
-	bossFrame.y = gamestage.canvas.height / 2 - bossFrame.spriteSheet._frameHeight / 2;
-	var bossFrame2 = bossFrame.clone(true);
-
-	stage.y = -gamestage.canvas.height;
-	altstage.y = gamestage.canvas.height;
-
-	createjs.Ticker.addEventListener("tick", handleShowOffBossScreenTick);
-	createjs.Ticker.setFPS(60);
 
 
-    var shape = new createjs.Shape();
-    shape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	altstage.addChild(shape);
-
-	stage.addChild(bossFrame);
-	altstage.addChild(bossFrame2);
-}
-
-var bossShowOffScreenShape;
-var bossShowOffScreenShape2;
-function handleShowOffBossScreenTick(event) {
-
-	document.getElementById("gamecanvas").removeEventListener('touchstart', function () {}, false);
-	document.getElementById("gamecanvas").removeEventListener('click', function () {}, false);
-	if (showOffBossScreenCounter < 0) {
-		initVars();
-
-		if (bossnumber === 0) {
-			maps = wastemanmaps;
-		} else if (bossnumber === 1) {
-			maps = accountingmanmaps;
-		}
-		startlevel = true;
-		event.remove();
-		return;
-	} else if (showOffBossScreenCounter > 210) {
-		stage.y += gamestage.canvas.height / 60;
-		altstage.y -= gamestage.canvas.height / 60;
-	} else if (showOffBossScreenCounter === 150) {
-		var bossLabel;
-		if (this.bossnumber === 0) {
-			bossLabel = new createjs.Text("WASTE MAN", "bold 10px Arial", "#FFF");
-		} else if (this.bossnumber === 1) {
-			bossLabel = new createjs.Text("ACCOUNTING MAN", "bold 10px Arial", "#FFF");
-		}
-		bossLabel.y = gamestage.canvas.height / 2 + 20;
-		bossLabel.x = gamestage.canvas.width / 2 - 30;
-		gamestage.addChild(bossLabel);
-	} else if (showOffBossScreenCounter === 130) {
-		var wastemanFrameSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("wastemanframe")],
-			"frames": {
-				"width": 24, "height": 24, "count": 2
-			},
-			"animations": {
-				"frame": {
-					"frames" : [0],
-					"next" : "breathout",
-					"speed" : 0.01
-				},
-				"breathout" : {
-					"frames" : [1],
-					"next" : "frame",
-					"speed" : 0.09
-				},
-				"still": {
-					"frames" : [0],
-					"next" : "still"
-				}
-			}
-		});
-
-		var accountingmanSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("wastemanframe")],
-			"frames": {
-				"width": 2, "height": 2, "count": 2
-			},
-			"animations": {
-				"frame": {
-					"frames" : [0],
-					"next" : "breathout",
-					"speed" : 0.01
-				},
-				"breathout" : {
-					"frames" : [1],
-					"next" : "frame",
-					"speed" : 0.09
-				},
-				"still": {
-					"frames" : [0],
-					"next" : "still"
-				}
-			}
-		});
-		var bossFrame;
-
-		if (this.bossnumber === 0) {
-			bossFrame = new createjs.Sprite(wastemanFrameSpriteSheet, "still");
-		} else if (this.bossnumber === 1) {
-			bossFrame = new createjs.Sprite(accountingmanSpriteSheet, "still");
-		}
-		bossFrame.x = gamestage.canvas.width / 2 - bossFrame.spriteSheet._frameWidth / 2;
-		bossFrame.y = gamestage.canvas.height / 2 - bossFrame.spriteSheet._frameHeight / 2;
-	    bossShowOffScreenShape = new createjs.Shape();
-	    bossShowOffScreenShape.graphics.beginFill("#0000FF").drawRect(0, gamestage.canvas.height / 2 - 50, gamestage.canvas.width, 100);
-	    bossShowOffScreenShape.x = -gamestage.canvas.width;
-	    bossShowOffScreenShape.y = gamestage.canvas.height / 200 - 100;
-	    stage.addChild(bossShowOffScreenShape);
-		stage.addChild(bossFrame);
-	} else if (showOffBossScreenCounter > 110 && showOffBossScreenCounter < 130) {
-		bossShowOffScreenShape.x += gamestage.canvas._frameWidth / 20;
-	} else if (showOffBossScreenCounter === 110) {
-
-	    bossShowOffScreenShape2 = new createjs.Shape();
-	    bossShowOffScreenShape2.graphics.beginFill("#FFF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	    bossShowOffScreenShape2.x = 0;
-	    altstage.addChild(bossShowOffScreenShape2);
-	} else if (showOffBossScreenCounter === 105) {
-	    altstage.removeChild(bossShowOffScreenShape2);
-	    bossShowOffScreenShape = new createjs.Shape();
-	    bossShowOffScreenShape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	    bossShowOffScreenShape.x = 0;
-	    altstage.addChild(bossShowOffScreenShape);
-	} else if (showOffBossScreenCounter === 100) {
-
-	    bossShowOffScreenShape2 = new createjs.Shape();
-	    bossShowOffScreenShape2.graphics.beginFill("#FFF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	    bossShowOffScreenShape2.x = 0;
-	    altstage.addChild(bossShowOffScreenShape2);
-	} else if (showOffBossScreenCounter === 95) {
-	    altstage.removeChild(bossShowOffScreenShape2);
-	    bossShowOffScreenShape = new createjs.Shape();
-	    bossShowOffScreenShape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	    bossShowOffScreenShape.x = 0;
-	    altstage.addChild(bossShowOffScreenShape);
-	}
-	showOffBossScreenCounter--;
-	gamestage.update();
-}
-
-
-function initBossScreen() {
-	var bossframeSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("bossframe")],
-		"frames": {
-			"width": 45, "height": 45, "count": 1
-		},
-		"animations": {
-			"frame": {
-				"frames" : [0],
-				"next" : "frame"
-			}
-		}
-	});
-
-	var executivemanTopperSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("executivemantopper")],
-		"frames": {
-			"width": 160, "height": 45, "count": 1
-		},
-		"animations": {
-			"frame": {
-				"frames" : [0],
-				"next" : "frame"
-			}
-		}
-	});
-	var executivemanTopper = new createjs.Sprite(executivemanTopperSpriteSheet, "frame");
-
-	var wastemanFrameSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("wastemanframe")],
-		"frames": {
-			"width": 24, "height": 24, "count": 2
-		},
-		"animations": {
-			"frame": {
-				"frames" : [0],
-				"next" : "breathout",
-				"speed" : 0.01
-			},
-			"breathout" : {
-				"frames" : [1],
-				"next" : "frame",
-				"speed" : 0.09
-			}
-		}
-	});
-	var wastemanFrame = new createjs.Sprite(wastemanFrameSpriteSheet, "frame");
-	var wastemanLabel = new createjs.Text("WASTE MAN", "bold 7px Arial", "#FFF");
-	var accountingmanLabel = new createjs.Text("ACCOUNTING \n        MAN", "bold 7px Arial", "#FFF");
-
-	bossframes = [];
-	for (var i = 0; i < 9; i++) {
-		bossframes.push(new createjs.Sprite(bossframeSpriteSheet, "frame"));
-	}
-
-	bossscreenCounter = 60;
-	stage = new createjs.Container();
-	altstage = new createjs.Container();
-	gamestage = new createjs.Stage("gamecanvas");
-	gamestage.snapToPixelEnabled = true;
-	var zoomAmount = window.innerHeight / 240;
-
-	gamezoom = zoomAmount;
-	gamestage.canvas.width = window.innerWidth / zoomAmount;
-	gamestage.canvas.height = window.innerHeight / zoomAmount;
-	document.getElementById("gamecanvas").style.zoom = zoomAmount;
-	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
-	gamestage.canvas.style.backgroundColor = "#000";
-	gamestage.addChild(altstage);
-	gamestage.addChild(stage);
-	stage.x = -gamestage.canvas.width;
-	altstage.x = gamestage.canvas.width;
-    var fillColor = new createjs.Shape();
-    fillColor.graphics.beginFill("#0000FF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-    altstage.addChild(fillColor);
-
-	var width = bossframes[0].spriteSheet._frameWidth;
-	var framewidth = bossframes[0].spriteSheet._frameWidth;
-	var centerx = gamestage.canvas.width / 2 - bossframes[0].spriteSheet._frameWidth / 2;
-	var centery = 10 + gamestage.canvas.height / 2 - bossframes[0].spriteSheet._frameWidth / 2;
-	for (i = 0; i < 9; i++) {
-		if (i === 0) {
-			wastemanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 -2;
-			wastemanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -2;
-			wastemanLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
-			wastemanLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 1) {
-			accountingmanLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
-			accountingmanLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 4) { // middle frame
-
-		}
-		bossframes[i].x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3);
-		bossframes[i].y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2;
-	}
-	executivemanTopper.x = centerx - executivemanTopper.spriteSheet._frameWidth / 2 + width / 2 + 10;
-	executivemanTopper.y = centery - width * 2 - width / 2;
-	startlevel = false;
-
-	createjs.Ticker.addEventListener("tick", handleBossScreenTick);
-	createjs.Ticker.setFPS(60);
-
-
-	document.getElementById("gamecanvas").addEventListener('touchstart', bossClickHandler, false);
-	document.getElementById("gamecanvas").addEventListener('click', bossClickHandler, false);
-	document.onkeydown = function (event) {
-		switch (event.keyCode) {
-			case 32:
-				// keyCode 32 is space
-	               	initVars();
-	               	initShowOffBossScreen();
-	               	document.getElementById("gamecanvas").removeEventListener('touchstart', bossClickHandler);
-					document.getElementById("gamecanvas").removeEventListener('click', bossClickHandler);
-				break;
-		}
-	}.bind(this);
-
-
-	stage.addChild(executivemanTopper);
-	for (i = 0; i < bossframes.length; i++) {
-		stage.addChild(bossframes[i]);
-	}
-
-	stage.addChild(wastemanFrame);
-	stage.addChild(wastemanLabel);
-	//stage.addChild(accountingmanFrame);
-	stage.addChild(accountingmanLabel);
-
-
-}
-
-function bossClickHandler(event) {
-	var touchEventSpriteSheet = new createjs.SpriteSheet({
-        "images": ["images/businessmanspritesheet.png"],
-        "frames": {
-            "width": 1, "height": 1, "count": 1
-        },
-        "animations": {
-            "exist": {
-                "frames" : [0],
-                "next" : "exist"
-            }
-        }
-    });
-    var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
-
-    event.preventDefault();
-
-    if (event.type === "touch") {
-	    for (var i = 0; i < event.touches.length; i++) {
-	        var touch = event.touches[i];
-	        touchSprite.x = touch.pageX / gamezoom;
-	        touchSprite.y = touch.pageY / gamezoom;
-	        for (var j = 0; j < 2; j++) { // should be 9
-	            if (fastCollisionSprite(bossframes[j], touchSprite)) {
-	               	initVars();
-	               	initShowOffBossScreen(j);
-	               	document.getElementById("gamecanvas").removeEventListener('touchstart', bossClickHandler);
-					document.getElementById("gamecanvas").removeEventListener('click', bossClickHandler);
-	            }
-	        }
-	    }
-	} else {
-	        touchSprite.x = event.clientX / gamezoom;
-	        touchSprite.y = event.clientY / gamezoom;
-	        for (var k = 0; k < 2; k++) { // should be 9
-	            if (fastCollisionSprite(bossframes[k], touchSprite)) {
-	               	initVars();
-	               	initShowOffBossScreen(k);
-	               	document.getElementById("gamecanvas").removeEventListener('touchstart', bossClickHandler, false);
-					document.getElementById("gamecanvas").removeEventListener('click', bossClickHandler, false);
-	            }
-	        }
-	}
-
-}
-
-function handleBossScreenTick(event) {
-	if (bossscreenCounter > 0) {
-		stage.x += gamestage.canvas.width / 60;
-		altstage.x -= gamestage.canvas.width / 60;
-		bossscreenCounter--;
-	}
-	if (startlevel) {
-		initVars();
-		beginGame(true);
-		event.remove();
-	}
-
-	if (gamestage) {
-		gamestage.update();
-	}
-}
 
 function handleTick(event) {
+
+
+
 	itemDropCount++;
 	if (itemDropCount === 5) {
 		itemDropCount = 0;
@@ -775,6 +320,10 @@ function handleTick(event) {
 		return;
 	}
 
+	if (player.paused) {
+		gamestage.update();
+		return;
+	}
 	var actions = {"event" : event};
 
 	actions.mobile = mobile;

@@ -3,7 +3,7 @@ var HealthBar = function(stage, player) {
 	this.stage      = stage;
 	this.bars       = 28;
 	this.x          = 18;
-	this.y          = 18; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
+	this.y          = 48; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
 
 	this.tickActions = function() {

@@ -165,11 +165,13 @@ function Player() {
 	this.onplatform         = false;
 	this.ignoreBounceBack   = false;
 	this.falling            = false;
+	this.pauseMenu          = new PauseMenu();
 	this.transitionedUp     = false;
 	this.jumpreleased       = true;
 	this.jumpspeed          = 0;
 	this.shootTicks         = 0;
 	this.watchedElements    = [];
+	this.paused             = false;
 	this.health             = 28;
 	this.actions            = {};
 	this.gameActions        = {};
@@ -190,10 +192,6 @@ function Player() {
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
 
-	createjs.Sound.registerSound("sounds/jumpland.wav", "jumpland");
-	createjs.Sound.registerSound("sounds/shotbounce.wav", "shotbounce");
-	createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
-	createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
 	setTimeout(function() {
 		this.ignoreDamage = false;
 	}.bind(this), 2000);
@@ -228,6 +226,19 @@ function Player() {
 				// keyCode 68 is d
 				this.actions.playerDebug = true;
 				break;
+
+			case 80:
+				// keyCode 68 is p
+				if (this.paused) {
+					this.paused = false;
+					this.pauseMenu.remove();
+				} else {
+					this.paused = true;
+					this.pauseMenu.show();
+
+				}
+
+				break;
 		}
 	}.bind(this);
 
@@ -252,6 +263,7 @@ function Player() {
 			case 67:
 				// keyCode 67 is c
 				this.actions.playerAttack = false;
+				this.shootTicks = 1;
 				break;
 
 
@@ -280,7 +292,9 @@ function Player() {
         this.touchIds = [];
 
         var eventHandler = function(event) {
-            event.preventDefault();
+            if (!pauseUp && !bossScreenUp) {
+            	event.preventDefault();
+            }
 
             for (var i = 0; i < event.touches.length; i++) {
                 var touch = event.touches[i];
@@ -297,6 +311,14 @@ function Player() {
                 } else if (fastCollisionSprite(shootButtonSprite, touchSprite)) {
                     this.actions.playerAttack = true;
                     this.touchIds[touch.identifier] = "shoot";
+                } else if (fastCollisionSprite(pauseButtonSprite, touchSprite)) {
+					if (this.paused) {
+						this.paused = false;
+						this.pauseMenu.remove();
+					} else {
+						this.paused = true;
+						this.pauseMenu.show();
+					}
                 } else {
                     this.actions.playerJump = true;
                     this.touchIds[touch.identifier] = "jump";
@@ -305,7 +327,9 @@ function Player() {
         };
 
         var endTouchEventHandler = function(event) {
-            event.preventDefault();
+            if (!pauseUp && !bossScreenUp) {
+            	event.preventDefault();
+            }
 
             for (var i = 0; i < event.changedTouches.length; i++) {
                 var touch = event.changedTouches[i];
@@ -405,10 +429,20 @@ function Player() {
         if (actions.playerDeath) {
             this.health = 0;
             this.animations.gotoAndPlay("damage");
+            var damagesound = createjs.Sound.play("playerdamaged");
+            damagesound.volume = 0.25;
         }
 
         if (this.health <= 0) {
             console.log("dead");
+
+            if (mobile) {
+		        document.getElementById("gamecanvas").removeEventListener('touchstart', eventHandler.bind(this), false);
+		        document.getElementById("gamecanvas").removeEventListener('touchmove', eventHandler.bind(this), false);
+		        document.getElementById("gamecanvas").removeEventListener('touchend', endTouchEventHandler.bind(this), false);
+		        document.getElementById("gamecanvas").removeEventListener('touchcancel', endTouchEventHandler.bind(this), false);
+		        document.getElementById("gamecanvas").removeEventListener('touchleave', endTouchEventHandler.bind(this), false);
+    		}
             actions.playerDeath = true;
         }
 
@@ -611,7 +645,7 @@ function Player() {
 			if (enemy.health > 0 || typeof(enemy.health) === "undefined") {
 				var intersection = fastCollisionPlayer(this, enemy);
 				if (enemy.damage < 1) { // for non enemy objects
-					if (enemy.constructor === Platform) {
+					if (enemy.constructor === Platform || enemy.constructor === DisappearingPlatform || enemy.constructor === DroppingPlatform) {
 						intersection = fastInitialCollisionPlatform(this, enemy);
 					} else {
 						intersection = fastCollisionPlayerLoose(this, enemy);
@@ -622,6 +656,9 @@ function Player() {
 					if (enemy.damage > 0) {
 						this.health -= enemy.damage; // should come from enemy
 						this.animations.gotoAndPlay("damage");
+
+			            var damagesound = createjs.Sound.play("playerdamaged");
+			            damagesound.volume = 0.25;
 						this.ignoreInput = true;
 						this.ignoreDamage = true;
 
@@ -659,6 +696,10 @@ function Player() {
 					enemyshot.removeSelf();
 					this.health -= enemyshot.damage; // should actually come from the enemy
 					this.animations.gotoAndPlay("damage");
+
+
+		            var damagesound = createjs.Sound.play("playerdamaged");
+		            damagesound.volume = 0.25;
 					this.ignoreInput = true;
 					this.ignoreDamage = true;
 
