@@ -346,6 +346,10 @@ function Mapper(gamestage) {
 					if (layer.objects[j].type === "halfwaypoint") {
 						this.enemies.push(new HalfwayPoint(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x));
 					}
+
+                    if (layer.objects[j].type === "bosspoint") {
+                        this.enemies.push(new HalfwayPoint(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x));
+                    }
 				}
 			}
 		}

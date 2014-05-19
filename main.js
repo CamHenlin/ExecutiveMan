@@ -145,6 +145,7 @@ function beginGame(newGame) {
 
 	if (newGame) {
 		halfwayPointReached = false;
+		bosspointReached = false;
 	}
 
 	var explosionSpriteSheet = new createjs.SpriteSheet({
@@ -198,7 +199,17 @@ function beginGame(newGame) {
 	watchedElements = [];
 	mapper = new Mapper(gamestage);
 
-	if (halfwayPointReached) {
+
+
+	if (bosspointReached) {
+		if (bossnumber === 0) {
+			mapper.mapData = maps[wastemanBossPoint];
+			mapper.mapcounter = wastemanBossPoint;
+		} else if (bossnumber === 1) {
+			mapper.mapData = maps[accountingmanBossPoint];
+			mapper.mapcounter = accountingmanBossPoint;
+		}
+	} else if (halfwayPointReached) {
 		if (bossnumber === 0) {
 			mapper.mapData = maps[wastemanHalfwayPoint];
 			mapper.mapcounter = wastemanHalfwayPoint;
