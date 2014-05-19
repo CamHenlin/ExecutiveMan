@@ -1,3 +1,4 @@
+var accountingmanHalfwayPoint = 4;
 var accountingmanmaps = [];
 accountingmanmaps[0] = { "height":15,
  "layers":[

@@ -288,7 +288,7 @@ function Mapper(gamestage) {
 
 	// loading layers
 	this.initLayers = function() {
-		console.log(this.mapData.tilesets[0].image.split("/")[1].split(".")[0]);
+		// console.log(this.mapData.tilesets[0].image.split("/")[1].split(".")[0]);
 		player.watchedElements = [player.healthbar];
 		var w = this.mapData.tilesets[0].tilewidth;
 		var h = this.mapData.tilesets[0].tileheight;
