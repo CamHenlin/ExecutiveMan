@@ -54,6 +54,30 @@
          "width":45,
          "x":0,
          "y":0
+        }, 
+        {
+         "height":15,
+         "name":"Object Layer 1",
+         "objects":[
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "type":"halfwaypoint",
+                 "visible":true,
+                 "width":0,
+                 "x":48,
+                 "y":96
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":45,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":

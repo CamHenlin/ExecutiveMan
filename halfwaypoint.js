@@ -20,13 +20,8 @@ function HalfwayPoint(stage, basicCollision, x) {
 	this.animations       = new createjs.Sprite(droppingPlatformSpriteSheet, "still");
 	this.x                = x;// - 32;
 	this.ySpeed           = 0;
-	this.timer            = 0;
-	this.duration         = duration;
 	this.activated        = false;
 	this.hardshell        = true;
-	this.goingup          = false;
-	this.offScreen        = false;
-	this.goingright       = false;
 	this.watchedElements  = [];
 	this.animations.x = this.x - mapper.completedMapsWidthOffset;
 	this.animations.y = 0;
@@ -43,26 +38,6 @@ function HalfwayPoint(stage, basicCollision, x) {
 	};
 
 	this.playerCollisionActions = function() {
-		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated ||
-			player.jumpspeed < 0) { // player definitely missed the platform
-			return;
-		}
-	
-		var jumplandSound = createjs.Sound.play("jumpland");
-		jumplandSound.volume = 0.05;
 
-
-		this.activated = true;
-		player.onplatform = true;
-		player.jumping = false;
-		player.falling = false;
-		player.jumpspeed = 0;
-		player.y = this.y - player.animations.spriteSheet._frameHeight;
-
-		if (!player.goingLeft && !player.goingRight) {
-			player.animations.gotoAndPlay("stand");
-		} else {
-			player.animations.gotoAndPlay("run");
-		}
 	};
 }
