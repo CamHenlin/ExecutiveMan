@@ -326,6 +326,9 @@ function handleTick(event) {
 		itemDropCount = 0;
 	}
 
+	if (!mapper) {
+		return;
+	}
 
 	if (!mapper.doneRendering) {
 		return;

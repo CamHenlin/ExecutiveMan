@@ -107,7 +107,7 @@ function Player() {
 	var playerSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
 		"frames": {
-			"width": 30, "height": 30, "count": 18
+			"width": 30, "height": 30, "count": 19
 		},
 		"animations": {
 			"stand": {
@@ -720,7 +720,6 @@ function Player() {
 	};
 
 	this.defeatedBoss = function() {
-		this.gameActions.event.remove();
 		this.ignoreDamage = true;
 		this.ignoreInput = true;
 		this.ignoreBounceBack = true;
@@ -728,11 +727,14 @@ function Player() {
 			player.animations.gotoAndPlay("thumbsup");
 		}, 1500);
 		setTimeout(function() {
+			createjs.Ticker.removeEventListener("tick", handleTick);
+		}.bind(this), 2800);
+		setTimeout(function() {
 			this.ignoreDamage = false;
 			this.ignoreInput = false;
 			this.ignoreBounceBack = false;
 			initVars();
 			initBossScreen();
-		}, 3000);
+		}.bind(this), 3000);
 	};
 }

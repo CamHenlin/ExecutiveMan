@@ -43,7 +43,7 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 			this.offScreen = true;
 		}
 
-		if (this.activated) {
+		if (this.activated && this.timer <= this.duration) {
 			if (!fastCollisionPlatform(player, this)) { // player no longer on platform
 				player.onplatform = false;
 			} else {
@@ -53,8 +53,7 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 			this.timer++;
 		}
 
-		if (this.timer > duration) {
-			player.onplatform = false;
+		if (this.timer > this.duration) {
 			this.y += this.ySpeed;
 			this.ySpeed += 0.25;
 
@@ -66,13 +65,13 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 	};
 
 	this.playerCollisionActions = function() {
-		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated ||
+		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 14)) || this.activated ||
 			player.jumpspeed < 0) { // player definitely missed the platform
 			return;
 		}
 
 		var jumplandSound = createjs.Sound.play("jumpland");
-		jumplandSound.volume = 0.05;
+		jumplandSound.volume = 0.25;
 
 
 		this.activated = true;
