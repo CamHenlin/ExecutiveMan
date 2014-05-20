@@ -13,21 +13,22 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.damage           = 0;
-	this.basicCollision   = basicCollision;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(droppingPlatformSpriteSheet, "still");
-	this.x                = x;// - 32;
-	this.y                = y;
-	this.ySpeed           = 0;
-	this.timer            = 0;
-	this.duration         = duration;
-	this.activated        = false;
-	this.hardshell        = true;
-	this.goingup          = false;
-	this.offScreen        = false;
-	this.goingright       = false;
-	this.watchedElements  = [];
+	this.damage             = 0;
+	this.basicCollision     = basicCollision;
+	this.stage              = stage;
+	this.animations         = new createjs.Sprite(droppingPlatformSpriteSheet, "still");
+	this.x                  = x;// - 32;
+	this.y                  = y;
+	this.ySpeed             = 0;
+	this.timer              = 0;
+	this.duration           = duration;
+	this.activated          = false;
+	this.hardshell          = true;
+	this.goingup            = false;
+	this.offScreen          = false;
+	this.playerLeftPlatform = false;
+	this.goingright         = false;
+	this.watchedElements    = [];
 	this.animations.x = this.x - mapper.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
@@ -39,13 +40,18 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 			return;
 		}
 
+		if (this.playerLeftPlatform) {
+			this.timer++;
+		}
+
 		if (this.y > gamestage.canvas.height + 32) {
 			this.offScreen = true;
 		}
 
-		if (this.activated && this.timer <= this.duration) {
+		if (this.activated && this.timer <= this.duration && !this.playerLeftPlatform) {
 			if (!fastCollisionPlatform(player, this)) { // player no longer on platform
 				player.onplatform = false;
+				this.playerLeftPlatform = true;
 			} else {
 				player.y = this.y - player.animations.spriteSheet._frameHeight;
 			}
@@ -54,6 +60,11 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 		}
 
 		if (this.timer > this.duration) {
+			if (fastCollisionPlatform(player, this)) { // player no longer on platform
+				player.onplatform = false;
+				this.playerLeftPlatform = true;
+			}
+
 			this.y += this.ySpeed;
 			this.ySpeed += 0.25;
 
@@ -70,8 +81,7 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 			return;
 		}
 
-		var jumplandSound = createjs.Sound.play("jumpland");
-		jumplandSound.volume = 0.25;
+		playSound("jumpland");
 
 
 		this.activated = true;

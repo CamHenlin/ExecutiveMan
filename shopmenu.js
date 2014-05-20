@@ -60,16 +60,13 @@ function ShopMenu() {
 
     this.remove = function() {
     	shopUp = false;
-        var pauseclose = createjs.Sound.play("pauseclose");
-        console.log("removing shop");
-        pauseclose.volume = 0.25;
+        playSound("pauseclose");
     	gamestage.removeChild(shopstage);
     };
 
     this.show = function() {
     	shopUp = true;
-        var pauseopen = createjs.Sound.play("pauseopen");
-        pauseopen.volume = 0.25;
+        playSound("pauseopen");
 
 		document.addEventListener('click', shopClickHandler.bind(this), false);
 

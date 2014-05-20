@@ -48,8 +48,7 @@ function Player() {
 						this.direction = this.direction * (this.bounced) ? 1 : -1;
 						this.bounced = true;
 
-			            var shotbounce = createjs.Sound.play("shotbounce");
-			            shotbounce.volume = 0.25;
+			            playSound("shotbounce");
 						return;
 					}
 
@@ -85,8 +84,7 @@ function Player() {
 			explosion.gotoAndPlay("explode");
 
 			if (this.checkBounds()) {
-            	var shotexplode = createjs.Sound.play("shotexplode");
-            	shotexplode.volume = 0.25;
+            	playSound("shotexplode");
         	}
 			mapper.enemyContainer.addChild(explosion);
 			setTimeout(function() {
@@ -158,7 +156,7 @@ function Player() {
 	this.x                  = 96 + mapper.widthOffset;
 	this.animations.x       = this.x;
 	this.lastx				= this.x;
-	this.y                  = 30;
+	this.y                  = 90;
 	this.goingLeft          = false;
 	this.goingRight         = false;
 	this.jumping            = false;
@@ -387,7 +385,10 @@ function Player() {
 
         if (this.ignoreInput) {
             if (this.ignoreDamage && !this.ignoreBounceBack) {
-                this.x += -this.animations.scaleX * lowFramerate;
+            	if ((actions.collisionResults.leftMove && this.animations.scaleX === 1) || (actions.collisionResults.rightMove && this.animations.scaleX === -1)) {
+            		this.x += -this.animations.scaleX * lowFramerate;
+            	}
+
                 // prevent us from moving left after a screen transition
                 if (this.animations.x < 0 && this.goingLeft) {
                     this.x = this.lastx;
@@ -429,8 +430,7 @@ function Player() {
         if (actions.playerDeath) {
             this.health = 0;
             this.animations.gotoAndPlay("damage");
-            var damagesound = createjs.Sound.play("playerdamaged");
-            damagesound.volume = 0.25;
+            playSound("playerdamaged");
         }
 
         if (this.health <= 0) {
@@ -451,8 +451,6 @@ function Player() {
             this.jumpreleased = false;
             this.jumpspeed = -4.875;
             this.jumping = true;
-            var sound = createjs.Sound.play("jump");
-            sound.volume = 0.25;
 
             this.animations.gotoAndPlay("jump");
         } else if ((actions.collisionResults.downmove && !this.onplatform) && !this.jumping) {
@@ -482,8 +480,7 @@ function Player() {
 			this.falling = false;
 			this.onplatform = false;
 
-			var jumplandSound = createjs.Sound.play("jumpland");
-			jumplandSound.volume = 0.25;
+			playSound("jumpland");
 
 			// correcting floor position after a jump/fall:
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
@@ -494,6 +491,7 @@ function Player() {
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 0.5; // megaman's jumpspeed set to .5 when he bonks his head
 			this.y += this.jumpspeed * lowFramerate;
+			ignoreLeftRightCollisionThisFrame = true;
 		} else if (this.onplatform && !actions.collisionResults.upmove) {
 			this.y += 38;
 			this.onplatform = false;
@@ -535,8 +533,7 @@ function Player() {
 				shot.fireUp();
 			}
 
-			var shootSound = createjs.Sound.play("shoot");
-			shootSound.volume = 0.25;
+			playSound("shoot");
 			this.shootTicks = 15 / lowFramerate; // not correct
 
 			if (this.animations.currentAnimation === "jump") {
@@ -657,8 +654,7 @@ function Player() {
 						this.health -= enemy.damage; // should come from enemy
 						this.animations.gotoAndPlay("damage");
 
-			            var damagesound = createjs.Sound.play("playerdamaged");
-			            damagesound.volume = 0.25;
+			            playSound("playerdamaged");
 						this.ignoreInput = true;
 						this.ignoreDamage = true;
 
@@ -698,8 +694,7 @@ function Player() {
 					this.animations.gotoAndPlay("damage");
 
 
-		            var damagesound = createjs.Sound.play("playerdamaged");
-		            damagesound.volume = 0.25;
+		            playSound("playerdamaged");
 					this.ignoreInput = true;
 					this.ignoreDamage = true;
 

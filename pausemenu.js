@@ -57,15 +57,13 @@ function PauseMenu() {
 
     this.remove = function() {
     	pauseUp = false;
-        var pauseclose = createjs.Sound.play("pauseclose");
-        pauseclose.volume = 0.25;
+        playSound("pauseclose");
     	gamestage.removeChild(pausestage);
     };
 
     this.show = function() {
     	pauseUp = true;
-        var pauseopen = createjs.Sound.play("pauseopen");
-        pauseopen.volume = 0.25;
+        playSound("pauseopen");
 
 		document.addEventListener('click', pauseClickHandler.bind(this), false);
 

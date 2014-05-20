@@ -113,16 +113,7 @@ function initBossScreen() {
 
 
 	document.getElementById("gamecanvas").addEventListener('click', bossClickHandler.bind(this), false);
-	document.onkeydown = function (event) {
-		switch (event.keyCode) {
-			case 32:
-				// keyCode 32 is space
-	               	initVars();
-	               	initShowOffBossScreen();
-					document.getElementById("gamecanvas").removeEventListener('click', bossClickHandler.bind(this), false) ;
-				break;
-		}
-	}.bind(this);
+
 
 
 	stage.addChild(executivemanTopper);

@@ -34,13 +34,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "copter", src: "images/copter.png"}]);
 
 
-createjs.Sound.registerSound("sounds/jumpland.wav", "jumpland");
-createjs.Sound.registerSound("sounds/shotbounce.wav", "shotbounce");
-createjs.Sound.registerSound("sounds/pauseopen.wav", "pauseopen");
-createjs.Sound.registerSound("sounds/pauseclose.wav", "pauseclose");
-createjs.Sound.registerSound("sounds/playerdamaged.wav", "playerdamaged");
-createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
-createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
+
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -55,7 +49,6 @@ var check = false;
 return check; };
 
 function handleComplete() {
-	loader.installPlugin(createjs.SoundJS);
 	/*backgroundImage = preload.getResult("background");
 	treesImage = preload.getResult("trees");
 	groundImage = preload.getResult("ground");
@@ -269,7 +262,6 @@ function beginGame(newGame) {
 		pauseButtonSprite.y = -32;
 		pauseButtonSprite.x = 0;
 		initTouchControls();
-		//var music = createjs.Sound.play(loader.getResult("wastemansoundloop"), {loop:-1});
 	}
 
 	if (logFPS) {
