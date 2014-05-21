@@ -31,7 +31,7 @@ function Mapper(gamestage) {
 	// figure out offsets:
 	this.heightOffset = this.gamestage.canvas.height - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
 	if (mobile) {
-		this.heightOffset -= 64;
+		this.heightOffset -= 48;
 	}
 	// correct for collisions:
 	this.heightOffset -= (this.heightOffset + 16) % 16;

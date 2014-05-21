@@ -373,7 +373,7 @@ function Player() {
 			return;
 		}
 
-		if (this.gameActions.collisionResults.nextmapup && mapper.getNextMapDirection() === "up") {
+		if (this.gameActions.collisionResults.nextmapup && this.y < -10) { //mapper.getNextMapDirection() === "up") {
 			mapper.nextMapUp();
 		}
 

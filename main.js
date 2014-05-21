@@ -24,6 +24,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "wasteman", src: "images/wastemanspritesheet.png"},
 						{id: "wastemanshot", src: "images/wastemanshot.png"},
 						{id: "filingcabinet", src: "images/filingcabinet.png"},
+						{id: "killcopy", src: "images/killcopy.png"},
 						{id: "extralife", src: "images/extralife.png"},
 						{id: "bighealth", src: "images/bighealth.png"},
 						{id: "littlehealth", src: "images/littlehealth.png"},
@@ -179,7 +180,7 @@ function beginGame(newGame) {
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 
-	var zoomAmount = window.innerHeight / ((mobile) ? 304 : 240);
+	var zoomAmount = window.innerHeight / ((mobile) ? 288 : 240);
 
 	gamezoom = zoomAmount;
 	gamestage.canvas.width = window.innerWidth / zoomAmount;
