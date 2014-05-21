@@ -18,8 +18,8 @@ function KillCopy(stage, basicCollision, x, y) {
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.basicCollision   = basicCollision;
-	this.damage	          = 2;
-	this.health           = 4;
+	this.damage           = 4;
+	this.health           = 28;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(killCopySpriteSheet, "sit");
 	this.x                = x;
@@ -28,7 +28,9 @@ function KillCopy(stage, basicCollision, x, y) {
 	this.jumping          = false;
 	this.jumpspeed        = 0;
 	this.shootTicks       = 0;
-	this.hardshell        = true;
+	this.subShootTicks    = 0;
+	this.shotCounter      = 0;
+	this.hardshell        = false;
 	this.dead             = false;
 	this.watchedElements  = [];
 
@@ -46,17 +48,38 @@ function KillCopy(stage, basicCollision, x, y) {
 
 		if (this.health <= 0 && this.activated) {
 			mapper.itemDrop(this.x, this.y);
-			var explosion = explosionSprite.clone(true);
-			score += 25;
-			explosion.x = this.animations.x;
-			explosion.y = this.animations.y;
+			mapper.itemDrop(this.x, this.y + 50);
+			mapper.itemDrop(this.x, this.y + 100);
+			var explosions = [];
+			for (var i = 0; i < 5; i++) {
+				explosions[i] = explosionSprite.clone(true);
+				this.stage.addChild(explosions[i]);
+				explosions[i].gotoAndPlay("explode");
+			}
+			explosions[0].x = this.animations.x + this.animations.spriteSheet._frameWidth / 2;
+			explosions[0].y = this.animations.y + this.animations.spriteSheet._frameHeight / 2;
+
+			explosions[1].x = this.animations.x;
+			explosions[1].y = this.animations.y;
+
+			explosions[2].x = this.animations.x + this.animations.spriteSheet._frameWidth;
+			explosions[2].y = this.animations.y;
+
+			explosions[3].x = this.animations.x;
+			explosions[3].y = this.animations.y + this.animations.spriteSheet._frameHeight;
+
+			explosions[4].x = this.animations.x + this.animations.spriteSheet._frameWidth;
+			explosions[4].y = this.animations.y + this.animations.spriteSheet._frameHeight;
 			this.stage.removeChild(this.animations);
-			explosion.gotoAndPlay("explode");
-			this.stage.addChild(explosion);
+
+			this.health = -1;
 			setTimeout(function() {
-				this.stage.removeChild(explosion);
-			}.bind(this), 250);
+				for (var i = 0; i < 5; i++) {
+					this.stage.removeChild(explosions[i]);
+				}
+			}.bind(this), 300);
 			this.dead = true;
+			score += 1000;
 			return;
 		}
 
@@ -93,17 +116,43 @@ function KillCopy(stage, basicCollision, x, y) {
 		}
 
 		// figure out if we can shoot or not
+		// going to shoot 5 shots that the player has to jump over
 		var distanceFromPlayer = player.x - this.x;
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, mapper));
+			shotyOffset = 20;
+			shotxOffset = 16;
+			this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
 			this.animations.gotoAndPlay("shoot");
-			this.hardshell = false;
 			this.activated = true;
 			this.shootTicks = 300 / lowFramerate;
+
+			setTimeout(function() {
+				this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
+				this.animations.gotoAndPlay("shoot");
+				this.activated = true;
+			}.bind(this), 125);
+
+			setTimeout(function() {
+				this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
+				this.animations.gotoAndPlay("shoot");
+				this.activated = true;
+			}.bind(this), 250);
+
+			setTimeout(function() {
+				this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
+				this.animations.gotoAndPlay("shoot");
+				this.activated = true;
+			}.bind(this), 375);
+
+			setTimeout(function() {
+				this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
+				this.animations.gotoAndPlay("shoot");
+				this.activated = true;
+			}.bind(this), 500);
+
 			setTimeout(function() {
 				this.animations.gotoAndPlay("sit");
 				this.activated = false;
-				this.hardshell = true;
 			}.bind(this), 750);
 		}
 
@@ -135,6 +184,7 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.x          = x + ((this.direction === 1) ? 16 : -2);
 		this.y          = y + 11;
+		this.ySpeed     = 4;
 		this.disabled   = false;
 		this.owner      = owner;
 
@@ -145,7 +195,13 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			if (this.disabled) {
+				return;
+			}
+
+			this.y += ySpeed;
+			ySpeed += 0.15;
+			this.x = this.x + (2 * this.direction) * lowFramerate;
 			this.animations.x = this.x - mapper.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
