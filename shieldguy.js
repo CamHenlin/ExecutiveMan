@@ -99,7 +99,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 			this.animations.gotoAndPlay("shoot");
 			this.hardshell = false;
 			this.activated = true;
-			this.shootTicks = 300 / lowFramerate;
+			this.shootTicks = 200 / lowFramerate;
 			setTimeout(function() {
 				this.animations.gotoAndPlay("sit");
 				this.activated = false;

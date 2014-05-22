@@ -29,21 +29,11 @@ function initShowOffBossScreen(bossnumber) {
 	});
 
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("wastemanframe")],
+		"images": [loader.getResult("accountingmanframe")],
 		"frames": {
-			"width": 1, "height": 1, "count": 2
+			"width": 20, "height": 24, "count": 1
 		},
 		"animations": {
-			"frame": {
-				"frames" : [0],
-				"next" : "breathout",
-				"speed" : 0.01
-			},
-			"breathout" : {
-				"frames" : [1],
-				"next" : "frame",
-				"speed" : 0.09
-			},
 			"still": {
 				"frames" : [0],
 				"next" : "still"
@@ -152,21 +142,11 @@ function handleShowOffBossScreenTick(event) {
 		});
 
 		var accountingmanSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("wastemanframe")],
+			"images": [loader.getResult("accountingmanframe")],
 			"frames": {
-				"width": 2, "height": 2, "count": 2
+				"width": 20, "height": 24, "count": 1
 			},
 			"animations": {
-				"frame": {
-					"frames" : [0],
-					"next" : "breathout",
-					"speed" : 0.01
-				},
-				"breathout" : {
-					"frames" : [1],
-					"next" : "frame",
-					"speed" : 0.09
-				},
 				"still": {
 					"frames" : [0],
 					"next" : "still"

@@ -6,6 +6,7 @@ createjs.Sound.registerSound("sounds/playerdamaged.wav", "playerdamaged");
 createjs.Sound.registerSound("sounds/shoot.wav", "shoot");
 createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
 createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
+createjs.Sound.registerSound("sounds/papershot.wav", "papershot");
 loader.installPlugin(createjs.SoundJS);
 
 function playSound(sound) {

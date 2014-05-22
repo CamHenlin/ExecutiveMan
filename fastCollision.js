@@ -22,6 +22,19 @@ function fastCollisionX(object1, object2) {
     );
 }
 
+function fastCollisionKillCopy(object1, object2) {
+    var obj1 = object1.animations;
+    var obj2 = object2.animations;
+
+    return !(
+            obj1.y + obj1.spriteSheet._frameHeight - 5 < obj2.y ||
+            obj1.y > obj2.y + obj2.spriteSheet._frameHeight - 5 ||
+            obj1.x > obj2.x + obj2.spriteSheet._frameWidth - 50 ||
+            obj1.x + obj1.spriteSheet._frameWidth - 5 < obj2.x + 50
+    );
+}
+
+
 function fastCollisionPlayer(obj1, obj2) {
 
     return !(

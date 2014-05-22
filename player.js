@@ -42,7 +42,7 @@ function Player() {
 				}
 
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
-				if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform)) {
+				if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform) && enemy.constructor !== KillCopy) {
 					if (enemy.hardshell) {
 						this.yspeed = 3.5;
 						this.direction = this.direction * (this.bounced) ? 1 : -1;
@@ -56,7 +56,12 @@ function Player() {
 						enemy.health -= 1;
 					}
 					this.removeSelf();
-				}
+				} else if (enemy.constructor === KillCopy && fastCollisionKillCopy(this, enemy)) {
+					if (enemy.damage > 0) {
+						enemy.health -= 1;
+					}
+					this.removeSelf();
+				} 
 			}.bind(this));
 		};
 

@@ -115,8 +115,8 @@ function Mapper(gamestage) {
 
 		this.lastContainer = this.container.clone(true);
 		this.lastbackgroundContainer = this.backgroundContainer1.clone(true);
-		this.gamestage.addChild(this.lastContainer);
 		this.gamestage.addChild(this.lastbackgroundContainer);
+		this.gamestage.addChild(this.lastContainer);
 		this.container.removeAllChildren();
 		this.gamestage.removeChild(this.backgroundContainer1);
 		this.gamestage.removeChild(this.backgroundContainer2);
@@ -386,6 +386,8 @@ function Mapper(gamestage) {
 						enemyArray.push(new BigHealth(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 100) {
 						enemyArray.push(new WasteMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 50) {
+						enemyArray.push(new KillCopy(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					}
 				}
 			}
@@ -659,7 +661,7 @@ function Mapper(gamestage) {
                 player.animations.y += this.gameBottom / (60 / halfIt);
                 player.y += this.gameBottom / (60 / halfIt);
 
-                /*if (this.stitchingoffset !== 0) {
+                if (this.stitchingoffset !== 0) {
                     this.lastContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
                     this.lastbackgroundContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
                     this.container.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
@@ -669,7 +671,7 @@ function Mapper(gamestage) {
                     player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
                     //player.animations.x += player.animations.spritesheet._frameWidth /  30;
                 }
-*/
+
                 if (this.container.y > 0) {
                     this.container.y = 0;
                     this.backgroundContainer1.y = 0;
@@ -684,10 +686,10 @@ function Mapper(gamestage) {
             } else {
                 player.lastx = player.x;
                 this.stitchingoffset = 0;
-                //this.container.x = 0;
-                //this.backgroundContainer1.x = 0;
-                //this.backgroundContainer2.x = 0;
-                //this.enemyContainer.x = 0;
+                this.container.x = 0;
+                this.backgroundContainer1.x = 0;
+                this.backgroundContainer2.x = 0;
+                this.enemyContainer.x = 0;
                 //player.animations.y = 0;
                 //player.y = 0;
                 player.jumping = true;

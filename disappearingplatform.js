@@ -42,11 +42,13 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 				this.activated = false;
 			}
 
-			if (!fastCollisionPlatform(player, this) || !this.animations.isVisible()) { // player no longer on platform
-				player.onplatform = false;
-				this.activated = false;
-			} else {
-				player.y = this.y - player.animations.spriteSheet._frameHeight;
+			if (!this.animations.isVisible() && !this.playerLeftPlatform) { // player no longer on platform
+				if (!fastCollisionPlatform(player, this)) {
+					player.onplatform = false;
+					this.activated = false;
+				} else {
+					player.y = this.y - player.animations.spriteSheet._frameHeight;
+				}
 			}
 		}
 
@@ -58,8 +60,10 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 
 		if (this.timer === this.onDuration) {
 			this.animations.visible = false;
-			player.onplatform = false;
-			this.activated = false;
+			if (fastCollisionPlatform(player, this)) { // player no longer on platform
+				player.onplatform = false;
+				this.playerLeftPlatform = true;
+			}
 		}
 
 		if (this.timer === this.onDuration + this.offDuration) {
@@ -80,6 +84,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 
 		this.activated = true;
 		player.onplatform = true;
+		this.playerLeftPlatform = false;
 		player.jumping = false;
 		player.falling = false;
 		player.jumpspeed = 0;

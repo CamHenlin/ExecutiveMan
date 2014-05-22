@@ -12,14 +12,15 @@ function KillCopy(stage, basicCollision, x, y) {
 			},
 			"shoot" : {
 				"frames" : [1, 2, 3, 4],
-				"next" : "shoot"
+				"next" : "shoot",
+				"speed" : 0.75
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.basicCollision   = basicCollision;
 	this.damage           = 4;
-	this.health           = 28;
+	this.health           = 72;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(killCopySpriteSheet, "sit");
 	this.x                = x;
@@ -27,7 +28,7 @@ function KillCopy(stage, basicCollision, x, y) {
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;
-	this.shootTicks       = 0;
+	this.shootTicks       = 120;
 	this.subShootTicks    = 0;
 	this.shotCounter      = 0;
 	this.hardshell        = false;
@@ -120,40 +121,126 @@ function KillCopy(stage, basicCollision, x, y) {
 		var distanceFromPlayer = player.x - this.x;
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225) {
 			shotyOffset = 20;
-			shotxOffset = 16;
-			this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
-			this.animations.gotoAndPlay("shoot");
+			shotxOffset = 32;
+			this.shoot();
 			this.activated = true;
-			this.shootTicks = 300 / lowFramerate;
+			this.shootTicks = 150 / lowFramerate;
 
 			setTimeout(function() {
-				this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
-				this.animations.gotoAndPlay("shoot");
-				this.activated = true;
+				if (this.health === -1) {
+					return;
+				}
+				this.shoot();
+			}.bind(this), 62);
+
+			setTimeout(function() {
+				if (this.health === -1) {
+					return;
+				}
+				this.shoot();
 			}.bind(this), 125);
 
 			setTimeout(function() {
-				this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
-				this.animations.gotoAndPlay("shoot");
-				this.activated = true;
+				if (this.health === -1) {
+					return;
+				}
+				this.shoot();
+			}.bind(this), 187);
+
+			setTimeout(function() {
+				if (this.health === -1) {
+					return;
+				}
+				this.shoot();
 			}.bind(this), 250);
 
 			setTimeout(function() {
-				this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
-				this.animations.gotoAndPlay("shoot");
-				this.activated = true;
-			}.bind(this), 375);
-
-			setTimeout(function() {
-				this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, this.animations.scaleX, this, mapper));
-				this.animations.gotoAndPlay("shoot");
-				this.activated = true;
+				if (this.health === -1) {
+					return;
+				}
+				this.animations.gotoAndPlay("sit");
 			}.bind(this), 500);
 
 			setTimeout(function() {
+				if (this.health === -1) {
+					return;
+				}
+
+				playSound("papershot");
+				this.animations.gotoAndPlay("shoot");
+				setTimeout(function() {
+					this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+				}.bind(this), 60);
+
+
+			}.bind(this), 1000);
+
+			if (this.health < 48) {
+
+				setTimeout(function() {
+					if (this.health === -1) {
+						return;
+					}
+
+					playSound("papershot");
+					this.animations.gotoAndPlay("shoot");
+					setTimeout(function() {
+						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+					}.bind(this), 60);
+
+
+				}.bind(this), 1250);
+
+				setTimeout(function() {
+					if (this.health === -1) {
+						return;
+					}
+
+					playSound("papershot");
+					this.animations.gotoAndPlay("shoot");
+					setTimeout(function() {
+						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+					}.bind(this), 60);
+
+
+				}.bind(this), 1500);
+
+				setTimeout(function() {
+					if (this.health === -1) {
+						return;
+					}
+
+					playSound("papershot");
+					this.animations.gotoAndPlay("shoot");
+					setTimeout(function() {
+						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+					}.bind(this), 60);
+
+
+				}.bind(this), 1750);
+
+				setTimeout(function() {
+					if (this.health === -1) {
+						return;
+					}
+
+					playSound("papershot");
+					this.animations.gotoAndPlay("shoot");
+					setTimeout(function() {
+						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+					}.bind(this), 60);
+
+
+				}.bind(this), 2000);
+			}
+
+			setTimeout(function() {
+				if (this.health === -1) {
+					return;
+				}
 				this.animations.gotoAndPlay("sit");
 				this.activated = false;
-			}.bind(this), 750);
+			}.bind(this), 1500);
 		}
 
 		if (!collisionResults.down) {
@@ -164,16 +251,25 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.animations.y = this.y;
 	};
 
+	this.shoot = function() {
+		playSound("papershot");
+		this.animations.gotoAndPlay("shoot");
+		setTimeout(function() {
+			this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+		}.bind(this), 60);
+	};
+
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("enemyshot")],
+			"images": [loader.getResult("papershot")],
 			"frames": {
-				"width": 8, "height": 8, "count": 1
+				"width": 24, "height": 24, "count": 4
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames" : [0, 1, 2, 3],
+					"next" : "shot",
+					"speed" : 0.5
 				}
 			}
 		});
@@ -183,14 +279,14 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 11;
-		this.ySpeed     = 4;
+		this.y          = y + 1;
+		this.ySpeed     = 6.75;
 		this.disabled   = false;
 		this.owner      = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction) * lowFramerate;
+		this.x = this.x + (5 * this.direction) * lowFramerate;
 		this.animations.x = this.x - mapper.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -199,9 +295,65 @@ function KillCopy(stage, basicCollision, x, y) {
 				return;
 			}
 
-			this.y += ySpeed;
-			ySpeed += 0.15;
-			this.x = this.x + (2 * this.direction) * lowFramerate;
+			this.y += this.ySpeed;
+			this.ySpeed -= 0.25;
+			this.x = this.x + (4 * this.direction) * lowFramerate;
+			this.animations.x = this.x - mapper.completedMapsWidthOffset;
+			this.animations.y = this.y;
+
+			if (!this.checkBounds()) {
+				this.removeSelf();
+			}
+		};
+
+		this.removeSelf = function() {
+			this.stage.removeChild(this.animations);
+			this.disabled = true;
+		};
+
+		this.checkBounds = function() {
+			return !(this.x < 0 || this.x > player.x + 1000);
+		};
+	};
+
+	var StraightShot = function(stage, x, y, direction, owner) {
+		var shotSpriteSheet = new createjs.SpriteSheet({
+			"images": [loader.getResult("papershot")],
+			"frames": {
+				"width": 24, "height": 24, "count": 4
+			},
+			"animations": {
+				"shot": {
+					"frames" : [0, 1, 2, 3],
+					"next" : "shot",
+					"speed" : 0.5
+				}
+			}
+		});
+
+		this.stage      = stage;
+		this.damage     = 4;
+		this.direction  = direction;
+		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
+		this.x          = x + ((this.direction === 1) ? 16 : -2);
+		this.y          = y + 21;
+		this.ySpeed     = 2.5;
+		this.disabled   = false;
+		this.owner      = owner;
+		this.animations.play();
+		this.stage.addChild(this.animations);
+		this.x = this.x + (5 * this.direction) * lowFramerate;
+		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.y = this.y;
+
+		this.tickActions = function() {
+			if (this.disabled) {
+				return;
+			}
+
+			this.y += this.ySpeed;
+			this.ySpeed -= 0.09;
+			this.x = this.x + (4 * this.direction) * lowFramerate;
 			this.animations.x = this.x - mapper.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
