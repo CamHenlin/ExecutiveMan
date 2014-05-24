@@ -29,6 +29,7 @@ function KillCopy(stage, basicCollision, x, y) {
 	this.jumping          = false;
 	this.jumpspeed        = 0;
 	this.shootTicks       = 120;
+	this.dead             = false;
 	this.subShootTicks    = 0;
 	this.shotCounter      = 0;
 	this.hardshell        = false;
@@ -73,14 +74,13 @@ function KillCopy(stage, basicCollision, x, y) {
 			explosions[4].y = this.animations.y + this.animations.spriteSheet._frameHeight;
 			this.stage.removeChild(this.animations);
 
-			this.health = -1;
 			setTimeout(function() {
 				for (var i = 0; i < 5; i++) {
 					this.stage.removeChild(explosions[i]);
 				}
 			}.bind(this), 300);
 			this.dead = true;
-			score += 1000;
+			score += 1000 * scoreModifier;
 			return;
 		}
 

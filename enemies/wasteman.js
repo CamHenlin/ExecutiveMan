@@ -77,7 +77,7 @@ function WasteMan(stage, basicCollision, x, y) {
 			this.health = this.lasthealth;
 		}
 
-		if (this.health < 0) {
+		if (this.dead) {
 			return;
 		}
 
@@ -110,7 +110,7 @@ function WasteMan(stage, basicCollision, x, y) {
 					this.stage.removeChild(explosions[i]);
 				}
 			}.bind(this), 300);
-			score += 500000;
+			score += 500000 * scoreModifier;
 			player.defeatedBoss();
 			this.dead = true;
 			return;

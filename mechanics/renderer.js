@@ -209,7 +209,7 @@ function Mapper(gamestage) {
 	};
 
 	this.getNextMapDirection = function() {
-		return "up";
+		return this.mapData.properties.nextMapDirection;
 	};
 
 	this.nextMapUp = function() {

@@ -28,6 +28,7 @@ function FilingCabinet(stage, basicCollision, x, y) {
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;
+	this.dead             = false;
 	this.jumpTicks        = 0;
 	this.hardshell        = false;
 	this.dead             = false;
@@ -41,20 +42,20 @@ function FilingCabinet(stage, basicCollision, x, y) {
 			element.tickActions(actions);
 		});
 
-		if (this.health < 0) {
+		if (this.dead) {
 			return;
 		}
 
 		if (this.health <= 0) {
 			mapper.itemDrop(this.x, this.y);
 			var explosion = explosionSprite.clone(true);
-			score += 50;
+			score += 50 * scoreModifier;
 			explosion.x = this.animations.x + this.animations.spriteSheet._frameWidth / 2;
 			explosion.y = this.animations.y + this.animations.spriteSheet._frameHeight / 2;
 			this.stage.removeChild(this.animations);
 			explosion.gotoAndPlay("explode");
 			this.stage.addChild(explosion);
-			this.health = -1;
+			this.dead = true;
 			setTimeout(function() {
 				this.stage.removeChild(explosion);
 			}.bind(this), 250);

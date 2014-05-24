@@ -86,6 +86,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 		player.onplatform = true;
 		this.playerLeftPlatform = false;
 		player.jumping = false;
+		player.jumpCount = 0;
 		player.falling = false;
 		player.jumpspeed = 0;
 		player.y = this.y - player.animations.spriteSheet._frameHeight;

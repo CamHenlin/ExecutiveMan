@@ -37,7 +37,7 @@ function Player() {
 			}
 
 			mapper.enemies.forEach(function(enemy) {
-				if (enemy.health <= 0) {
+				if (enemy.dead) {
 					return;
 				}
 
@@ -53,15 +53,15 @@ function Player() {
 					}
 
 					if (enemy.damage > 0) {
-						enemy.health -= 1;
+						enemy.health -= 1 * damageModifier;
 					}
 					this.removeSelf();
-				} else if (enemy.constructor === KillCopy && fastCollisionKillCopy(this, enemy)) {
+				} else if (enemy.constructor === KillCopy && fastCollisionKillCopy(this, enemy)) { // special case due to large overhang of the left side of sprite
 					if (enemy.damage > 0) {
-						enemy.health -= 1;
+						enemy.health -= 1 * damageModifier;
 					}
 					this.removeSelf();
-				} 
+				}
 			}.bind(this));
 		};
 
@@ -178,6 +178,7 @@ function Player() {
 	this.health             = 28;
 	this.actions            = {};
 	this.gameActions        = {};
+	this.jumpCount          = 0;
 	this.gamestage			= mapper.gamestage;
 	this.ignoreDamage		= false;
 	this.ignoreInput        = false;
@@ -378,7 +379,7 @@ function Player() {
 			return;
 		}
 
-		if (this.gameActions.collisionResults.nextmapup && this.y < -10) { //mapper.getNextMapDirection() === "up") {
+		if (this.gameActions.collisionResults.nextmapup && this.y < -10 && mapper.getNextMapDirection() === "up") { //mapper.getNextMapDirection() === "up") {
 			mapper.nextMapUp();
 		}
 
@@ -456,7 +457,7 @@ function Player() {
             this.jumpreleased = false;
             this.jumpspeed = -4.875;
             this.jumping = true;
-
+            this.jumpCount = 1;
             this.animations.gotoAndPlay("jump");
         } else if ((actions.collisionResults.downmove && !this.onplatform) && !this.jumping) {
             actions.collisionResults.downmove = true;
@@ -464,8 +465,12 @@ function Player() {
             this.falling = true;
             this.jumping = true;
             this.animations.gotoAndPlay("jump");
-        } else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 2) {
+           	this.jumpCount = 1;
+        } else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 2 && !doubleJump) {
             this.jumpspeed = 2;
+		} else if (this.jumping && this.jumpspeed >= 0 && actions.collisionResults.upmove && this.actions.playerJump && doubleJump && this.jumpCount === 1 && this.jumpreleased) {
+			this.jumpspeed = -4.875;
+			this.jumpCount++;
 		}
 
 		var ignoreLeftRightCollisionThisFrame = false;
@@ -483,6 +488,7 @@ function Player() {
 			}
 			this.jumping = false;
 			this.falling = false;
+			this.jumpCount = 0;
 			this.onplatform = false;
 
 			playSound("jumpland");
@@ -495,7 +501,7 @@ function Player() {
 			ignoreLeftRightCollisionThisFrame = true;
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 0.5; // megaman's jumpspeed set to .5 when he bonks his head
-			this.y += this.jumpspeed * lowFramerate;
+			//this.y += this.jumpspeed * lowFramerate;
 			ignoreLeftRightCollisionThisFrame = true;
 		} else if (this.onplatform && !actions.collisionResults.upmove) {
 			this.y += 38;
@@ -613,7 +619,7 @@ function Player() {
 		//console.log(this.x);
 		//
 
-		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset + mapper.widthOffset) {
+		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset + mapper.widthOffset && mapper.getNextMapDirection() === "right") {
 			mapper.nextMapRight(mapper.mapData);
 
 			this.ignoreInput = true;
@@ -622,7 +628,7 @@ function Player() {
 			}.bind(this), 300);
 		}
 
-		if (actions.collisionResults.nextmap) {
+		if (actions.collisionResults.nextmap && mapper.getNextMapDirection() === "down") {
 			mapper.nextMapDown(mapper.mapData);
 			this.ignoreInput = true;
 
@@ -656,7 +662,7 @@ function Player() {
 
 				if (intersection) {
 					if (enemy.damage > 0) {
-						this.health -= enemy.damage; // should come from enemy
+						this.health -= enemy.damage / damageModifier;
 						this.animations.gotoAndPlay("damage");
 
 			            playSound("playerdamaged");

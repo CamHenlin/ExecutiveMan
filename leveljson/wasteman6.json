@@ -56,7 +56,8 @@
          "y":0
         }],
  "orientation":"orthogonal",
- "properties":
+ "properties":,
+     "nextMapDirection":"right"
     {
      "backgroundColor":"#000",
      "stitchx":"0"

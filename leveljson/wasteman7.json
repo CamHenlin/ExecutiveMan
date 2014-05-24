@@ -83,7 +83,8 @@
  "properties":
     {
      "backgroundColor":"#000",
-     "stitchx":"0"
+     "stitchx":"0",
+     "nextMapDirection":"down"
     },
  "tileheight":16,
  "tilesets":[

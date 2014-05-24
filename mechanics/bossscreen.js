@@ -153,6 +153,10 @@ function bossClickHandler(event) {
 		return;
 	}
 
+	if (shopUp) {
+		return;
+	}
+
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
         "images": ["images/businessmanspritesheet.png"],
         "frames": {

@@ -36,6 +36,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 	this.jumping          = false;
 	this.jumpspeed        = 0;
 	this.shootTicks       = 0;
+	this.dead             = false;
 	this.hardshell        = true;
 	this.watchedElements  = [];
 	this.lastDirectionChangeFromCollision = false;
@@ -48,20 +49,20 @@ function PrinterGuy(stage, basicCollision, x, y) {
 			element.tickActions(actions);
 		});
 
-		if (this.health === -1) {
+		if (this.dead) {
 			return;
 		}
 
 		if (this.health <= 0) {
 			mapper.itemDrop(this.x, this.y);
-			score += 5;
+			score += 5 * scoreModifier;
 			var explosion = explosionSprite.clone(true);
 			explosion.x = this.animations.x;
 			explosion.y = this.animations.y;
 			this.stage.removeChild(this.animations);
 			explosion.gotoAndPlay("explode");
 			this.stage.addChild(explosion);
-			this.health = -1;
+			this.dead = true;
 			setTimeout(function() {
 				this.stage.removeChild(explosion);
 			}.bind(this), 250);

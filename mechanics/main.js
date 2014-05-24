@@ -29,6 +29,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "killcopy", src: "images/killcopy.png"},
 						{id: "extralife", src: "images/extralife.png"},
 						{id: "bighealth", src: "images/bighealth.png"},
+						{id: "healthbriefcase", src: "images/healthbriefcase.png"},
 						{id: "littlehealth", src: "images/littlehealth.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
 						{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
@@ -65,8 +66,10 @@ function handleComplete() {
 	}, 100);
 }
 
+var clicked = false;
 var itemDropCount = 0;
 var lives = 2;
+var healthBriefCases = 0;
 var gamezoom = 2;
 var stage;
 var altstage;
@@ -104,6 +107,12 @@ var leftButtonSprite;
 var rightButtonSprite;
 var shootButtonSprite;
 var pauseButtonSprite;
+
+// powerups:
+var doubleJump = false;
+var damageModifier = 1;
+var healthModifier = 1;
+var scoreModifier = 1;
 
 
 var titleSreenSprite;

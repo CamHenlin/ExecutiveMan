@@ -27,6 +27,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;
+	this.dead             = false;
 	this.shootTicks       = 0;
 	this.hardshell        = true;
 	this.dead             = false;
@@ -47,7 +48,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		if (this.health <= 0 && this.activated) {
 			mapper.itemDrop(this.x, this.y);
 			var explosion = explosionSprite.clone(true);
-			score += 25;
+			score += 25 * scoreModifier;
 			explosion.x = this.animations.x;
 			explosion.y = this.animations.y;
 			this.stage.removeChild(this.animations);

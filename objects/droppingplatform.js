@@ -87,6 +87,7 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 		this.activated = true;
 		player.onplatform = true;
 		player.jumping = false;
+		player.jumpCount = 0;
 		player.falling = false;
 		player.jumpspeed = 0;
 		player.y = this.y - player.animations.spriteSheet._frameHeight;

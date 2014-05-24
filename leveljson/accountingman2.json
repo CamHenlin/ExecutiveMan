@@ -59,7 +59,8 @@
  "properties":
     {
      "backgroundColor":"5fbaed",
-     "stitchx":"0"
+     "stitchx":"0",
+     "nextMapDirection":"right"
     },
  "tileheight":16,
  "tilesets":[

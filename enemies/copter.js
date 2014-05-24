@@ -28,6 +28,7 @@ function Copter(stage, x, y) {
 	this.yStepSize        = 0;
 	this.xStepSize        = 0;
 	this.hardshell        = false;
+	this.dead             = false;
 	this.movementTicks    = 0;
 	this.watchedElements  = [];
 	this.animations.x = this.x - mapper.completedMapsWidthOffset;
@@ -37,20 +38,20 @@ function Copter(stage, x, y) {
 	this.stage.addChild(this.animations);
 
 	this.tickActions = function() {
-		if (this.health < 0) {
+		if (this.dead) {
 			return;
 		}
 
 		if (this.health <= 0) {
 			mapper.itemDrop(this.x, this.y);
 			var explosion = explosionSprite.clone(true);
-			score += 2;
+			score += 2 * scoreModifier;
 			explosion.x = this.animations.x;
 			explosion.y = this.animations.y;
 			this.stage.removeChild(this.animations);
 			explosion.gotoAndPlay("explode");
 			this.stage.addChild(explosion);
-			this.health = -1;
+			this.dead = true;
 			setTimeout(function() {
 				this.stage.removeChild(explosion);
 			}.bind(this), 250);

@@ -173,7 +173,8 @@ accountingmanmaps[0] = { "height":15,
  "properties":
     {
      "backgroundColor":"000000",
-     "stitchx":"0"
+     "stitchx":"0",
+     "nextMapDirection":"right"
     },
  "tileheight":16,
  "tilesets":[
@@ -258,7 +259,8 @@ accountingmanmaps[1] = { "height":15,
  "properties":
     {
      "backgroundColor":"5fbaed",
-     "stitchx":"0"
+     "stitchx":"0",
+     "nextMapDirection":"right"
     },
  "tileheight":16,
  "tilesets":[

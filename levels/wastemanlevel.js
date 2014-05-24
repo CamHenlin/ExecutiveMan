@@ -62,7 +62,8 @@ wastemanmaps[0] = { "height":15,
  "properties":
     {
      "backgroundColor":"#9999CC",
-     "stitchx":"0"
+     "stitchx":"0",
+     "nextMapDirection":"right"
     },
  "tileheight":16,
  "tilesets":[
@@ -249,7 +250,8 @@ wastemanmaps[1] = { "height":15,
  "properties":
     {
      "backgroundColor":"#3d6952",
-     "stitchx":"0"
+     "stitchx":"0",
+     "nextMapDirection":"down"
     },
  "tileheight":16,
  "tilesets":[
@@ -336,7 +338,8 @@ wastemanmaps[2] = { "height":15,
  "properties":
 	{
 	 "backgroundColor":"#000",
-	 "stitchx":"1264"
+	 "stitchx":"1264",
+        "nextMapDirection":"down"
 	},
  "tileheight":16,
  "tilesets":[
@@ -421,7 +424,8 @@ wastemanmaps[3]= { "height":15,
  "properties":
 	{
 	 "backgroundColor":"#000",
-	 "stitchx":"0"
+	 "stitchx":"0",
+        "nextMapDirection":"down"
 	},
  "tileheight":16,
  "tilesets":[
@@ -506,7 +510,8 @@ wastemanmaps[4] = { "height":15,
  "properties":
 	{
 	 "backgroundColor":"#000",
-	 "stitchx":"0"
+	 "stitchx":"0",
+         "nextMapDirection":"right"
 	},
  "tileheight":16,
  "tilesets":[
@@ -591,7 +596,8 @@ wastemanmaps[5] = { "height":15,
  "properties":
 	{
 	 "backgroundColor":"#000",
-	 "stitchx":"0"
+	 "stitchx":"0",
+        "nextMapDirection":"right"
 	},
  "tileheight":16,
  "tilesets":[
@@ -700,7 +706,8 @@ wastemanmaps[6] = { "height":15,
  "properties":
     {
      "backgroundColor":"#000",
-     "stitchx":"0"
+     "stitchx":"0",
+     "nextMapDirection":"right"
     },
  "tileheight":16,
  "tilesets":[
@@ -785,7 +792,8 @@ wastemanmaps[7] = { "height":15,
  "properties":
 	{
 	 "backgroundColor":"#000",
-	 "stitchx":"0"
+	 "stitchx":"0",
+         "nextMapDirection":"down"
 	},
  "tileheight":16,
  "tilesets":[
@@ -896,7 +904,8 @@ wastemanmaps[8] = { "height":15,
  "properties":
     {
      "backgroundColor":"#000",
-     "stitchx":"608"
+     "stitchx":"608",
+     "nextMapDirection":"right"
     },
  "tileheight":16,
  "tilesets":[
@@ -1005,7 +1014,8 @@ wastemanmaps[9] = { "height":15,
  "properties":
     {
      "backgroundColor":"#000",
-     "stitchx":"608"
+     "stitchx":"0",
+     "nextMapDirection":"right"
     },
  "tileheight":16,
  "tilesets":[

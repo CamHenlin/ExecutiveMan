@@ -84,6 +84,7 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 		player.jumping = false;
 		player.falling = false;
 		player.jumpspeed = 0;
+		player.jumpCount = 0;
 		player.y = this.y - player.animations.spriteSheet._frameHeight;
 
 		if (!player.goingLeft && !player.goingRight) {
