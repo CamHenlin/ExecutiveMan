@@ -60,20 +60,32 @@ function initBossScreen() {
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("accountingmanframe")],
 		"frames": {
-			"width": 20, "height": 24, "count": 1
+			"width": 19, "height": 24, "count": 1
 		},
 		"animations": {
 			"frame": {
 				"frames" : [0],
-				"next" : "frame",
-				"speed" : 0.01
+				"next" : "frame"
 			}
 		}
 	});
 	var accountingmanLabel = new createjs.Text("ACCOUNTING \n        MAN", "bold 7px Arial", "#FFF");
 	var accountingmanFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "frame");
 
+	var shopFrameSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("shopframe")],
+		"frames": {
+			"width": 20, "height": 24, "count": 1
+		},
+		"animations": {
+			"frame": {
+				"frames" : [0],
+				"next" : "frame"
+			}
+		}
+	});
 	var shopLabel = new createjs.Text("SHOP", "bold 7px Arial", "#FFF");
+	var shopFrame = new createjs.Sprite(shopFrameSpriteSheet, "frame");
 
 	bossframes = [];
 	for (var i = 0; i < 9; i++) {
@@ -139,6 +151,8 @@ function initBossScreen() {
 			HRManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 4) { // middle frame
+			shopFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + shopFrame.spriteSheet._frameWidth /2 ;
+			shopFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + shopFrame.spriteSheet._frameWidth/2 -2;
 			shopLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 12;
 			shopLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
@@ -185,6 +199,7 @@ function initBossScreen() {
 	stage.addChild(warehouseMan);
 	stage.addChild(visionaryMan);
 
+	stage.addChild(shopFrame);
 	stage.addChild(shopLabel);
 	stage.addChild(saveGameLabel);
 	stage.addChild(loadGameLabel);
