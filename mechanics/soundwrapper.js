@@ -11,7 +11,7 @@ createjs.Sound.registerSound("sounds/papershot.wav", "papershot");
 
 createjs.Sound.registerSound("songs/1.mp3", "intro");
 createjs.Sound.registerSound("songs/2.mp3", "wastemansong");
-//createjs.Sound.registerSound("songs/3.mp3", "accountingmansong");
+createjs.Sound.registerSound("songs/3.mp3", "accountingmansong");
 
 loader.installPlugin(createjs.SoundJS);
 
@@ -26,5 +26,5 @@ function playSoundLoop(sound) {
 }
 
 function stopMusic() {
-	createjs.Sound.removeAllSounds();
+	createjs.Sound.stop();
 }
