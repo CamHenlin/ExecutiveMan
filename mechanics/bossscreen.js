@@ -1,5 +1,7 @@
 var bossScreenUp = false;
 function initBossScreen() {
+	stopMusic();
+
 	if (lives < 2) {
 		lives = 2;
 	}

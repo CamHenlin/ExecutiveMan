@@ -7,6 +7,12 @@ loader.addEventListener("complete", handleComplete);
 // preload.addEventListener("progress", handleProgress);
 
 loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
+                    	{id: "slide_one", src: "images/intro/1.png"},
+                    	{id: "slide_two", src: "images/intro/2.png"},
+                    	{id: "slide_three", src: "images/intro/3.png"},
+                    	{id: "slide_four", src: "images/intro/4.png"},
+                    	{id: "slide_five", src: "images/intro/5.png"},
+                    	{id: "slide_six", src: "images/intro/6.png"},
 						{id: "map1", src: "images/map1.png"},
 						{id: "map2", src: "images/map2.png"},
 						{id: "buttons", src: "images/buttons.png"},
@@ -204,8 +210,6 @@ function beginGame(newGame) {
 	watchedElements = [];
 	mapper = new Mapper(gamestage);
 
-
-
 	if (bosspointReached) {
 		if (bossnumber === 0) {
 			mapper.mapData = maps[wastemanBossPoint];
@@ -231,8 +235,6 @@ function beginGame(newGame) {
 	tileCollisionDetector = new TileCollisionDetector();
 
 	watchedElements.push(mapper);
-
-
 
 	if (mobile) {
 

@@ -8,6 +8,11 @@ createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
 createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
 createjs.Sound.registerSound("sounds/error.wav", "error");
 createjs.Sound.registerSound("sounds/papershot.wav", "papershot");
+
+createjs.Sound.registerSound("songs/1.mp3", "intro");
+createjs.Sound.registerSound("songs/2.mp3", "wastemansong");
+//createjs.Sound.registerSound("songs/3.mp3", "accountingmansong");
+
 loader.installPlugin(createjs.SoundJS);
 
 function playSound(sound) {
@@ -16,6 +21,10 @@ function playSound(sound) {
 }
 
 function playSoundLoop(sound) {
-	var loop = createjs.Sound.play(loader.getResult(sound), {loop:-1});
-	loop.volume = 0.10;
+	var loop = createjs.Sound.play(sound, {loop:-1});
+	loop.volume = 0.15;
+}
+
+function stopMusic() {
+	createjs.Sound.removeAllSounds();
 }

@@ -98,8 +98,10 @@ function handleShowOffBossScreenTick(event) {
 
 		if (bossnumber === 0) {
 			maps = wastemanmaps;
+			playSoundLoop("wastemansong");
 		} else if (bossnumber === 1) {
 			maps = accountingmanmaps;
+			playSoundLoop("accountingmansong");
 		}
 		startlevel = true;
 		event.remove();

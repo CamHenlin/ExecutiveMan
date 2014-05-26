@@ -113,6 +113,9 @@ function ShopMenu() {
     };
 
     this.show = function() {
+
+        clicked = true;
+        setTimeout(function() { clicked = false; }, 250);
     	shopUp = true;
         playSound("pauseopen");
 
