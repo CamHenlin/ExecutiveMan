@@ -32,7 +32,7 @@ function initTitleScreen() {
 	titleSreenSprite.y = gamestage.canvas.height / 2 - titleSreenSprite.spriteSheet._frameHeight / 2;
 
 	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
-	createjs.Ticker.setFPS(2);
+	createjs.Ticker.setFPS(3);
 
 	document.onkeydown = function (event) {
 		switch (event.keyCode) {

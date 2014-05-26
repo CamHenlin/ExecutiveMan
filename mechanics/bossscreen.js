@@ -41,18 +41,21 @@ function initBossScreen() {
 		"animations": {
 			"frame": {
 				"frames" : [0],
-				"next" : "breathout",
-				"speed" : 0.01
-			},
-			"breathout" : {
-				"frames" : [1],
 				"next" : "frame",
-				"speed" : 0.09
+				"speed" : 0.01
 			}
 		}
 	});
 	var wastemanFrame = new createjs.Sprite(wastemanFrameSpriteSheet, "frame");
 	var wastemanLabel = new createjs.Text("WASTE MAN", "bold 7px Arial", "#FFF");
+
+
+	var materialManLabel = new createjs.Text("MATERIAL \n     MAN", "bold 7px Arial", "#FFF");
+	var HRManLabel = new createjs.Text("HR MAN", "bold 7px Arial", "#FFF");
+	var salesManLAbel = new createjs.Text("SALES MAN", "bold 7px Arial", "#FFF");
+	var ITManLabel = new createjs.Text("IT MAN", "bold 7px Arial", "#FFF");
+	var warehouseMan = new createjs.Text("WAREHOUSE \n        MAN", "bold 7px Arial", "#FFF");
+	var visionaryMan = new createjs.Text("VISIONARY \n      MAN", "bold 7px Arial", "#FFF");
 
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("accountingmanframe")],
@@ -100,6 +103,16 @@ function initBossScreen() {
     fillColor.graphics.beginFill("#0000FF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
     altstage.addChild(fillColor);
 
+
+	var saveGameLabel = new createjs.Text("SAVE\nGAME", "bold 9px Arial", "#FFF");
+	saveGameLabel.x = 6;
+	saveGameLabel.y = 10;
+	this.saveGameTouchTarget = buildSaveLoadTouchTarget(saveGameLabel);
+	var loadGameLabel = new createjs.Text("LOAD\nGAME", "bold 9px Arial", "#FFF");
+	loadGameLabel.x = gamestage.canvas.width - 36;
+	loadGameLabel.y = 10;
+	this.loadGameTouchTarget = buildSaveLoadTouchTarget(loadGameLabel);
+
 	var width = bossframes[0].spriteSheet._frameWidth;
 	var framewidth = bossframes[0].spriteSheet._frameWidth;
 	var centerx = gamestage.canvas.width / 2 - bossframes[0].spriteSheet._frameWidth / 2;
@@ -117,9 +130,33 @@ function initBossScreen() {
 			accountingmanLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
 			accountingmanLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
+		if (i === 2) {
+			materialManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 5;
+			materialManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+		}
+		if (i === 3) {
+			HRManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 9;
+			HRManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+		}
 		if (i === 4) { // middle frame
 			shopLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 12;
 			shopLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+		}
+		if (i === 5) {
+			salesManLAbel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
+			salesManLAbel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+		}
+		if (i === 6) {
+			ITManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 10;
+			ITManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+		}
+		if (i === 7) {
+			warehouseMan.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
+			warehouseMan.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+		}
+		if (i === 8) {
+			visionaryMan.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 3;
+			visionaryMan.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
 		bossframes[i].x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3);
 		bossframes[i].y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2;
@@ -131,10 +168,7 @@ function initBossScreen() {
 	createjs.Ticker.addEventListener("tick", handleBossScreenTick);
 	createjs.Ticker.setFPS(60);
 
-
 	document.getElementById("gamecanvas").addEventListener('click', bossClickHandler.bind(this), false);
-
-
 
 	stage.addChild(executivemanTopper);
 	for (i = 0; i < bossframes.length; i++) {
@@ -143,12 +177,32 @@ function initBossScreen() {
 
 	stage.addChild(wastemanFrame);
 	stage.addChild(wastemanLabel);
+
+	stage.addChild(materialManLabel);
+	stage.addChild(HRManLabel);
+	stage.addChild(salesManLAbel);
+	stage.addChild(ITManLabel);
+	stage.addChild(warehouseMan);
+	stage.addChild(visionaryMan);
+
 	stage.addChild(shopLabel);
+	stage.addChild(saveGameLabel);
+	stage.addChild(loadGameLabel);
 	stage.addChild(accountingmanFrame);
 	stage.addChild(accountingmanLabel);
-
-
 }
+
+
+function buildSaveLoadTouchTarget(text) {
+    var touchTarget = {};
+    touchTarget.x = text.x - 5;
+    touchTarget.y = text.y - 3;
+    touchTarget.spriteSheet = {};
+    touchTarget.spriteSheet._frameHeight = 32;
+    touchTarget.spriteSheet._frameWidth = 40;
+    return touchTarget;
+}
+
 
 function bossClickHandler(event) {
 	if (!bossScreenUp) {
@@ -178,17 +232,25 @@ function bossClickHandler(event) {
 
 	touchSprite.x = event.clientX / gamezoom;
 	touchSprite.y = event.clientY / gamezoom;
-	console.log(touchSprite);
-	for (var k = 0; k < 5; k++) { // should be 9
-	    if (k === 4 && fastCollisionSprite(bossframes[k], touchSprite)) {
-	    	this.shopMenu.show();
-            //event.target.removeEventListener(event.type, arguments.callee);
-	    } else if (fastCollisionSprite(bossframes[k], touchSprite)) {
-	       	initVars();
-	       	initShowOffBossScreen(k);
-            event.target.removeEventListener(event.type, arguments.callee);
-			bossScreenUp = false;
-	    }
+	if (fastCollisionSprite(this.saveGameTouchTarget, touchSprite)) {
+		saveGame();
+        playSound("pauseopen");
+	} else if (fastCollisionSprite(this.loadGameTouchTarget, touchSprite)) {
+		loadGame();
+        playSound("pauseopen");
+	} else {
+		for (var k = 0; k < 5; k++) { // should be 9
+		    if (k === 4 && fastCollisionSprite(bossframes[k], touchSprite)) {
+		    	this.shopMenu.show();
+	            //event.target.removeEventListener(event.type, arguments.callee);
+		    } else if (fastCollisionSprite(bossframes[k], touchSprite)) {
+		       	initVars();
+		       	initShowOffBossScreen(k);
+	            event.target.removeEventListener(event.type, arguments.callee);
+				bossScreenUp = false;
+        		playSound("pauseopen");
+		    }
+		}
 	}
 }
 
