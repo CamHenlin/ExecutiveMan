@@ -75,7 +75,7 @@ function initBossScreen() {
 	var shopFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("shopframe")],
 		"frames": {
-			"width": 20, "height": 24, "count": 1
+			"width": 30, "height": 24, "count": 1
 		},
 		"animations": {
 			"frame": {
@@ -151,8 +151,8 @@ function initBossScreen() {
 			HRManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 4) { // middle frame
-			shopFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + shopFrame.spriteSheet._frameWidth /2 ;
-			shopFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + shopFrame.spriteSheet._frameWidth/2 -2;
+			shopFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + shopFrame.spriteSheet._frameWidth /2 -8;
+			shopFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + shopFrame.spriteSheet._frameWidth/2 -4;
 			shopLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 12;
 			shopLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
