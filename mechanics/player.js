@@ -302,8 +302,8 @@ function Player() {
 
             for (var i = 0; i < event.touches.length; i++) {
                 var touch = event.touches[i];
-                touchSprite.x = touch.pageX /gamezoom;
-                touchSprite.y = touch.pageY /gamezoom;
+                touchSprite.x = (event.pageX || touch.pageX) /gamezoom;
+                touchSprite.y = (event.pageY || touch.pageY) /gamezoom;
                 if (fastCollisionSprite(leftButtonSprite, touchSprite)) {
                     this.actions.playerLeft = true;
                     this.actions.playerRight = false;
@@ -356,11 +356,11 @@ function Player() {
             }
         };
 
-        document.getElementById("gamecanvas").addEventListener('touchstart', eventHandler.bind(this), false);
-        document.getElementById("gamecanvas").addEventListener('touchmove', eventHandler.bind(this), false);
-        document.getElementById("gamecanvas").addEventListener('touchend', endTouchEventHandler.bind(this), false);
-        document.getElementById("gamecanvas").addEventListener('touchcancel', endTouchEventHandler.bind(this), false);
-        document.getElementById("gamecanvas").addEventListener('touchleave', endTouchEventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchstart',	eventHandler.bind(this), false);
+    	document.getElementById("gamecanvas").addEventListener('touchmove',		eventHandler.bind(this), false);
+    	document.getElementById("gamecanvas").addEventListener('touchend',		endTouchEventHandler.bind(this), false);
+    	document.getElementById("gamecanvas").addEventListener('touchcancel',	endTouchEventHandler.bind(this), false);
+    	document.getElementById("gamecanvas").addEventListener('touchleave',	endTouchEventHandler.bind(this), false);
     }
 
     this.animations.play();

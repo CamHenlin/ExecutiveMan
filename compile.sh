@@ -1,5 +1,6 @@
 java -jar compiler.jar \
 	--js=libs/easeljs-NEXT.min.js --js=libs/soundjs-0.5.2.min.js --js=libs/preload-NEXT.min.js \
+	--js=libs/polyfill.js \
 	\
 	--js=levels/wastemanlevel.js --js=levels/accountingmanlevel.js \
 	\
