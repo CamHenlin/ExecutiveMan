@@ -35,7 +35,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 				"speed" : 0.0625
 			}
 		}
-	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
+	});
 
 	this.basicCollision   = basicCollision;
 	this.health           = 28;
@@ -179,7 +179,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 			if (this.runningLeft || this.runningRight) {
 				this.animations.gotoAndPlay("run");
 			} else {
-				this.animations.gotoAndPlay("defy");
+				this.animations.gotoAndPlay("stand");
 			}
 		}
 
@@ -206,13 +206,13 @@ function AccountingMan(stage, basicCollision, x, y) {
 
 		// figure out if we can shoot or not
 		if (distanceFromPlayer < 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is left!
-		    //console.log("player is left");
-		    this.lastRunDirRight = false;                                                                                     // ''
+			//console.log("player is left");
+			this.lastRunDirRight = false;                                                                                     // ''
 			this.runningLeft = true;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningLeft && collisionResults.left) {
-			this.x -= (this.health < 14) ? 2.3 : 1.9; // faster than executiveman!
-			if (Math.abs(distanceFromPlayer) > 256 && !this.lastRunDirLeft) {
+			this.x -= (this.health < 14) ? 2.5 : 2.1; // faster than executiveman!
+			if (Math.abs(distanceFromPlayer) > 192 && !this.lastRunDirLeft) {
 				this.lastRunDirLeft = true;
 				this.runningRight = false;
 				this.runningLeft = false;
@@ -230,11 +230,11 @@ function AccountingMan(stage, basicCollision, x, y) {
 		} else if (distanceFromPlayer > 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is right!
 			//console.log("player is right");
 			this.runningRight = true;
-		    this.lastRunDirLeft = false;
+			this.lastRunDirLeft = false;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningRight && collisionResults.right) {
-			this.x += (this.health < 14) ? 1.9 : 1.5; // faster than executiveman!
-			if (Math.abs(distanceFromPlayer) > 256 && !this.lastRunDirRight) {
+			this.x += (this.health < 14) ? 2.1 : 1.7; // faster than executiveman!
+			if (Math.abs(distanceFromPlayer) > 192 && !this.lastRunDirRight) {
 				this.lastRunDirRight = true;
 				this.runningRight = false;
 				this.runningLeft = false;
@@ -321,9 +321,9 @@ function AccountingMan(stage, basicCollision, x, y) {
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		if (!owner.masterShot) {
 			this.animations.scaleX = -owner.animations.scaleX;
-	    } else {
+		} else {
 			this.animations.scaleX = -direction;
-	    }
+		}
 		this.animations.regX = (this.animations.scaleX === -1) ? this.animations.spriteSheet._frameWidth : 0;
 		this.x          = x + ((this.direction === 1) ? 16 : -2);
 		this.y          = y + 11;
