@@ -8,7 +8,7 @@ java -jar compiler.jar \
 	--js=objects/bosshealthbar.js --js=objects/bighealth.js --js=objects/littlehealth.js \
 	--js=objects/halfwaypoint.js \
 	\
-	--js=enemies/killcopy.js --js=enemies/wasteman.js --js=enemies/printerguy.js \
+	--js=enemies/killcopy.js --js=enemies/wasteman.js  --js=enemies/accountingman.js --js=enemies/printerguy.js \
 	--js=enemies/flood.js --js=enemies/shieldguy.js --js=enemies/copter.js \
 	--js=enemies/filingcabinet.js \
 	\
