@@ -280,7 +280,7 @@ function Player() {
 
     if (mobile) {
         var touchEventSpriteSheet = new createjs.SpriteSheet({
-            "images": ["images/businessmanspritesheet.png"],
+            "images": ["images/pixel.png"],
             "frames": {
                 "width": 1, "height": 1, "count": 1
             },
