@@ -8,6 +8,12 @@
 		return;
 	}
 
+	if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
+		return;
+	} else if (userAgent.match(/Android/i)) {
+		return;
+	}
+
 	// console.log("polyfill!");
 	// event listener intercept
 	var supportedEventsNames = ["touchstart", "touchmove", "touchend", "touchcancel", "touchleave"];

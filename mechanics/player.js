@@ -380,7 +380,10 @@ function Player() {
 		}
 
 		if (this.gameActions.collisionResults.nextmapup && this.y < -10 && (mapper.getNextMapDirection() === "up" || mapper.getLastMapDirection() === "up")) { //mapper.getNextMapDirection() === "up") {
-			mapper.nextMapUp();
+			if (mapper.getLastMapDirection() === "up") {
+                mapper.mapcounter -= 2;
+            }
+            mapper.nextMapUp();
 		}
 
 		if (this.transitionedUp) {
@@ -620,7 +623,10 @@ function Player() {
 		//
 
 		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset + mapper.widthOffset && (mapper.getNextMapDirection() === "right" || mapper.getLastMapDirection() === "right")) {
-			mapper.nextMapRight(mapper.mapData);
+			if (mapper.getLastMapDirection() === "right") {
+                mapper.mapcounter -= 2;
+            }
+            mapper.nextMapRight(mapper.mapData);
 
 			this.ignoreInput = true;
 			setTimeout(function() {
@@ -629,7 +635,10 @@ function Player() {
 		}
 
 		if (actions.collisionResults.nextmap && (mapper.getNextMapDirection() === "down" || mapper.getLastMapDirection() === "down")) {
-			mapper.nextMapDown(mapper.mapData);
+			if (mapper.getLastMapDirection() === "down") {
+                mapper.mapcounter -= 2;
+            }
+            mapper.nextMapDown(mapper.mapData);
 			this.ignoreInput = true;
 
 			setTimeout(function() {

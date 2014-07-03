@@ -98,7 +98,7 @@ if (window.mobilecheck()) {
 }
 var fpsLabel;
 var scoreLabel;
-var logFPS = false;
+var logFPS = true;
 var buttonSpriteSheet;
 var skipCounter = 0;
 var lowFramerate = 1; // 2 for 30FPS!
@@ -284,7 +284,7 @@ function beginGame(newGame) {
 		fpsLabel = new createjs.Text("", "bold 14px Arial", "#FFF");
 		gamestage.addChild(fpsLabel);
 
-		fpsLabel.x = gamestage.canvas.width - 250;
+		fpsLabel.x = gamestage.canvas.width - 50;
 		fpsLabel.y = 18;
 	}
 
@@ -439,5 +439,5 @@ function handleTick(event) {
 		gamestage.update();
 	}
 
-	skipCounter++;
+    skipCounter++;
 }
