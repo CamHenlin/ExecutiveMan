@@ -432,6 +432,7 @@ accountingmanmaps[3] = { "height":15,
     {
      "backgroundColor":"5fbaed",
      "nextMapDirection":"right",
+     "lastMapDirection":"down",
      "stitchx":"0"
     },
  "tileheight":16,
@@ -518,6 +519,7 @@ accountingmanmaps[4] = { "height":15,
     {
      "backgroundColor":"5fbaed",
      "nextMapDirection":"right",
+     "lastMapDirection":"down",
      "stitchx":"0"
     },
  "tileheight":16,
@@ -603,7 +605,8 @@ accountingmanmaps[5] = { "height":15,
  "properties":
     {
      "backgroundColor":"5fbaed",
-     "nextMapDirection":"up",
+     "nextMapDirection":"",
+     "lastMapDirection":"",
      "stitchx":"0"
     },
  "tileheight":16,

@@ -212,6 +212,10 @@ function Mapper(gamestage) {
 		return this.mapData.properties.nextMapDirection;
 	};
 
+    this.getLastMapDirection = function() {
+        return this.mapData.properties.lastMapDirection;
+    };
+
 	this.nextMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		console.log(this.getOffScreenWidth());

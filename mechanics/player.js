@@ -379,7 +379,7 @@ function Player() {
 			return;
 		}
 
-		if (this.gameActions.collisionResults.nextmapup && this.y < -10 && mapper.getNextMapDirection() === "up") { //mapper.getNextMapDirection() === "up") {
+		if (this.gameActions.collisionResults.nextmapup && this.y < -10 && (mapper.getNextMapDirection() === "up" || mapper.getLastMapDirection() === "up")) { //mapper.getNextMapDirection() === "up") {
 			mapper.nextMapUp();
 		}
 
@@ -619,7 +619,7 @@ function Player() {
 		//console.log(this.x);
 		//
 
-		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset + mapper.widthOffset && mapper.getNextMapDirection() === "right") {
+		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset + mapper.widthOffset && (mapper.getNextMapDirection() === "right" || mapper.getLastMapDirection() === "right")) {
 			mapper.nextMapRight(mapper.mapData);
 
 			this.ignoreInput = true;
@@ -628,7 +628,7 @@ function Player() {
 			}.bind(this), 300);
 		}
 
-		if (actions.collisionResults.nextmap && mapper.getNextMapDirection() === "down") {
+		if (actions.collisionResults.nextmap && (mapper.getNextMapDirection() === "down" || mapper.getLastMapDirection() === "down")) {
 			mapper.nextMapDown(mapper.mapData);
 			this.ignoreInput = true;
 
