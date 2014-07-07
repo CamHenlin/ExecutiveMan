@@ -381,9 +381,10 @@ function Player() {
 
 		if (this.gameActions.collisionResults.nextmapup && this.y < -10 && (mapper.getNextMapDirection() === "up" || mapper.getLastMapDirection() === "up")) { //mapper.getNextMapDirection() === "up") {
 			if (mapper.getLastMapDirection() === "up") {
-                mapper.mapcounter -= 2;
-            }
-            mapper.nextMapUp();
+            	mapper.lastMapUp();
+            } else {
+            	mapper.nextMapUp();
+        	}
 		}
 
 		if (this.transitionedUp) {
@@ -617,16 +618,17 @@ function Player() {
 		}.bind(this));
 
 		if (this.actions.playerDebug) {
-
+			damageModifier = 1000;
 		}
 		//console.log(this.x);
 		//
 
 		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset + mapper.widthOffset && (mapper.getNextMapDirection() === "right" || mapper.getLastMapDirection() === "right")) {
 			if (mapper.getLastMapDirection() === "right") {
-                mapper.mapcounter -= 2;
-            }
-            mapper.nextMapRight(mapper.mapData);
+                mapper.lastMapRight(mapper.mapData);
+            } else {
+            	mapper.nextMapRight(mapper.mapData);
+        	}
 
 			this.ignoreInput = true;
 			setTimeout(function() {
@@ -636,9 +638,11 @@ function Player() {
 
 		if (actions.collisionResults.nextmap && (mapper.getNextMapDirection() === "down" || mapper.getLastMapDirection() === "down")) {
 			if (mapper.getLastMapDirection() === "down") {
-                mapper.mapcounter -= 2;
+            	mapper.lastMapDown(mapper.mapData);
+            } else {
+            	mapper.nextMapDown(mapper.mapData);
             }
-            mapper.nextMapDown(mapper.mapData);
+
 			this.ignoreInput = true;
 
 			setTimeout(function() {
