@@ -431,7 +431,7 @@ accountingmanmaps[1] = { "height":15,
  "properties":
     {
      "backgroundColor":"5fbaed",
-     "nextMapDirection":"right",
+     "nextMapDirection":"up",
      "lastMapDirection":"down",
      "stitchx":"0"
     },
