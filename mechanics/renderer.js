@@ -97,6 +97,22 @@ function Mapper(gamestage) {
 			readyLabel2.visible = true;
 		}.bind(this), 1250);
 		setTimeout(function() {
+			readyLabel.visible = false;
+			readyLabel2.visible = false;
+		}.bind(this), 625);
+		setTimeout(function() {
+			readyLabel.visible = true;
+			readyLabel2.visible = true;
+		}.bind(this), 750);
+		setTimeout(function() {
+			readyLabel.visible = false;
+			readyLabel2.visible = false;
+		}.bind(this), 875);
+		setTimeout(function() {
+			readyLabel.visible = true;
+			readyLabel2.visible = true;
+		}.bind(this), 1375);
+		setTimeout(function() {
 			this.gamestage.removeChild(readyLabel);
 			this.gamestage.removeChild(readyLabel2);
 		}.bind(this), 1500);
@@ -106,6 +122,7 @@ function Mapper(gamestage) {
 		setTimeout(function() {
 			player.animations.visible = true;
 			this.enemyContainer.visible = true;
+			player.x += this.widthOffset;
 		}.bind(this), 3100);
 	};
 
@@ -324,7 +341,7 @@ function Mapper(gamestage) {
 		this.backgroundContainer2.y = -this.gameBottom;
 
 		// build new map
-		this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
+		this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + (this.widthOffset - this.lastWidthOffset);
 		console.log(this.stitchingoffset);
 		this.completedMapsWidthOffset += -(-parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset + this.widthOffset);
 		this.container.addChild(this.initLayers());
@@ -732,17 +749,19 @@ function Mapper(gamestage) {
 				player.animations.y -= this.gameBottom / (60 / halfIt);
 				player.y -= this.gameBottom / (60 / halfIt);
 
-				if (this.stitchingoffset !== 0) {
-//					this.lastContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//					this.lastbackgroundContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//					this.container.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//					this.backgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//					this.backgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//					this.enemyContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//					player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//					player.x -= (this.widthOffset - this.lastWidthOffset) / (60 / halfIt);
-//					//player.animations.x += player.animations.spritesheet._frameWidth /  30;
+				if (this.stitchingoffset > 0) {
+					this.lastContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					this.lastbackgroundContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					this.container.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					this.backgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					this.backgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					this.enemyContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					//player.x -= (this.widthOffset - this.lastWidthOffset) / (60 / halfIt);
+					//player.animations.x += player.animations.spritesheet._frameWidth /  30;
+
 				}
+
 
 				if (this.container.y < 0) {
 					this.container.y = 0;
@@ -756,6 +775,8 @@ function Mapper(gamestage) {
 					player.y = 0;
 				}
 			} else {
+            	player.x -= this.lastWidthOffset;
+            	player.x -= this.widthOffset;
 				player.lastx = player.x;
 				if (this.stitchingoffset !== 0) {
                 	this.stitchingoffset = 0;
@@ -788,17 +809,16 @@ function Mapper(gamestage) {
                 player.animations.y += this.gameBottom / (60 / halfIt);
                 player.y += this.gameBottom / (60 / halfIt);
 
-                if (this.stitchingoffset !== 0) {
-//                    this.lastContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//                    this.lastbackgroundContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//                    this.container.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//                    this.backgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//                    this.backgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//                    this.enemyContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//                    player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-//					player.x -= (this.widthOffset - this.lastWidthOffset) / (60 / halfIt);
-//                    //player.animations.x += player.animations.spritesheet._frameWidth /  30;
-                }
+                if (this.stitchingoffset > 0) {
+                    this.lastContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+                    this.lastbackgroundContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+                    this.container.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+                    this.backgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+                    this.backgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+                    this.enemyContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+                    player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+
+				}
 
                 if (this.container.y > 0) {
                     this.container.y = 0;
@@ -808,20 +828,25 @@ function Mapper(gamestage) {
                 }
 
                 if (player.animations.y < 0) {
-                        player.animations.y = 0;
-                        player.y = 0;
+                    player.animations.y = 0;
+                    player.y = 0;
                 }
+
             } else {
-                player.lastx = player.x;
                 if (this.stitchingoffset !== 0) {
+                	console.log("stitch != 0");
                 	this.stitchingoffset = 0;
                 } else {
+                	console.log("stitch == 0");
+
 					this.container.x = 0;
 	                this.backgroundContainer1.x = 0;
 	                this.backgroundContainer2.x = 0;
 	                this.enemyContainer.x = 0;
                 }
-
+            	player.x += this.lastWidthOffset;
+            	player.x += this.widthOffset;
+                player.lastx = player.x;
                 //player.animations.y = 0;
                 //player.y = 0;
                 player.jumping = true;
