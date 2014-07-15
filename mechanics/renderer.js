@@ -249,6 +249,8 @@ console.log(lastOffScreenWidth);
 		this.mapData = maps[--this.mapcounter];
 
 
+
+
 		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
 		} else {
@@ -264,14 +266,21 @@ console.log(lastOffScreenWidth);
 		this.backgroundContainer1.y = this.gameBottom;
 		this.backgroundContainer2.y = this.gameBottom;
 
+console.log(lastOffScreenWidth);
 		// build new map
-		this.stitchingoffset = parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + (this.lastWidthOffset - this.widthOffset);
-		this.completedMapsWidthOffset += (-parseInt(this.lastMapData.properties.stitchx) - this.lastWidthOffset - this.widthOffset);
+		
+		if (this.widthOffset !== 0) {
+			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+		} else {
+			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
+  			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
+		}
 		this.container.addChild(this.initLayers());
-		this.container.x = this.stitchingoffset + (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer1.x = this.stitchingoffset + (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer2.x = this.stitchingoffset + (this.widthOffset - this.lastWidthOffset);
-		this.enemyContainer.x = this.stitchingoffset + (this.widthOffset - this.lastWidthOffset);
+		this.container.x = this.stitchingoffset;
+		this.backgroundContainer1.x = this.stitchingoffset;
+		this.backgroundContainer2.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -279,8 +288,6 @@ console.log(lastOffScreenWidth);
 		if (mobile) {
 			initTouchControls();
 		}
-
-		console.log(this.stitchingoffset);
 	};
 
 
@@ -309,9 +316,13 @@ console.log(lastOffScreenWidth);
 		this.backgroundContainer2.y = -this.gameBottom;
 
 		// build new map
-		this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + (this.lastWidthOffset - this.widthOffset);
-		console.log(this.stitchingoffset);
-		this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset + this.widthOffset;
+		if (this.widthOffset !== 0) {
+			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+		} else {
+			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
+  			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
+		}
 		this.container.addChild(this.initLayers());
 		this.container.x = this.stitchingoffset;
 		this.backgroundContainer1.x = this.stitchingoffset;
@@ -350,14 +361,18 @@ console.log(lastOffScreenWidth);
 		this.backgroundContainer2.y = -this.gameBottom;
 
 		// build new map
-		this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + (this.widthOffset - this.lastWidthOffset);
-		console.log(this.stitchingoffset);
-		this.completedMapsWidthOffset += parseInt(this.lastMapData.properties.stitchx);
+		if (this.widthOffset !== 0) {
+			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+		} else {
+			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
+  			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
+		}
 		this.container.addChild(this.initLayers());
-		this.container.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer1.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer2.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
-		this.enemyContainer.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
+		this.container.x = this.stitchingoffset;
+		this.backgroundContainer1.x = this.stitchingoffset;
+		this.backgroundContainer2.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
