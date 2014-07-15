@@ -217,18 +217,22 @@ function Mapper(gamestage) {
 		this.backgroundContainer1.y = this.gameBottom;
 		this.backgroundContainer2.y = this.gameBottom;
 
+console.log(lastOffScreenWidth);
 		// build new map
-		this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-		this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+		
+		if (this.widthOffset !== 0) {
+			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+		} else {
+			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
+  			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
+		}
 		this.container.addChild(this.initLayers());
 		this.container.x = this.stitchingoffset;
 		this.backgroundContainer1.x = this.stitchingoffset;
 		this.backgroundContainer2.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
-		if (parseInt(this.mapData.properties.stitchx) !== 0) {
-//player.x -= parseInt(this.mapData.properties.stitchx);
-//player.lastx = player.x;
-}
+
 		this.completeRenderer();
 
 		this.doneRendering = true;
