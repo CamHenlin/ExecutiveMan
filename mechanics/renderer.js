@@ -38,7 +38,7 @@ function Mapper(gamestage) {
 
 	if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 		this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
-		this.completedMapsWidthOffset += this.widthOffset;
+		//this.completedMapsWidthOffset += this.widthOffset;
 	} else {
 		this.widthOffset = 0;
 	}
@@ -219,15 +219,15 @@ function Mapper(gamestage) {
 
 		// build new map
 		this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-		//this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.widthOffset;
+		this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
 		this.container.addChild(this.initLayers());
 		this.container.x = this.stitchingoffset;
 		this.backgroundContainer1.x = this.stitchingoffset;
 		this.backgroundContainer2.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
 		if (parseInt(this.mapData.properties.stitchx) !== 0) {
-player.x -= parseInt(this.mapData.properties.stitchx);
-player.lastx = player.x;
+//player.x -= parseInt(this.mapData.properties.stitchx);
+//player.lastx = player.x;
 }
 		this.completeRenderer();
 
