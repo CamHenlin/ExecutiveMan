@@ -290,8 +290,6 @@ console.log(lastOffScreenWidth);
 		}
 	};
 
-
-
 	this.nextMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		console.log(this.getOffScreenWidth());
@@ -807,7 +805,7 @@ console.log(lastOffScreenWidth);
                     this.backgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
                     this.backgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
                     this.enemyContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-                    player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+                    //player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
 
 				}
 
@@ -824,20 +822,17 @@ console.log(lastOffScreenWidth);
                 }
 
             } else {
-                if (this.stitchingoffset !== 0) {
-                	console.log("stitch != 0");
+//player.x -= this.lastWidthOffset;
+            	//player.x -= this.widthOffset;
+				player.lastx = player.x;
+				if (this.stitchingoffset !== 0) {
                 	this.stitchingoffset = 0;
                 } else {
-                	console.log("stitch == 0");
-
 					this.container.x = 0;
 	                this.backgroundContainer1.x = 0;
 	                this.backgroundContainer2.x = 0;
 	                this.enemyContainer.x = 0;
                 }
-            	player.x += this.lastWidthOffset;
-            	player.x += this.widthOffset;
-                player.lastx = player.x;
                 //player.animations.y = 0;
                 //player.y = 0;
                 player.jumping = true;

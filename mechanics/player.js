@@ -158,7 +158,7 @@ function Player() {
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
-	this.x                  = 96 + mapper.widthOffset;
+	this.x                  = 96;
 	this.animations.x       = this.x;
 	this.lastx				= this.x;
 	this.y                  = 90;
