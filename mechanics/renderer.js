@@ -38,6 +38,7 @@ function Mapper(gamestage) {
 
 	if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 		this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
+		this.completedMapsWidthOffset += this.widthOffset;
 	} else {
 		this.widthOffset = 0;
 	}
@@ -186,6 +187,14 @@ function Mapper(gamestage) {
 		}
 	};
 
+	this.getNextMapDirection = function() {
+		return this.mapData.properties.nextMapDirection;
+	};
+
+    this.getLastMapDirection = function() {
+        return this.mapData.properties.lastMapDirection;
+    };
+
 	this.nextMapDown = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		this.lastWidthOffset = this.widthOffset;
@@ -209,14 +218,17 @@ function Mapper(gamestage) {
 		this.backgroundContainer2.y = this.gameBottom;
 
 		// build new map
-		this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
-		this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset + this.widthOffset;
+		this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+		//this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.widthOffset;
 		this.container.addChild(this.initLayers());
-		this.container.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer1.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer2.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
-		this.enemyContainer.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
-
+		this.container.x = this.stitchingoffset;
+		this.backgroundContainer1.x = this.stitchingoffset;
+		this.backgroundContainer2.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset;
+		if (parseInt(this.mapData.properties.stitchx) !== 0) {
+player.x -= parseInt(this.mapData.properties.stitchx);
+player.lastx = player.x;
+}
 		this.completeRenderer();
 
 		this.doneRendering = true;
@@ -268,13 +280,6 @@ function Mapper(gamestage) {
 	};
 
 
-	this.getNextMapDirection = function() {
-		return this.mapData.properties.nextMapDirection;
-	};
-
-    this.getLastMapDirection = function() {
-        return this.mapData.properties.lastMapDirection;
-    };
 
 	this.nextMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
@@ -343,7 +348,7 @@ function Mapper(gamestage) {
 		// build new map
 		this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + (this.widthOffset - this.lastWidthOffset);
 		console.log(this.stitchingoffset);
-		this.completedMapsWidthOffset += -(-parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset + this.widthOffset);
+		this.completedMapsWidthOffset += parseInt(this.lastMapData.properties.stitchx);
 		this.container.addChild(this.initLayers());
 		this.container.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
 		this.backgroundContainer1.x = this.stitchingoffset - (this.widthOffset - this.lastWidthOffset);
@@ -372,39 +377,6 @@ function Mapper(gamestage) {
 		}
 
 		this.completedMapsWidthOffset += this.getMapWidth() + this.lastWidthOffset + this.widthOffset;
-		// clear out currently displayed map:
-
-
-		this.prepareRenderer();
-
-		this.container.x = this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer1.x = this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer2.x = this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset);
-		this.enemyContainer.x = this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset);
-		this.transitionright = true;
-
-		// build new map
-		this.container.addChild(this.initLayers());
-
-		this.completeRenderer();
-
-		this.doneRendering = true;
-	};
-
-	this.lastMapRight = function() {
-		this.lastWidthOffset = this.widthOffset;
-		this.mapData = maps[--this.mapcounter];
-
-		this.collisionArray = [[],[]];
-		this.deathCollisionArray = [[],[]];
-
-		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
-			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
-		} else {
-			this.widthOffset = 0;
-		}
-
-		this.completedMapsWidthOffset += -(this.getMapWidth() + this.lastWidthOffset + this.widthOffset);
 		// clear out currently displayed map:
 
 
@@ -750,13 +722,13 @@ function Mapper(gamestage) {
 				player.y -= this.gameBottom / (60 / halfIt);
 
 				if (this.stitchingoffset > 0) {
-					this.lastContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-					this.lastbackgroundContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-					this.container.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-					this.backgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-					this.backgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-					this.enemyContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-					player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					this.lastContainer.x -= (this.stitchingoffset) / (60 / halfIt);
+					this.lastbackgroundContainer.x -= (this.stitchingoffset) / (60 / halfIt);
+					this.container.x -= (this.stitchingoffset) / (60 / halfIt);
+					this.backgroundContainer1.x -= (this.stitchingoffset) / (60 / halfIt);
+					this.backgroundContainer2.x -= (this.stitchingoffset) / (60 / halfIt);
+					this.enemyContainer.x -= (this.stitchingoffset) / (60 / halfIt);
+					player.animations.x -= (this.stitchingoffset) / (60 / halfIt);
 					//player.x -= (this.widthOffset - this.lastWidthOffset) / (60 / halfIt);
 					//player.animations.x += player.animations.spritesheet._frameWidth /  30;
 
@@ -775,8 +747,8 @@ function Mapper(gamestage) {
 					player.y = 0;
 				}
 			} else {
-            	player.x -= this.lastWidthOffset;
-            	player.x -= this.widthOffset;
+            	//player.x -= this.lastWidthOffset;
+            	//player.x -= this.widthOffset;
 				player.lastx = player.x;
 				if (this.stitchingoffset !== 0) {
                 	this.stitchingoffset = 0;

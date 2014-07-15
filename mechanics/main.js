@@ -98,7 +98,7 @@ if (window.mobilecheck()) {
 }
 var fpsLabel;
 var scoreLabel;
-var logFPS = true;
+var logFPS = false;
 var buttonSpriteSheet;
 var skipCounter = 0;
 var lowFramerate = 1; // 2 for 30FPS!
