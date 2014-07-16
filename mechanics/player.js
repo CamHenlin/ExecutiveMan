@@ -157,34 +157,35 @@ function Player() {
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.animations         = new createjs.Sprite(playerSpriteSheet, "stand");
-	this.x                  = 96;
-	this.animations.x       = this.x;
-	this.lastx				= this.x;
-	this.y                  = 90;
-	this.goingLeft          = false;
-	this.goingRight         = false;
-	this.jumping            = false;
-	this.onplatform         = false;
-	this.ignoreBounceBack   = false;
-	this.falling            = false;
-	this.pauseMenu          = new PauseMenu();
-	this.transitionedUp     = false;
-	this.jumpreleased       = true;
-	this.jumpspeed          = 0;
-	this.shootTicks         = 0;
-	this.watchedElements    = [];
-	this.paused             = false;
-	this.health             = 28;
-	this.actions            = {};
-	this.gameActions        = {};
-	this.jumpCount          = 0;
-	this.gamestage			= mapper.gamestage;
-	this.ignoreDamage		= false;
-	this.ignoreInput        = false;
-	this.healthbar          = new HealthBar(gamestage, this);
-	this.shotIndex          = 0;
-	var skipThisCheck       = false;
+	this.animations                        = new createjs.Sprite(playerSpriteSheet, "stand");
+	this.x                                 = 96;
+	this.animations.x                      = this.x;
+	this.lastx				               = this.x;
+	this.y                                 = 90;
+	this.goingLeft                         = false;
+	this.goingRight                        = false;
+	this.jumping                           = false;
+	this.onplatform                        = false;
+	this.ignoreBounceBack                  = false;
+	this.falling                           = false;
+	this.pauseMenu                         = new PauseMenu();
+	this.transitionedUp                    = false;
+	this.jumpreleased                      = true;
+	this.jumpspeed                         = 0;
+	this.shootTicks                        = 0;
+	this.watchedElements                   = [];
+	this.paused                            = false;
+	this.health                            = 28;
+	this.actions                           = {};
+	this.gameActions                       = {};
+	this.jumpCount                         = 0;
+	this.gamestage			               = mapper.gamestage;
+	this.ignoreDamage		               = false;
+	this.ignoreInput                       = false;
+	this.healthbar                         = new HealthBar(gamestage, this);
+	this.shotIndex                         = 0;
+	this.ignoreLeftRightCollisionThisFrame = 0;
+	var skipThisCheck                      = false;
 
 	this.shots = [	new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
@@ -477,7 +478,10 @@ function Player() {
 			this.jumpCount++;
 		}
 
-		var ignoreLeftRightCollisionThisFrame = false;
+		if (this.ignoreLeftRightCollisionThisFrame !== 0) {
+			this.ignoreLeftRightCollisionThisFrame--;
+		}
+
 		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
 			this.y += this.jumpspeed * lowFramerate;
 			this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
@@ -502,11 +506,11 @@ function Player() {
 			if (this.y + this.animations.spriteSheet._frameHeight > mapper.gamestage.canvas.height) {
 				this.y -= 16;
 			}
-			ignoreLeftRightCollisionThisFrame = true;
+			this.ignoreLeftRightCollisionThisFrame = 5;
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 0.5; // megaman's jumpspeed set to .5 when he bonks his head
 			//this.y += this.jumpspeed * lowFramerate;
-			ignoreLeftRightCollisionThisFrame = true;
+			this.ignoreLeftRightCollisionThisFrame = 5;
 		} else if (this.onplatform && !actions.collisionResults.upmove) {
 			this.y += 38;
 			this.onplatform = false;
@@ -514,7 +518,7 @@ function Player() {
 			this.animations.gotoAndPlay("jump");
 		}
 
-		if (this.actions.playerLeft && (actions.collisionResults.leftmove || ignoreLeftRightCollisionThisFrame)) {
+		if (this.actions.playerLeft && (actions.collisionResults.leftmove || this.ignoreLeftRightCollisionThisFrame !== 0)) {
 			this.goingRight = false;
 			this.goingLeft  = true;
 			this.animations.scaleX = -1;
@@ -523,7 +527,7 @@ function Player() {
 				this.animations.gotoAndPlay("startrun");
 				this.movementTicks = 9 / lowFramerate;
 			}
-		} else if (this.actions.playerRight && (actions.collisionResults.rightmove || ignoreLeftRightCollisionThisFrame)) {
+		} else if (this.actions.playerRight && (actions.collisionResults.rightmove || this.ignoreLeftRightCollisionThisFrame !== 0)) {
 			this.goingRight = true;
 			this.goingLeft  = false;
 			this.animations.scaleX = 1;
@@ -562,7 +566,7 @@ function Player() {
 
 
 		if (this.goingRight || this.goingLeft) {
-			if (this.goingRight && (actions.collisionResults.rightmove || ignoreLeftRightCollisionThisFrame)) {
+			if (this.goingRight && (actions.collisionResults.rightmove || this.ignoreLeftRightCollisionThisFrame !== 0)) {
 				if (this.jumping) {
 					this.x += 1.325 * lowFramerate; // megaman moved slower while jumping...
 				} else {
@@ -573,7 +577,7 @@ function Player() {
 						this.x += 1.375 * lowFramerate;
 					}
 				}
-			} else if (this.goingLeft && (actions.collisionResults.leftmove || ignoreLeftRightCollisionThisFrame)) {
+			} else if (this.goingLeft && (actions.collisionResults.leftmove || this.ignoreLeftRightCollisionThisFrame !== 0)) {
 				if (this.jumping) {
 					this.x += -1.325 * lowFramerate; // megaman moved slower while jumping...
 				} else {
@@ -586,7 +590,7 @@ function Player() {
 				}
 			}
 		} else if (this.movementTicks > 0) {
-			if ((actions.collisionResults.rightmove && actions.collisionResults.leftmove) || ignoreLeftRightCollisionThisFrame) {
+			if ((actions.collisionResults.rightmove && actions.collisionResults.leftmove) || this.ignoreLeftRightCollisionThisFrame !== 0) {
 				this.x += 0.4 * this.animations.scaleX * lowFramerate;
 				this.movementTicks--;
 			} else {

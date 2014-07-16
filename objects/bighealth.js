@@ -44,6 +44,7 @@ function BigHealth(stage, x, y, basicCollision) {
 
 		if (this.health < 0) {
 			this.stage.removeChild(this.animations);
+			playSoundTwice("health");
 			this.activated = true;
 		}
 

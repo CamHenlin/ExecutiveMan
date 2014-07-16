@@ -44,6 +44,7 @@ function LittleHealth(stage, x, y, basicCollision) {
 
 		if (this.health < 0) {
 			this.stage.removeChild(this.animations);
+			playSound("health");
 			this.activated = true;
 		}
 
