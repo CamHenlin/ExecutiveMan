@@ -9,6 +9,8 @@ createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
 createjs.Sound.registerSound("sounds/error.wav", "error");
 createjs.Sound.registerSound("sounds/papershot.wav", "papershot");
 
+createjs.Sound.registerSound("songs/killingroad.mp3", "wastemansong");
+
 loader.installPlugin(createjs.SoundJS);
 
 function playSound(sound) {

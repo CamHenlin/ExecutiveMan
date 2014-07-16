@@ -217,9 +217,6 @@ function Mapper(gamestage) {
 		this.backgroundContainer1.y = this.gameBottom;
 		this.backgroundContainer2.y = this.gameBottom;
 
-console.log(lastOffScreenWidth);
-		// build new map
-		
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
@@ -399,10 +396,10 @@ console.log(lastOffScreenWidth);
 
 		this.prepareRenderer();
 
-		this.container.x = this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer1.x = this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset);
-		this.backgroundContainer2.x = this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset);
-		this.enemyContainer.x = this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset);
+		this.container.x = this.gamestage.canvas.width - (this.lastWidthOffset);
+		this.backgroundContainer1.x = this.gamestage.canvas.width - (this.lastWidthOffset);
+		this.backgroundContainer2.x = this.gamestage.canvas.width - (this.lastWidthOffset);
+		this.enemyContainer.x = this.gamestage.canvas.width - (this.lastWidthOffset);
 		this.transitionright = true;
 
 		// build new map
@@ -694,13 +691,13 @@ console.log(lastOffScreenWidth);
 		if (this.transitionright) {
 			if (this.transitioncount < (60 / halfIt)) {
 				this.transitioncount++;
-				this.container.x -= (this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-				this.backgroundContainer1.x -=(this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-				this.backgroundContainer2.x -= (this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-				this.enemyContainer.x -= (this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-				this.lastContainer.x -= (this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-				this.lastbackgroundContainer.x -= (this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-				player.animations.x -= (this.gamestage.canvas.width - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+				this.container.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / (60 / halfIt);
+				this.backgroundContainer1.x -=(this.gamestage.canvas.width - (this.lastWidthOffset)) / (60 / halfIt);
+				this.backgroundContainer2.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / (60 / halfIt);
+				this.enemyContainer.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / (60 / halfIt);
+				this.lastContainer.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / (60 / halfIt);
+				this.lastbackgroundContainer.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / (60 / halfIt);
+				player.animations.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / (60 / halfIt);
 				player.x += player.animations.spriteSheet._frameWidth / (60 / halfIt);
 
 				if (this.container.x < 0) {
