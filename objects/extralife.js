@@ -3,13 +3,12 @@ function ExtraLife(stage, x, y, basicCollision) {
 	var extraLifeSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("extralife")],
 		"frames": {
-			"width": 16, "height": 16, "count": 2
+			"width": 12, "height": 13, "count": 1
 		},
 		"animations": {
 			"blink": {
-				"frames" : [0, 0, 1, 1, 1, 1],
-				"next" : "blink",
-				"speed" : (0.125 / lowFramerate) / skipFrames
+				"frames" : [0],
+				"next" : "blink"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");

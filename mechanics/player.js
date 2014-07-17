@@ -48,7 +48,7 @@ function Player() {
 						this.direction = this.direction * (this.bounced) ? 1 : -1;
 						this.bounced = true;
 
-			            playSound("shotbounce");
+						playSound("shotbounce");
 						return;
 					}
 
@@ -89,8 +89,8 @@ function Player() {
 			explosion.gotoAndPlay("explode");
 
 			if (this.checkBounds()) {
-            	playSound("shotexplode");
-        	}
+				playSound("shotexplode");
+			}
 			mapper.enemyContainer.addChild(explosion);
 			setTimeout(function() {
 				mapper.enemyContainer.removeChild(explosion);
@@ -695,6 +695,8 @@ function Player() {
 						}.bind(this), 200);
 					} else if (enemy.damage < 0) { // this is actually health!
 						this.health -= enemy.damage;
+						enemy.health = -1;
+					} else { // enemy damage is 0, extra life, health briefcase, etc
 						enemy.health = -1;
 					}
 

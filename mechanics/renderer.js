@@ -44,6 +44,10 @@ function Mapper(gamestage) {
 	}
 
 	// getting imagefile from first tileset
+	if (this.mapData.tilesets[0].image.indexOf("..\/") > -1) {
+		this.mapData.tilesets[0].image = this.mapData.tilesets[0].image.replace("..\/", "");
+	}
+
 	this.tileset.src = this.mapData.tilesets[0].image;
 
 	this.beginCaching = function(container) {
@@ -417,6 +421,11 @@ console.log(lastOffScreenWidth);
 		var w = this.mapData.tilesets[0].tilewidth;
 		var h = this.mapData.tilesets[0].tileheight;
 		this.enemies = [];
+
+		if (this.mapData.tilesets[0].image.indexOf("..\/") > -1) {
+			this.mapData.tilesets[0].image = this.mapData.tilesets[0].image.replace("..\/", "");
+		}
+
 		var imageData = {
 			images : [ loader.getResult(this.mapData.tilesets[0].image.split("/")[1].split(".")[0]) ],
 			frames : {
@@ -506,6 +515,8 @@ console.log(lastOffScreenWidth);
 						enemyArray.push(new FilingCabinet(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 6) {
 						enemyArray.push(new Door(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 98) {
+						enemyArray.push(new ExtraLife(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 99) {
 						enemyArray.push(new BigHealth(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 100) {
