@@ -65,30 +65,15 @@
                  "properties":
                     {
                      "xduration":"120",
-                     "xrange":"80",
-                     "yduration":"240",
-                     "yrange":"80"
+                     "xrange":"48",
+                     "yduration":"0",
+                     "yrange":"0"
                     },
                  "type":"platform",
                  "visible":true,
                  "width":0,
-                 "x":928,
-                 "y":16
-                }, 
-                {
-                 "height":0,
-                 "name":"",
-                 "properties":
-                    {
-                     "offduration":"180",
-                     "onduration":"120",
-                     "starttimer":"120"
-                    },
-                 "type":"disappearingplatform",
-                 "visible":true,
-                 "width":0,
-                 "x":928,
-                 "y":144
+                 "x":448,
+                 "y":208
                 }, 
                 {
                  "height":0,
@@ -100,8 +85,8 @@
                  "type":"droppingplatform",
                  "visible":true,
                  "width":0,
-                 "x":928,
-                 "y":48
+                 "x":496,
+                 "y":208
                 }, 
                 {
                  "height":0,
@@ -115,20 +100,7 @@
                  "type":"disappearingplatform",
                  "visible":true,
                  "width":0,
-                 "x":928,
-                 "y":176
-                }, 
-                {
-                 "height":0,
-                 "name":"",
-                 "properties":
-                    {
-                     "duration":"60"
-                    },
-                 "type":"droppingplatform",
-                 "visible":true,
-                 "width":0,
-                 "x":928,
+                 "x":336,
                  "y":208
                 }, 
                 {
@@ -141,8 +113,8 @@
                  "type":"droppingplatform",
                  "visible":true,
                  "width":0,
-                 "x":928,
-                 "y":80
+                 "x":320,
+                 "y":208
                 }, 
                 {
                  "height":0,
@@ -156,8 +128,8 @@
                  "type":"disappearingplatform",
                  "visible":true,
                  "width":0,
-                 "x":928,
-                 "y":112
+                 "x":304,
+                 "y":208
                 }],
          "opacity":1,
          "type":"objectgroup",
