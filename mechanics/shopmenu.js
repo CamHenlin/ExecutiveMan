@@ -1,4 +1,4 @@
-var shopUp = false;
+        var shopUp = false;
 function ShopMenu() {
 	shopUp = false;
 	shopstage = new createjs.Container();
@@ -185,8 +185,8 @@ this.healthBriefCaseTouchTarget
     touchSprite.x = event.clientX / gamezoom;
     touchSprite.y = event.clientY / gamezoom;
     if (fastCollisionSprite(this.exitShopTouchTarget, touchSprite)) {
-    	this.remove();
-    	event.target.removeEventListener(event.type, arguments.callee, false);
+        this.remove();
+        event.target.removeEventListener(event.type, arguments.callee, false);
     } else if (fastCollisionSprite(this.cashDoublerTouchTarget, touchSprite)) {
         if (score >= this.cashDoublerCost) {
             score -= this.cashDoublerCost;

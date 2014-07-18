@@ -298,7 +298,7 @@ function Player() {
 
         var eventHandler = function(event) {
             if (!pauseUp && !bossScreenUp) {
-            	event.preventDefault();
+				event.preventDefault();
             }
 
             for (var i = 0; i < event.touches.length; i++) {
@@ -333,7 +333,7 @@ function Player() {
 
         var endTouchEventHandler = function(event) {
             if (!pauseUp && !bossScreenUp) {
-            	event.preventDefault();
+				event.preventDefault();
             }
 
             for (var i = 0; i < event.changedTouches.length; i++) {
@@ -357,11 +357,11 @@ function Player() {
             }
         };
 
-		document.getElementById("gamecanvas").addEventListener('touchstart',	eventHandler.bind(this), false);
-    	document.getElementById("gamecanvas").addEventListener('touchmove',		eventHandler.bind(this), false);
-    	document.getElementById("gamecanvas").addEventListener('touchend',		endTouchEventHandler.bind(this), false);
-    	document.getElementById("gamecanvas").addEventListener('touchcancel',	endTouchEventHandler.bind(this), false);
-    	document.getElementById("gamecanvas").addEventListener('touchleave',	endTouchEventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchstart', 	eventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchmove',  		eventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchend',   		endTouchEventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchcancel',	endTouchEventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchleave', 	endTouchEventHandler.bind(this), false);
     }
 
     this.animations.play();
@@ -448,12 +448,12 @@ function Player() {
             console.log("dead");
 
             if (mobile) {
-		        document.getElementById("gamecanvas").removeEventListener('touchstart', eventHandler.bind(this), false);
-		        document.getElementById("gamecanvas").removeEventListener('touchmove', eventHandler.bind(this), false);
-		        document.getElementById("gamecanvas").removeEventListener('touchend', endTouchEventHandler.bind(this), false);
-		        document.getElementById("gamecanvas").removeEventListener('touchcancel', endTouchEventHandler.bind(this), false);
-		        document.getElementById("gamecanvas").removeEventListener('touchleave', endTouchEventHandler.bind(this), false);
-    		}
+				document.getElementById("gamecanvas").removeEventListener('touchstart', eventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener('touchmove', eventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener('touchend', endTouchEventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener('touchcancel', endTouchEventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener('touchleave', endTouchEventHandler.bind(this), false);
+			}
             actions.playerDeath = true;
         }
 
@@ -631,8 +631,8 @@ function Player() {
 			if (mapper.getLastMapDirection() === "right") {
                 mapper.lastMapRight(mapper.mapData);
             } else {
-            	mapper.nextMapRight(mapper.mapData);
-        	}
+				mapper.nextMapRight(mapper.mapData);
+			}
 
 			this.ignoreInput = true;
 			setTimeout(function() {
@@ -642,9 +642,9 @@ function Player() {
 
 		if (actions.collisionResults.nextmap && (mapper.getNextMapDirection() === "down" || mapper.getLastMapDirection() === "down")) {
 			if (mapper.getLastMapDirection() === "down") {
-            	mapper.lastMapDown(mapper.mapData);
+				mapper.lastMapDown(mapper.mapData);
             } else {
-            	mapper.nextMapDown(mapper.mapData);
+				mapper.nextMapDown(mapper.mapData);
             }
 
 			this.ignoreInput = true;
@@ -682,7 +682,7 @@ function Player() {
 						this.health -= enemy.damage / damageModifier;
 						this.animations.gotoAndPlay("damage");
 
-			            playSound("playerdamaged");
+						playSound("playerdamaged");
 						this.ignoreInput = true;
 						this.ignoreDamage = true;
 
@@ -724,7 +724,7 @@ function Player() {
 					this.animations.gotoAndPlay("damage");
 
 
-		            playSound("playerdamaged");
+					playSound("playerdamaged");
 					this.ignoreInput = true;
 					this.ignoreDamage = true;
 

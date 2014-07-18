@@ -226,7 +226,7 @@ function Mapper(gamestage) {
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
 		} else {
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
-  			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
+			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.container.addChild(this.initLayers());
 		this.container.x = this.stitchingoffset;
@@ -267,15 +267,12 @@ function Mapper(gamestage) {
 		this.backgroundContainer1.y = this.gameBottom;
 		this.backgroundContainer2.y = this.gameBottom;
 
-console.log(lastOffScreenWidth);
-		// build new map
-		
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
 			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
 		} else {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
-  			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
+			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.container.addChild(this.initLayers());
 		this.container.x = this.stitchingoffset;
@@ -320,7 +317,7 @@ console.log(lastOffScreenWidth);
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
 		} else {
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
-  			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
+			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.container.addChild(this.initLayers());
 		this.container.x = this.stitchingoffset;
@@ -365,7 +362,7 @@ console.log(lastOffScreenWidth);
 			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
 		} else {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
-  			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
+			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.container.addChild(this.initLayers());
 		this.container.x = this.stitchingoffset;
@@ -772,16 +769,16 @@ console.log(lastOffScreenWidth);
 					player.y = 0;
 				}
 			} else {
-            	//player.x -= this.lastWidthOffset;
-            	//player.x -= this.widthOffset;
+				//player.x -= this.lastWidthOffset;
+				//player.x -= this.widthOffset;
 				player.lastx = player.x;
 				if (this.stitchingoffset !== 0) {
-                	this.stitchingoffset = 0;
+					this.stitchingoffset = 0;
                 } else {
 					this.container.x = 0;
-	                this.backgroundContainer1.x = 0;
-	                this.backgroundContainer2.x = 0;
-	                this.enemyContainer.x = 0;
+					this.backgroundContainer1.x = 0;
+					this.backgroundContainer2.x = 0;
+					this.enemyContainer.x = 0;
                 }
 				player.animations.y = 0;
 				player.y = 0;
@@ -830,16 +827,14 @@ console.log(lastOffScreenWidth);
                 }
 
             } else {
-//player.x -= this.lastWidthOffset;
-            	//player.x -= this.widthOffset;
 				player.lastx = player.x;
 				if (this.stitchingoffset !== 0) {
-                	this.stitchingoffset = 0;
+					this.stitchingoffset = 0;
                 } else {
 					this.container.x = 0;
-	                this.backgroundContainer1.x = 0;
-	                this.backgroundContainer2.x = 0;
-	                this.enemyContainer.x = 0;
+					this.backgroundContainer1.x = 0;
+					this.backgroundContainer2.x = 0;
+					this.enemyContainer.x = 0;
                 }
                 //player.animations.y = 0;
                 //player.y = 0;
@@ -850,10 +845,10 @@ console.log(lastOffScreenWidth);
                 player.transitionedUp = true;
                 player.animations.gotoAndPlay("jump");
                 setTimeout(function() {
-                	player.ignoreInput = false;
-	                player.actions.playerJump = false;
-	                player.actions.jumpReleased = true;
-	                player.transitionedUp = false;
+					player.ignoreInput = false;
+					player.actions.playerJump = false;
+					player.actions.jumpReleased = true;
+					player.transitionedUp = false;
                 }.bind(this), 500);
                 this.transitioncount = 0;
                 this.transitionup = false;
