@@ -39,13 +39,15 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.animations.visible = true;
 
 	this.tickActions = function() {
-		console.log("x "  + this.animations.x + " y "  + this.animations.y);
 		if (this.ySpeed !== 0) {
 			this.y += (this.goingup) ? -this.ySpeed : this.ySpeed;
 			this.animations.y = this.y;
 		}
-		this.x += (this.goingright) ? -this.xSpeed : this.xSpeed;
-		this.animations.x = this.x;
+
+		if (this.xSpeed !== 0) {
+			this.x += (this.goingright) ? -this.xSpeed : this.xSpeed;
+			this.animations.x = this.x;
+		}
 
 		if (this.activated) {
 			if (!player.onplatform) {
