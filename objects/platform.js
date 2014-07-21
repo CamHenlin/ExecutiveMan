@@ -1,10 +1,8 @@
 function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xduration) {
-[stage, basicCollision, x, y, yrange, yduration, xrange, xduration].forEach(function(thing) { console.log(thing); });
-
 	var platformSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("door")],
+		"images": [loader.getResult("platform")],
 		"frames": {
-			"width": 16, "height": 16, "count": 7
+			"width": 16, "height": 16, "count": 1
 		},
 		"animations": {
 			"still": {

@@ -1,9 +1,9 @@
 function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuration, offDuration) {
 
 	var disappearingPlatformSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("door")],
+		"images": [loader.getResult("platform")],
 		"frames": {
-			"width": 16, "height": 16, "count": 7
+			"width": 16, "height": 16, "count": 1
 		},
 		"animations": {
 			"still": {

@@ -1,9 +1,9 @@
 function DroppingPlatform(stage, basicCollision, x, y, duration) {
 
 	var droppingPlatformSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("door")],
+		"images": [loader.getResult("platform")],
 		"frames": {
-			"width": 16, "height": 16, "count": 7
+			"width": 16, "height": 16, "count": 1
 		},
 		"animations": {
 			"still": {

@@ -42,6 +42,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
 						{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
 						{id: "door", src: "images/door.png"},
+						{id: "platform", src: "images/platform.png"},
 					//	{id: "wastemansoundloop", src: "sounds/wastemansoundloop.mp3"},
 						{id: "copter", src: "images/copter.png"}]);
 
