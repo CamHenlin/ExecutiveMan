@@ -72,7 +72,7 @@
                  "type":"platform",
                  "visible":true,
                  "width":0,
-                 "x":448,
+                 "x":480,
                  "y":208
                 }, 
                 {
@@ -85,7 +85,7 @@
                  "type":"droppingplatform",
                  "visible":true,
                  "width":0,
-                 "x":496,
+                 "x":464,
                  "y":208
                 }, 
                 {

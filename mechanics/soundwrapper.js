@@ -27,6 +27,8 @@ function playSoundTwice(sound) {
 }
 
 function playSoundLoop(sound) {
+	if (musicOff) { return; }
+
 	var loop = createjs.Sound.play(sound, {loop:-1});
 	loop.volume = 0.15;
 }

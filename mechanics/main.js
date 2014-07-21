@@ -92,6 +92,7 @@ var startgame;
 var startlevel = false;
 var bossscreenCounter = 0;
 var mobile = false;
+var musicOff = true;
 
 if (window.mobilecheck()) {
 	mobile = true;

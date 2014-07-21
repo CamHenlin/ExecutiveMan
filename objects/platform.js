@@ -1,4 +1,5 @@
 function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xduration) {
+[stage, basicCollision, x, y, yrange, yduration, xrange, xduration].forEach(function(thing) { console.log(thing); });
 
 	var platformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("door")],
@@ -13,6 +14,7 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
+
 	this.damage           = 0;
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
@@ -22,10 +24,10 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.initialY         = y;
 	this.initialX         = x;
 	this.xrange           = xrange;
-	this.xSpeed           = xrange / xduration;
+	this.xSpeed           = (xduration !== 0) ? xrange / xduration : 0;
 	this.lastx            = x;
 	this.yrange           = yrange;
-	this.ySpeed           = yrange / yduration;
+	this.ySpeed           = (yduration !== 0) ? yrange / yduration : 0;
 	this.activated        = false;
 	this.hardshell        = true;
 	this.goingup          = false;
@@ -36,10 +38,14 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
+	this.animations.visible = true;
 
 	this.tickActions = function() {
-		this.y += (this.goingup) ? -this.ySpeed : this.ySpeed;
-		this.animations.y = this.y;
+		console.log("x "  + this.animations.x + " y "  + this.animations.y);
+		if (this.ySpeed !== 0) {
+			this.y += (this.goingup) ? -this.ySpeed : this.ySpeed;
+			this.animations.y = this.y;
+		}
 		this.x += (this.goingright) ? -this.xSpeed : this.xSpeed;
 		this.animations.x = this.x;
 
@@ -57,16 +63,20 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 			}
 		}
 
-		if (this.y > this.initialY) {
-			this.goingup = true;
-		} else if (this.y < this.initialY - this.yrange) {
-			this.goingup = false;
+		if (this.ySpeed !== 0) {
+			if (this.y > this.initialY) {
+				this.goingup = true;
+			} else if (this.y < this.initialY - this.yrange) {
+				this.goingup = false;
+			}
 		}
 
-		if (this.x > this.initialX) {
-			this.goingright = true;
-		} else if (this.x < this.initialX - this.xrange) {
-			this.goingright = false;
+		if (this.xSpeed !== 0) {
+			if (this.x > this.initialX) {
+				this.goingright = true;
+			} else if (this.x < this.initialX - this.xrange) {
+				this.goingright = false;
+			}
 		}
 
 		this.lastx = this.x;
@@ -77,7 +87,9 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 			return;
 		}
 
-		playSound("jumpland");
+		if (player.animations.currentAnimation !== "run") {
+			playSound("jumpland");
+		}
 
 		this.activated = true;
 		player.onplatform = true;

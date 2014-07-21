@@ -81,7 +81,9 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 			return;
 		}
 
-		playSound("jumpland");
+		if (player.animations.currentAnimation !== "run") {
+			playSound("jumpland");
+		}
 
 
 		this.activated = true;

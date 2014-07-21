@@ -80,7 +80,9 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 			return;
 		}
 
-		playSound("jumpland");
+		if (player.animations.currentAnimation !== "run") {
+			playSound("jumpland");
+		}
 
 		this.activated = true;
 		player.onplatform = true;
