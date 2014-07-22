@@ -457,10 +457,9 @@ function Mapper(gamestage) {
 			if (layer.type === 'objectgroup') {
 				for (var j = 0; j < layer.objects.length; j++) {
 					if (layer.objects[j].type === "platform") {
-						console.log("adding platform");
 						this.enemies.push(new Platform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
 														parseInt(layer.objects[j].properties.yrange), parseInt(layer.objects[j].properties.yduration),
-														parseInt(layer.objects[j].properties.xrange), parseInt(layer.objects[j].properties.xduration)));
+														parseInt(layer.objects[j].properties.xrange), parseInt(layer.objects[j].properties.xduration), parseInt(layer.objects[j].properties.delay)));
 					}
 
 					if (layer.objects[j].type === "disappearingplatform") {

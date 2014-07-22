@@ -669,15 +669,18 @@ function Player() {
 
 			if (enemy.health > 0 || typeof(enemy.health) === "undefined") {
 				var intersection = fastCollisionPlayer(this, enemy);
-				if (enemy.damage < 1) { // for non enemy objects
-					if (enemy.constructor === Platform || enemy.constructor === DisappearingPlatform || enemy.constructor === DroppingPlatform) {
-						intersection = fastInitialCollisionPlatform(this, enemy);
-					} else {
-						intersection = fastCollisionPlayerLoose(this, enemy);
-					}
-				}
+
 
 				if (intersection) {
+					console.log("enemy intersect");
+					if (enemy.damage < 1) { // for non enemy objects
+						if (enemy.constructor === Platform || enemy.constructor === DisappearingPlatform || enemy.constructor === DroppingPlatform) {
+							intersection = fastInitialCollisionPlatform(this, enemy);
+						} else {
+							intersection = fastCollisionPlayerLoose(this, enemy);
+						}
+					}
+
 					if (enemy.damage > 0) {
 						this.health -= enemy.damage / damageModifier;
 						this.animations.gotoAndPlay("damage");

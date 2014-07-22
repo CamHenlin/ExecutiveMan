@@ -1,4 +1,4 @@
-function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xduration) {
+function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xduration, delay) {
 	var platformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("platform")],
 		"frames": {
@@ -24,12 +24,14 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.xrange           = xrange;
 	this.xSpeed           = (xduration !== 0) ? xrange / xduration : 0;
 	this.lastx            = x;
+	this.lasty            = y;
 	this.yrange           = yrange;
 	this.ySpeed           = (yduration !== 0) ? yrange / yduration : 0;
 	this.activated        = false;
 	this.hardshell        = true;
 	this.goingup          = false;
 	this.goingright       = false;
+	this.delay            = delay;
 	this.watchedElements  = [];
 	this.animations.x = this.x - mapper.completedMapsWidthOffset;
 	this.animations.y = this.y;
@@ -39,14 +41,19 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.animations.visible = true;
 
 	this.tickActions = function() {
+		if (this.delay > 0) {
+			this.delay--;
+			return;
+		}
+
 		if (this.ySpeed !== 0) {
 			this.y += (this.goingup) ? -this.ySpeed : this.ySpeed;
-			this.animations.y = this.y;
+			this.animations.y += this.y - this.lasty;
 		}
 
 		if (this.xSpeed !== 0) {
 			this.x += (this.goingright) ? -this.xSpeed : this.xSpeed;
-			this.animations.x = this.x;
+			this.animations.x += this.x - this.lastx;
 		}
 
 		if (this.activated) {
@@ -79,10 +86,12 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 			}
 		}
 
+		this.lasty = this.y;
 		this.lastx = this.x;
 	};
 
 	this.playerCollisionActions = function() {
+		console.log("player collision w/ platform");
 		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
 			return;
 		}

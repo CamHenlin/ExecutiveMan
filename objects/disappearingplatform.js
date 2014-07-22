@@ -46,6 +46,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 				if (!fastCollisionPlatform(player, this)) {
 					player.onplatform = false;
 					this.activated = false;
+					this.playerLeftPLatform = true;
 				} else {
 					player.y = this.y - player.animations.spriteSheet._frameHeight;
 				}
@@ -67,7 +68,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 		}
 
 		if (this.timer === this.onDuration + this.offDuration) {
-			this.animations.visible = true;
+			this.animations.visible = false;
 			this.timer = 0;
 		}
 
@@ -75,7 +76,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 	};
 
 	this.playerCollisionActions = function() {
-		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated || 
+		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated ||
 			!this.animations.isVisible() || player.jumpspeed < 0) { // player definitely missed the platform
 			return;
 		}

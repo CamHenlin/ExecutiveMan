@@ -80,19 +80,6 @@
                  "name":"",
                  "properties":
                     {
-                     "duration":"60"
-                    },
-                 "type":"droppingplatform",
-                 "visible":true,
-                 "width":0,
-                 "x":464,
-                 "y":208
-                }, 
-                {
-                 "height":0,
-                 "name":"",
-                 "properties":
-                    {
                      "offduration":"180",
                      "onduration":"120",
                      "starttimer":"180"
