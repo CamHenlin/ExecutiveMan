@@ -67,7 +67,8 @@
                      "xduration":"0",
                      "xrange":"0",
                      "yduration":"180",
-                     "yrange":"64"
+                     "yrange":"64",
+                     "delay":"0"
                     },
                  "type":"platform",
                  "visible":true,
@@ -83,13 +84,14 @@
                      "xduration":"0",
                      "xrange":"0",
                      "yduration":"180",
-                     "yrange":"64"
+                     "yrange":"64",
+                     "delay":"180"
                     },
                  "type":"platform",
                  "visible":true,
                  "width":0,
                  "x":512,
-                 "y":16
+                 "y":64
                 }],
          "opacity":1,
          "type":"objectgroup",

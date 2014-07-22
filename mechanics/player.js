@@ -561,6 +561,8 @@ function Player() {
 				this.animations.gotoAndPlay("runshoot");
 			} else if (this.animations.currentAnimation === "stand") {
 				this.animations.gotoAndPlay("standshoot");
+			} else if (this.jumping && this.animations.currentAnimation === "damage") {
+				this.animations.gotoAndPlay("jumpshoot");
 			}
 		}
 
@@ -700,7 +702,9 @@ function Player() {
 						this.health -= enemy.damage;
 						enemy.health = -1;
 					} else { // enemy damage is 0, extra life, health briefcase, etc
-						enemy.health = -1;
+						if (!(enemy.constructor === Platform || enemy.constructor === DisappearingPlatform || enemy.constructor === DroppingPlatform)) {
+							enemy.health = -1;
+						}
 					}
 
 					if (this.jumpspeed < 2 && this.jumping && (enemy.constructor === DisappearingPlatform && enemy.animations.visible)) {

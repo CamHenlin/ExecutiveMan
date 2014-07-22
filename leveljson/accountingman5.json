@@ -70,7 +70,8 @@
  "properties":
     {
      "backgroundColor":"5fbaed",
-     "nextMapDirection":"right",
+     "nextMapDirection":"up",
+     "lastMapDirection":"down",
      "stitchx":"0"
     },
  "tileheight":16,
