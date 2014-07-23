@@ -102,9 +102,9 @@
  "properties":
     {
      "backgroundColor":"0c58af",
-     "nextMapDirection":"up",
      "lastMapDirection":"down",
-     "stitchx":"160"
+     "nextMapDirection":"up",
+     "stitchx":"0"
     },
  "tileheight":16,
  "tilesets":[

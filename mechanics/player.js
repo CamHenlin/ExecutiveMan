@@ -674,7 +674,6 @@ function Player() {
 
 
 				if (intersection) {
-					console.log("enemy intersect");
 					if (enemy.damage < 1) { // for non enemy objects
 						if (enemy.constructor === Platform || enemy.constructor === DisappearingPlatform || enemy.constructor === DroppingPlatform) {
 							intersection = fastInitialCollisionPlatform(this, enemy);

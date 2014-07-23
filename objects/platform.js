@@ -91,8 +91,7 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	};
 
 	this.playerCollisionActions = function() {
-		console.log("player collision w/ platform");
-		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
+		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 16)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
 			return;
 		}
 

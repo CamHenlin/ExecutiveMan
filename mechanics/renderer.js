@@ -290,7 +290,6 @@ function Mapper(gamestage) {
 
 	this.nextMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
-		console.log(this.getOffScreenWidth());
 		this.lastWidthOffset = this.widthOffset;
 
 		this.mapData = maps[++this.mapcounter];
