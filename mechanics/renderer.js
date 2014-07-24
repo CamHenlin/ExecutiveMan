@@ -749,7 +749,7 @@ function Mapper(gamestage) {
 					this.backgroundContainer1.x -= (this.stitchingoffset) / (60 / halfIt);
 					this.backgroundContainer2.x -= (this.stitchingoffset) / (60 / halfIt);
 					this.enemyContainer.x -= (this.stitchingoffset) / (60 / halfIt);
-					player.animations.x -= (this.stitchingoffset) / (60 / halfIt);
+					//player.animations.x -= (this.stitchingoffset) / (60 / halfIt);
 					//player.x -= (this.widthOffset - this.lastWidthOffset) / (60 / halfIt);
 					//player.animations.x += player.animations.spritesheet._frameWidth /  30;
 
@@ -809,7 +809,7 @@ function Mapper(gamestage) {
                     this.backgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
                     this.backgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
                     this.enemyContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
-                    //player.animations.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / (60 / halfIt);
+					//player.animations.x -= (this.stitchingoffset) / (60 / halfIt);
 
 				}
 
