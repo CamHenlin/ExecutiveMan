@@ -52,6 +52,10 @@ function Player() {
 						return;
 					}
 
+					if (enemy.constructor === ExplosiveBarrel) {
+						enemy.activated = true;
+					}
+
 					if (enemy.damage > 0) {
 						enemy.health -= 1 * damageModifier;
 					}
