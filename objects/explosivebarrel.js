@@ -2,7 +2,7 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 	var explosiveBarrelSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("explosivebarrel")],
 		"frames": {
-			"width": 16, "height": 32, "count": 1
+			"width": 24, "height": 32, "count": 1
 		},
 		"animations": {
 			"still": {
@@ -60,6 +60,7 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 
 			setTimeout(function() {
 				this.stage.removeChild(this.animations);
+				player.fallThroughFloor = true;
 			}.bind(this), 150);
 
 			this.health = -1;

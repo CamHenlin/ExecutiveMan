@@ -189,6 +189,7 @@ function Player() {
 	this.healthbar                         = new HealthBar(gamestage, this);
 	this.shotIndex                         = 0;
 	this.ignoreLeftRightCollisionThisFrame = 0;
+	this.fallThroughFloor                  = false;
 	var skipThisCheck                      = false;
 
 	this.shots = [	new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
@@ -380,6 +381,14 @@ function Player() {
     // most values are doubled from their megaman values as i am using double sized sprites
     this.tickActions = function(actions) {
 		this.gameActions = actions;
+
+		if (this.fallThroughFloor) {
+			actions.collisionResults.downmove = true;
+			if (mapper.transitiondownn) {
+				this.fallThroughFloor = false;
+			}
+		}
+
 		if (mapper.transitiondown || mapper.transitionup) {
 			return;
 		}
