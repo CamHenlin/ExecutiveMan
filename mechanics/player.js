@@ -549,7 +549,7 @@ function Player() {
 		} else {
 			this.goingRight = false;
 			this.goingLeft = false;
-			if (this.animations.currentAnimation !== "stand" && this.animations.currentAnimation !== "standshoot" && !this.jumping) {
+			if (this.animations.currentAnimation !== "stand" && this.animations.currentAnimation !== "standshoot" && !this.jumping && (!this.actions.playerLeft && !this.actions.playerRight)) {
 				this.animations.gotoAndPlay("stand");
 				this.movementTicks = 9 / lowFramerate;
 			}
