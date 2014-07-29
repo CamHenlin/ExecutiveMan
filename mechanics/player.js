@@ -384,9 +384,6 @@ function Player() {
 
 		if (this.fallThroughFloor) {
 			actions.collisionResults.downmove = true;
-			if (mapper.transitiondownn) {
-				this.fallThroughFloor = false;
-			}
 		}
 
 		if (mapper.transitiondown || mapper.transitionup) {

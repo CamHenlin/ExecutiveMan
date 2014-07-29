@@ -31,6 +31,16 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.hardshell        = true;
 	this.goingup          = false;
 	this.goingright       = false;
+	if (xrange > 0) {
+		this.goingright = false;
+	} else {
+		this.goingright = true;
+	}
+	if (yrange > 0) {
+		this.goingup = false;
+	} else {
+		this.goingup = true;
+	}
 	this.delay            = delay;
 	this.watchedElements  = [];
 	this.animations.x = this.x - mapper.completedMapsWidthOffset;

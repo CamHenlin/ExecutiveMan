@@ -43,6 +43,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
 						{id: "door", src: "images/door.png"},
 						{id: "platform", src: "images/platform.png"},
+						{id: "explosivebarrel", src: "images/explosivebarrel.png"},
 					//	{id: "wastemansoundloop", src: "sounds/wastemansoundloop.mp3"},
 						{id: "copter", src: "images/copter.png"}]);
 
@@ -371,7 +372,7 @@ function handleTick(event) {
 
 
 	var modifier = 4;
-	var xmodifier = 7;
+	var xmodifier = 4;
 	var playerCollisionPoints = {
 		leftTop : { x: player.x + xmodifier, y: player.y + modifier },
 		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },

@@ -16,7 +16,7 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 	this.damage           = 0;
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
-	this.animations       = new createjs.Sprite(explosiveBarrelSpriteSheetno , "still");
+	this.animations       = new createjs.Sprite(explosiveBarrelSpriteSheet, "still");
 	this.x                = x;// - 32;
 	this.y                = y;
 	this.activated        = false;
@@ -60,8 +60,11 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 
 			setTimeout(function() {
 				this.stage.removeChild(this.animations);
-				player.fallThroughFloor = true;
 			}.bind(this), 150);
+
+			setTimeout(function() {
+				player.fallThroughFloor = true;
+			}.bind(this), 1000);
 
 			this.health = -1;
 			setTimeout(function() {
