@@ -371,15 +371,15 @@ function handleTick(event) {
 	}
 
 
-	var modifier = 4;
+	var modifier = 2;
 	var xmodifier = 4;
 	var playerCollisionPoints = {
-		leftTop : { x: player.x + xmodifier, y: player.y + modifier },
-		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
+		leftTop : { x: player.x + xmodifier, y: player.y + modifier + 2 },
+		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier - 2 },
 		bottomLeft : { x: player.x + xmodifier + 4 , y: player.y + player.animations.spriteSheet._frameHeight  },
 		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + player.animations.spriteSheet._frameHeight },
-		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier },
-		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + modifier },
+		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier - 2 },
+		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + modifier + 2 },
 		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 4, y: player.y + modifier },
 		topLeft : { x: player.x + xmodifier + 4, y: player.y + modifier }
 	};

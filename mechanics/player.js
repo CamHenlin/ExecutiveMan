@@ -516,11 +516,17 @@ function Player() {
 			if (this.y + this.animations.spriteSheet._frameHeight > mapper.gamestage.canvas.height) {
 				this.y -= 16;
 			}
-			this.ignoreLeftRightCollisionThisFrame = 5;
+
+			if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
+				this.ignoreLeftRightCollisionThisFrame = 5;
+			}
 		} else if (this.jumping && !actions.collisionResults.upmove) {
-			this.jumpspeed = 0.5; // megaman's jumpspeed set to .5 when he bonks his head
+			this.jumpspeed = 0.5; 
+			this.falling = true;// megaman's jumpspeed set to .5 when he bonks his head
 			//this.y += this.jumpspeed * lowFramerate;
-			this.ignoreLeftRightCollisionThisFrame = 5;
+			if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
+				this.ignoreLeftRightCollisionThisFrame = 5;
+			}
 		} else if (this.onplatform && !actions.collisionResults.upmove) {
 			this.y += 38;
 			this.onplatform = false;
