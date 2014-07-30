@@ -3,7 +3,7 @@ java -jar compiler.jar \
 	\
 	--js=levels/wastemanlevel.js --js=levels/accountingmanlevel.js \
 	\
-	--js=objects/healthbar.js --js=objects/bosspoint.js --js=objects/door.js --js=objects/explosivebarrel.js \
+	--js=objects/healthbar.js --js=objects/death.js --js=objects/bosspoint.js --js=objects/door.js --js=objects/explosivebarrel.js \
 	--js=objects/platform.js --js=objects/droppingplatform.js --js=objects/disappearingplatform.js \
 	--js=objects/bosshealthbar.js --js=objects/bighealth.js --js=objects/littlehealth.js --js=objects/extralife.js \
 	--js=objects/halfwaypoint.js \

@@ -382,6 +382,27 @@ function Player() {
     this.tickActions = function(actions) {
 		this.gameActions = actions;
 
+        if (actions.playerDeath) {
+            this.health = 0;
+            this.animations.gotoAndPlay("damage");
+            playSound("playerdamaged");
+            return;
+        }
+
+        if (this.health <= 0) {
+            console.log("dead");
+
+            if (mobile) {
+				document.getElementById("gamecanvas").removeEventListener('touchstart', eventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener('touchmove', eventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener('touchend', endTouchEventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener('touchcancel', endTouchEventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener('touchleave', endTouchEventHandler.bind(this), false);
+			}
+            actions.playerDeath = true;
+            return;
+        }
+
 		if (this.fallThroughFloor) {
 			actions.collisionResults.downmove = true;
 		}
@@ -448,24 +469,7 @@ function Player() {
             }
         }
 
-        if (actions.playerDeath) {
-            this.health = 0;
-            this.animations.gotoAndPlay("damage");
-            playSound("playerdamaged");
-        }
 
-        if (this.health <= 0) {
-            console.log("dead");
-
-            if (mobile) {
-				document.getElementById("gamecanvas").removeEventListener('touchstart', eventHandler.bind(this), false);
-				document.getElementById("gamecanvas").removeEventListener('touchmove', eventHandler.bind(this), false);
-				document.getElementById("gamecanvas").removeEventListener('touchend', endTouchEventHandler.bind(this), false);
-				document.getElementById("gamecanvas").removeEventListener('touchcancel', endTouchEventHandler.bind(this), false);
-				document.getElementById("gamecanvas").removeEventListener('touchleave', endTouchEventHandler.bind(this), false);
-			}
-            actions.playerDeath = true;
-        }
 
         if (this.actions.playerJump && !this.jumping && actions.collisionResults.upmove && this.jumpreleased) {
             actions.collisionResults.downmove = true;

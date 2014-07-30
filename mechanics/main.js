@@ -39,6 +39,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "bighealth", src: "images/bighealth.png"},
 						{id: "healthbriefcase", src: "images/healthbriefcase.png"},
 						{id: "littlehealth", src: "images/littlehealth.png"},
+						{id: "death", src: "images/death.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
 						{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
 						{id: "door", src: "images/door.png"},
@@ -95,6 +96,7 @@ var startlevel = false;
 var bossscreenCounter = 0;
 var mobile = false;
 var musicOff = true;
+var dead = true;
 
 if (window.mobilecheck()) {
 	mobile = true;
@@ -154,7 +156,7 @@ window.onresize = function(event) {
 };
 
 function beginGame(newGame) {
-
+	dead = false;
 	if (newGame && lives < 2) {
 		lives = 2;
 	}
@@ -371,8 +373,8 @@ function handleTick(event) {
 	}
 
 
-	var modifier = 2;
-	var xmodifier = 4;
+	var modifier = 4;
+	var xmodifier = 6;
 	var playerCollisionPoints = {
 		leftTop : { x: player.x + xmodifier, y: player.y + modifier + 2 },
 		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier - 2 },
@@ -399,36 +401,40 @@ function handleTick(event) {
 
 
 
-	watchedElements.forEach(function(element) {
-		element.tickActions(actions);
-	});
 
 	this.mapper.enemies.forEach(function(element) {
 		element.tickActions(actions);
 	});
 
 	//  { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false }
-	if (((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || player.health <= 0) {
+	if ((((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || player.health <= 0) && !dead) {
+		dead = true;
 		actions.playerDeath = true;
 		lives--;
+		new Death(mapper.enemyContainer, player.x + 12, player.y + 16);
+		player.gamestage.removeChild(player.animations);
 
 		if (lives < 0) {
 			setTimeout(function() {
 				initVars();
 				initBossScreen();
-			}.bind(this), 2000);
-
 			event.remove();
+			}.bind(this), 4000);
+
 		} else {
 			setTimeout(function() {
 				initVars();
 				beginGame(false);
-			}.bind(this), 2000);
-
 			event.remove();
+			}.bind(this), 4000);
+
 		}
 		//init();
 	}
+
+	watchedElements.forEach(function(element) {
+		element.tickActions(actions);
+	});
 
 	if (logFPS) {
 		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " / " + Math.round(createjs.Ticker.getFPS());
