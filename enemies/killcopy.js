@@ -25,6 +25,8 @@ function KillCopy(stage, basicCollision, x, y) {
 	this.animations       = new createjs.Sprite(killCopySpriteSheet, "sit");
 	this.x                = x;
 	this.y                = y;
+	this.animations.x     = x;
+	this.animations.y     = y;
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;

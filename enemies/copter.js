@@ -18,6 +18,8 @@ function Copter(stage, x, y) {
 	this.animations       = new createjs.Sprite(copterSpriteSheet, "current");
 	this.x                = x;// - 32;
 	this.y                = y;
+	this.animations.x     = x;
+	this.animations.y     = y;
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;

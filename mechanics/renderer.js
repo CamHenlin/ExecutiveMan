@@ -151,10 +151,11 @@ function Mapper(gamestage) {
 		this.container = new createjs.Container();
 		this.gamestage.addChild(this.container);
 		var fillColor = new createjs.Shape();
-		fillColor.graphics.beginFill(this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
+		[this.mapData.properties.backgroundColor, gamestage.canvas.width, this.getMapHeight(), this.heightOffset].forEach(function(thing) { console.log(thing); });
+		fillColor.graphics.beginFill('#' + this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
 		this.backgroundContainer1.addChild(fillColor);
 		fillColor = new createjs.Shape();
-		fillColor.graphics.beginFill(this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
+		fillColor.graphics.beginFill('#' + this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
 		this.backgroundContainer2.addChild(fillColor);
 
 		this.enemyContainer.removeAllChildren();

@@ -44,6 +44,8 @@ function WasteMan(stage, basicCollision, x, y) {
 	this.animations       = new createjs.Sprite(wasteManSpriteSheet, "stand");
 	this.x                = x;
 	this.y                = y;
+	this.animations.x     = x;
+	this.animations.y     = y;
 	this.xSpeed           = 0;
 	this.activated        = false;
 	this.jumping          = false;

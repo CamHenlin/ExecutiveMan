@@ -130,7 +130,7 @@ function Player() {
 			"run": {
 				"frames" : [3, 4, 5, 4],
 				"next" : "run",
-				"speed" : (0.175 / lowFramerate) / skipFrames
+				"speed" : (0.145 / lowFramerate) / skipFrames
 			},
 			"jump": {
 				"frames" : [10],

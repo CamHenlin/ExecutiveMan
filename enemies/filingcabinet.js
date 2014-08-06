@@ -24,6 +24,8 @@ function FilingCabinet(stage, basicCollision, x, y) {
 	this.animations       = new createjs.Sprite(filingCabinetSpriteSheet, "sit");
 	this.x                = x;
 	this.y                = y;
+	this.animations.x     = x;
+	this.animations.y     = y;
 	this.xSpeed           = 0;
 	this.activated        = false;
 	this.jumping          = false;
