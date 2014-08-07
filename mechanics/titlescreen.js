@@ -54,11 +54,11 @@ function startScreenListener() {
 	document.getElementById("gamecanvas").removeEventListener("click", startScreenListener);
 }
 
-var startscreenTickCounter = 121;
+var startscreenTickCounter = 10;
 function handleStartScreenTick(event) {
 	if (startscreenTickCounter > 0) {
 		startscreenTickCounter--;
-	}
+	}/*
 	if (startscreenTickCounter === 100) {
 		var twoSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("slide_two")],
@@ -154,7 +154,7 @@ function handleStartScreenTick(event) {
 		sixSprite.x = gamestage.canvas.width / 2 - sixSprite.spriteSheet._frameWidth / 2;
 		sixSprite.y = gamestage.canvas.height / 2 - sixSprite.spriteSheet._frameHeight / 2;
 		stage.addChild(sixSprite);
-	} else if (startscreenTickCounter === 0) {
+	} else */if (startscreenTickCounter === 0) {
 		var titlescreenSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("logo")],
 			"frames": {
