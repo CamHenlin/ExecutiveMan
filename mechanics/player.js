@@ -169,7 +169,7 @@ function Player() {
 				"speed" : (0.175 / lowFramerate) / skipFrames
 			},
 			"dropcomplete" : {
-				"frames" : [21, 21, 21, 21, 21, 21],
+				"frames" : [21],
 				"next": "stand",
 				"speed" : (0.175 / lowFramerate) / skipFrames
 			}
@@ -202,8 +202,8 @@ function Player() {
 	this.goingRight                        = false;
 	this.jumping                           = true;
 	this.onplatform                        = false;
-	this.ignoreBounceBack                  = false;
-	this.falling                           = false;
+	this.ignoreBounceBack                  = true;
+	this.falling                           = true;
 	this.pauseMenu                         = new PauseMenu();
 	this.transitionedUp                    = false;
 	this.jumpreleased                      = true;
@@ -437,7 +437,10 @@ function Player() {
 				this.falling = false;
 				this.jumpCount = 0;
 				this.onplatform = false;
-				this.touchDown = true;
+
+				setTimeout(function() {
+					this.touchDown = true;
+				}.bind(this), 180);
 
 				playSound("jumpland");
 
@@ -527,6 +530,8 @@ function Player() {
                 this.shots.forEach(function(shot) {
                     shot.tickActions(actions);
                 }.bind(this));
+
+                this.checkObjectCollisions();
             }
             return;
         }
@@ -752,13 +757,14 @@ function Player() {
 			}.bind(this), 500);
 		}
 
+		this.checkObjectCollisions();
 		if (!this.ignoreDamage) {
+			if (!skipThisCheck) {
 				this.checkEnemyCollisions();
-			/*if (!skipThisCheck) {
 				skipThisCheck = true;
 			} else {
 				skipThisCheck = false;
-			}*/
+			}
 		} else {
 			if (this.blinkTimer === 0) {
 				this.gamestage.removeChild(this.animations);
@@ -770,6 +776,21 @@ function Player() {
 		}
 	};
 
+	this.checkObjectCollisions = function() {
+		mapper.objects.forEach(function(object) {
+			var intersection = fastCollisionPlayer(this, object);
+			if (intersection) {
+				if (object.constructor === Platform || object.constructor === DisappearingPlatform || object.constructor === DroppingPlatform) {
+					intersection = fastInitialCollisionPlatform(this, object);
+				}
+
+				if (typeof(object.playerCollisionActions) === "function") {
+					object.playerCollisionActions();
+				}
+			}
+		}.bind(this));
+	};
+
 	this.checkEnemyCollisions = function() {
 		mapper.enemies.forEach(function(enemy) {
 
@@ -779,11 +800,7 @@ function Player() {
 
 				if (intersection) {
 					if (enemy.damage < 1) { // for non enemy objects
-						if (enemy.constructor === Platform || enemy.constructor === DisappearingPlatform || enemy.constructor === DroppingPlatform) {
-							intersection = fastInitialCollisionPlatform(this, enemy);
-						} else {
-							intersection = fastCollisionPlayerLoose(this, enemy);
-						}
+						intersection = fastCollisionPlayerLoose(this, enemy);
 					}
 
 					if (enemy.damage > 0) {
@@ -803,6 +820,9 @@ function Player() {
 						this.blinkTimer = 16;
 						this.x += -this.animations.scaleX;
 						setTimeout(function() {
+							if (this.dead) {
+								return;
+							}
 							if (this.blinkTimer > 8) {
 								this.gamestage.addChild(this.animations);
 							}
@@ -856,6 +876,9 @@ function Player() {
 					this.blinkTimer = 16;
 					this.x += -this.animations.scaleX;
 					setTimeout(function() {
+						if (this.dead) {
+							return;
+						}
 						if (this.blinkTimer > 8) {
 							this.gamestage.addChild(this.animations);
 						}

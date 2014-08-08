@@ -408,6 +408,9 @@ function handleTick(event) {
 	this.mapper.enemies.forEach(function(element) {
 		element.tickActions(actions);
 	});
+	this.mapper.objects.forEach(function(element) {
+		element.tickActions(actions);
+	});
 
 	//  { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false }
 	if ((((!actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.leftmove || !actions.deathCollisionResults.upmove || !actions.deathCollisionResults.downmove) && !actions.deathCollisionResults.nextmap) || player.health <= 0) && !dead) {

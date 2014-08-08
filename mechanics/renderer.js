@@ -24,6 +24,7 @@ function Mapper(gamestage) {
 	this.deathCollisionArray = [[],[]];
 	this.doneRendering = false;
 	this.enemies = [];
+	this.objects = [];
 	this.enemyContainer = new createjs.Container();
 	this.lastContainer = new createjs.Container();
 	this.mapcounter = 0;
@@ -461,19 +462,19 @@ function Mapper(gamestage) {
 			if (layer.type === 'objectgroup') {
 				for (var j = 0; j < layer.objects.length; j++) {
 					if (layer.objects[j].type === "platform") {
-						this.enemies.push(new Platform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
+						this.objects.push(new Platform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
 														parseInt(layer.objects[j].properties.yrange), parseInt(layer.objects[j].properties.yduration),
 														parseInt(layer.objects[j].properties.xrange), parseInt(layer.objects[j].properties.xduration), parseInt(layer.objects[j].properties.delay)));
 					}
 
 					if (layer.objects[j].type === "disappearingplatform") {
-						this.enemies.push(new DisappearingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
+						this.objects.push(new DisappearingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
 																	parseInt(layer.objects[j].properties.starttimer), parseInt(layer.objects[j].properties.onduration),
 																	parseInt(layer.objects[j].properties.offduration)));
 					}
 
 					if (layer.objects[j].type === "droppingplatform") {
-						this.enemies.push(new DroppingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
+						this.objects.push(new DroppingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
 																	parseInt(layer.objects[j].properties.duration)));
 					}
 
