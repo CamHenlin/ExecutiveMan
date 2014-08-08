@@ -119,7 +119,7 @@ function Player() {
 	var playerSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
 		"frames": {
-			"width": 30, "height": 30, "count": 19
+			"width": 30, "height": 30, "count": 22
 		},
 		"animations": {
 			"stand": {
@@ -162,11 +162,19 @@ function Player() {
 			"thumbsup": {
 				"frames" : [18],
 				"next" : "thumbsup"
+			},
+			"dropin": {
+				"frames" : [19, 20],
+				"next" : "dropin",
+				"speed" : (0.175 / lowFramerate) / skipFrames
+			},
+			"dropcomplete" : {
+				"frames" : [21, 21, 21, 21, 21, 21],
+				"next": "stand",
+				"speed" : (0.175 / lowFramerate) / skipFrames
 			}
 		}
-	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
-	    //
-
+	});
 
 	var damageSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("damage")],
@@ -182,16 +190,17 @@ function Player() {
 		}
 	});
 
-	this.animations                        = new createjs.Sprite(playerSpriteSheet, "stand");
+	this.animations                        = new createjs.Sprite(playerSpriteSheet, "dropin");
 	this.damageSprite                      = new createjs.Sprite(damageSpriteSheet, "damage");
+	this.touchDown                         = false;
 	this.blinkTimer                        = 10;
-	this.x                                 = 96;
+	this.x                                 = 48;
 	this.animations.x                      = this.x;
 	this.lastx				               = this.x;
-	this.y                                 = 90;
+	this.y                                 = -32;
 	this.goingLeft                         = false;
 	this.goingRight                        = false;
-	this.jumping                           = false;
+	this.jumping                           = true;
 	this.onplatform                        = false;
 	this.ignoreBounceBack                  = false;
 	this.falling                           = false;
@@ -206,7 +215,7 @@ function Player() {
 	this.actions                           = {};
 	this.gameActions                       = {};
 	this.jumpCount                         = 0;
-	this.gamestage			               = mapper.gamestage;
+	this.gamestage                         = mapper.gamestage;
 	this.ignoreDamage		               = false;
 	this.ignoreInput                       = false;
 	this.healthbar                         = new HealthBar(gamestage, this);
@@ -225,13 +234,9 @@ function Player() {
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
 
-	this.gamestage.removeChild(this.animations);
-	this.blinkTimer = 12;
 	this.x += -this.animations.scaleX;
 	setTimeout(function() {
-		if (this.blinkTimer > 8) {
-			this.gamestage.addChild(this.animations);
-		}
+		this.ignoreInput = false;
 	}.bind(this), 2000);
 
 	this.watchedElements.push(this.healthbar);
@@ -417,6 +422,49 @@ function Player() {
             return;
         }
 
+        if (!this.touchDown) {
+			if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
+				this.y += this.jumpspeed * lowFramerate;
+				this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
+				if (this.jumpspeed > 3 / lowFramerate) {
+					this.jumpspeed = 3 / lowFramerate; // megaman's terminal velocity
+				}
+			} else if ((this.jumping || this.onplatform) && !actions.collisionResults.downmove && !actions.collisionResults.nextmap) {
+				if (!this.goingLeft && !this.goingRight) {
+					this.animations.gotoAndPlay("dropcomplete");
+				}
+				this.jumping = false;
+				this.falling = false;
+				this.jumpCount = 0;
+				this.onplatform = false;
+				this.touchDown = true;
+
+				playSound("jumpland");
+
+				// correcting floor position after a jump/fall:
+				this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+				if (this.y + this.animations.spriteSheet._frameHeight > mapper.gamestage.canvas.height) {
+					this.y -= 16;
+				}
+
+				if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
+					this.ignoreLeftRightCollisionThisFrame = 5;
+				}
+			}
+
+            if ((this.x - mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
+                    (mapper.getMapWidth() + mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
+
+                    mapper.advance(this.lastx - this.x);
+            } else {
+                this.animations.x += this.x - this.lastx;
+            }
+            this.lastx = this.x;
+            this.animations.y = this.y;
+
+			return;
+        }
+
         if (this.health <= 0) {
             console.log("dead");
 
@@ -512,7 +560,7 @@ function Player() {
             this.falling = true;
             this.jumping = true;
             this.animations.gotoAndPlay("jump");
-           	this.jumpCount = 1;
+            this.jumpCount = 1;
         } else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 2 && !doubleJump) {
             this.jumpspeed = 2;
 		} else if (this.jumping && this.jumpspeed >= 0 && actions.collisionResults.upmove && this.actions.playerJump && doubleJump && this.jumpCount === 1 && this.jumpreleased) {
