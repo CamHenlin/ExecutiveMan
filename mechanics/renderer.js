@@ -177,6 +177,7 @@ function Mapper(gamestage) {
 		this.beginCaching(this.backgroundContainer1);
 		this.beginCaching(this.backgroundContainer2);
 		this.beginCaching(this.container);
+		this.beginCaching(this.lastContainer);
 
 		this.gamestage.addChild(this.backgroundContainer1);
 		this.gamestage.addChild(this.backgroundContainer2);
@@ -521,6 +522,8 @@ function Mapper(gamestage) {
 						enemyArray.push(new FilingCabinet(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 6) {
 						enemyArray.push(new Door(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 7) {
+						enemyArray.push(new Phone(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 98) {
 						enemyArray.push(new ExtraLife(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 99) {

@@ -42,7 +42,7 @@ function Player() {
 				}
 
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
-				if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform) && enemy.constructor !== KillCopy) {
+				if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform) && enemy.constructor !== KillCopy && enemy.constructor !== Phone) {
 					if (enemy.hardshell) {
 						this.yspeed = 3.5;
 						this.direction = this.direction * (this.bounced) ? 1 : -1;
@@ -61,6 +61,11 @@ function Player() {
 					}
 					this.removeSelf();
 				} else if (enemy.constructor === KillCopy && fastCollisionKillCopy(this, enemy)) { // special case due to large overhang of the left side of sprite
+					if (enemy.damage > 0) {
+						enemy.health -= 1 * damageModifier;
+					}
+					this.removeSelf();
+				} else if (enemy.constructor === Phone && fastCollisionPhone(this, enemy)) { // special case due to large overhang of the left side of sprite
 					if (enemy.damage > 0) {
 						enemy.health -= 1 * damageModifier;
 					}
@@ -130,7 +135,7 @@ function Player() {
 			"run": {
 				"frames" : [3, 4, 5, 4],
 				"next" : "run",
-				"speed" : (0.145 / lowFramerate) / skipFrames
+				"speed" : (0.175 / lowFramerate) / skipFrames
 			},
 			"jump": {
 				"frames" : [10],
@@ -160,8 +165,26 @@ function Player() {
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
+	    //
+
+
+	var damageSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("damage")],
+		"frames": {
+			"width": 32, "height": 32, "count": 2
+		},
+		"animations": {
+			"damage": {
+				"frames" : [1, 0, 1],
+				"next" : "damage",
+				"speed" : (0.285 / lowFramerate) / skipFrames
+			}
+		}
+	});
 
 	this.animations                        = new createjs.Sprite(playerSpriteSheet, "stand");
+	this.damageSprite                      = new createjs.Sprite(damageSpriteSheet, "damage");
+	this.blinkTimer                        = 10;
 	this.x                                 = 96;
 	this.animations.x                      = this.x;
 	this.lastx				               = this.x;
@@ -202,8 +225,13 @@ function Player() {
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
 					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
 
+	this.gamestage.removeChild(this.animations);
+	this.blinkTimer = 12;
+	this.x += -this.animations.scaleX;
 	setTimeout(function() {
-		this.ignoreDamage = false;
+		if (this.blinkTimer > 8) {
+			this.gamestage.addChild(this.animations);
+		}
 	}.bind(this), 2000);
 
 	this.watchedElements.push(this.healthbar);
@@ -525,7 +553,7 @@ function Player() {
 				this.ignoreLeftRightCollisionThisFrame = 5;
 			}
 		} else if (this.jumping && !actions.collisionResults.upmove) {
-			this.jumpspeed = 0.5; 
+			this.jumpspeed = 0.5;
 			this.falling = true;// megaman's jumpspeed set to .5 when he bonks his head
 			//this.y += this.jumpspeed * lowFramerate;
 			if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
@@ -677,12 +705,20 @@ function Player() {
 		}
 
 		if (!this.ignoreDamage) {
-			if (!skipThisCheck) {
 				this.checkEnemyCollisions();
+			/*if (!skipThisCheck) {
 				skipThisCheck = true;
 			} else {
 				skipThisCheck = false;
+			}*/
+		} else {
+			if (this.blinkTimer === 0) {
+				this.gamestage.removeChild(this.animations);
+				this.blinkTimer = 12;
+			} else if (this.blinkTimer === 9) {
+				this.gamestage.addChild(this.animations);
 			}
+			this.blinkTimer--;
 		}
 	};
 
@@ -704,19 +740,29 @@ function Player() {
 
 					if (enemy.damage > 0) {
 						this.health -= enemy.damage / damageModifier;
+						this.damageSprite.x = this.animations.x;
+						this.damageSprite.y = this.animations.y;
+						this.damageSprite.gotoAndPlay("damage");
+						this.gamestage.addChild(this.damageSprite);
+						setTimeout(function() {
+							this.gamestage.removeChild(this.damageSprite);
+						}.bind(this), 180);
 						this.animations.gotoAndPlay("damage");
 
 						playSound("playerdamaged");
 						this.ignoreInput = true;
 						this.ignoreDamage = true;
-
+						this.blinkTimer = 16;
 						this.x += -this.animations.scaleX;
 						setTimeout(function() {
+							if (this.blinkTimer > 8) {
+								this.gamestage.addChild(this.animations);
+							}
 							this.ignoreDamage = false;
-						}.bind(this), 1000);
+						}.bind(this), 2000);
 						setTimeout(function() {
 							this.ignoreInput = false;
-						}.bind(this), 200);
+						}.bind(this), 240);
 					} else if (enemy.damage < 0) { // this is actually health!
 						this.health -= enemy.damage;
 						enemy.health = -1;
@@ -748,19 +794,28 @@ function Player() {
 					enemyshot.removeSelf();
 					this.health -= enemyshot.damage; // should actually come from the enemy
 					this.animations.gotoAndPlay("damage");
-
+					this.damageSprite.x = this.animations.x;
+					this.damageSprite.y = this.animations.y;
+					this.damageSprite.gotoAndPlay("damage");
+					this.gamestage.addChild(this.damageSprite);
+					setTimeout(function() {
+						this.gamestage.removeChild(this.damageSprite);
+					}.bind(this), 180);
 
 					playSound("playerdamaged");
 					this.ignoreInput = true;
 					this.ignoreDamage = true;
-
+					this.blinkTimer = 16;
 					this.x += -this.animations.scaleX;
 					setTimeout(function() {
+						if (this.blinkTimer > 8) {
+							this.gamestage.addChild(this.animations);
+						}
 						this.ignoreDamage = false;
-					}.bind(this), 1000);
+					}.bind(this), 2000);
 					setTimeout(function() {
 						this.ignoreInput = false;
-					}.bind(this), 300);
+					}.bind(this), 240);
 
 					if (this.jumpspeed < 2 && this.jumping) {
 						this.jumpspeed = 2;
