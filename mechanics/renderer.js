@@ -1,6 +1,6 @@
 var maps = [];
 
-function renderer(gamestage) {
+function Renderer(gamestage) {
 	this.collisionArray = [[],[]];
 	this.container = new createjs.Container();
 	this.container.x = 0;

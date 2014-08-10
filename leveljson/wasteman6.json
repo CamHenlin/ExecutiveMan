@@ -56,9 +56,8 @@
          "y":0
         }],
  "orientation":"orthogonal",
- "properties":,
-     "nextMapDirection":"right"
-    {
+ "properties":{
+     "nextMapDirection":"right",
      "backgroundColor":"#000",
      "stitchx":"0"
     },
@@ -66,7 +65,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"images\/map1.png",
+         "image":"..\/images\/map1.png",
          "imageheight":240,
          "imagewidth":160,
          "margin":0,

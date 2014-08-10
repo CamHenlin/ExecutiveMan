@@ -46,7 +46,7 @@ function TileCollisionDetector() {
 				b = 0;
 			}
 
-			if (collisionArray[a][b]) {
+			if (collisionArray[a][b] && this.isTop(collisionArray, a, b)) {
 				moves.downmove = false;
 			}
 
@@ -61,7 +61,7 @@ function TileCollisionDetector() {
 				b = 0;
 			}
 
-			if (collisionArray[a][b]) {
+			if (collisionArray[a][b] && this.isTop(collisionArray, a, b)) {
 				moves.downmove = false;
 			}
 
@@ -107,7 +107,7 @@ function TileCollisionDetector() {
 				b = 0;
 			}
 
-			if (collisionArray[a][b]) {
+			if (collisionArray[a][b] && this.isBottom(collisionArray, a, b)) {
 				moves.upmove = false;
 			}
 
@@ -122,7 +122,7 @@ function TileCollisionDetector() {
 				b = 0;
 			}
 
-			if (collisionArray[a][b]) {
+			if (collisionArray[a][b] && this.isBottom(collisionArray, a, b)) {
 				moves.upmove = false;
 			}
 		} catch (error) {
@@ -130,5 +130,21 @@ function TileCollisionDetector() {
 		}
 
 		return moves;
+	};
+
+	this.isTop = function(collisionArray, a, b) {
+		if (collisionArray[a - 1][b]) {
+			return false;
+		}
+
+		return true;
+	};
+
+	this.isBottom = function(collisionArray, a, b) {
+		if (collisionArray[a + 1][b]) {
+			return false;
+		}
+
+		return true;
 	};
 }

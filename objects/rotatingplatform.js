@@ -77,7 +77,7 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 				player.onplatform = false;
 				this.activated = false;
 			} else {
-				player.y = this.y - player.animations.spriteSheet._frameHeight - ((this.goingup) ? 0 : -this.ySpeed);
+				player.y = this.y - player.animations.spriteSheet._frameHeight;
 				player.x += this.x - this.lastx;
 			}
 		}

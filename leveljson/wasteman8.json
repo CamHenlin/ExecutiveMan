@@ -66,7 +66,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"images\/map1.png",
+         "image":"..\/images\/map1.png",
          "imageheight":240,
          "imagewidth":160,
          "margin":0,

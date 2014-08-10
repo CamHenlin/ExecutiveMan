@@ -44,7 +44,7 @@ function BasicCollision(renderer) {
 				b = 0;
 			}
 
-			if (collisionArray[a][b]) {
+			if (collisionArray[a][b] && this.isBottom(collisionArray, a, b)) {
 				moves.down = false;
 			}
 
@@ -74,12 +74,28 @@ function BasicCollision(renderer) {
 				b = 0;
 			}
 
-			if (collisionArray[a][b]) {
+			if (collisionArray[a][b] && this.isTop(collisionArray, a, b)) {
 				moves.up = false;
 			}
 		} catch (error) {}
 
 		return moves;
+	};
+
+	this.isTop = function(collisionArray, a, b) {
+		if (collisionArray[a - 1][b]) {
+			return false;
+		}
+
+		return true;
+	};
+
+	this.isBottom = function(collisionArray, a, b) {
+		if (collisionArray[a + 1][b]) {
+			return false;
+		}
+
+		return true;
 	};
 }
 

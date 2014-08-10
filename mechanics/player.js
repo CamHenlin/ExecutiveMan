@@ -451,7 +451,7 @@ function Player() {
 				}
 
 				if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
-					this.ignoreLeftRightCollisionThisFrame = 5;
+					this.ignoreLeftRightCollisionThisFrame = 1;
 				}
 			}
 
@@ -603,7 +603,7 @@ function Player() {
 			}
 
 			if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
-				this.ignoreLeftRightCollisionThisFrame = 5;
+				this.ignoreLeftRightCollisionThisFrame = 0;
 			}
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 0.5;
