@@ -1,6 +1,6 @@
 var maps = [];
 
-function Mapper(gamestage) {
+function renderer(gamestage) {
 	this.collisionArray = [[],[]];
 	this.container = new createjs.Container();
 	this.container.x = 0;
@@ -476,6 +476,11 @@ function Mapper(gamestage) {
 					if (layer.objects[j].type === "droppingplatform") {
 						this.objects.push(new DroppingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
 																	parseInt(layer.objects[j].properties.duration)));
+					}
+
+					if (layer.objects[j].type === "rotatingplatform") {
+						this.objects.push(new RotatingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
+																	parseInt(layer.objects[j].properties.xspeed), parseInt(layer.objects[j].properties.yspeed)));
 					}
 
 					if (layer.objects[j].type === "halfwaypoint") {

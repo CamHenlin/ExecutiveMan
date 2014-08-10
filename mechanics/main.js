@@ -91,7 +91,7 @@ var gamestage;
 var pausestage;
 var watchedElements;
 var player;
-var mapper;
+var renderer;
 var showOffBossScreenCounter = 0;
 var tileCollisionDetector;
 var startgame;
@@ -143,7 +143,7 @@ function initVars() {
 	gamestage = null;
 	watchedElements = null;
 	player = null;
-	mapper = null;
+	renderer = null;
 	tileCollisionDetector = null;
 }
 
@@ -218,33 +218,45 @@ function beginGame(newGame) {
 	gamestage.canvas.style.backgroundColor = "#000";
 
 	watchedElements = [];
-	mapper = new Mapper(gamestage);
+	renderer = new renderer(gamestage);
 
 	if (bosspointReached) {
 		if (bossnumber === 0) {
-			mapper.mapData = maps[wastemanBossPoint];
-			mapper.mapcounter = wastemanBossPoint;
+			renderer.mapData = maps[wastemanBossPoint];
+			renderer.mapcounter = wastemanBossPoint;
 		} else if (bossnumber === 1) {
-			mapper.mapData = maps[accountingmanBossPoint];
-			mapper.mapcounter = accountingmanBossPoint;
+			renderer.mapData = maps[accountingmanBossPoint];
+			renderer.mapcounter = accountingmanBossPoint;
+		} else if (bossnumber === 2) {
+			renderer.mapData = maps[accountingmanBossPoint];
+			renderer.mapcounter = accountingmanBossPoint;
+		} else if (bossnumber === 8) {
+			renderer.mapData = maps[accountingmanBossPoint];
+			renderer.mapcounter = accountingmanBossPoint;
 		}
 	} else if (halfwayPointReached) {
 		if (bossnumber === 0) {
-			mapper.mapData = maps[wastemanHalfwayPoint];
-			mapper.mapcounter = wastemanHalfwayPoint;
+			renderer.mapData = maps[wastemanHalfwayPoint];
+			renderer.mapcounter = wastemanHalfwayPoint;
 		} else if (bossnumber === 1) {
-			mapper.mapData = maps[accountingmanHalfwayPoint];
-			mapper.mapcounter = accountingmanHalfwayPoint;
+			renderer.mapData = maps[accountingmanHalfwayPoint];
+			renderer.mapcounter = accountingmanHalfwayPoint;
+		} else if (bossnumber === 2) {
+			renderer.mapData = maps[accountingmanHalfwayPoint];
+			renderer.mapcounter = accountingmanHalfwayPoint;
+		} else if (bossnumber === 8) {
+			renderer.mapData = maps[accountingmanHalfwayPoint];
+			renderer.mapcounter = accountingmanHalfwayPoint;
 		}
 	}
 
     player = new Player();
-	mapper.initMap();
+	renderer.initMap();
 	watchedElements.push(player);
 
 	tileCollisionDetector = new TileCollisionDetector();
 
-	watchedElements.push(mapper);
+	watchedElements.push(renderer);
 
 	if (mobile) {
 
@@ -342,20 +354,20 @@ function handleTick(event) {
 		itemDropCount = 0;
 	}
 
-	if (!mapper) {
+	if (!renderer) {
 		return;
 	}
 
-	if (!mapper.doneRendering) {
+	if (!renderer.doneRendering) {
 		return;
-	} else if (mapper.transitiondown || mapper.transitionright) {
+	} else if (renderer.transitiondown || renderer.transitionright || renderer.transitionup) {
 
-		mapper.tickActions({});
+		renderer.tickActions({});
 		gamestage.update();
 		return;
 	}
 
-	if (mapper.showingReadyLabel) {
+	if (renderer.showingReadyLabel) {
 		gamestage.update();
 		return;
 	}
@@ -399,16 +411,16 @@ function handleTick(event) {
 		topLeft : { x: player.x + xmodifier * 2 + 4, y: player.y + modifier * 2 }
 	};
 
-	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, mapper.collisionArray, mapper.getCurrentHeightOffset(), (mapper.widthOffset + mapper.completedMapsWidthOffset));
-	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerDeathCollisionPoints, mapper.deathCollisionArray, mapper.getCurrentHeightOffset(), (mapper.widthOffset + mapper.completedMapsWidthOffset));
+	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, renderer.collisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
+	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerDeathCollisionPoints, renderer.deathCollisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
 
 
 
 
-	this.mapper.enemies.forEach(function(element) {
+	this.renderer.enemies.forEach(function(element) {
 		element.tickActions(actions);
 	});
-	this.mapper.objects.forEach(function(element) {
+	this.renderer.objects.forEach(function(element) {
 		element.tickActions(actions);
 	});
 
@@ -417,7 +429,7 @@ function handleTick(event) {
 		dead = true;
 		actions.playerDeath = true;
 		lives--;
-		new Death(mapper.enemyContainer, player.x + 12, player.y + 16);
+		new Death(renderer.enemyContainer, player.x + 12, player.y + 16);
 		player.gamestage.removeChild(player.animations);
 
 		if (lives < 0) {

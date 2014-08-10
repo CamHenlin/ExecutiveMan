@@ -1,6 +1,6 @@
 function Player() {
 
-	var Shot = function(player, mapper) {
+	var Shot = function(player, renderer) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("shot")],
 			"frames": {
@@ -36,7 +36,7 @@ function Player() {
 				this.removeSelf();
 			}
 
-			mapper.enemies.forEach(function(enemy) {
+			renderer.enemies.forEach(function(enemy) {
 				if (enemy.dead) {
 					return;
 				}
@@ -75,8 +75,8 @@ function Player() {
 		};
 
 		this.fireUp = function() {
-			//console.log(player.x - mapper.completedMapsWidthOffset);
-			this.x = player.x - mapper.completedMapsWidthOffset + ((player.animations.scaleX === 1) ? 26 : -3);
+			//console.log(player.x - renderer.completedMapsWidthOffset);
+			this.x = player.x - renderer.completedMapsWidthOffset + ((player.animations.scaleX === 1) ? 26 : -3);
 			this.y = player.y + 13.5;
 			this.yspeed = 0;
 			this.disabled = false;
@@ -85,34 +85,34 @@ function Player() {
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 			this.animations.play();
-			mapper.enemyContainer.addChild(this.animations);
+			renderer.enemyContainer.addChild(this.animations);
 		};
 
 		this.removeSelf = function() {
 			//console.log("removing");
-			mapper.enemyContainer.removeChild(this.animations);
+			renderer.enemyContainer.removeChild(this.animations);
 			var explosion = shotExplosionSprite.clone(true);
 			explosion.x = this.animations.x - this.animations.spriteSheet._frameWidth / 2;
 			explosion.y = this.animations.y - this.animations.spriteSheet._frameHeight / 2;
-			mapper.enemyContainer.removeChild(this.animations);
+			renderer.enemyContainer.removeChild(this.animations);
 			explosion.gotoAndPlay("explode");
 
 			if (this.checkBounds()) {
 				playSound("shotexplode");
 			}
-			mapper.enemyContainer.addChild(explosion);
+			renderer.enemyContainer.addChild(explosion);
 			setTimeout(function() {
-				mapper.enemyContainer.removeChild(explosion);
+				renderer.enemyContainer.removeChild(explosion);
 			}.bind(this), 15.625); // approx 2 frames
 			this.disabled = true;
 		};
 
 		this.checkBounds = function() {
-			if (this.y < 0 || Math.abs(this.y - player.y) > mapper.gamestage.canvas.height) {
+			if (this.y < 0 || Math.abs(this.y - player.y) > renderer.gamestage.canvas.height) {
 				return false;
 			}
 
-			return !(this.x < 0 || Math.abs(this.x - (player.x - mapper.completedMapsWidthOffset)) > 400);
+			return !(this.x < 0 || Math.abs(this.x - (player.x - renderer.completedMapsWidthOffset)) > 400);
 		};
 	};
 
@@ -215,7 +215,7 @@ function Player() {
 	this.actions                           = {};
 	this.gameActions                       = {};
 	this.jumpCount                         = 0;
-	this.gamestage                         = mapper.gamestage;
+	this.gamestage                         = renderer.gamestage;
 	this.ignoreDamage		               = false;
 	this.ignoreInput                       = false;
 	this.healthbar                         = new HealthBar(gamestage, this);
@@ -224,15 +224,15 @@ function Player() {
 	this.fallThroughFloor                  = false;
 	var skipThisCheck                      = false;
 
-	this.shots = [	new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper),
-					new Shot(this, mapper), new Shot(this, mapper), new Shot(this, mapper)];
+	this.shots = [	new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
+					new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
+					new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
+					new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
+					new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
+					new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
+					new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
+					new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
+					new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer)];
 
 	this.x += -this.animations.scaleX;
 	setTimeout(function() {
@@ -446,7 +446,7 @@ function Player() {
 
 				// correcting floor position after a jump/fall:
 				this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
-				if (this.y + this.animations.spriteSheet._frameHeight > mapper.gamestage.canvas.height) {
+				if (this.y + this.animations.spriteSheet._frameHeight > renderer.gamestage.canvas.height) {
 					this.y -= 16;
 				}
 
@@ -455,10 +455,10 @@ function Player() {
 				}
 			}
 
-            if ((this.x - mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
-                    (mapper.getMapWidth() + mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
+            if ((this.x - renderer.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
+                    (renderer.getMapWidth() + renderer.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
 
-                    mapper.advance(this.lastx - this.x);
+                    renderer.advance(this.lastx - this.x);
             } else {
                 this.animations.x += this.x - this.lastx;
             }
@@ -486,15 +486,15 @@ function Player() {
 			actions.collisionResults.downmove = true;
 		}
 
-		if (mapper.transitiondown || mapper.transitionup) {
+		if (renderer.transitiondown || renderer.transitionup) {
 			return;
 		}
 
-		if (this.gameActions.collisionResults.nextmapup && this.y < -10 && (mapper.getNextMapDirection() === "up" || mapper.getLastMapDirection() === "up")) { //mapper.getNextMapDirection() === "up") {
-			if (mapper.getLastMapDirection() === "up") {
-            	mapper.lastMapUp();
+		if (this.gameActions.collisionResults.nextmapup && this.y < -10 && (renderer.getNextMapDirection() === "up" || renderer.getLastMapDirection() === "up")) { //renderer.getNextMapDirection() === "up") {
+			if (renderer.getLastMapDirection() === "up") {
+            	renderer.lastMapUp();
             } else {
-            	mapper.nextMapUp();
+            	renderer.nextMapUp();
         	}
 		}
 
@@ -515,10 +515,10 @@ function Player() {
                     this.x = this.lastx;
                 }
 
-                if ((this.x - mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
-                    (mapper.getMapWidth() + mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
+                if ((this.x - renderer.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
+                    (renderer.getMapWidth() + renderer.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
 
-                    mapper.advance(this.lastx - this.x);
+                    renderer.advance(this.lastx - this.x);
                 } else {
                     this.animations.x += this.x - this.lastx;
                 }
@@ -598,7 +598,7 @@ function Player() {
 
 			// correcting floor position after a jump/fall:
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
-			if (this.y + this.animations.spriteSheet._frameHeight > mapper.gamestage.canvas.height) {
+			if (this.y + this.animations.spriteSheet._frameHeight > renderer.gamestage.canvas.height) {
 				this.y -= 16;
 			}
 
@@ -647,7 +647,7 @@ function Player() {
 		}
 
 		if (this.actions.playerAttack && this.shootTicks <= 0) {
-			//this.watchedElements.push(new Shot(this.stage, this, mapper));
+			//this.watchedElements.push(new Shot(this.stage, this, renderer));
 			var shot = this.shots[this.shotIndex++ % 27];
 			if (shot.disabled) {
 				shot.fireUp();
@@ -706,10 +706,10 @@ function Player() {
 			this.x = this.lastx;
 		}
 
-		if ((this.x - mapper.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
-			(mapper.getMapWidth() + mapper.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
+		if ((this.x - renderer.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
+			(renderer.getMapWidth() + renderer.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
 
-			mapper.advance(this.lastx - this.x);
+			renderer.advance(this.lastx - this.x);
 		} else {
 			this.animations.x += this.x - this.lastx;
 		}
@@ -730,11 +730,11 @@ function Player() {
 		//console.log(this.x);
 		//
 
-		if (this.x + this.animations.spriteSheet._frameWidth > mapper.getMapWidth() + mapper.completedMapsWidthOffset + mapper.widthOffset && (mapper.getNextMapDirection() === "right" || mapper.getLastMapDirection() === "right")) {
-			if (mapper.getLastMapDirection() === "right") {
-                mapper.lastMapRight(mapper.mapData);
+		if (this.x + this.animations.spriteSheet._frameWidth > renderer.getMapWidth() + renderer.completedMapsWidthOffset + renderer.widthOffset && (renderer.getNextMapDirection() === "right" || renderer.getLastMapDirection() === "right")) {
+			if (renderer.getLastMapDirection() === "right") {
+                renderer.lastMapRight(renderer.mapData);
             } else {
-				mapper.nextMapRight(mapper.mapData);
+				renderer.nextMapRight(renderer.mapData);
 			}
 
 			this.ignoreInput = true;
@@ -743,11 +743,11 @@ function Player() {
 			}.bind(this), 300);
 		}
 
-		if (actions.collisionResults.nextmap && (mapper.getNextMapDirection() === "down" || mapper.getLastMapDirection() === "down")) {
-			if (mapper.getLastMapDirection() === "down") {
-				mapper.lastMapDown(mapper.mapData);
+		if (actions.collisionResults.nextmap && (renderer.getNextMapDirection() === "down" || renderer.getLastMapDirection() === "down")) {
+			if (renderer.getLastMapDirection() === "down") {
+				renderer.lastMapDown(renderer.mapData);
             } else {
-				mapper.nextMapDown(mapper.mapData);
+				renderer.nextMapDown(renderer.mapData);
             }
 
 			this.ignoreInput = true;
@@ -777,7 +777,7 @@ function Player() {
 	};
 
 	this.checkObjectCollisions = function() {
-		mapper.objects.forEach(function(object) {
+		renderer.objects.forEach(function(object) {
 			var intersection = fastCollisionPlayer(this, object);
 			if (intersection) {
 				if (object.constructor === Platform || object.constructor === DisappearingPlatform || object.constructor === DroppingPlatform) {
@@ -792,7 +792,7 @@ function Player() {
 	};
 
 	this.checkEnemyCollisions = function() {
-		mapper.enemies.forEach(function(enemy) {
+		renderer.enemies.forEach(function(enemy) {
 
 			if (enemy.health > 0 || typeof(enemy.health) === "undefined") {
 				var intersection = fastCollisionPlayer(this, enemy);

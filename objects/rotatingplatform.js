@@ -1,4 +1,4 @@
-function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xduration, delay) {
+function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 	var platformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("platform")],
 		"frames": {
@@ -19,29 +19,14 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.animations       = new createjs.Sprite(platformSpriteSheet, "still");
 	this.x                = x;// - 32;
 	this.y                = y;
-	this.initialY         = y;
-	this.initialX         = x;
-	this.xrange           = xrange;
-	this.xSpeed           = (xduration !== 0) ? xrange / xduration : 0;
+	this.xspeed           = xspeed;
 	this.lastx            = x;
 	this.lasty            = y;
-	this.yrange           = yrange;
-	this.ySpeed           = (yduration !== 0) ? yrange / yduration : 0;
+	this.yspeed           = yspeed;
 	this.activated        = false;
 	this.hardshell        = true;
 	this.goingup          = false;
 	this.goingright       = false;
-	if (xrange > 0) {
-		this.goingright = false;
-	} else {
-		this.goingright = true;
-	}
-	if (yrange > 0) {
-		this.goingup = false;
-	} else {
-		this.goingup = true;
-	}
-	this.delay            = delay;
 	this.watchedElements  = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
@@ -51,20 +36,37 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.animations.visible = true;
 
 	this.tickActions = function() {
-		if (this.delay > 0) {
-			this.delay--;
-			return;
+		if (this.xspeed < 0 && this.x < 0) {
+			this.x = renderer.getMapWidth();
+			this.lastx = this.x;
+			this.animations.x = this.x;
 		}
 
-		if (this.ySpeed !== 0) {
-			this.y += (this.goingup) ? -this.ySpeed : this.ySpeed;
-			this.animations.y += this.y - this.lasty;
+		if (this.yspeed < 0 && this.y < 0) {
+			this.y = renderer.getMapHeight();
+			this.lasty = this.y;
+			this.animations.y = this.y;
 		}
 
-		if (this.xSpeed !== 0) {
-			this.x += (this.goingright) ? -this.xSpeed : this.xSpeed;
-			this.animations.x += this.x - this.lastx;
+		if (this.xspeed > 0 && this.x > renderer.getMapWidth()) {
+			this.x = 0;
+			this.lastx = this.x;
+			this.animations.x = this.x;
 		}
+
+		if (this.yspeed > 0 && this.y > renderer.getMapHeight()) {
+			this.y = 0;
+			this.lastx = this.y;
+			this.animations.y = this.y;
+		}
+
+		this.y += this.yspeed;
+		this.animations.y += this.y - this.lasty;
+
+		this.x += this.xspeed;
+		this.animations.x += this.x - this.lastx;
+
+
 
 		if (this.activated) {
 			if (!player.onplatform) {
@@ -77,22 +79,6 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 			} else {
 				player.y = this.y - player.animations.spriteSheet._frameHeight - ((this.goingup) ? 0 : -this.ySpeed);
 				player.x += this.x - this.lastx;
-			}
-		}
-
-		if (this.ySpeed !== 0) {
-			if (this.y > this.initialY) {
-				this.goingup = true;
-			} else if (this.y < this.initialY - this.yrange) {
-				this.goingup = false;
-			}
-		}
-
-		if (this.xSpeed !== 0) {
-			if (this.x > this.initialX) {
-				this.goingright = true;
-			} else if (this.x < this.initialX - this.xrange) {
-				this.goingright = false;
 			}
 		}
 

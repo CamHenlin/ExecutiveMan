@@ -32,7 +32,7 @@ function Door(stage, basicCollision, x, y) {
 	this.down             = false;
 	this.hardshell        = true;
 	this.watchedElements  = [];
-	this.animations.x = this.x - mapper.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
 	this.animations.play();

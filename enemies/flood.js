@@ -33,7 +33,7 @@ function Flood(stage, basicCollision, x, y, original) {
 	this.hardshell        = false;
 	this.watchedElements  = [];
 	this.spent            = false;
-	this.animations.x = this.x - mapper.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
 	this.animations.play();
@@ -53,7 +53,7 @@ function Flood(stage, basicCollision, x, y, original) {
 				this.x += 2.5;
 				var collisionResults = this.basicCollision.basicCollision(this);
 				if (collisionResults.right) {
-					mapper.enemies.push(new Flood(this.stage, this.basicCollision, this.x + 13.5, this.y, false));
+					renderer.enemies.push(new Flood(this.stage, this.basicCollision, this.x + 13.5, this.y, false));
 				}
 				this.x -= 2.5;
 				this.spent = true;
@@ -61,7 +61,7 @@ function Flood(stage, basicCollision, x, y, original) {
 			}
 		}
 		this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 }

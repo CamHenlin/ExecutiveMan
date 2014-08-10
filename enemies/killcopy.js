@@ -51,9 +51,9 @@ function KillCopy(stage, basicCollision, x, y) {
 		}
 
 		if (this.health <= 0 && this.activated) {
-			mapper.itemDrop(this.x, this.y);
-			mapper.itemDrop(this.x, this.y + 50);
-			mapper.itemDrop(this.x, this.y + 100);
+			renderer.itemDrop(this.x, this.y);
+			renderer.itemDrop(this.x, this.y + 50);
+			renderer.itemDrop(this.x, this.y + 100);
 			var explosions = [];
 			for (var i = 0; i < 5; i++) {
 				explosions[i] = explosionSprite.clone(true);
@@ -171,7 +171,7 @@ function KillCopy(stage, basicCollision, x, y) {
 				playSound("papershot");
 				this.animations.gotoAndPlay("shoot");
 				setTimeout(function() {
-					this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+					this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, renderer));
 				}.bind(this), 60);
 
 
@@ -187,7 +187,7 @@ function KillCopy(stage, basicCollision, x, y) {
 					playSound("papershot");
 					this.animations.gotoAndPlay("shoot");
 					setTimeout(function() {
-						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, renderer));
 					}.bind(this), 60);
 
 
@@ -201,7 +201,7 @@ function KillCopy(stage, basicCollision, x, y) {
 					playSound("papershot");
 					this.animations.gotoAndPlay("shoot");
 					setTimeout(function() {
-						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, renderer));
 					}.bind(this), 60);
 
 
@@ -215,7 +215,7 @@ function KillCopy(stage, basicCollision, x, y) {
 					playSound("papershot");
 					this.animations.gotoAndPlay("shoot");
 					setTimeout(function() {
-						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, renderer));
 					}.bind(this), 60);
 
 
@@ -229,7 +229,7 @@ function KillCopy(stage, basicCollision, x, y) {
 					playSound("papershot");
 					this.animations.gotoAndPlay("shoot");
 					setTimeout(function() {
-						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+						this.watchedElements.push(new StraightShot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, renderer));
 					}.bind(this), 60);
 
 
@@ -249,7 +249,7 @@ function KillCopy(stage, basicCollision, x, y) {
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		}
 
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 
@@ -257,7 +257,7 @@ function KillCopy(stage, basicCollision, x, y) {
 		playSound("papershot");
 		this.animations.gotoAndPlay("shoot");
 		setTimeout(function() {
-			this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, mapper));
+			this.watchedElements.push(new Shot(stage, this.x + shotxOffset, this.y + shotyOffset, -this.animations.scaleX, this, renderer));
 		}.bind(this), 60);
 	};
 
@@ -289,7 +289,7 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.x = this.x + (5 * this.direction) * lowFramerate;
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
@@ -300,7 +300,7 @@ function KillCopy(stage, basicCollision, x, y) {
 			this.y += this.ySpeed;
 			this.ySpeed -= 0.25;
 			this.x = this.x + (4 * this.direction) * lowFramerate;
-			this.animations.x = this.x - mapper.completedMapsWidthOffset;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			if (!this.checkBounds()) {
@@ -345,7 +345,7 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.x = this.x + (5 * this.direction) * lowFramerate;
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
@@ -356,7 +356,7 @@ function KillCopy(stage, basicCollision, x, y) {
 			this.y += this.ySpeed;
 			this.ySpeed -= 0.09;
 			this.x = this.x + (4 * this.direction) * lowFramerate;
-			this.animations.x = this.x - mapper.completedMapsWidthOffset;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			if (!this.checkBounds()) {

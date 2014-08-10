@@ -3,7 +3,7 @@ var BossHealthBar = function(stage, boss) {
 	this.stage      = stage;
 	this.boss       = boss;
 	this.bars       = 28;
-	this.x          = mapper.gamestage.canvas.width - 36;
+	this.x          = renderer.gamestage.canvas.width - 36;
 	this.y          = 48; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
 
@@ -29,7 +29,7 @@ var BossHealthBar = function(stage, boss) {
 		var offset = (28 - this.bars) * 2;
 		for (i = 0; i < this.bars; i++) {
 			var barItem = new createjs.Bitmap("images/bosshealthbar.png");
-			barItem.x = mapper.gamestage.canvas.width - 35;
+			barItem.x = renderer.gamestage.canvas.width - 35;
 			barItem.y = i * 2 + offset + this.y + 1;
 			this.barAnimations.push(barItem);
 			this.stage.addChild(barItem);

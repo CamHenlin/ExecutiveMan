@@ -254,7 +254,7 @@ function bossClickHandler(event) {
 		loadGame();
         playSound("pauseopen");
 	} else {
-		for (var k = 0; k < 5; k++) { // should be 9
+		for (var k = 0; k < 9; k++) { // should be 9
 		    if (k === 4 && fastCollisionSprite(bossframes[k], touchSprite)) {
 		    	this.shopMenu.show();
 	            //event.target.removeEventListener(event.type, arguments.callee);

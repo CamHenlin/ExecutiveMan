@@ -48,9 +48,13 @@ function initShowOffBossScreen(bossnumber) {
 	} else if (bossnumber === 1) {
 		bossFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "still");
 		bossLabel = new createjs.Text("ACCOUNTING MAN", "bold 10px Arial", "#FFF");
-	}  else if (bossnumber === 2) {
+	} else if (bossnumber === 2) {
 		bossFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "still");
 		bossLabel = new createjs.Text("MATERIAL MAN", "bold 10px Arial", "#FFF");
+	} else if (bossnumber === 8) {
+		bossFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "still");
+		bossLabel = new createjs.Text("VISIONARY MAN", "bold 10px Arial", "#FFF");
+
 	}
 	showOffBossScreenCounter = 270;
 	startgame = false;
@@ -108,6 +112,9 @@ function handleShowOffBossScreenTick(event) {
 		} else if (bossnumber === 2) {
 			maps = materialmanmaps;
 			playSoundLoop("accountingmansong");
+		} else if (bossnumber === 8) {
+			maps = visionarymanmaps;
+			playSoundLoop("accountingmansong");
 		}
 		startlevel = true;
 		event.remove();
@@ -123,6 +130,8 @@ function handleShowOffBossScreenTick(event) {
 			bossLabel = new createjs.Text("ACCOUNTING MAN", "bold 10px Arial", "#FFF");
 		} else if (this.bossnumber === 2) {
 			bossLabel = new createjs.Text("MATERIAL MAN", "bold 10px Arial", "#FFF");
+		} else if (this.bossnumber === 8) {
+			bossLabel = new createjs.Text("VISIONARY MAN", "bold 10px Arial", "#FFF");
 		}
 		bossLabel.y = gamestage.canvas.height / 2 + 20;
 		bossLabel.x = gamestage.canvas.width / 2 - 30;
@@ -170,6 +179,8 @@ function handleShowOffBossScreenTick(event) {
 		} else if (this.bossnumber === 1) {
 			bossFrame = new createjs.Sprite(accountingmanSpriteSheet, "still");
 		} else if (this.bossnumber === 2) {
+			bossFrame = new createjs.Sprite(accountingmanSpriteSheet, "still");
+		} else if (this.bossnumber === 8) {
 			bossFrame = new createjs.Sprite(accountingmanSpriteSheet, "still");
 		}
 		bossFrame.x = gamestage.canvas.width / 2 - bossFrame.spriteSheet._frameWidth / 2;

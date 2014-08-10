@@ -33,7 +33,7 @@ function Copter(stage, x, y) {
 	this.dead             = false;
 	this.movementTicks    = 0;
 	this.watchedElements  = [];
-	this.animations.x = this.x - mapper.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
 	this.animations.play();
@@ -45,7 +45,7 @@ function Copter(stage, x, y) {
 		}
 
 		if (this.health <= 0) {
-			mapper.itemDrop(this.x, this.y);
+			renderer.itemDrop(this.x, this.y);
 			var explosion = explosionSprite.clone(true);
 			score += 2 * scoreModifier;
 			explosion.x = this.animations.x;
@@ -91,7 +91,7 @@ function Copter(stage, x, y) {
 		if (this.flee) {
 			this.y--;
 		}
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 

@@ -22,7 +22,7 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 	this.activated        = false;
 	this.hardshell        = false;
 	this.watchedElements  = [];
-	this.animations.x = this.x - mapper.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
 	this.animations.play();
@@ -31,7 +31,7 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 
 	this.tickActions = function() {
 		if (this.activated) {
-			mapper.enemies.forEach(function(enemy) {
+			renderer.enemies.forEach(function(enemy) {
 				if (enemy.constructor === ExplosiveBarrel) {
 					enemy.activated = true;
 				}

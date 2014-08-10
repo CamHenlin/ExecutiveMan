@@ -56,7 +56,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		}
 
 		if (this.health <= 0) {
-			mapper.itemDrop(this.x, this.y);
+			renderer.itemDrop(this.x, this.y);
 			score += 5 * scoreModifier;
 			var explosion = explosionSprite.clone(true);
 			explosion.x = this.animations.x;
@@ -116,7 +116,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		}
 
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 175 && !this.activated && this.health > 0) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, mapper));
+			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, renderer));
 			this.shootTicks = 300 / lowFramerate;
 			this.hardshell = false;
 			this.animations.gotoAndPlay("showlong");
@@ -131,7 +131,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 
 		if (this.activated) {
 			if ((!collisionResults.left && this.animations.scaleX === 1) || (!collisionResults.right && this.animations.scaleX === -1) ||
-				this.x < mapper.completedMapsWidthOffset || this.x > mapper.completedMapsWidthOffset + mapper.getMapWidth()) {
+				this.x < renderer.completedMapsWidthOffset || this.x > renderer.completedMapsWidthOffset + renderer.getMapWidth()) {
 
 				this.animations.scaleX = this.animations.scaleX * -1;
 				if (this.animations.scaleX === -1) {
@@ -151,7 +151,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 			this.shootTicks--;
 		}
 
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 
@@ -181,12 +181,12 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.x = this.x + (1.5 * this.direction) * lowFramerate;
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
 			this.x = this.x + (1.5 * this.direction) * lowFramerate;
-			this.animations.x = this.x - mapper.completedMapsWidthOffset;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			if (!this.checkBounds()) {

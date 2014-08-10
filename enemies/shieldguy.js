@@ -48,7 +48,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		}
 
 		if (this.health <= 0 && this.activated) {
-			mapper.itemDrop(this.x, this.y);
+			renderer.itemDrop(this.x, this.y);
 			var explosion = explosionSprite.clone(true);
 			score += 25 * scoreModifier;
 			explosion.x = this.animations.x;
@@ -98,7 +98,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		// figure out if we can shoot or not
 		var distanceFromPlayer = player.x - this.x;
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, mapper));
+			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, renderer));
 			this.animations.gotoAndPlay("shoot");
 			this.hardshell = false;
 			this.activated = true;
@@ -114,7 +114,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		}
 
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 
@@ -144,12 +144,12 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.x = this.x + (3 * this.direction) * lowFramerate;
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
 			this.x = this.x + (1.5 * this.direction) * lowFramerate;
-			this.animations.x = this.x - mapper.completedMapsWidthOffset;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			if (!this.checkBounds()) {

@@ -131,7 +131,7 @@ function WasteMan(stage, basicCollision, x, y) {
 			}
 
 
-			this.animations.x = this.x - mapper.completedMapsWidthOffset;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 			this.masterShotTicks--;
 			return;
@@ -193,7 +193,7 @@ function WasteMan(stage, basicCollision, x, y) {
 				if ((this.runningLeft && player.goingRight) || this.runningRight && player.goingLeft) {
 					this.masterShot = true;
 					this.animations.gotoAndPlay("jump");
-					this.xspeed = (mapper.getMapWidth() / 2 - (this.x - mapper.completedMapsWidthOffset)) / 60;
+					this.xspeed = (renderer.getMapWidth() / 2 - (this.x - renderer.completedMapsWidthOffset)) / 60;
 					this.yspeed = -1;
 					this.masterShotTicks = 60;
 					this.ignoreDamage = true;
@@ -226,7 +226,7 @@ function WasteMan(stage, basicCollision, x, y) {
 			this.runningRight = false;
 			this.scaleX = 1;
 			this.animations.regX = 0;
-			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, mapper));
+			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			this.animations.gotoAndPlay("shoot");
 		} else if (distanceFromPlayer > 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is right!
 			//console.log("player is right");
@@ -247,7 +247,7 @@ function WasteMan(stage, basicCollision, x, y) {
 			this.runningRight = false;
 			this.runningLeft = false;
 			this.scaleX = -1;
-			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, mapper));
+			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			this.animations.gotoAndPlay("shoot");
 			this.animations.regX = this.animations.spriteSheet._frameWidth;
 		}
@@ -267,7 +267,7 @@ function WasteMan(stage, basicCollision, x, y) {
             this.jumpspeed = -4.875 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 
-			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, mapper));
+			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			//this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60) / lowFramerate;
 		}
 
@@ -285,19 +285,19 @@ function WasteMan(stage, basicCollision, x, y) {
 			this.shootTicks--;
 		}
 		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225 && !this.runningLeft && !this.runningRight) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, mapper));
+			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			this.animations.gotoAndPlay("shoot");
 			this.shootTicks = 100 / lowFramerate;
 		}
 
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 
 	this.launchMasterShot = function() {
 		for (var i = 0; i < 4; i++) {
-			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (mapper.getMapHeight()/ 4) * i, 1, this));
-			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (mapper.getMapHeight()/ 4) * i, -1, this));
+			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight()/ 4) * i, 1, this));
+			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight()/ 4) * i, -1, this));
 		}
 	};
 
@@ -334,12 +334,12 @@ function WasteMan(stage, basicCollision, x, y) {
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.x = this.x + (3 * this.direction) * lowFramerate;
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
 			this.x = this.x + (1.5 * this.direction) * lowFramerate;
-			this.animations.x = this.x - mapper.completedMapsWidthOffset;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			if (!this.checkBounds()) {
@@ -359,7 +359,7 @@ function WasteMan(stage, basicCollision, x, y) {
 
 	this.createManyShotsDown = function() {
 		for (var i = 0; i < 8; i++) {
-			this.watchedElements.push(new ShotDown(stage, (mapper.getMapWidth() / 8) * i + mapper.widthOffset));
+			this.watchedElements.push(new ShotDown(stage, (renderer.getMapWidth() / 8) * i + renderer.widthOffset));
 		}
 	};
 
@@ -387,12 +387,12 @@ function WasteMan(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
 			this.y += 5;
-			this.animations.x = this.x - mapper.completedMapsWidthOffset;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			if (!this.checkBounds()) {

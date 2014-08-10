@@ -29,7 +29,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 	this.goingup          = false;
 	this.goingright       = false;
 	this.watchedElements  = [];
-	this.animations.x = this.x - mapper.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
 	this.animations.play();

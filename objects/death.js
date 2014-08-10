@@ -29,7 +29,7 @@ function Death(stage, x, y) {
 	for (var i = 0; i < 8; i++) {
 		console.log("DEATH");
 		this.animations[i] = new createjs.Sprite(deathSpriteSheet, "death");
-		this.animations[i].x = this.x - mapper.completedMapsWidthOffset;
+		this.animations[i].x = this.x - renderer.completedMapsWidthOffset;
 		this.animations[i].y = this.y;
 		this.animations[i].play();
 		this.stage.addChild(this.animations[i]);
@@ -43,7 +43,7 @@ function Death(stage, x, y) {
 		for (var i = 8; i < 16; i++) {
 			console.log("DEATH");
 			this.animations[i] = new createjs.Sprite(deathSpriteSheet, "altdeath");
-			this.animations[i].x = this.x - mapper.completedMapsWidthOffset;
+			this.animations[i].x = this.x - renderer.completedMapsWidthOffset;
 			this.animations[i].y = this.y;
 			this.animations[i].play();
 			this.stage.addChild(this.animations[i]);
@@ -55,7 +55,7 @@ function Death(stage, x, y) {
 		}
 	}.bind(this), 350);
 
-	mapper.enemies.push(this);
+	renderer.enemies.push(this);
 
 	this.tickActions = function() {
 

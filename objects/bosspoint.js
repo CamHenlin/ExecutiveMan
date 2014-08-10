@@ -23,7 +23,7 @@ function BossPoint(stage, basicCollision, x) {
 	this.activated        = false;
 	this.hardshell        = true;
 	this.watchedElements  = [];
-	this.animations.x = this.x - mapper.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = 0;
 
 	this.animations.play();

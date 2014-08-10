@@ -27,7 +27,7 @@ function LittleHealth(stage, x, y, basicCollision) {
 	this.hardshell        = false;
 	this.movementTicks    = 0;
 	this.watchedElements  = [];
-	this.animations.x = this.x - mapper.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
 	this.animations.play();
@@ -72,7 +72,7 @@ function LittleHealth(stage, x, y, basicCollision) {
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		}
 
-		this.animations.x = this.x - mapper.completedMapsWidthOffset;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};
 }

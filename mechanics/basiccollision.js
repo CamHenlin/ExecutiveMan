@@ -1,16 +1,16 @@
-function BasicCollision(mapper) {
-	this.mapper = mapper;
+function BasicCollision(renderer) {
+	this.renderer = renderer;
 
 	this.basicCollision = function(object) {
 		var modifier = 2;
 		var xmodifier = 2;
 
 		return this.checkCollisions({
-			left : { x: object.x + xmodifier - this.mapper.completedMapsWidthOffset, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
-			bottom : { x: object.x - this.mapper.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2 , y: object.y + object.animations.spriteSheet._frameHeight },
-			right : { x: object.x - this.mapper.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth - xmodifier, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
-			top : { x: object.x - this.mapper.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2 , y: object.y + modifier }
-		}, this.mapper.collisionArray, this.mapper.heightOffset, this.mapper.widthOffset);
+			left : { x: object.x + xmodifier - this.renderer.completedMapsWidthOffset, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
+			bottom : { x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2 , y: object.y + object.animations.spriteSheet._frameHeight },
+			right : { x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth - xmodifier, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
+			top : { x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2 , y: object.y + modifier }
+		}, this.renderer.collisionArray, this.renderer.heightOffset, this.renderer.widthOffset);
 	};
 
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
