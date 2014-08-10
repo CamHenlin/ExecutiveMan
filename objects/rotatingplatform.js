@@ -66,19 +66,17 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 		this.x += this.xspeed;
 		this.animations.x += this.x - this.lastx;
 
-
-
 		if (this.activated) {
-			if (!player.onplatform) {
-				this.activated = false;
-			}
-
 			if (!fastCollisionPlatform(player, this)) { // player no longer on platform
 				player.onplatform = false;
 				this.activated = false;
 			} else {
 				player.y = this.y - player.animations.spriteSheet._frameHeight;
-				player.x += this.x - this.lastx;
+				if (player.gameActions.collisionResults.rightmove && player.gameActions.collisionResults.leftmove) {
+					player.x += this.x - this.lastx;
+				}
+
+				player.onplatform = true;
 			}
 		}
 

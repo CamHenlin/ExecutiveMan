@@ -397,8 +397,8 @@ function handleTick(event) {
 		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - ((player.animations.scaleX === 1) ? 12 : 0), y: player.y + player.animations.spriteSheet._frameHeight },
 		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier - 2 },
 		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier, y: player.y + modifier + 2 },
-		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - 2, y: player.y + modifier },
-		topLeft : { x: player.x + xmodifier - 2, y: player.y + modifier }
+		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - ((player.animations.scaleX === 1) ? 12 : 0), y: player.y + modifier },
+		topLeft : { x: player.x + xmodifier + ((player.animations.scaleX === 1) ? 0 : 12), y: player.y + modifier }
 	};
 	var playerDeathCollisionPoints = {
 		leftTop : { x: player.x + xmodifier * 2, y: player.y + modifier * 2 },

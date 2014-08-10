@@ -451,7 +451,7 @@ function Player() {
 				}
 
 				if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
-					this.ignoreLeftRightCollisionThisFrame = 1;
+					this.ignoreLeftRightCollisionThisFrame = 0;
 				}
 			}
 
@@ -550,8 +550,6 @@ function Player() {
             }
         }
 
-
-
         if (this.actions.playerJump && !this.jumping && actions.collisionResults.upmove && this.jumpreleased) {
             actions.collisionResults.downmove = true;
             this.jumpreleased = false;
@@ -610,7 +608,7 @@ function Player() {
 			this.falling = true;// megaman's jumpspeed set to .5 when he bonks his head
 			//this.y += this.jumpspeed * lowFramerate;
 			if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
-				this.ignoreLeftRightCollisionThisFrame = 5;
+				this.ignoreLeftRightCollisionThisFrame = 0;
 			}
 		} else if (this.onplatform && !actions.collisionResults.upmove) {
 			this.y += 38;
@@ -706,6 +704,18 @@ function Player() {
 			this.x = this.lastx;
 		}
 
+
+		this.checkObjectCollisions();
+
+		if (!actions.collisionResults.rightmove && this.onplatform && this.x > this.lastx) {
+			console.log("pushing player");
+			this.lastx = this.x;
+		}
+
+		if (!actions.collisionResults.leftmove && this.onplatform && this.x < this.lastx) {
+			this.lastx = this.x;
+		}
+
 		if ((this.x - renderer.completedMapsWidthOffset > this.gamestage.canvas.width / 2) &&
 			(renderer.getMapWidth() + renderer.completedMapsWidthOffset > this.x + this.gamestage.canvas.width / 2)) {
 
@@ -756,8 +766,6 @@ function Player() {
 				this.ignoreInput = false;
 			}.bind(this), 500);
 		}
-
-		this.checkObjectCollisions();
 		if (!this.ignoreDamage) {
 			if (!skipThisCheck) {
 				this.checkEnemyCollisions();
@@ -780,9 +788,9 @@ function Player() {
 		renderer.objects.forEach(function(object) {
 			var intersection = fastCollisionPlayer(this, object);
 			if (intersection) {
-				if (object.constructor === Platform || object.constructor === DisappearingPlatform || object.constructor === DroppingPlatform) {
+				/*if (object.constructor === Platform || object.constructor === DisappearingPlatform || object.constructor === DroppingPlatform || object.constructor === RotatingPlatform) {
 					intersection = fastInitialCollisionPlatform(this, object);
-				}
+				}*/
 
 				if (typeof(object.playerCollisionActions) === "function") {
 					object.playerCollisionActions();
