@@ -39,6 +39,13 @@ function Door(stage, basicCollision, x, y) {
 	this.stage.addChild(this.animations);
 
 	this.tickActions = function() {
+		if (this.activated) {
+			player.animations.x += 0.06115;
+			player.x += 0.06115;
+
+			player.actions.playerLeft = false;
+			player.actions.playerRight = false;
+		}
 	};
 
 	this.playerCollisionActions = function() {
@@ -46,20 +53,13 @@ function Door(stage, basicCollision, x, y) {
 			return;
 		}
 
-		player.actions.playerLeft = false;
-		player.actions.playerRight = false;
-		player.animations.gotoAndPlay("stand");
+		player.animations.gotoAndPlay("run");
+		this.activated = true;
 		player.ignoreInput = true;
-		player.ignoreBounceBack = true;
-		player.ignoreDamage = true;
 		this.animations.gotoAndPlay("open");
 		setTimeout(function() {
 			player.ignoreInput = false;
-			player.ignoreBounceBack = false;
 			this.down = true;
 		}.bind(this), 3000);
-		setTimeout(function() {
-			player.ignoreDamage = false;
-		}.bind(this), 6000);
 	};
 }

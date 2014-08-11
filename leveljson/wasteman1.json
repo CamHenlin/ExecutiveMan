@@ -58,7 +58,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "backgroundColor":"#9999CC",
+     "backgroundColor":"9999CC",
      "nextMapDirection":"right",
      "stitchx":"0"
     },

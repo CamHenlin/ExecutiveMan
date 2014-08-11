@@ -505,7 +505,7 @@ function Player() {
 		}
 
         if (this.ignoreInput) {
-            if (this.ignoreDamage && !this.ignoreBounceBack) {
+            if (!this.ignoreBounceBack) {
             	if ((actions.collisionResults.leftMove && this.animations.scaleX === 1) || (actions.collisionResults.rightMove && this.animations.scaleX === -1)) {
             		this.x += -this.animations.scaleX * lowFramerate;
             	}
@@ -532,7 +532,24 @@ function Player() {
                 }.bind(this));
 
                 this.checkObjectCollisions();
+
+
+
             }
+
+            if (this.x + this.animations.spriteSheet._frameWidth > renderer.getMapWidth() + renderer.completedMapsWidthOffset + renderer.widthOffset && (renderer.getNextMapDirection() === "right" || renderer.getLastMapDirection() === "right")) {
+				if (renderer.getLastMapDirection() === "right") {
+	                renderer.lastMapRight(renderer.mapData);
+	            } else {
+					renderer.nextMapRight(renderer.mapData);
+				}
+
+				this.ignoreInput = true;
+				setTimeout(function() {
+					this.ignoreInput = false;
+				}.bind(this), 300);
+			}
+
             return;
         }
 
@@ -564,7 +581,7 @@ function Player() {
             this.jumping = true;
             this.animations.gotoAndPlay("jump");
             this.jumpCount = 1;
-        } else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 2 && !doubleJump) {
+        } else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 2) {
             this.jumpspeed = 2;
 		} else if (this.jumping && this.jumpspeed >= 0 && actions.collisionResults.upmove && this.actions.playerJump && doubleJump && this.jumpCount === 1 && this.jumpreleased) {
 			this.jumpspeed = -4.875;

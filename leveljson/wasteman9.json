@@ -84,9 +84,9 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "backgroundColor":"#000",
-     "stitchx":"608",
-     "nextMapDirection":"right"
+     "backgroundColor":"000000",
+     "nextMapDirection":"right",
+     "stitchx":"608"
     },
  "tileheight":16,
  "tilesets":[

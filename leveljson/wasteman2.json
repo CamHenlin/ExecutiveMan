@@ -160,7 +160,7 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "backgroundColor":"#3d6952",
+     "backgroundColor":"3d6952",
      "nextMapDirection":"down",
      "stitchx":"0"
     },
