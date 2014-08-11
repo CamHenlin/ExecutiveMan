@@ -782,6 +782,8 @@ function Player() {
 			setTimeout(function() {
 				this.ignoreInput = false;
 			}.bind(this), 500);
+		} else if (actions.collisionResults.nextmap && (this.y + this.animations.spriteSheet._frameHeight) > renderer.getMapHeight() + renderer.heightOffset) {
+			this.health = 0;
 		}
 		if (!this.ignoreDamage) {
 			if (!skipThisCheck) {

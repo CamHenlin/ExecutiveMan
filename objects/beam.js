@@ -1,6 +1,6 @@
-function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
+function Beam(stage, basicCollision, x, y, xspeed, yspeed) {
 	var platformSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("rotatingplatform")],
+		"images": [loader.getResult("beam")],
 		"frames": {
 			"width": 16, "height": 16, "count": 2
 		},
@@ -8,7 +8,7 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 			"still": {
 				"frames" : [0, 1],
 				"next" : "still",
-				"speed" : 0.125
+				"speed" : 0.0615
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -67,45 +67,11 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 		this.x += this.xspeed;
 		this.animations.x += this.x - this.lastx;
 
-		if (this.activated) {
-			if (!fastCollisionPlatform(player, this)) { // player no longer on platform
-				player.onplatform = false;
-				this.activated = false;
-			} else {
-				player.y = this.y - player.animations.spriteSheet._frameHeight;
-				if (player.gameActions.collisionResults.rightmove && player.gameActions.collisionResults.leftmove) {
-					player.x += this.x - this.lastx;
-				}
-
-				player.onplatform = true;
-			}
-		}
-
 		this.lasty = this.y;
 		this.lastx = this.x;
 	};
 
 	this.playerCollisionActions = function() {
-		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 16)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
-			return;
-		}
 
-		if (player.animations.currentAnimation !== "run") {
-			playSound("jumpland");
-		}
-
-		this.activated = true;
-		player.onplatform = true;
-		player.jumping = false;
-		player.falling = false;
-		player.jumpspeed = 0;
-		player.jumpCount = 0;
-		player.y = this.y - player.animations.spriteSheet._frameHeight;
-
-		if (!player.goingLeft && !player.goingRight) {
-			player.animations.gotoAndPlay("stand");
-		} else {
-			player.animations.gotoAndPlay("run");
-		}
 	};
 }

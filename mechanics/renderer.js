@@ -483,6 +483,11 @@ function Renderer(gamestage) {
 																	parseInt(layer.objects[j].properties.xspeed), parseInt(layer.objects[j].properties.yspeed)));
 					}
 
+					if (layer.objects[j].type === "beam") {
+						this.objects.push(new Beam(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
+																	parseInt(layer.objects[j].properties.xspeed), parseInt(layer.objects[j].properties.yspeed)));
+					}
+
 					if (layer.objects[j].type === "halfwaypoint") {
 						this.enemies.push(new HalfwayPoint(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x));
 					}
