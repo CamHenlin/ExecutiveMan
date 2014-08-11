@@ -1,11 +1,11 @@
 java -jar compiler.jar \
 	--js=libs/easeljs-NEXT.min.js --js=libs/soundjs-0.5.2.min.js --js=libs/preload-NEXT.min.js \
 	\
-	--js=levels/wastemanlevel.js --js=levels/accountingmanlevel.js  --js=levels/materialmanlevel.js \
+	--js=levels/wastemanlevel.js --js=levels/accountingmanlevel.js  --js=levels/materialmanlevel.js --js=levels/visionarymanlevel.js \
 	\
 	--js=objects/healthbar.js --js=objects/death.js --js=objects/bosspoint.js --js=objects/door.js --js=objects/explosivebarrel.js \
-	--js=objects/platform.js --js=objects/droppingplatform.js --js=objects/disappearingplatform.js \
-	--js=objects/bosshealthbar.js --js=objects/bighealth.js --js=objects/littlehealth.js --js=objects/extralife.js \
+	--js=objects/platform.js --js=objects/droppingplatform.js --js=objects/disappearingplatform.js --js=objects/rotatingplatform.js \
+	--js=objects/bosshealthbar.js --js=objects/bighealth.js --js=objects/littlehealth.js --js=objects/extralife.js --js=objects/beam.js \
 	--js=objects/halfwaypoint.js \
 	\
 	--js=enemies/killcopy.js --js=enemies/wasteman.js  --js=enemies/accountingman.js --js=enemies/printerguy.js \
