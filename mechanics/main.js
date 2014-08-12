@@ -31,9 +31,12 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "wastemanframe", src: "images/wastemanframe.png"},
 						{id: "shopframe", src: "images/shopframe.png"},
 						{id: "accountingmanframe", src: "images/accountingmanframe.png"},
+						{id: "warehousemanframe", src: "images/warehousemanframe.png"},
 						{id: "wasteman", src: "images/wastemanspritesheet.png"},
 						{id: "accountingman", src: "images/accountingmansprite.png"},
+						{id: "warehouseman", src: "images/warehousemanspritesheet.png"},
 						{id: "wastemanshot", src: "images/wastemanshot.png"},
+						{id: "warehousemanshot", src: "images/warehousemanshot.png"},
 						{id: "filingcabinet", src: "images/filingcabinet.png"},
 						{id: "killcopy", src: "images/killcopy.png"},
 						{id: "phone", src: "images/phone.png"},
@@ -133,7 +136,7 @@ var healthModifier = 1;
 var scoreModifier = 1;
 
 
-var titleSreenSprite;
+var titleScreenSprite;
 
 function init() {
 	initVars();
@@ -230,11 +233,14 @@ function beginGame(newGame) {
 			renderer.mapData = maps[accountingmanBossPoint];
 			renderer.mapcounter = accountingmanBossPoint;
 		} else if (bossnumber === 2) {
-			renderer.mapData = maps[accountingmanBossPoint];
-			renderer.mapcounter = accountingmanBossPoint;
+			renderer.mapData = maps[materialmanBossPoint];
+			renderer.mapcounter = materialmanBossPoint;
+		} else if (bossnumber === 7) {
+			renderer.mapData = maps[warehousemanBossPoint];
+			renderer.mapcounter = warehousemanBossPoint;
 		} else if (bossnumber === 8) {
-			renderer.mapData = maps[accountingmanBossPoint];
-			renderer.mapcounter = accountingmanBossPoint;
+			renderer.mapData = maps[visionaryManBossPoint];
+			renderer.mapcounter = visionaryManBossPoint;
 		}
 	} else if (halfwayPointReached) {
 		if (bossnumber === 0) {
@@ -244,11 +250,14 @@ function beginGame(newGame) {
 			renderer.mapData = maps[accountingmanHalfwayPoint];
 			renderer.mapcounter = accountingmanHalfwayPoint;
 		} else if (bossnumber === 2) {
-			renderer.mapData = maps[accountingmanHalfwayPoint];
-			renderer.mapcounter = accountingmanHalfwayPoint;
+			renderer.mapData = maps[materialmanHalfwayPoint];
+			renderer.mapcounter = materialmanHalfwayPoint;
+		} else if (bossnumber === 7) {
+			renderer.mapData = maps[warehousemanHalfwayPoint];
+			renderer.mapcounter = warehousemanHalfwayPoint;
 		} else if (bossnumber === 8) {
-			renderer.mapData = maps[accountingmanHalfwayPoint];
-			renderer.mapcounter = accountingmanHalfwayPoint;
+			renderer.mapData = maps[visionaryManHalfwayPoint];
+			renderer.mapcounter = visionaryManHalfwayPoint;
 		}
 	}
 

@@ -52,9 +52,24 @@ function initBossScreen() {
 
 	var materialManLabel = new createjs.Text("MATERIAL \n     MAN", "bold 7px Arial", "#FFF");
 	var HRManLabel = new createjs.Text("HR MAN", "bold 7px Arial", "#FFF");
-	var salesManLAbel = new createjs.Text("SALES MAN", "bold 7px Arial", "#FFF");
+	var salesManLabel = new createjs.Text("SALES MAN", "bold 7px Arial", "#FFF");
 	var ITManLabel = new createjs.Text("IT MAN", "bold 7px Arial", "#FFF");
+
+	var warehousemanFrameSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("warehousemanframe")],
+		"frames": {
+			"width": 20, "height": 24, "count": 1
+		},
+		"animations": {
+			"frame": {
+				"frames" : [0],
+				"next" : "frame"
+			}
+		}
+	});
 	var warehouseMan = new createjs.Text("WAREHOUSE \n        MAN", "bold 7px Arial", "#FFF");
+	var warehousemanFrame = new createjs.Sprite(warehousemanFrameSpriteSheet, "frame");
+
 	var visionaryMan = new createjs.Text("VISIONARY \n      MAN", "bold 7px Arial", "#FFF");
 
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -157,14 +172,16 @@ function initBossScreen() {
 			shopLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 5) {
-			salesManLAbel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
-			salesManLAbel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			salesManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
+			salesManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 6) {
 			ITManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 10;
 			ITManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 7) {
+			warehousemanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + warehousemanFrame.spriteSheet._frameWidth /2 + 2 ;
+			warehousemanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + warehousemanFrame.spriteSheet._frameWidth/2 ;
 			warehouseMan.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
 			warehouseMan.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
@@ -194,9 +211,12 @@ function initBossScreen() {
 
 	stage.addChild(materialManLabel);
 	stage.addChild(HRManLabel);
-	stage.addChild(salesManLAbel);
+	stage.addChild(salesManLabel);
 	stage.addChild(ITManLabel);
+
+	stage.addChild(warehousemanFrame);
 	stage.addChild(warehouseMan);
+
 	stage.addChild(visionaryMan);
 
 	stage.addChild(shopFrame);

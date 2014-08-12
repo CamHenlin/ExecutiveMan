@@ -40,6 +40,20 @@ function initShowOffBossScreen(bossnumber) {
 			}
 		}
 	});
+
+	var warehousemanFrameSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("warehousemanframe")],
+		"frames": {
+			"width": 20, "height": 24, "count": 1
+		},
+		"animations": {
+			"still": {
+				"frames" : [0],
+				"next" : "still"
+			}
+		}
+	});
+
 	var bossFrame;
 	var bossLabel;
 	if (bossnumber === 0) {
@@ -51,6 +65,9 @@ function initShowOffBossScreen(bossnumber) {
 	} else if (bossnumber === 2) {
 		bossFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "still");
 		bossLabel = new createjs.Text("MATERIAL MAN", "bold 10px Arial", "#FFF");
+	}  else if (bossnumber === 7) {
+		bossFrame = new createjs.Sprite(warehousemanFrameSpriteSheet, "still");
+		bossLabel = new createjs.Text("WAREHOUSE MAN", "bold 10px Arial", "#FFF");
 	} else if (bossnumber === 8) {
 		bossFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "still");
 		bossLabel = new createjs.Text("VISIONARY MAN", "bold 10px Arial", "#FFF");
@@ -112,6 +129,9 @@ function handleShowOffBossScreenTick(event) {
 		} else if (bossnumber === 2) {
 			maps = materialmanmaps;
 			playSoundLoop("accountingmansong");
+		} else if (bossnumber === 7) {
+			maps = warehousemanmaps;
+			playSoundLoop("warehousemansong");
 		} else if (bossnumber === 8) {
 			maps = visionarymanmaps;
 			playSoundLoop("accountingmansong");
@@ -130,6 +150,8 @@ function handleShowOffBossScreenTick(event) {
 			bossLabel = new createjs.Text("ACCOUNTING MAN", "bold 10px Arial", "#FFF");
 		} else if (this.bossnumber === 2) {
 			bossLabel = new createjs.Text("MATERIAL MAN", "bold 10px Arial", "#FFF");
+		} else if (this.bossnumber === 7) {
+			bossLabel = new createjs.Text("WAREHOUSE MAN", "bold 10px Arial", "#FFF");
 		} else if (this.bossnumber === 8) {
 			bossLabel = new createjs.Text("VISIONARY MAN", "bold 10px Arial", "#FFF");
 		}
@@ -172,6 +194,20 @@ function handleShowOffBossScreenTick(event) {
 				}
 			}
 		});
+
+		var warehousemanSpriteSheet = new createjs.SpriteSheet({
+			"images": [loader.getResult("warehousemanframe")],
+			"frames": {
+				"width": 20, "height": 24, "count": 1
+			},
+			"animations": {
+				"still": {
+					"frames" : [0],
+					"next" : "still"
+				}
+			}
+		});
+
 		var bossFrame;
 
 		if (this.bossnumber === 0) {
@@ -180,6 +216,8 @@ function handleShowOffBossScreenTick(event) {
 			bossFrame = new createjs.Sprite(accountingmanSpriteSheet, "still");
 		} else if (this.bossnumber === 2) {
 			bossFrame = new createjs.Sprite(accountingmanSpriteSheet, "still");
+		} else if (this.bossnumber === 7) {
+			bossFrame = new createjs.Sprite(warehousemanSpriteSheet, "still");
 		} else if (this.bossnumber === 8) {
 			bossFrame = new createjs.Sprite(accountingmanSpriteSheet, "still");
 		}

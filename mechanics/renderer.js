@@ -543,6 +543,8 @@ function Renderer(gamestage) {
 						enemyArray.push(new WasteMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 101) {
 						enemyArray.push(new AccountingMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 102) {
+						enemyArray.push(new WarehouseMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 50) {
 						enemyArray.push(new KillCopy(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					}
