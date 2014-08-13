@@ -55,7 +55,6 @@ function WarehouseMan(stage, basicCollision, x, y) {
 	this.runningRight     = false;
 	this.xspeed           = 0;
 	this.yspeed           = 0;
-	this.masterShotTicks  = 0;
 	this.shootTicks       = 100;
 	this.jumpspeed        = 0;
 	this.jumpTicks        = 0;
@@ -112,30 +111,11 @@ function WarehouseMan(stage, basicCollision, x, y) {
 				for (var i = 0; i < 5; i++) {
 					this.stage.removeChild(explosions[i]);
 				}
-			}.bind(this), 120);
+			}.bind(this), 180);
 			new Death(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, this.y + this.animations.spriteSheet._frameHeight / 2);
 			score += 75000 * scoreModifier;
 			player.defeatedBoss();
 			this.dead = true;
-			return;
-		}
-
-		if (this.masterShot) {
-			if (this.masterShotTicks === 0) {
-				this.launchMasterShot();
-				this.masterShot = false;
-			} else if (this.masterShotTicks > 0) {
-				if (this.masterShotTicks < 40) {
-					this.animations.gotoAndPlay("longshoot");
-				}
-				this.x += this.xspeed;
-				this.y += this.yspeed;
-			}
-
-
-			this.animations.x = this.x - renderer.completedMapsWidthOffset;
-			this.animations.y = this.y;
-			this.masterShotTicks--;
 			return;
 		}
 
@@ -190,23 +170,6 @@ function WarehouseMan(stage, basicCollision, x, y) {
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		}
 
-		if ((this.runningLeft && player.goingRight) || this.runningRight && player.goingLeft) {
-			setTimeout(function() {
-				if ((this.runningLeft && player.goingRight) || this.runningRight && player.goingLeft) {
-					this.masterShot = true;
-					this.animations.gotoAndPlay("jump");
-					this.xspeed = (renderer.getMapWidth() / 2 - (this.x - renderer.completedMapsWidthOffset)) / 60;
-					this.yspeed = -1;
-					this.masterShotTicks = 60;
-					this.ignoreDamage = true;
-					setTimeout(function() {
-						this.ignoreDamage = false;
-					}.bind(this), 2000);
-				}
-			}.bind(this), 1000);
-		}
-
-
 		// figure out if we can shoot or not
 		if (distanceFromPlayer < 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is left!
 		    //console.log("player is left");
@@ -214,14 +177,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 			this.runningLeft = true;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningLeft && collisionResults.left) {
-			this.x -= (this.health < 14) ? 2.3 : 1.9; // faster than executiveman!
-			if (Math.abs(distanceFromPlayer) > 256 && !this.lastRunDirLeft) {
-				this.lastRunDirLeft = true;
-				this.runningRight = false;
-				this.runningLeft = false;
-				this.animations.gotoAndPlay("shoot");
-				this.createManyShotsDown();
-			}
+			this.x -= (this.health < 14) ? 1.6 : 1.3; // faster than executiveman!
 		} else if (this.runningLeft && !collisionResults.left) {
 			this.runTicker = 120;
 			this.runningLeft = false;
@@ -236,14 +192,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		    this.lastRunDirLeft = false;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningRight && collisionResults.right) {
-			this.x += (this.health < 14) ? 1.9 : 1.5; // faster than executiveman!
-			if (Math.abs(distanceFromPlayer) > 256 && !this.lastRunDirRight) {
-				this.lastRunDirRight = true;
-				this.runningRight = false;
-				this.runningLeft = false;
-				this.animations.gotoAndPlay("shoot");
-				this.createManyShotsDown();
-			}
+			this.x += (this.health < 14) ? 1.6 : 1.3; // faster than executiveman!
 		} else if (this.runningRight && !collisionResults.right) {
 			this.runTicker = 120;
 			this.runningRight = false;
@@ -256,9 +205,8 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		this.runTicker--;
 
 		if (this.runTicker > 10 && this.shootTicks === 0 && Math.abs(distanceFromPlayer) > 196) {
-			//console.log("creating many shots down");
+			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this));
 			this.animations.gotoAndPlay("shoot");
-			this.createManyShotsDown();
 			this.shootTicks = 200 / lowFramerate;
 		}
 
@@ -266,7 +214,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 			this.jumpTicks = 40 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
-            this.jumpspeed = -10.875 * lowFramerate;
+            this.jumpspeed = -7.05 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 
 			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
@@ -286,8 +234,9 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		if (this.shootTicks > 0) {
 			this.shootTicks--;
 		}
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225 && !this.runningLeft && !this.runningRight) {
-			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
+
+		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225 && !this.runningLeft && !this.runningRight && this.y < player.y) {
+			this.watchedElements.push(new BigShot(stage, this.x, this.y, this.animations.scaleX, this, this.basicCollision));
 			this.animations.gotoAndPlay("shoot");
 			this.shootTicks = 100 / lowFramerate;
 		}
@@ -313,13 +262,6 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		return false;
 	};
 
-	this.launchMasterShot = function() {
-		for (var i = 0; i < 4; i++) {
-			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight()/ 4) * i, 1, this));
-			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight()/ 4) * i, -1, this));
-		}
-	};
-
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("warehousemanshot")],
@@ -338,11 +280,6 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		this.damage     = 6;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		if (!owner.masterShot) {
-			this.animations.scaleX = -owner.animations.scaleX;
-	    } else {
-			this.animations.scaleX = -direction;
-	    }
 		this.animations.regX = (this.animations.scaleX === -1) ? this.animations.spriteSheet._frameWidth : 0;
 		this.x          = x + ((this.direction === 1) ? 16 : -2);
 		this.y          = y + 11;
@@ -375,56 +312,139 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		};
 	};
 
-	this.createManyShotsDown = function() {
-		for (var i = 0; i < 8; i++) {
-			this.watchedElements.push(new ShotDown(stage, (renderer.getMapWidth() / 8) * i + renderer.widthOffset));
-		}
-	};
-
-	var ShotDown = function(stage, x) {
-		var shotDownSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("wastemanshotdown")],
+	var BigShot = function(stage, x, y, direction, owner, basicCollision) {
+		var shotSpriteSheet = new createjs.SpriteSheet({
+			"images": [loader.getResult("warehousemanbigshot")],
 			"frames": {
-				"width": 10, "height": 10, "count": 2
+				"width": 16, "height": 16, "count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0, 1],
-					"next" : "shot",
-					"speed" : 0.25
+					"frames" : [0],
+					"next" : "shot"
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 5;
-		this.animations = new createjs.Sprite(shotDownSpriteSheet, "shot");
-		this.x          = x;
-		this.y          = -50;
+		this.stage            = stage;
+		this.damage           = 8;
+		this.direction        = direction;
+		this.animations       = new createjs.Sprite(shotSpriteSheet, "shot");
+		this.basicCollision   = basicCollision;
+		this.watchedElements  = [];
+
+		this.animations.regX = (direction === -1) ? this.animations.spriteSheet._frameWidth : 0;
+		this.x          = x + ((this.direction === 1) ? 16 : -2);
+		this.y          = y + 11;
 		this.disabled   = false;
+		this.owner      = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
+		this.x = this.x + (2.5 * this.direction) * lowFramerate;
+		this.yspeed = -1;
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
 		this.tickActions = function() {
-			this.y += 5;
+			if (this.disabled) {
+				return;
+			}
+
+			this.yspeed = this.yspeed + 0.075 * lowFramerate;
+			if (this.yspeed > 12 / lowFramerate) {
+				this.yspeed = 12 / lowFramerate;
+			}
+			this.y += this.yspeed;
+			this.x = this.x + (1.5 * this.direction) * lowFramerate;
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
-			if (!this.checkBounds()) {
-				this.removeSelf();
+			var collisionResults = this.basicCollision.basicCollision(this);
+			if (!collisionResults.down) {
+				this.breakApart();
 			}
+		};
+
+		this.breakApart = function() {
+			this.removeSelf();
+			this.owner.watchedElements.push(new SmallShot(this.stage, this.x, this.y, this.direction, this, this.basicCollision));
+			this.owner.watchedElements.push(new SmallShot(this.stage, this.x, this.y, -this.direction, this, this.basicCollision));
 		};
 
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;
 		};
+	};
 
-		this.checkBounds = function() {
-			return (this.y < player.y + 1000);
+	var SmallShot = function(stage, x, y, direction, owner, basicCollision) {
+		var shotSpriteSheet = new createjs.SpriteSheet({
+			"images": [loader.getResult("warehousemanshot")],
+			"frames": {
+				"width": 8, "height": 8, "count": 1
+			},
+			"animations": {
+				"shot": {
+					"frames" : [0],
+					"next" : "shot"
+				}
+			}
+		});
+
+		this.stage            = stage;
+		this.damage           = 4;
+		this.direction        = direction;
+		this.animations       = new createjs.Sprite(shotSpriteSheet, "shot");
+		this.watchedElements  = [];
+
+		this.animations.regX = (direction === -1) ? this.animations.spriteSheet._frameWidth : 0;
+		this.x          = x + ((this.direction === 1) ? 16 : -2);
+		this.y          = y;
+		this.disabled   = false;
+		this.owner      = owner;
+		this.yspeed =   -2;
+		this.basicCollision = basicCollision;
+		this.bounceCount = 0;
+
+		this.animations.play();
+		this.stage.addChild(this.animations);
+		this.x = this.x + (1 * this.direction) * lowFramerate;
+		this.animations.x = this.x - renderer.completedMapsWidthOffset;
+		this.animations.y = this.y;
+
+		this.tickActions = function() {
+			if (this.disabled) {
+				return;
+			}
+
+			this.yspeed = this.yspeed + 0.0625 * lowFramerate;
+			if (this.yspeed > 12 / lowFramerate) {
+				this.yspeed = 12 / lowFramerate;
+			}
+			this.y += this.yspeed;
+			this.x = this.x + (1.55 * this.direction) * lowFramerate;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
+			this.animations.y = this.y;
+
+			var collisionResults = this.basicCollision.basicCollision(this);
+			if (!collisionResults.down) {
+				if (this.bounceCount > 3) { 
+					this.removeSelf();
+				} else {
+					if (this.bounceCount > 1) {
+						this.yspeed = -1;
+					} else {
+						this.yspeed = -1.5;
+					}
+					this.bounceCount++;
+				}
+			}
+		};
+
+		this.removeSelf = function() {
+			this.stage.removeChild(this.animations);
+			this.disabled = true;
 		};
 	};
 }
