@@ -752,7 +752,7 @@ function Player() {
 		}.bind(this));
 
 		if (this.actions.playerDebug) {
-			damageModifier = 1000;
+			//damageModifier = 1000;
 		}
 		//console.log(this.x);
 		//

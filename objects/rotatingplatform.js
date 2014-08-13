@@ -37,20 +37,20 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 	this.animations.visible = true;
 
 	this.tickActions = function() {
-		if (this.xspeed < 0 && this.x < 0) {
-			this.x = renderer.getMapWidth();
+		if (this.xspeed < 0 && this.x < renderer.completedMapsWidthOffset) {
+			this.x = renderer.getMapWidth() + renderer.completedMapsWidthOffset;
 			this.lastx = this.x;
-			this.animations.x = this.x;
+			this.animations.x = this.x -  renderer.completedMapsWidthOffset;
 		}
 
-		if (this.yspeed < 0 && this.y < 0) {
+		if (this.yspeed < 0 && this.y < renderer.completedMapsWidthOffset) {
 			this.y = renderer.getMapHeight();
 			this.lasty = this.y;
 			this.animations.y = this.y;
 		}
 
-		if (this.xspeed > 0 && this.x > renderer.getMapWidth()) {
-			this.x = 0;
+		if (this.xspeed > 0 && this.x > renderer.getMapWidth() + renderer.completedMapsWidthOffset) {
+			this.x = renderer.completedMapsWidthOffset;
 			this.lastx = this.x;
 			this.animations.x = this.x;
 		}

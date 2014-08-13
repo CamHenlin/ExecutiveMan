@@ -49,8 +49,21 @@ function initBossScreen() {
 	var wastemanFrame = new createjs.Sprite(wastemanFrameSpriteSheet, "frame");
 	var wastemanLabel = new createjs.Text("WASTE MAN", "bold 7px Arial", "#FFF");
 
-
+	var materialmanFrameSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("materialmanframe")],
+		"frames": {
+			"width": 32, "height": 33, "count": 1
+		},
+		"animations": {
+			"frame": {
+				"frames" : [0],
+				"next" : "frame"
+			}
+		}
+	});
+	var materialmanFrame = new createjs.Sprite(materialmanFrameSpriteSheet, "frame");
 	var materialManLabel = new createjs.Text("MATERIAL \n     MAN", "bold 7px Arial", "#FFF");
+
 	var HRManLabel = new createjs.Text("HR MAN", "bold 7px Arial", "#FFF");
 	var salesManLabel = new createjs.Text("SALES MAN", "bold 7px Arial", "#FFF");
 	var ITManLabel = new createjs.Text("IT MAN", "bold 7px Arial", "#FFF");
@@ -158,6 +171,8 @@ function initBossScreen() {
 			accountingmanLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 2) {
+			materialmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 - 5;
+			materialmanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -7;
 			materialManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 5;
 			materialManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
@@ -209,6 +224,7 @@ function initBossScreen() {
 	stage.addChild(wastemanFrame);
 	stage.addChild(wastemanLabel);
 
+	stage.addChild(materialmanFrame);
 	stage.addChild(materialManLabel);
 	stage.addChild(HRManLabel);
 	stage.addChild(salesManLabel);

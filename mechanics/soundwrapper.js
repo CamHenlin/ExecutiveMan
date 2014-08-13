@@ -11,6 +11,10 @@ createjs.Sound.registerSound("sounds/papershot.wav", "papershot");
 createjs.Sound.registerSound("sounds/health.wav", "health");
 createjs.Sound.registerSound("sounds/extralife.wav", "extralife");
 
+createjs.Sound.registerSound("sounds/warehousemanshoot.wav", "warehousemanshoot");
+createjs.Sound.registerSound("sounds/warehousemanshothit.wav", "warehousemanshothit");
+createjs.Sound.registerSound("sounds/warehousemanshothitsmall.wav", "warehousemanshothitsmall");
+
 createjs.Sound.registerSound("songs/trust.mp3", "wastemansong");
 createjs.Sound.registerSound("songs/psychotron.mp3", "accountingmansong");
 

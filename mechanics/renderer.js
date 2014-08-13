@@ -423,6 +423,7 @@ function Renderer(gamestage) {
 		var w = this.mapData.tilesets[0].tilewidth;
 		var h = this.mapData.tilesets[0].tileheight;
 		this.enemies = [];
+		this.objects = [];
 
 		if (this.mapData.tilesets[0].image.indexOf("..\/") > -1) {
 			this.mapData.tilesets[0].image = this.mapData.tilesets[0].image.replace("..\/", "");
@@ -545,6 +546,8 @@ function Renderer(gamestage) {
 						enemyArray.push(new AccountingMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 102) {
 						enemyArray.push(new WarehouseMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 103) {
+						enemyArray.push(new MaterialMan(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 50) {
 						enemyArray.push(new KillCopy(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					}

@@ -1,9 +1,9 @@
-function WarehouseMan(stage, basicCollision, x, y) {
+function MaterialMan(stage, basicCollision, x, y) {
 
-	var warehouseManSpriteShet = new createjs.SpriteSheet({
-		"images": [loader.getResult("warehouseman")],
+	var materialManSpriteShet = new createjs.SpriteSheet({
+		"images": [loader.getResult("materialman")],
 		"frames": {
-			"width": 24, "height": 28, "count": 8
+			"width": 32, "height": 33, "count": 7
 		},
 		"animations": {
 			"stand": {
@@ -16,21 +16,21 @@ function WarehouseMan(stage, basicCollision, x, y) {
 				"speed" : 0.09
 			},
 			"jump" : {
-				"frames" : [6],
+				"frames" : [2],
 				"next" : "jump"
 			},
 			"shoot" : {
-				"frames" : [4],
+				"frames" : [6],
 				"next" : "stand",
 				"speed" : 0.0625
 			},
 			"runshoot" : {
-				"frames" : [5],
+				"frames" : [3],
 				"next" : "run",
 				"speed" : 0.0625
 			},
 			"jumpshoot" : {
-				"frames" : [7],
+				"frames" : [4],
 				"next" : "jumpshoot",
 				"speed" : 0.0625
 			}
@@ -42,7 +42,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 	this.lasthealth       = 28;
 	this.damage           = 3;
 	this.stage            = stage;
-	this.animations       = new createjs.Sprite(warehouseManSpriteShet, "stand");
+	this.animations       = new createjs.Sprite(materialManSpriteShet, "stand");
 	this.x                = x;
 	this.y                = y;
 	this.animations.x     = x;
@@ -214,7 +214,17 @@ function WarehouseMan(stage, basicCollision, x, y) {
 			this.jumpTicks = 40 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
-            this.jumpspeed = -7.05 * lowFramerate;
+            this.jumpspeed = -4.875 * lowFramerate;
+			this.animations.gotoAndPlay("jump");
+
+			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
+			//this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60) / lowFramerate;
+		}  else if (this.jumpTicks === 0 && !this.jumping && (!collisionResults.right || !collisionResults.left)) {
+			this.jumpTicks = 40 / lowFramerate;
+			this.y -= 2;
+			this.x += (this.scaleX) ? -8 : 8;
+			this.jumping = true;
+            this.jumpspeed = -4.875 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 
 			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
