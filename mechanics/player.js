@@ -834,33 +834,37 @@ function Player() {
 					}
 
 					if (enemy.damage > 0) {
-						this.health -= enemy.damage / damageModifier;
-						this.damageSprite.x = this.animations.x;
-						this.damageSprite.y = this.animations.y;
-						this.damageSprite.gotoAndPlay("damage");
-						this.gamestage.addChild(this.damageSprite);
-						setTimeout(function() {
-							this.gamestage.removeChild(this.damageSprite);
-						}.bind(this), 180);
-						this.animations.gotoAndPlay("damage");
+						if (!this.ignoreDamage) {
+							this.health -= enemy.damage / damageModifier;
 
-						playSound("playerdamaged");
-						this.ignoreInput = true;
-						this.ignoreDamage = true;
-						this.blinkTimer = 16;
-						this.x += -this.animations.scaleX;
-						setTimeout(function() {
-							if (dead) {
-								return;
-							}
-							if (this.blinkTimer > 8) {
-								this.gamestage.addChild(this.animations);
-							}
-							this.ignoreDamage = false;
-						}.bind(this), 2000);
-						setTimeout(function() {
-							this.ignoreInput = false;
-						}.bind(this), 240);
+							this.damageSprite.x = this.animations.x;
+							this.damageSprite.y = this.animations.y;
+							this.damageSprite.gotoAndPlay("damage");
+							this.gamestage.addChild(this.damageSprite);
+							setTimeout(function() {
+								this.gamestage.removeChild(this.damageSprite);
+							}.bind(this), 180);
+							this.animations.gotoAndPlay("damage");
+
+							playSound("playerdamaged");
+							this.ignoreInput = true;
+							this.ignoreDamage = true;
+							this.blinkTimer = 16;
+							this.x += -this.animations.scaleX;
+
+							setTimeout(function() {
+								if (dead) {
+									return;
+								}
+								if (this.blinkTimer > 8) {
+									this.gamestage.addChild(this.animations);
+								}
+								this.ignoreDamage = false;
+							}.bind(this), 2000);
+							setTimeout(function() {
+								this.ignoreInput = false;
+							}.bind(this), 240);
+						}
 					} else if (enemy.damage < 0) { // this is actually health!
 						this.health -= enemy.damage;
 						enemy.health = -1;
@@ -889,37 +893,39 @@ function Player() {
 				var intersection = fastCollisionPlayer(this, enemyshot);
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemyshot.animations);
 				if (intersection) {
-					enemyshot.removeSelf();
-					this.health -= enemyshot.damage; // should actually come from the enemy
-					this.animations.gotoAndPlay("damage");
-					this.damageSprite.x = this.animations.x;
-					this.damageSprite.y = this.animations.y;
-					this.damageSprite.gotoAndPlay("damage");
-					this.gamestage.addChild(this.damageSprite);
-					setTimeout(function() {
-						this.gamestage.removeChild(this.damageSprite);
-					}.bind(this), 180);
+					if (!this.ignoreDamage) {
+						enemyshot.removeSelf();
+						this.health -= enemyshot.damage; // should actually come from the enemy
+						this.animations.gotoAndPlay("damage");
+						this.damageSprite.x = this.animations.x;
+						this.damageSprite.y = this.animations.y;
+						this.damageSprite.gotoAndPlay("damage");
+						this.gamestage.addChild(this.damageSprite);
+						setTimeout(function() {
+							this.gamestage.removeChild(this.damageSprite);
+						}.bind(this), 180);
 
-					playSound("playerdamaged");
-					this.ignoreInput = true;
-					this.ignoreDamage = true;
-					this.blinkTimer = 16;
-					this.x += -this.animations.scaleX;
-					setTimeout(function() {
-						if (dead) {
-							return;
-						}
-						if (this.blinkTimer > 8) {
-							this.gamestage.addChild(this.animations);
-						}
-						this.ignoreDamage = false;
-					}.bind(this), 2000);
-					setTimeout(function() {
-						this.ignoreInput = false;
-					}.bind(this), 240);
+						playSound("playerdamaged");
+						this.ignoreInput = true;
+						this.ignoreDamage = true;
+						this.blinkTimer = 16;
+						this.x += -this.animations.scaleX;
+						setTimeout(function() {
+							if (dead) {
+								return;
+							}
+							if (this.blinkTimer > 8) {
+								this.gamestage.addChild(this.animations);
+							}
+							this.ignoreDamage = false;
+						}.bind(this), 2000);
+						setTimeout(function() {
+							this.ignoreInput = false;
+						}.bind(this), 240);
 
-					if (this.jumpspeed < 2 && this.jumping) {
-						this.jumpspeed = 2;
+						if (this.jumpspeed < 2 && this.jumping) {
+							this.jumpspeed = 2;
+						}
 					}
 				}
 			}.bind(this));

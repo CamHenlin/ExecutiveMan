@@ -201,6 +201,17 @@ function MaterialMan(stage, basicCollision, x, y) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			this.animations.gotoAndPlay("shoot");
 			this.animations.regX = this.animations.spriteSheet._frameWidth;
+		} else if (this.runTicker < 50 && this.shootTicks === 0) {
+			this.jumpTicks = 90 / lowFramerate;
+			this.y -= 2;
+			this.jumping = true;
+            this.jumpspeed = -4.875 * lowFramerate;
+			this.animations.gotoAndPlay("jump");
+			setTimeout(function() {
+				this.watchedElements.push(new BigShot(stage, this.x, this.y, this.animations.scaleX, this, this.basicCollision));
+				this.animations.gotoAndPlay("shoot");
+				playSound("warehousemanshoot");
+			}.bind(this), 180);
 		}
 		this.runTicker--;
 
