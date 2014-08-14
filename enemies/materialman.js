@@ -220,9 +220,8 @@ function MaterialMan(stage, basicCollision, x, y) {
 			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			//this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60) / lowFramerate;
 		}  else if (this.jumpTicks === 0 && !this.jumping && (!collisionResults.right || !collisionResults.left)) {
-			this.jumpTicks = 40 / lowFramerate;
+			this.jumpTicks = 90 / lowFramerate;
 			this.y -= 2;
-			this.x += (this.scaleX) ? -8 : 8;
 			this.jumping = true;
             this.jumpspeed = -4.875 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
@@ -353,7 +352,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.x = this.x + (2.5 * this.direction) * lowFramerate;
-		this.yspeed = -1;
+		this.yspeed = -0.75;
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -367,7 +366,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 				this.yspeed = 12 / lowFramerate;
 			}
 			this.y += this.yspeed;
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			this.x = this.x + (2 * this.direction) * lowFramerate;
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
@@ -381,7 +380,6 @@ function MaterialMan(stage, basicCollision, x, y) {
 		this.breakApart = function() {
 			this.removeSelf();
 			this.owner.watchedElements.push(new SmallShot(this.stage, this.x, this.y, this.direction, this, this.basicCollision));
-			this.owner.watchedElements.push(new SmallShot(this.stage, this.x, this.y, -this.direction, this, this.basicCollision));
 		};
 
 		this.removeSelf = function() {
@@ -415,7 +413,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 		this.y          = y;
 		this.disabled   = false;
 		this.owner      = owner;
-		this.yspeed =   -2;
+		this.yspeed =   -0.75;
 		this.basicCollision = basicCollision;
 		this.bounceCount = 0;
 
@@ -435,14 +433,14 @@ function MaterialMan(stage, basicCollision, x, y) {
 				this.yspeed = 12 / lowFramerate;
 			}
 			this.y += this.yspeed;
-			this.x = this.x + (1.55 * this.direction) * lowFramerate;
+			this.x = this.x + (2.25 * this.direction) * lowFramerate;
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
 			var collisionResults = this.basicCollision.basicCollision(this);
 			if (!collisionResults.down) {
 				playSound("warehousemanshothitsmall");
-				if (this.bounceCount > 3) { 
+				if (this.bounceCount > 2) {
 					this.removeSelf();
 				} else {
 					if (this.bounceCount > 1) {

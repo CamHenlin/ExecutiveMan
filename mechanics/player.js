@@ -416,6 +416,9 @@ function Player() {
 		this.gameActions = actions;
 
         if (actions.playerDeath) {
+            this.watchedElements.forEach(function(element) {
+                element.tickActions(actions);
+            }.bind(this));
             this.health = 0;
             this.animations.gotoAndPlay("damage");
             playSound("playerdamaged");
@@ -847,7 +850,7 @@ function Player() {
 						this.blinkTimer = 16;
 						this.x += -this.animations.scaleX;
 						setTimeout(function() {
-							if (this.dead) {
+							if (dead) {
 								return;
 							}
 							if (this.blinkTimer > 8) {
@@ -903,7 +906,7 @@ function Player() {
 					this.blinkTimer = 16;
 					this.x += -this.animations.scaleX;
 					setTimeout(function() {
-						if (this.dead) {
+						if (dead) {
 							return;
 						}
 						if (this.blinkTimer > 8) {
