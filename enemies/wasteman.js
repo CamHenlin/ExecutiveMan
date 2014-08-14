@@ -105,6 +105,7 @@ function WasteMan(stage, basicCollision, x, y) {
 			explosions[4].x = this.animations.x + this.animations.spriteSheet._frameWidth;
 			explosions[4].y = this.animations.y + this.animations.spriteSheet._frameHeight;
 			this.stage.removeChild(this.animations);
+			new Death(renderer.enemyContainer, this.x + 12, this.y + 16);
 
 			this.health = -1;
 			setTimeout(function() {

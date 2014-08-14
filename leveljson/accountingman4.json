@@ -104,7 +104,7 @@
                  "type":"platform",
                  "visible":true,
                  "width":0,
-                 "x":112,
+                 "x":48,
                  "y":80
                 }, 
                 {
@@ -120,7 +120,7 @@
                  "type":"platform",
                  "visible":true,
                  "width":0,
-                 "x":96,
+                 "x":64,
                  "y":80
                 }],
          "opacity":1,

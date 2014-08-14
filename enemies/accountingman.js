@@ -55,7 +55,6 @@ function AccountingMan(stage, basicCollision, x, y) {
 	this.runningRight     = false;
 	this.xspeed           = 0;
 	this.yspeed           = 0;
-	this.masterShotTicks  = 0;
 	this.shootTicks       = 100;
 	this.jumpspeed        = 0;
 	this.jumpTicks        = 0;
@@ -106,35 +105,16 @@ function AccountingMan(stage, basicCollision, x, y) {
 			explosions[4].x = this.animations.x + this.animations.spriteSheet._frameWidth;
 			explosions[4].y = this.animations.y + this.animations.spriteSheet._frameHeight;
 			this.stage.removeChild(this.animations);
-
+			new Death(renderer.enemyContainer, this.x + 12, this.y + 16);
 			this.health = -1;
 			setTimeout(function() {
 				for (var i = 0; i < 5; i++) {
 					this.stage.removeChild(explosions[i]);
 				}
 			}.bind(this), 300);
-			score += 500000 * scoreModifier;
+			score += 50000 * scoreModifier;
 			player.defeatedBoss();
 			this.dead = true;
-			return;
-		}
-
-		if (this.masterShot) {
-			if (this.masterShotTicks === 0) {
-				this.launchMasterShot();
-				this.masterShot = false;
-			} else if (this.masterShotTicks > 0) {
-				if (this.masterShotTicks < 40) {
-					this.animations.gotoAndPlay("shoot");
-				}
-				this.x += this.xspeed;
-				this.y += this.yspeed;
-			}
-
-
-			this.animations.x = this.x - renderer.completedMapsWidthOffset;
-			this.animations.y = this.y;
-			this.masterShotTicks--;
 			return;
 		}
 
@@ -189,22 +169,6 @@ function AccountingMan(stage, basicCollision, x, y) {
 			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
 		}
 
-		if ((this.runningLeft && player.goingRight) || this.runningRight && player.goingLeft) {
-			setTimeout(function() {
-				if ((this.runningLeft && player.goingRight) || this.runningRight && player.goingLeft) {
-					this.masterShot = true;
-					this.animations.gotoAndPlay("jump");
-					this.xspeed = (renderer.getMapWidth() / 2 - (this.x - renderer.completedMapsWidthOffset)) / 60;
-					this.yspeed = -1;
-					this.masterShotTicks = 60;
-					this.ignoreDamage = true;
-					setTimeout(function() {
-						this.ignoreDamage = false;
-					}.bind(this), 2000);
-				}
-			}.bind(this), 1000);
-		}
-
 
 		// figure out if we can shoot or not
 		if (distanceFromPlayer < 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is left!
@@ -213,13 +177,13 @@ function AccountingMan(stage, basicCollision, x, y) {
 			this.runningLeft = true;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningLeft && collisionResults.left) {
-			this.x -= (this.health < 14) ? 2.5 : 2.1; // faster than executiveman!
+			this.x += (this.health < 14) ? 1.7 : 1.55; // faster than executiveman!
 			if (Math.abs(distanceFromPlayer) > 192 && !this.lastRunDirLeft) {
 				this.lastRunDirLeft = true;
 				this.runningRight = false;
 				this.runningLeft = false;
 				this.animations.gotoAndPlay("shoot");
-				this.createManyShotsDown();
+				this.watchedElements.push(new MagicShot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			}
 		} else if (this.runningLeft && !collisionResults.left) {
 			this.runTicker = 120;
@@ -235,13 +199,13 @@ function AccountingMan(stage, basicCollision, x, y) {
 			this.lastRunDirLeft = false;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningRight && collisionResults.right) {
-			this.x += (this.health < 14) ? 2.1 : 1.7; // faster than executiveman!
+			this.x += (this.health < 14) ? 1.7 : 1.55; // faster than executiveman!
 			if (Math.abs(distanceFromPlayer) > 192 && !this.lastRunDirRight) {
 				this.lastRunDirRight = true;
 				this.runningRight = false;
 				this.runningLeft = false;
 				this.animations.gotoAndPlay("shoot");
-				this.createManyShotsDown();
+				this.watchedElements.push(new MagicShot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			}
 		} else if (this.runningRight && !collisionResults.right) {
 			this.runTicker = 120;
@@ -254,10 +218,10 @@ function AccountingMan(stage, basicCollision, x, y) {
 		}
 		this.runTicker--;
 
-		if (this.runTicker > 10 && this.shootTicks === 0 && Math.abs(distanceFromPlayer) > 196) {
+		if (this.runTicker > 10 && this.shootTicks === 0 && Math.abs(distanceFromPlayer) > 256) {
 			//console.log("creating many shots down");
 			this.animations.gotoAndPlay("shoot");
-			this.createManyShotsDown();
+			this.watchedElements.push(new MagicShot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			this.shootTicks = 200 / lowFramerate;
 		}
 
@@ -295,13 +259,6 @@ function AccountingMan(stage, basicCollision, x, y) {
 		this.animations.y = this.y;
 	};
 
-	this.launchMasterShot = function() {
-		for (var i = 0; i < 4; i++) {
-			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight()/ 4) * i, 1, this));
-			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight()/ 4) * i, -1, this));
-		}
-	};
-
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("wastemanshot")],
@@ -321,11 +278,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 		this.damage     = 6;
 		this.direction  = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		if (!owner.masterShot) {
-			this.animations.scaleX = -owner.animations.scaleX;
-		} else {
-			this.animations.scaleX = -direction;
-		}
+
 		this.animations.regX = (this.animations.scaleX === -1) ? this.animations.spriteSheet._frameWidth : 0;
 		this.x          = x + ((this.direction === 1) ? 16 : -2);
 		this.y          = y + 11;
@@ -358,17 +311,11 @@ function AccountingMan(stage, basicCollision, x, y) {
 		};
 	};
 
-	this.createManyShotsDown = function() {
-		for (var i = 0; i < 8; i++) {
-			this.watchedElements.push(new ShotDown(stage, (renderer.getMapWidth() / 8) * i + renderer.widthOffset));
-		}
-	};
-
-	var ShotDown = function(stage, x) {
-		var shotDownSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("wastemanshotdown")],
+	var MagicShot = function(stage, x, y, direction, owner) {
+		var shotSpriteSheet = new createjs.SpriteSheet({
+			"images": [loader.getResult("moneyspin")],
 			"frames": {
-				"width": 10, "height": 10, "count": 2
+				"width": 16, "height": 16, "count": 2
 			},
 			"animations": {
 				"shot": {
@@ -380,25 +327,45 @@ function AccountingMan(stage, basicCollision, x, y) {
 		});
 
 		this.stage      = stage;
-		this.damage     = 5;
-		this.animations = new createjs.Sprite(shotDownSpriteSheet, "shot");
-		this.x          = x;
-		this.y          = -50;
-		this.disabled   = false;
+		this.damage     = 6;
+		this.direction  = direction;
+		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 
+		this.animations.regX = (this.animations.scaleX === -1) ? this.animations.spriteSheet._frameWidth : 0;
+		this.x          = x + ((this.direction === 1) ? 16 : -2);
+		this.y          = y + 11;
+		this.disabled   = false;
+		this.owner      = owner;
+		this.activated  = false;
 		this.animations.play();
 		this.stage.addChild(this.animations);
+		this.x = this.x + (3 * this.direction) * lowFramerate;
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
+		this.xspeed = 0;
+		this.yspeed = -2;
 
 		this.tickActions = function() {
-			this.y += 5;
-			this.animations.x = this.x - renderer.completedMapsWidthOffset;
-			this.animations.y = this.y;
+			if (!this.activated) {
+				if (this.yspeed === 0) {
+					this.activated = true;
+					this.yspeed = Math.cos(Math.tan((this.x - player.x - renderer.completedMapsWidthOffset) / (this.y - player.y)));
+					this.xspeed = Math.sin(Math.tan((this.x - player.x - renderer.completedMapsWidthOffset) / (this.y - player.y)));
+				} else {
+					this.y += this.yspeed;
+					this.yspeed -= 0.125;
+				}
+			} else {
+				this.x += this.xspeed;
+				this.y += this.yspeed;
+			}
 
 			if (!this.checkBounds()) {
 				this.removeSelf();
 			}
+
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
+			this.animations.y = this.y;
 		};
 
 		this.removeSelf = function() {
@@ -407,7 +374,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 		};
 
 		this.checkBounds = function() {
-			return (this.y < player.y + 1000);
+			return !(this.x < 0 || this.x > player.x + 1000);
 		};
 	};
 }

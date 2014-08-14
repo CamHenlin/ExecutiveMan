@@ -81,18 +81,18 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 		}
 
 		if (this.ySpeed !== 0) {
-			if (this.y > this.initialY) {
-				this.goingup = true;
-			} else if (this.y < this.initialY - this.yrange) {
-				this.goingup = false;
+			if ((this.y > this.initialY && this.ySpeed > 0) || (this.y < this.initialY && this.ySpeed < 0)) {
+				this.goingup = !this.goingup;
+			} else if ((this.y < this.initialY - this.yrange && this.ySpeed > 0) || (this.y > this.initialY - this.yrange && this.ySpeed < 0)) {
+				this.goingup = !this.goingup;
 			}
 		}
 
 		if (this.xSpeed !== 0) {
-			if (this.x > this.initialX) {
-				this.goingright = true;
-			} else if (this.x < this.initialX - this.xrange) {
-				this.goingright = false;
+			if ((this.x > this.initialX && this.xSpeed > 0) || (this.x < this.initialX && this.xSpeed < 0)) {
+				this.goingright = !this.goingright;
+			} else if ((this.x < this.initialX - this.xrange && this.xSpeed > 0) || (this.x > this.initialX - this.xrange && this.xSpeed < 0)) {
+				this.goingright = !this.goingright;
 			}
 		}
 
