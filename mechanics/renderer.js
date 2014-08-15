@@ -82,26 +82,26 @@ function Renderer(gamestage) {
 		this.showingReadyLabel = true;
 
 		this.gamestage.addChild(readyLabel2);
-		readyLabel2.visible = false;
+		readyLabel2.visible = true;
 		this.gamestage.addChild(readyLabel);
-		readyLabel.visible = false;
+		readyLabel.visible = true;
 
-		var iterations = 20;
+		var iterations = 8;
 		for (var i = 1; i <= iterations; i++) {
 			setTimeout(function() {
 				readyLabel.visible = true;
 				readyLabel2.visible = true;
-			}.bind(this), (120 * i));
+			}.bind(this), (180 * i + 240));
 			setTimeout(function() {
 				readyLabel.visible = false;
 				readyLabel2.visible = false;
-			}.bind(this), (120 * i + 60));
+			}.bind(this), (180 * i + 120 + 240));
 		}
 
 		setTimeout(function() {
 			this.gamestage.removeChild(readyLabel);
 			this.gamestage.removeChild(readyLabel2);
-		}.bind(this), (iterations * 120 + 60));
+		}.bind(this), (iterations * 180 + 60 + 240));
 		setTimeout(function() {
 			this.showingReadyLabel = false;
 		}.bind(this), 3000);
