@@ -85,46 +85,23 @@ function Renderer(gamestage) {
 		readyLabel2.visible = false;
 		this.gamestage.addChild(readyLabel);
 		readyLabel.visible = false;
-		setTimeout(function() {
-			readyLabel.visible = true;
-			readyLabel2.visible = true;
-		}.bind(this), 250);
-		setTimeout(function() {
-			readyLabel.visible = false;
-			readyLabel2.visible = false;
-		}.bind(this), 500);
-		setTimeout(function() {
-			readyLabel.visible = true;
-			readyLabel2.visible = true;
-		}.bind(this), 750);
-		setTimeout(function() {
-			readyLabel.visible = false;
-			readyLabel2.visible = false;
-		}.bind(this), 1000);
-		setTimeout(function() {
-			readyLabel.visible = true;
-			readyLabel2.visible = true;
-		}.bind(this), 1250);
-		setTimeout(function() {
-			readyLabel.visible = false;
-			readyLabel2.visible = false;
-		}.bind(this), 625);
-		setTimeout(function() {
-			readyLabel.visible = true;
-			readyLabel2.visible = true;
-		}.bind(this), 750);
-		setTimeout(function() {
-			readyLabel.visible = false;
-			readyLabel2.visible = false;
-		}.bind(this), 875);
-		setTimeout(function() {
-			readyLabel.visible = true;
-			readyLabel2.visible = true;
-		}.bind(this), 1375);
+
+		var iterations = 20;
+		for (var i = 1; i <= iterations; i++) {
+			setTimeout(function() {
+				readyLabel.visible = true;
+				readyLabel2.visible = true;
+			}.bind(this), (120 * i));
+			setTimeout(function() {
+				readyLabel.visible = false;
+				readyLabel2.visible = false;
+			}.bind(this), (120 * i + 60));
+		}
+
 		setTimeout(function() {
 			this.gamestage.removeChild(readyLabel);
 			this.gamestage.removeChild(readyLabel2);
-		}.bind(this), 1500);
+		}.bind(this), (iterations * 120 + 60));
 		setTimeout(function() {
 			this.showingReadyLabel = false;
 		}.bind(this), 3000);
