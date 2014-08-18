@@ -8,6 +8,7 @@
 		return;
 	}
 
+    var userAgent = navigator.userAgent;
 	if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
 		return;
 	} else if (userAgent.match(/Android/i)) {

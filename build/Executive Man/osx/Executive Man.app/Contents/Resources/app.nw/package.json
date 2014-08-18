@@ -1,0 +1,23 @@
+{
+	"main" : "index.html",
+	"name" : "Executive Man",
+	"description" : "Retro-inspired, run and gun platform shooter",
+	"version" : "0.1",
+	"keywords" : ["demo", "executive man", "game"],
+	"window" : {
+		"title" : "Executive Man",
+		"icon" : "images/extralife.png",
+		"toolbar" : false,
+		"frame" : false,
+		"width" : 800,
+		"height" : 600,
+		"position" : "center",
+		"min_width" : 640,
+		"min_height" : 480,
+		"max_width" : 1920,
+		"max_height" : 1080
+	},
+	"webkit" : {
+		"plugin" : true
+	}
+}
