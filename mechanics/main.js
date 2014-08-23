@@ -50,6 +50,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "healthbriefcase", src: "images/healthbriefcase.png"},
 						{id: "littlehealth", src: "images/littlehealth.png"},
 						{id: "rotatingplatform", src: "images/rotatingplatform.png"},
+						{id: "annoyingthing", src: "images/annoyingthing.png"},
 						{id: "beam", src: "images/beam.png"},
 						{id: "death", src: "images/death.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
@@ -99,6 +100,7 @@ var stage;
 var altstage;
 var gamestage;
 var pausestage;
+var optionsstage;
 var watchedElements;
 var player;
 var renderer;

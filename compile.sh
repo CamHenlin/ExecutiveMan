@@ -1,3 +1,9 @@
+cd leveljson
+./makelevel.sh accountingman
+./makelevel.sh materialman
+./makelevel.sh visionaryman
+./makelevel.sh warehouseman
+cd ../
 java -jar compiler.jar \
 	--js=libs/easeljs-NEXT.min.js --js=libs/soundjs-0.5.2.min.js --js=libs/preload-NEXT.min.js \
 	\
@@ -10,7 +16,7 @@ java -jar compiler.jar \
 	--js=objects/halfwaypoint.js \
 	\
 	--js=enemies/killcopy.js --js=enemies/wasteman.js  --js=enemies/accountingman.js --js=enemies/printerguy.js \
-	--js=enemies/flood.js --js=enemies/shieldguy.js --js=enemies/copter.js --js=enemies/phone.js \
+	--js=enemies/flood.js --js=enemies/shieldguy.js --js=enemies/copter.js --js=enemies/phone.js --js=enemies/annoyingthing.js \
 	--js=enemies/filingcabinet.js --js=enemies/warehouseman.js --js=enemies/materialman.js \
 	\
 	 --js=mechanics/main.js --js=mechanics/collision.js --js=mechanics/fastCollision.js \

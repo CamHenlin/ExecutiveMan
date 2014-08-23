@@ -513,6 +513,8 @@ function Renderer(gamestage) {
 						enemyArray.push(new Door(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 7) {
 						enemyArray.push(new Phone(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 8) {
+						enemyArray.push(new AnnoyingThing(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 98) {
 						enemyArray.push(new ExtraLife(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 99) {
