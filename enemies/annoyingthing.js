@@ -9,17 +9,17 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 			"left": {
 				"frames" : [0, 1],
 				"next" : "left",
-				"speed" : 0.125
+				"speed" : (4 / lowFramerate) / skipFrames
 			},
 			"right" : {
 				"frames" : [3, 2],
 				"next" : "right",
-				"speed" : 0.125
+				"speed" : (4 / lowFramerate) / skipFrames
 			},
 			"pause" : {
 				"frames" : [0, 3],
 				"next" : "pause",
-				"speed" : 0.125
+				"speed" : (2 / lowFramerate) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -124,7 +124,7 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 				(!checkDirectionChangeCollisionResults.rightmove ||
 				 !checkDirectionChangeCollisionResults.leftmove)) {
 
-				this.directionTimer = 6;
+				this.directionTimer = 1;
 				this.direction = !this.direction;
 				if (this.direction) {
 					this.animations.gotoAndPlay('left');

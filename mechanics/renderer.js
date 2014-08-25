@@ -62,6 +62,7 @@ function Renderer(gamestage) {
 
 	this.advance = function(amount) {
 		this.parentContainer.x += amount;
+		this.enemyContainer.x += amount;
 	};
 
 	this.showingReadyLabel = false;
@@ -126,6 +127,7 @@ function Renderer(gamestage) {
 		this.lastParentContainer = this.parentContainer.clone(true);
 		this.gamestage.addChild(this.lastParentContainer);
 		this.gamestage.removeChild(this.parentContainer);
+		this.gamestage.removeChild(this.enemyContainer);
 
 		//this.container.removeAllChildren();
 		this.parentContainer.removeAllChildren();
@@ -151,6 +153,7 @@ function Renderer(gamestage) {
 	this.completeRenderer = function() {
 		this.parentContainer.tickEnabled = false;
 		this.parentContainer.snapToPixel = true;
+		this.enemyContainer.tickEnabled = true;
 
 		//this.beginCaching(this.parentContainer);
 
@@ -158,11 +161,12 @@ function Renderer(gamestage) {
 		this.parentContainer.addChild(this.backgroundContainer2);
 		this.parentContainer.addChild(this.container);
 		//this.parentContainer.addChild(this.lastContainer);
-		//this.parentContainer.removeChild(player.animations);
-		this.parentContainer.addChild(player.animations);
 		//this.parentContainer.removeChild(this.enemyContainer);
-		this.parentContainer.addChild(this.enemyContainer);
 		this.gamestage.addChild(this.parentContainer);
+		this.gamestage.addChild(this.enemyContainer);
+
+		this.gamestage.removeChild(player.animations);
+		this.gamestage.addChild(player.animations);
 		player.healthbar.draw();
 		if (logFPS) {
 			gamestage.addChild(fpsLabel);
@@ -202,6 +206,7 @@ function Renderer(gamestage) {
 
 		this.initLayers();
 		this.parentContainer.y = this.gameBottom;
+		this.enemyContainer.y = this.gameBottom
 
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
@@ -211,6 +216,7 @@ function Renderer(gamestage) {
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.parentContainer.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset
 
 		this.completeRenderer();
 
@@ -240,6 +246,7 @@ function Renderer(gamestage) {
 
 		this.initLayers();
 		this.parentContainer.y = this.gameBottom;
+		this.enemyContainer.y = this.gameBottom;
 
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
@@ -249,6 +256,7 @@ function Renderer(gamestage) {
 			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.parentContainer.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -278,6 +286,7 @@ function Renderer(gamestage) {
 		this.transitionup = true;
 
 		this.parentContainer.y = -this.gameBottom;
+		this.enemyContainer.y = -this.gameBottom;
 
 		// build new map
 		if (this.widthOffset !== 0) {
@@ -288,6 +297,7 @@ function Renderer(gamestage) {
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.parentContainer.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -319,6 +329,7 @@ function Renderer(gamestage) {
 
 		this.initLayers();
 		this.parentContainer.y = -this.gameBottom;
+		this.enemyContainer.y = -this.gameBottom;
 
 		// build new map
 		if (this.widthOffset !== 0) {
@@ -329,6 +340,7 @@ function Renderer(gamestage) {
 			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.parentContainer.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -362,6 +374,7 @@ function Renderer(gamestage) {
 		// build new map
 		this.initLayers();
 		this.parentContainer.x = this.gamestage.canvas.width - (this.lastWidthOffset);
+		this.enemyContainer.x = this.gamestage.canvas.width - (this.lastWidthOffset);
 		this.transitionright = true;
 
 
@@ -463,7 +476,7 @@ function Renderer(gamestage) {
 		}
 
 
-		//this.container.tickEnabled = false;
+		this.enemyContainer.tickEnabled = true;
 		//this.container.snapToPixel = true;
 		this.beginCaching(this.container);
 
@@ -689,6 +702,7 @@ function Renderer(gamestage) {
 			if (this.transitioncount < 60) {
 				this.transitioncount++;
 				this.parentContainer.x -= this.screenWidthDelta;
+				this.enemyContainer.x -= this.screenWidthDelta;
 				this.lastParentContainer.x -= this.screenWidthDelta;
 				player.animations.x -= this.screenWidthDelta;
 				player.x += player.animations.spriteSheet._frameWidth / 60;
@@ -710,6 +724,9 @@ function Renderer(gamestage) {
 				player.lastx = player.x;
 				this.transitioncount = 0;
 				this.transitionright = false;
+
+				//this.lastParentContainer.removeChild(player.animations);
+				//this.parentContainer.addChild(player.animations);
 				this.lastParentContainer.removeAllChildren();
 				this.gamestage.removeChild(this.lastParentContainer);
 			}
@@ -719,12 +736,14 @@ function Renderer(gamestage) {
 			if (this.transitioncount < 60) {
 				this.transitioncount++;
 				this.parentContainer.y -= this.screenHeightDelta;
+				this.enemyContainer.y -= this.screenHeightDelta;
 				this.lastParentContainer.y -= this.screenHeightDelta;
 				player.animations.y -= this.screenHeightDelta;
 				player.y -= this.screenHeightDelta;
 
 				if (this.stitchingoffset > 0) {
 					this.parentContainer.x -= this.screenWidthDelta;
+					this.enemyContainer.x -= this.screenWidthDelta;
 					this.lastParentContainer.x -= this.screenWidthDelta;
 					player.animations.x -= this.screenWidthDelta;
 					//player.x -= this.screenWidthDelta;
@@ -754,6 +773,9 @@ function Renderer(gamestage) {
 				player.y = 0;
 				this.transitioncount = 0;
 				this.transitiondown = false;
+
+				//this.lastParentContainer.removeChild(player.animations);
+				//this.parentContainer.addChild(player.animations);
 				this.lastParentContainer.removeAllChildren();
 				this.gamestage.removeChild(this.lastParentContainer);
 			}
@@ -762,13 +784,15 @@ function Renderer(gamestage) {
         if (this.transitionup) {
             if (this.transitioncount < 60) {
                 this.transitioncount++;
-                this.parentContainer.y -= this.screenHeightDelta;
-                this.lastParentContainer.y -= this.screenHeightDelta;
-                player.animations.y -= this.screenHeightDelta;
-                player.y -= this.screenHeightDelta;
+                this.parentContainer.y += this.screenHeightDelta;
+                this.enemyContainer.y += this.screenHeightDelta;
+                this.lastParentContainer.y += this.screenHeightDelta;
+                player.animations.y += this.screenHeightDelta;
+                player.y += this.screenHeightDelta;
 
                 if (this.stitchingoffset > 0) {
                     this.parentContainer.x -= this.screenWidthDelta;
+                    this.enemyContainer.x -= this.screenWidthDelta;
                     this.lastParentContainer.x -= this.screenWidthDelta;
 					//player.animations.x -= this.screenWidthDelta;
 
@@ -806,12 +830,12 @@ function Renderer(gamestage) {
                 }.bind(this), 500);
                 this.transitioncount = 0;
                 this.transitionup = false;
-                this.lastContainer.removeAllChildren();
-                this.gamestage.removeChild(this.lastContainer);
-				this.lastbackgroundContainer1.removeAllChildren();
-				this.lastbackgroundContainer2.removeAllChildren();
-                this.gamestage.removeChild(this.lastbackgroundContainer1);
-                this.gamestage.removeChild(this.lastbackgroundContainer2);
+
+				//this.lastParentContainer.removeChild(player.animations);
+				//this.parentContainer.addChild(player.animations);
+				this.lastParentContainer.removeAllChildren();
+				this.gamestage.removeChild(this.lastParentContainer);
+
             }
         }
 	};
