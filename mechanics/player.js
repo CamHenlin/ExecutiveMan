@@ -43,6 +43,12 @@ function Player() {
 
 				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
 				if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform) && enemy.constructor !== KillCopy && enemy.constructor !== Phone) {
+
+					if (enemy.constructor === AnnoyingThing) {
+						enemy.pauseTicks = 120;
+						enemy.animations.gotoAndPlay("pause");
+					}
+
 					if (enemy.hardshell) {
 						this.yspeed = 3.5;
 						this.direction = this.direction * (this.bounced) ? 1 : -1;
@@ -55,7 +61,6 @@ function Player() {
 					if (enemy.constructor === ExplosiveBarrel) {
 						enemy.activated = true;
 					}
-
 					if (enemy.damage > 0) {
 						enemy.health -= 1 * damageModifier;
 					}
@@ -421,7 +426,7 @@ function Player() {
             }.bind(this));
             this.health = 0;
             this.animations.gotoAndPlay("damage");
-            playSound("playerdamaged");
+            playSound("death");
             return;
         }
 
@@ -938,16 +943,16 @@ function Player() {
 		this.ignoreBounceBack = true;
 		setTimeout(function() {
 			player.animations.gotoAndPlay("thumbsup");
-		}, 1500);
+		}, 2500);
 		setTimeout(function() {
 			createjs.Ticker.removeEventListener("tick", handleTick);
-		}.bind(this), 2800);
+		}.bind(this), 3800);
 		setTimeout(function() {
 			this.ignoreDamage = false;
 			this.ignoreInput = false;
 			this.ignoreBounceBack = false;
 			initVars();
 			initBossScreen();
-		}.bind(this), 3000);
+		}.bind(this), 4000);
 	};
 }

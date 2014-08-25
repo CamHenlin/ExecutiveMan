@@ -29,6 +29,10 @@ function Renderer(gamestage) {
 	this.lastContainer = new createjs.Container();
 	this.mapcounter = 0;
 	this.stitchingoffset = 0;
+	this.screenHeightDelta;
+	this.screenWidthDelta;
+	this.parentContainer = new createjs.Container();
+	this.lastParentContainer = new createjs.Container();
 
 	// figure out offsets:
 	this.heightOffset = this.gamestage.canvas.height - this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height;
@@ -57,10 +61,7 @@ function Renderer(gamestage) {
 	};
 
 	this.advance = function(amount) {
-		this.container.x += amount;
-		this.backgroundContainer1.x += amount;
-		this.backgroundContainer2.x += amount;
-		this.enemyContainer.x += amount;
+		this.parentContainer.x += amount;
 	};
 
 	this.showingReadyLabel = false;
@@ -73,7 +74,7 @@ function Renderer(gamestage) {
 
 	this.initMap = function () {
 		this.prepareRenderer();
-		this.container.addChild(this.initLayers());
+		this.initLayers();
 		this.completeRenderer();
 
 		this.enemyContainer.visible = false;
@@ -116,18 +117,24 @@ function Renderer(gamestage) {
 		this.collisionArray = [[],[]];
 		this.deathCollisionArray = [[],[]];
 
-		this.lastContainer = this.container.clone(true);
+		/*this.lastContainer = this.container.clone(true);
 		this.lastbackgroundContainer1 = this.backgroundContainer1.clone(true);
 		this.lastbackgroundContainer2 = this.backgroundContainer2.clone(true);
 		this.gamestage.addChild(this.lastbackgroundContainer1);
 		this.gamestage.addChild(this.lastbackgroundContainer2);
-		this.gamestage.addChild(this.lastContainer);
-		this.container.removeAllChildren();
-		this.gamestage.removeChild(this.backgroundContainer1);
+		this.gamestage.addChild(this.lastContainer);*/
+		this.lastParentContainer = this.parentContainer.clone(true);
+		this.gamestage.addChild(this.lastParentContainer);
+		this.gamestage.removeChild(this.parentContainer);
+
+		//this.container.removeAllChildren();
+		this.parentContainer.removeAllChildren();
+		/*this.gamestage.removeChild(this.backgroundContainer1);
 		this.gamestage.removeChild(this.backgroundContainer2);
-		this.gamestage.removeChild(this.container);
+		this.gamestage.removeChild(this.container);*/
 		this.container = new createjs.Container();
-		this.gamestage.addChild(this.container);
+		//this.gamestage.addChild(this.container);
+		//this.parentContainer.addChild(this.container);
 		var fillColor = new createjs.Shape();
 		fillColor.graphics.beginFill('#' + this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
 		this.backgroundContainer1.addChild(fillColor);
@@ -142,29 +149,20 @@ function Renderer(gamestage) {
 	};
 
 	this.completeRenderer = function() {
-		this.container.tickEnabled = false;
-		this.container.snapToPixel = true;
+		this.parentContainer.tickEnabled = false;
+		this.parentContainer.snapToPixel = true;
 
-		this.enemyContainer.snapToPixel = true;
-		this.backgroundContainer1.tickEnabled = false;
-		this.backgroundContainer1.snapToPixel = true;
+		//this.beginCaching(this.parentContainer);
 
-		this.backgroundContainer2.tickEnabled = false;
-		this.backgroundContainer2.snapToPixel = true;
-
-		this.beginCaching(this.backgroundContainer1);
-		this.beginCaching(this.backgroundContainer2);
-		this.beginCaching(this.container);
-		this.beginCaching(this.lastContainer);
-
-		this.gamestage.addChild(this.backgroundContainer1);
-		this.gamestage.addChild(this.backgroundContainer2);
-		this.gamestage.addChild(this.container);
-		this.gamestage.addChild(this.lastContainer);
-		this.gamestage.removeChild(player.animations);
-		this.gamestage.addChild(player.animations);
-		this.gamestage.removeChild(this.enemyContainer);
-		this.gamestage.addChild(this.enemyContainer);
+		this.parentContainer.addChild(this.backgroundContainer1);
+		this.parentContainer.addChild(this.backgroundContainer2);
+		this.parentContainer.addChild(this.container);
+		//this.parentContainer.addChild(this.lastContainer);
+		//this.parentContainer.removeChild(player.animations);
+		this.parentContainer.addChild(player.animations);
+		//this.parentContainer.removeChild(this.enemyContainer);
+		this.parentContainer.addChild(this.enemyContainer);
+		this.gamestage.addChild(this.parentContainer);
 		player.healthbar.draw();
 		if (logFPS) {
 			gamestage.addChild(fpsLabel);
@@ -202,10 +200,8 @@ function Renderer(gamestage) {
 
 		this.transitiondown = true;
 
-		this.enemyContainer.y = this.gameBottom;
-		this.container.y = this.gameBottom;
-		this.backgroundContainer1.y = this.gameBottom;
-		this.backgroundContainer2.y = this.gameBottom;
+		this.initLayers();
+		this.parentContainer.y = this.gameBottom;
 
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
@@ -214,11 +210,7 @@ function Renderer(gamestage) {
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
 		}
-		this.container.addChild(this.initLayers());
-		this.container.x = this.stitchingoffset;
-		this.backgroundContainer1.x = this.stitchingoffset;
-		this.backgroundContainer2.x = this.stitchingoffset;
-		this.enemyContainer.x = this.stitchingoffset;
+		this.parentContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -226,6 +218,7 @@ function Renderer(gamestage) {
 		if (mobile) {
 			initTouchControls();
 		}
+
 	};
 
 	this.lastMapDown = function() {
@@ -245,10 +238,8 @@ function Renderer(gamestage) {
 
 		this.transitiondown = true;
 
-		this.enemyContainer.y = this.gameBottom;
-		this.container.y = this.gameBottom;
-		this.backgroundContainer1.y = this.gameBottom;
-		this.backgroundContainer2.y = this.gameBottom;
+		this.initLayers();
+		this.parentContainer.y = this.gameBottom;
 
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
@@ -257,11 +248,7 @@ function Renderer(gamestage) {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
 			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
 		}
-		this.container.addChild(this.initLayers());
-		this.container.x = this.stitchingoffset;
-		this.backgroundContainer1.x = this.stitchingoffset;
-		this.backgroundContainer2.x = this.stitchingoffset;
-		this.enemyContainer.x = this.stitchingoffset;
+		this.parentContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -269,6 +256,8 @@ function Renderer(gamestage) {
 		if (mobile) {
 			initTouchControls();
 		}
+
+		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
 	this.nextMapUp = function() {
@@ -288,10 +277,7 @@ function Renderer(gamestage) {
 
 		this.transitionup = true;
 
-		this.enemyContainer.y = -this.gameBottom;
-		this.container.y = -this.gameBottom;
-		this.backgroundContainer1.y = -this.gameBottom;
-		this.backgroundContainer2.y = -this.gameBottom;
+		this.parentContainer.y = -this.gameBottom;
 
 		// build new map
 		if (this.widthOffset !== 0) {
@@ -301,11 +287,7 @@ function Renderer(gamestage) {
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
 		}
-		this.container.addChild(this.initLayers());
-		this.container.x = this.stitchingoffset;
-		this.backgroundContainer1.x = this.stitchingoffset;
-		this.backgroundContainer2.x = this.stitchingoffset;
-		this.enemyContainer.x = this.stitchingoffset;
+		this.parentContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -313,6 +295,8 @@ function Renderer(gamestage) {
 		if (mobile) {
 			initTouchControls();
 		}
+
+		this.screenWidthDelta = (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
 	};
 
 	this.lastMapUp = function() {
@@ -333,10 +317,8 @@ function Renderer(gamestage) {
 
 		this.transitionup = true;
 
-		this.enemyContainer.y = -this.gameBottom;
-		this.container.y = -this.gameBottom;
-		this.backgroundContainer1.y = -this.gameBottom;
-		this.backgroundContainer2.y = -this.gameBottom;
+		this.initLayers();
+		this.parentContainer.y = -this.gameBottom;
 
 		// build new map
 		if (this.widthOffset !== 0) {
@@ -346,11 +328,7 @@ function Renderer(gamestage) {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
 			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
 		}
-		this.container.addChild(this.initLayers());
-		this.container.x = this.stitchingoffset;
-		this.backgroundContainer1.x = this.stitchingoffset;
-		this.backgroundContainer2.x = this.stitchingoffset;
-		this.enemyContainer.x = this.stitchingoffset;
+		this.parentContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -358,6 +336,8 @@ function Renderer(gamestage) {
 		if (mobile) {
 			initTouchControls();
 		}
+
+		this.screenWidthDelta = (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
 	};
 
 	this.nextMapRight = function() {
@@ -379,18 +359,17 @@ function Renderer(gamestage) {
 
 		this.prepareRenderer();
 
-		this.container.x = this.gamestage.canvas.width - (this.lastWidthOffset);
-		this.backgroundContainer1.x = this.gamestage.canvas.width - (this.lastWidthOffset);
-		this.backgroundContainer2.x = this.gamestage.canvas.width - (this.lastWidthOffset);
-		this.enemyContainer.x = this.gamestage.canvas.width - (this.lastWidthOffset);
+		// build new map
+		this.initLayers();
+		this.parentContainer.x = this.gamestage.canvas.width - (this.lastWidthOffset);
 		this.transitionright = true;
 
-		// build new map
-		this.container.addChild(this.initLayers());
 
 		this.completeRenderer();
 
 		this.doneRendering = true;
+
+		this.screenWidthDelta = (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
 	};
 
 	// loading layers
@@ -414,7 +393,7 @@ function Renderer(gamestage) {
 			}
 		};
 
-		var mapContainer = new createjs.Container();
+		this.container = new createjs.Container();
 
 		// create spritesheet
 		var tilesetSheet = new createjs.SpriteSheet(imageData);
@@ -424,16 +403,16 @@ function Renderer(gamestage) {
 			// console.log(layer);
 			if (layer.type === 'tilelayer') {
 				if (i === 1) { // layer one is ground collision layer
-					mapContainer.addChild(this.initLayerWithCollisionArray(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset));
+					this.container.addChild(this.initLayerWithCollisionArray(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset));
 					this.basicCollision = new BasicCollision(this);
 				} else if (i === 3) {
 					this.enemies = this.initEnemies(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset);
 				} else if (i === 2) {
-					mapContainer.addChild(this.initLayerWithDeathCollisionArray(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset));
+					this.container.addChild(this.initLayerWithDeathCollisionArray(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset));
 				} else if (i === 0) { // bg layer
 					this.initBackgroundLayer(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset);
 				} else {
-					mapContainer.addChild(this.initLayer(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset));
+					this.container.addChild(this.initLayer(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset));
 				}
 			}
 
@@ -484,10 +463,11 @@ function Renderer(gamestage) {
 		}
 
 
-		mapContainer.tickEnabled = false;
-		mapContainer.snapToPixel = true;
-		this.beginCaching(mapContainer);
-		return mapContainer;
+		//this.container.tickEnabled = false;
+		//this.container.snapToPixel = true;
+		this.beginCaching(this.container);
+
+		return this.container;
 	};
 
 	// layer initialization
@@ -606,6 +586,8 @@ function Renderer(gamestage) {
 				}
 			}
 		}
+		this.beginCaching(this.backgroundContainer1);
+		this.beginCaching(this.backgroundContainer2);
 	};
 
 	// layer initialization
@@ -706,14 +688,9 @@ function Renderer(gamestage) {
 		if (this.transitionright) {
 			if (this.transitioncount < 60) {
 				this.transitioncount++;
-				this.container.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
-				this.backgroundContainer1.x -=(this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
-				this.backgroundContainer2.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
-				this.enemyContainer.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
-				this.lastContainer.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
-				this.lastbackgroundContainer1.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
-				this.lastbackgroundContainer2.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
-				player.animations.x -= (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
+				this.parentContainer.x -= this.screenWidthDelta;
+				this.lastParentContainer.x -= this.screenWidthDelta;
+				player.animations.x -= this.screenWidthDelta;
 				player.x += player.animations.spriteSheet._frameWidth / 60;
 
 				if (this.container.x < 0) {
@@ -733,47 +710,31 @@ function Renderer(gamestage) {
 				player.lastx = player.x;
 				this.transitioncount = 0;
 				this.transitionright = false;
-				this.lastContainer.removeAllChildren();
-				this.lastbackgroundContainer1.removeAllChildren();
-				this.lastbackgroundContainer2.removeAllChildren();
-				this.gamestage.removeChild(this.lastbackgroundContainer1);
-				this.gamestage.removeChild(this.lastbackgroundContainer2);
+				this.lastParentContainer.removeAllChildren();
+				this.gamestage.removeChild(this.lastParentContainer);
 			}
 		}
 
 		if (this.transitiondown) {
 			if (this.transitioncount < 60) {
 				this.transitioncount++;
-				this.container.y -= this.gameBottom / 60;
-				this.backgroundContainer1.y -= this.gameBottom / 60;
-				this.backgroundContainer2.y -= this.gameBottom / 60;
-				this.enemyContainer.y -= this.gameBottom / 60;
-				this.lastContainer.y -= this.gameBottom / 60;
-				this.lastbackgroundContainer1.y -= this.gameBottom / 60;
-				this.lastbackgroundContainer2.y -= this.gameBottom / 60;
-				player.animations.y -= this.gameBottom / 60;
-				player.y -= this.gameBottom / 60;
+				this.parentContainer.y -= this.screenHeightDelta;
+				this.lastParentContainer.y -= this.screenHeightDelta;
+				player.animations.y -= this.screenHeightDelta;
+				player.y -= this.screenHeightDelta;
 
 				if (this.stitchingoffset > 0) {
-					this.lastContainer.x -= (this.stitchingoffset) / 60;
-					this.lastbackgroundContainer1.x -= (this.stitchingoffset) / 60;
-					this.lastbackgroundContainer2.x -= (this.stitchingoffset) / 60;
-					this.container.x -= (this.stitchingoffset) / 60;
-					this.backgroundContainer1.x -= (this.stitchingoffset) / 60;
-					this.backgroundContainer2.x -= (this.stitchingoffset) / 60;
-					this.enemyContainer.x -= (this.stitchingoffset) / 60;
-					player.animations.x -= (this.stitchingoffset) / 60;
-					//player.x -= (this.stitchingoffset) / 60;
+					this.parentContainer.x -= this.screenWidthDelta;
+					this.lastParentContainer.x -= this.screenWidthDelta;
+					player.animations.x -= this.screenWidthDelta;
+					//player.x -= this.screenWidthDelta;
 					//player.animations.x += player.animations.spritesheet._frameWidth /  30;
 
 				}
 
 
 				if (this.container.y < 0) {
-					this.container.y = 0;
-					this.backgroundContainer1.y = 0;
-					this.backgroundContainer2.y = 0;
-					this.enemyContainer.y = 0;
+					this.parentContainer.y = 0;
 				}
 
 				if (player.animations.y < 0) {
@@ -787,54 +748,34 @@ function Renderer(gamestage) {
 				if (this.stitchingoffset !== 0) {
 					this.stitchingoffset = 0;
                 } else {
-					this.container.x = 0;
-					this.backgroundContainer1.x = 0;
-					this.backgroundContainer2.x = 0;
-					this.enemyContainer.x = 0;
+					this.parentContainer.x = 0;
                 }
 				player.animations.y = 0;
 				player.y = 0;
 				this.transitioncount = 0;
 				this.transitiondown = false;
-				this.lastContainer.removeAllChildren();
-				this.gamestage.removeChild(this.lastContainer);
-				this.lastbackgroundContainer1.removeAllChildren();
-				this.lastbackgroundContainer2.removeAllChildren();
-				this.gamestage.removeChild(this.lastbackgroundContainer1);
-				this.gamestage.removeChild(this.lastbackgroundContainer2);
+				this.lastParentContainer.removeAllChildren();
+				this.gamestage.removeChild(this.lastParentContainer);
 			}
 		}
 
         if (this.transitionup) {
             if (this.transitioncount < 60) {
                 this.transitioncount++;
-                this.container.y += this.gameBottom / 60;
-                this.backgroundContainer1.y += this.gameBottom / 60;
-                this.backgroundContainer2.y += this.gameBottom / 60;
-                this.enemyContainer.y += this.gameBottom / 60;
-                this.lastContainer.y += this.gameBottom / 60;
-                this.lastbackgroundContainer1.y += this.gameBottom / 60;
-                this.lastbackgroundContainer2.y += this.gameBottom / 60;
-                player.animations.y += this.gameBottom / 60;
-                player.y += this.gameBottom / 60;
+                this.parentContainer.y -= this.screenHeightDelta;
+                this.lastParentContainer.y -= this.screenHeightDelta;
+                player.animations.y -= this.screenHeightDelta;
+                player.y -= this.screenHeightDelta;
 
                 if (this.stitchingoffset > 0) {
-                    this.lastContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
-                    this.lastbackgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
-                    this.lastbackgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
-                    this.container.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
-                    this.backgroundContainer1.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
-                    this.backgroundContainer2.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
-                    this.enemyContainer.x -= (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
-					//player.animations.x -= (this.stitchingoffset) / 60;
+                    this.parentContainer.x -= this.screenWidthDelta;
+                    this.lastParentContainer.x -= this.screenWidthDelta;
+					//player.animations.x -= this.screenWidthDelta;
 
 				}
 
                 if (this.container.y > 0) {
-                    this.container.y = 0;
-                    this.backgroundContainer1.y = 0;
-                    this.backgroundContainer2.y = 0;
-                    this.enemyContainer.y = 0;
+                    this.parentContainer.y = 0;
                 }
 
                 if (player.animations.y < 0) {
@@ -847,10 +788,7 @@ function Renderer(gamestage) {
 				if (this.stitchingoffset !== 0) {
 					this.stitchingoffset = 0;
                 } else {
-					this.container.x = 0;
-					this.backgroundContainer1.x = 0;
-					this.backgroundContainer2.x = 0;
-					this.enemyContainer.x = 0;
+					this.parentContainer.x = 0;
                 }
                 //player.animations.y = 0;
                 //player.y = 0;
@@ -940,5 +878,6 @@ function Renderer(gamestage) {
 	};
 
 	this.gameBottom = this.heightOffset + this.getMapHeight();
+	this.screenHeightDelta = this.gameBottom / 60;
 }
 

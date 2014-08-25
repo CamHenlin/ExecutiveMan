@@ -9,16 +9,17 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 			"left": {
 				"frames" : [0, 1],
 				"next" : "left",
-				"speed" : 0.25
+				"speed" : 0.125
 			},
 			"right" : {
-				"frames" : [2, 3],
+				"frames" : [3, 2],
 				"next" : "right",
-				"speed" : 0.25
+				"speed" : 0.125
 			},
 			"pause" : {
 				"frames" : [0, 3],
-				"next" : "pause"
+				"next" : "pause",
+				"speed" : 0.125
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -40,9 +41,10 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 	this.jumpspeed        = 0;
 	this.dead             = false;
 	this.lastHit          = false;
+	this.pauseTicks       = -1;
 	this.hardshell        = true;
 	this.watchedElements  = [];
-	this.directionTimer = 0;
+	this.directionTimer   = 0;
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
@@ -53,6 +55,19 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 
 		if (this.dead) {
 			return;
+		}
+
+		if (this.pauseTicks > 0) {
+			this.pauseTicks--;
+			return;
+		} else {
+			if (this.direction) {
+				this.animations.gotoAndPlay('left');
+			} else {
+				this.animations.gotoAndPlay('right');
+			}
+
+			this.pauseTicks--;
 		}
 
 		var collisionResults = this.basicCollision.basicCollision(this);
@@ -108,13 +123,14 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 			if ((checkDirectionChangeCollisionResults.downmove) ||
 				(!checkDirectionChangeCollisionResults.rightmove ||
 				 !checkDirectionChangeCollisionResults.leftmove)) {
-				console.log("-------");
-				console.log(checkDirectionChangeCollisionResults.downmove);
-				console.log(checkDirectionChangeCollisionResults.rightmove);
-				console.log(checkDirectionChangeCollisionResults.leftmove);
+
 				this.directionTimer = 6;
 				this.direction = !this.direction;
-
+				if (this.direction) {
+					this.animations.gotoAndPlay('left');
+				} else {
+					this.animations.gotoAndPlay('right');
+				}
 			}
 		} else {
 			this.directionTimer--;

@@ -9,6 +9,7 @@ createjs.Sound.registerSound("sounds/shotexplode.wav", "shotexplode");
 createjs.Sound.registerSound("sounds/error.wav", "error");
 createjs.Sound.registerSound("sounds/papershot.wav", "papershot");
 createjs.Sound.registerSound("sounds/health.wav", "health");
+createjs.Sound.registerSound("sounds/death.wav", "death");
 createjs.Sound.registerSound("sounds/extralife.wav", "extralife");
 
 createjs.Sound.registerSound("sounds/warehousemanshoot.wav", "warehousemanshoot");
