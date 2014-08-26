@@ -137,6 +137,7 @@ function initBossScreen() {
 	gamestage.addChild(altstage);
 	gamestage.addChild(stage);
 	this.shopMenu = new ShopMenu();
+	this.optionsMenu = new OptionsMenu();
 	stage.x = -gamestage.canvas.width;
 	altstage.x = gamestage.canvas.width;
     var fillColor = new createjs.Shape();
@@ -152,6 +153,10 @@ function initBossScreen() {
 	loadGameLabel.x = gamestage.canvas.width - 36;
 	loadGameLabel.y = 10;
 	this.loadGameTouchTarget = buildSaveLoadTouchTarget(loadGameLabel);
+	var optionsMenuLabel = new createjs.Text("OPTIONS", "bold 9px Arial", "#FFF");
+	optionsMenuLabel.x = 6;
+	optionsMenuLabel.y = gamestage.canvas.height - 36;
+	this.optionsMenuTouchTarget = buildSaveLoadTouchTarget(optionsMenuLabel);
 
 	var width = bossframes[0].spriteSheet._frameWidth;
 	var framewidth = bossframes[0].spriteSheet._frameWidth;
@@ -238,6 +243,7 @@ function initBossScreen() {
 	stage.addChild(shopFrame);
 	stage.addChild(shopLabel);
 	stage.addChild(saveGameLabel);
+	stage.addChild(optionsMenuLabel);
 	stage.addChild(loadGameLabel);
 	stage.addChild(accountingmanFrame);
 	stage.addChild(accountingmanLabel);
@@ -289,6 +295,8 @@ function bossClickHandler(event) {
 	} else if (fastCollisionSprite(this.loadGameTouchTarget, touchSprite)) {
 		loadGame();
         playSound("pauseopen");
+	} else if (fastCollisionSprite(this.optionsMenuTouchTarget, touchSprite)) {
+		this.optionsMenu.show();
 	} else {
 		for (var k = 0; k < 9; k++) { // should be 9
 		    if (k === 4 && fastCollisionSprite(bossframes[k], touchSprite)) {

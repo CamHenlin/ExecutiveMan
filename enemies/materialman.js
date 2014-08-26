@@ -3,7 +3,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 	var materialManSpriteShet = new createjs.SpriteSheet({
 		"images": [loader.getResult("materialman")],
 		"frames": {
-			"width": 32, "height": 33, "count": 7
+			"width": 32, "height": 30, "count": 7
 		},
 		"animations": {
 			"stand": {

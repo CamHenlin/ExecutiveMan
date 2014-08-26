@@ -285,6 +285,7 @@ function Renderer(gamestage) {
 
 		this.transitionup = true;
 
+		this.initLayers();
 		this.parentContainer.y = -this.gameBottom;
 		this.enemyContainer.y = -this.gameBottom;
 
@@ -843,8 +844,7 @@ function Renderer(gamestage) {
 	this.bighealthCounter = 0;
 	this.littlehealthCounter = 0;
 	this.itemDrop = function(x, y) {
-		if (itemDropCount === 0) {
-		} else if (itemDropCount === 1) {
+		if (itemDropCount === 1) {
 			this.bighealthCounter += 18;
 			this.littlehealthCounter += 20;
 		} else if (itemDropCount === 2) {

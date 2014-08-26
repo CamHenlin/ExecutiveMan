@@ -57,7 +57,7 @@ function initShowOffBossScreen(bossnumber) {
 	var materialmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("materialmanframe")],
 		"frames": {
-			"width": 32, "height": 33, "count": 1
+			"width": 30, "height": 30, "count": 1
 		},
 		"animations": {
 			"still": {

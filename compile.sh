@@ -16,13 +16,13 @@ java -jar compiler.jar \
 	--js=objects/halfwaypoint.js \
 	\
 	--js=enemies/killcopy.js --js=enemies/wasteman.js  --js=enemies/accountingman.js --js=enemies/printerguy.js \
-	--js=enemies/flood.js --js=enemies/shieldguy.js --js=enemies/copter.js --js=enemies/phone.js --js=enemies/annoyingthing.js \
+	--js=enemies/flood.js --js=enemies/shieldguy.js --js=enemies/copter.js --js=enemies/phone.js \
 	--js=enemies/filingcabinet.js --js=enemies/warehouseman.js --js=enemies/materialman.js \
 	\
 	 --js=mechanics/main.js --js=mechanics/collision.js --js=mechanics/fastCollision.js \
 	--js=mechanics/renderer.js --js=mechanics/player.js  --js=mechanics/titlescreen.js \
 	--js=mechanics/pausemenu.js --js=mechanics/shopmenu.js --js=mechanics/showoffboss.js \
 	--js=mechanics/bossscreen.js --js=mechanics/soundwrapper.js --js=mechanics/basiccollision.js \
-	--js=mechanics/savesystem.js \
+	--js=mechanics/savesystem.js --js=mechanics/optionsmenu.js \
 	\
 	--js_output_file=game.min.js
