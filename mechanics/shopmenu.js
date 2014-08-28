@@ -1,4 +1,4 @@
-        var shopUp = false;
+var shopUp = false;
 function ShopMenu() {
 	shopUp = false;
 	shopstage = new createjs.Container();

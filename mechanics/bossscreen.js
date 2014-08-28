@@ -52,7 +52,7 @@ function initBossScreen() {
 	var materialmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("materialmanframe")],
 		"frames": {
-			"width": 32, "height": 33, "count": 1
+			"width": 30, "height": 30, "count": 1
 		},
 		"animations": {
 			"frame": {
@@ -177,7 +177,7 @@ function initBossScreen() {
 		}
 		if (i === 2) {
 			materialmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 - 5;
-			materialmanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -7;
+			materialmanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -5;
 			materialManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 5;
 			materialManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
 		}
@@ -266,7 +266,7 @@ function bossClickHandler(event) {
 		return;
 	}
 
-	if (shopUp) {
+	if (shopUp || optionsUp) {
 		return;
 	}
 
@@ -285,7 +285,7 @@ function bossClickHandler(event) {
     var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
     event.preventDefault();
-    console.log(event);
+    //console.log(event);
 
 	touchSprite.x = event.clientX / gamezoom;
 	touchSprite.y = event.clientY / gamezoom;

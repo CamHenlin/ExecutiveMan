@@ -103,6 +103,17 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 			this.activated = false;
 		}
 
+		if (!collisionResults.right || !collisionResults.left) {
+
+			this.directionTimer = 1;
+			this.direction = !this.direction;
+			if (this.direction) {
+				this.animations.gotoAndPlay('left');
+			} else {
+				this.animations.gotoAndPlay('right');
+			}
+		}
+
 		// playerCollisionPoints, collisionArray, heightOffset, widthOffset
 
 		// console.log({ x: futurex, y: hity, animations: animations });
@@ -119,11 +130,8 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 				topRight : { x: this.x + this.animations.spriteSheet._frameWidth, y: this.y },
 				topLeft : { x: this.x, y: this.y }
 			};
-			var checkDirectionChangeCollisionResults = tileCollisionDetector.checkCollisions(futureCollisionPoints, renderer.collisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
-			if ((checkDirectionChangeCollisionResults.downmove) ||
-				(!checkDirectionChangeCollisionResults.rightmove ||
-				 !checkDirectionChangeCollisionResults.leftmove)) {
-
+			var checkDirectionChangeCollisionResults = tileCollisionDetector.checkDownCollisions(futureCollisionPoints, renderer.collisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
+			if (checkDirectionChangeCollisionResults.downmove) {
 				this.directionTimer = 1;
 				this.direction = !this.direction;
 				if (this.direction) {

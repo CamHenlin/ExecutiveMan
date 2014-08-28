@@ -29,8 +29,8 @@ function Renderer(gamestage) {
 	this.lastContainer = new createjs.Container();
 	this.mapcounter = 0;
 	this.stitchingoffset = 0;
-	this.screenHeightDelta;
-	this.screenWidthDelta;
+	this.screenHeightDelta = 0;
+	this.screenWidthDelta = 0;
 	this.parentContainer = new createjs.Container();
 	this.lastParentContainer = new createjs.Container();
 
@@ -129,6 +129,8 @@ function Renderer(gamestage) {
 		this.gamestage.removeChild(this.parentContainer);
 		this.gamestage.removeChild(this.enemyContainer);
 
+		this.backgroundContainer1.removeAllChildren();
+		this.backgroundContainer2.removeAllChildren();
 		//this.container.removeAllChildren();
 		this.parentContainer.removeAllChildren();
 		/*this.gamestage.removeChild(this.backgroundContainer1);
@@ -140,9 +142,6 @@ function Renderer(gamestage) {
 		var fillColor = new createjs.Shape();
 		fillColor.graphics.beginFill('#' + this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
 		this.backgroundContainer1.addChild(fillColor);
-		fillColor = new createjs.Shape();
-		fillColor.graphics.beginFill('#' + this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
-		this.backgroundContainer2.addChild(fillColor);
 
 		this.enemyContainer.removeAllChildren();
 		this.doneRendering = false;
@@ -206,7 +205,7 @@ function Renderer(gamestage) {
 
 		this.initLayers();
 		this.parentContainer.y = this.gameBottom;
-		this.enemyContainer.y = this.gameBottom
+		this.enemyContainer.y = this.gameBottom;
 
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
@@ -216,7 +215,7 @@ function Renderer(gamestage) {
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
 		}
 		this.parentContainer.x = this.stitchingoffset;
-		this.enemyContainer.x = this.stitchingoffset
+		this.enemyContainer.x = this.stitchingoffset;
 
 		this.completeRenderer();
 
@@ -225,6 +224,7 @@ function Renderer(gamestage) {
 			initTouchControls();
 		}
 
+		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
 	this.lastMapDown = function() {
@@ -509,6 +509,10 @@ function Renderer(gamestage) {
 						enemyArray.push(new Phone(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 8) {
 						enemyArray.push(new AnnoyingThing(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 9) {
+						enemyArray.push(new WallGun(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, true));
+					} else if (layerData.data[idx] === 10) {
+						enemyArray.push(new WallGun(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, false));
 					} else if (layerData.data[idx] === 98) {
 						enemyArray.push(new ExtraLife(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 99) {
@@ -584,18 +588,17 @@ function Renderer(gamestage) {
 						} else {
 							spriteLocation++;
 						}
+						var cellBitmap2 = new createjs.Sprite(tilesetSheet);
+						// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
+						cellBitmap2.gotoAndStop(spriteLocation);
+						// isometrix tile positioning based on X Y order from Tiled
+						cellBitmap2.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+						cellBitmap2.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
+						this.backgroundContainer2.addChild(cellBitmap2);
 					}
-
-					var cellBitmap2 = new createjs.Sprite(tilesetSheet);
-					// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
-					cellBitmap2.gotoAndStop(spriteLocation);
-					// isometrix tile positioning based on X Y order from Tiled
-					cellBitmap2.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
-					cellBitmap2.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
 
 					// add bitmap to gamestage
 					this.backgroundContainer1.addChild(cellBitmap1);
-					this.backgroundContainer2.addChild(cellBitmap2);
 					// internalgamestage.addChild(cellBitmap);
 				}
 			}
@@ -688,10 +691,10 @@ function Renderer(gamestage) {
 		if (this.backgroundTicks === 0) {
 			if (this.backgroundContainer2.visible) {
 				this.backgroundContainer2.visible = false;
-				this.backgroundContainer1.visible = true;
+				//this.backgroundContainer1.visible = true;
 			} else {
 				this.backgroundContainer2.visible = true;
-				this.backgroundContainer1.visible = false;
+				//this.backgroundContainer1.visible = false;
 			}
 
 			this.backgroundTicks = 16 / lowFramerate;

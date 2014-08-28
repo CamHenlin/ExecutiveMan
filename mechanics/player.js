@@ -130,17 +130,17 @@ function Player() {
 			"stand": {
 				"frames" : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 				"next" : "stand",
-				"speed" : (0.175 / lowFramerate) / skipFrames
+				"speed" : (0.175 ) / skipFrames
 			},
 			"startrun" : {
 				"frames" : [2],
 				"next" : "run",
-				"speed" : (0.175 / lowFramerate) / skipFrames
+				"speed" : (0.175 ) / skipFrames
 			},
 			"run": {
 				"frames" : [3, 4, 5, 4],
 				"next" : "run",
-				"speed" : (0.175 / lowFramerate) / skipFrames
+				"speed" : (0.175 ) / skipFrames
 			},
 			"jump": {
 				"frames" : [10],
@@ -153,12 +153,12 @@ function Player() {
 			"runshoot": {
 				"frames" : [7, 8],
 				"next" : "runshoot",
-				"speed" : (0.175 / lowFramerate) / skipFrames
+				"speed" : (0.175 ) / skipFrames
 			},
 			"damage": {
 				"frames" : [16],
 				"next" : "damage",
-				"speed" : (5  / lowFramerate) / skipFrames
+				"speed" : (5  ) / skipFrames
 			},
 			"jumpshoot": {
 				"frames" : [11],
@@ -171,12 +171,12 @@ function Player() {
 			"dropin": {
 				"frames" : [19, 20],
 				"next" : "dropin",
-				"speed" : (0.175 / lowFramerate) / skipFrames
+				"speed" : (0.175 ) / skipFrames
 			},
 			"dropcomplete" : {
 				"frames" : [21],
 				"next": "stand",
-				"speed" : (0.175 / lowFramerate) / skipFrames
+				"speed" : (0.175 ) / skipFrames
 			}
 		}
 	});
@@ -190,7 +190,7 @@ function Player() {
 			"damage": {
 				"frames" : [1, 0, 1],
 				"next" : "damage",
-				"speed" : (0.285 / lowFramerate) / skipFrames
+				"speed" : (0.285 ) / skipFrames
 			}
 		}
 	});
@@ -248,23 +248,23 @@ function Player() {
 
 	document.onkeydown = function (event) {
 		switch (event.keyCode) {
-			case 37:
+			case keyCodes.left:
 				// keyCode 37 is left arrow
 				this.actions.playerLeft = true;
 				break;
 
-			case 39:
+			case keyCodes.right:
 				// keyCode 39 is right arrow
 				this.actions.playerRight = true;
 				break;
 
 
-			case 32:
+			case keyCodes.jump:
 				// keyCode 32 is space
 				this.actions.playerJump = true;
 				break;
 
-			case 67:
+			case keyCodes.shoot:
 				// keyCode 67 is c
 				this.actions.playerAttack = true;
 				break;
@@ -275,7 +275,7 @@ function Player() {
 				this.actions.playerDebug = true;
 				break;
 
-			case 80:
+			case keyCodes.pause:
 				// keyCode 68 is p
 				if (this.paused) {
 					this.paused = false;
@@ -292,23 +292,23 @@ function Player() {
 
 	document.onkeyup = function (event) {
 		switch (event.keyCode) {
-			case 37:
+			case keyCodes.left:
 				// keyCode 37 is left arrow
 				this.actions.playerLeft = false;
 				break;
 
-			case 39:
+			case keyCodes.right:
 				// keyCode 39 is right arrow
 				this.actions.playerRight = false;
 				break;
 
-			case 32:
+			case keyCodes.jump:
 				// keyCode 32 is space
 				this.actions.playerJump = false;
 				this.jumpreleased = true;
 				break;
 
-			case 67:
+			case keyCodes.shoot:
 				// keyCode 67 is c
 				this.actions.playerAttack = false;
 				this.shootTicks = 1;
@@ -420,6 +420,10 @@ function Player() {
     this.tickActions = function(actions) {
 		this.gameActions = actions;
 
+		if (renderer.transitiondown || renderer.transitionup) {
+			return;
+		}
+
         if (actions.playerDeath) {
             this.watchedElements.forEach(function(element) {
                 element.tickActions(actions);
@@ -434,8 +438,8 @@ function Player() {
 			if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
 				this.y += this.jumpspeed * lowFramerate;
 				this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
-				if (this.jumpspeed > 3 / lowFramerate) {
-					this.jumpspeed = 3 / lowFramerate; // megaman's terminal velocity
+				if (this.jumpspeed > 3 ) {
+					this.jumpspeed = 3; // megaman's terminal velocity
 				}
 			} else if ((this.jumping || this.onplatform) && !actions.collisionResults.downmove && !actions.collisionResults.nextmap) {
 				if (!this.goingLeft && !this.goingRight) {
@@ -494,10 +498,6 @@ function Player() {
 			actions.collisionResults.downmove = true;
 		}
 
-		if (renderer.transitiondown || renderer.transitionup) {
-			return;
-		}
-
 		if (this.gameActions.collisionResults.nextmapup && this.y < -10 && (renderer.getNextMapDirection() === "up" || renderer.getLastMapDirection() === "up")) { //renderer.getNextMapDirection() === "up") {
 			if (renderer.getLastMapDirection() === "up") {
             	renderer.lastMapUp();
@@ -540,9 +540,6 @@ function Player() {
                 }.bind(this));
 
                 this.checkObjectCollisions();
-
-
-
             }
 
             if (this.x + this.animations.spriteSheet._frameWidth > renderer.getMapWidth() + renderer.completedMapsWidthOffset + renderer.widthOffset && (renderer.getNextMapDirection() === "right" || renderer.getLastMapDirection() === "right")) {
@@ -591,8 +588,9 @@ function Player() {
             this.jumpCount = 1;
         } else if (this.jumping && this.jumpreleased && !this.falling && this.jumpspeed < 2) {
             this.jumpspeed = 2;
-		} else if (this.jumping && this.jumpspeed >= 0 && actions.collisionResults.upmove && this.actions.playerJump && doubleJump && this.jumpCount === 1 && this.jumpreleased) {
+		} else if (this.jumping && actions.collisionResults.upmove && this.actions.playerJump && doubleJump && this.jumpCount === 1 && this.jumpreleased) {
 			this.jumpspeed = -4.875;
+			this.jumpreleased = false;
 			this.jumpCount++;
 		}
 
@@ -603,8 +601,8 @@ function Player() {
 		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
 			this.y += this.jumpspeed * lowFramerate;
 			this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
-			if (this.jumpspeed > 12 / lowFramerate) {
-				this.jumpspeed = 12 / lowFramerate; // megaman's terminal velocity
+			if (this.jumpspeed > 12 ) {
+				this.jumpspeed = 12; // megaman's terminal velocity
 			}
 		} else if ((this.jumping || this.onplatform) && !actions.collisionResults.downmove && !actions.collisionResults.nextmap) {
 			if (!this.goingLeft && !this.goingRight) {
@@ -649,7 +647,7 @@ function Player() {
 			this.animations.regX = 30;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
-				this.movementTicks = 9 / lowFramerate;
+				this.movementTicks = 9;
 			}
 		} else if (this.actions.playerRight && (actions.collisionResults.rightmove || this.ignoreLeftRightCollisionThisFrame !== 0)) {
 			this.goingRight = true;
@@ -658,14 +656,14 @@ function Player() {
 			this.animations.regX = 0;
 			if ((this.animations.currentAnimation !== "run" && this.animations.currentAnimation !== "startrun" && this.animations.currentAnimation !== "runshoot") && !this.jumping) {
 				this.animations.gotoAndPlay("startrun");
-				this.movementTicks = 9 / lowFramerate;
+				this.movementTicks = 9;
 			}
 		} else {
 			this.goingRight = false;
 			this.goingLeft = false;
 			if (this.animations.currentAnimation !== "stand" && this.animations.currentAnimation !== "standshoot" && !this.jumping && (!this.actions.playerLeft && !this.actions.playerRight)) {
 				this.animations.gotoAndPlay("stand");
-				this.movementTicks = 9 / lowFramerate;
+				this.movementTicks = 9;
 			}
 		}
 
@@ -677,7 +675,7 @@ function Player() {
 			}
 
 			playSound("shoot");
-			this.shootTicks = 15 / lowFramerate; // not correct
+			this.shootTicks = 15; // not correct
 
 			if (this.animations.currentAnimation === "jump") {
 				this.animations.gotoAndPlay("jumpshoot");
@@ -733,7 +731,6 @@ function Player() {
 		this.checkObjectCollisions();
 
 		if (!actions.collisionResults.rightmove && this.onplatform && this.x > this.lastx) {
-			console.log("pushing player");
 			this.lastx = this.x;
 		}
 
@@ -812,13 +809,13 @@ function Player() {
 	};
 
 	this.checkObjectCollisions = function() {
+		if (renderer.objects.length === 0) {
+			return;
+		}
+
 		renderer.objects.forEach(function(object) {
 			var intersection = fastCollisionPlayer(this, object);
 			if (intersection) {
-				/*if (object.constructor === Platform || object.constructor === DisappearingPlatform || object.constructor === DroppingPlatform || object.constructor === RotatingPlatform) {
-					intersection = fastInitialCollisionPlatform(this, object);
-				}*/
-
 				if (typeof(object.playerCollisionActions) === "function") {
 					object.playerCollisionActions();
 				}

@@ -51,6 +51,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "littlehealth", src: "images/littlehealth.png"},
 						{id: "rotatingplatform", src: "images/rotatingplatform.png"},
 						{id: "annoyingthing", src: "images/annoyingthing.png"},
+						{id: "wallgun", src: "images/wallgun.png"},
 						{id: "beam", src: "images/beam.png"},
 						{id: "death", src: "images/death.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
@@ -90,6 +91,14 @@ function handleComplete() {
 		init();
 	}, 100);
 }
+
+var keyCodes = {
+	'left' : 37,
+	'right' : 39,
+	'jump' : 32,
+	'shoot' : 67,
+	'pause' : 80
+};
 
 var clicked = false;
 var itemDropCount = 0;
@@ -364,47 +373,28 @@ var bossnumber = 0;
 
 
 function handleTick(event) {
-
-
-
 	itemDropCount++;
 	if (itemDropCount === 5) {
 		itemDropCount = 0;
 	}
 
-	if (!renderer) {
-		return;
-	}
-
-	if (!renderer.doneRendering) {
+	if (!renderer || menuUp || !renderer.doneRendering) {
 		return;
 	} else if (renderer.transitiondown || renderer.transitionright || renderer.transitionup) {
-
 		renderer.tickActions({});
 		gamestage.update();
 		return;
-	}
-
-	if (renderer.showingReadyLabel) {
+	} else if (renderer.showingReadyLabel || player.paused) {
 		gamestage.update();
 		return;
 	}
 
-	if (menuUp) {
-		return;
-	}
-
-	if (player.paused) {
-		gamestage.update();
-		return;
-	}
 	var actions = {"event" : event};
 
 	actions.mobile = mobile;
 	if (mobile) {
 
 	}
-
 
 	var modifier = 4;
 	var xmodifier = 6;
@@ -418,22 +408,9 @@ function handleTick(event) {
 		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - ((player.animations.scaleX === 1) ? 9 : 0), y: player.y + modifier },
 		topLeft : { x: player.x + xmodifier + ((player.animations.scaleX === 1) ? 0 : 12), y: player.y + modifier }
 	};
-	var playerDeathCollisionPoints = {
-		leftTop : { x: player.x + xmodifier * 2, y: player.y + modifier * 2 },
-		leftBottom : { x: player.x + xmodifier * 2, y: player.y + player.animations.spriteSheet._frameHeight - modifier * 2 },
-		bottomLeft : { x: player.x + xmodifier * 2 + 4 , y: player.y + player.animations.spriteSheet._frameHeight -5  },
-		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier * 2 - 4, y: player.y + player.animations.spriteSheet._frameHeight -5 },
-		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier * 2, y: player.y + player.animations.spriteSheet._frameHeight - modifier * 2 },
-		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier * 2, y: player.y + modifier * 2 },
-		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier * 2 - 4, y: player.y + modifier * 2 },
-		topLeft : { x: player.x + xmodifier * 2 + 4, y: player.y + modifier * 2 }
-	};
 
 	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, renderer.collisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
-	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerDeathCollisionPoints, renderer.deathCollisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
-
-
-
+	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, renderer.deathCollisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
 
 	this.renderer.enemies.forEach(function(element) {
 		element.tickActions(actions);
@@ -477,12 +454,5 @@ function handleTick(event) {
 	}
 	scoreLabel.text = "$ " + score;
 
-	if (skipFrames === 1) {
-		gamestage.update();
-	} else if (skipCounter === skipFrames) {
-		skipCounter = 0;
-		gamestage.update();
-	}
-
-    skipCounter++;
+	gamestage.update();
 }

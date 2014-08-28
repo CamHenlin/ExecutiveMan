@@ -132,6 +132,48 @@ function TileCollisionDetector() {
 		return moves;
 	};
 
+	this.checkDownCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
+
+		var moves = { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false, nextmapup : false };
+		var tilesize = 16; // this is used as width and height!
+
+		try {
+			var a = Math.floor((playerCollisionPoints.bottomLeft.y - heightOffset) / tilesize);
+			var b = Math.floor((playerCollisionPoints.bottomLeft.x - widthOffset) / tilesize);
+
+			if (a <= -1 || a > collisionArray.length) {
+				a = 0;
+			}
+
+			if (b <= -1 || b > collisionArray[a].length) {
+				b = 0;
+			}
+
+			if (collisionArray[a][b] && this.isTop(collisionArray, a, b)) {
+				moves.downmove = false;
+			}
+
+			a = Math.floor((playerCollisionPoints.bottomRight.y - heightOffset) / tilesize);
+			b = Math.floor((playerCollisionPoints.bottomRight.x - widthOffset) / tilesize);
+
+			if (a <= -1 || a > collisionArray.length) {
+				a = 0;
+			}
+
+			if (b <= -1 || b > collisionArray[a].length) {
+				b = 0;
+			}
+
+			if (collisionArray[a][b] && this.isTop(collisionArray, a, b)) {
+				moves.downmove = false;
+			}
+		} catch (error) {
+			moves = { leftmove : false, downmove : false, rightmove : false, upmove : false, nextmap : true, nextmapup : false };
+		}
+
+		return moves;
+	};
+
 	this.isTop = function(collisionArray, a, b) {
 		if (collisionArray[a - 1][b]) {
 			return false;
