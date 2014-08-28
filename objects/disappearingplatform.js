@@ -68,7 +68,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 		}
 
 		if (this.timer === this.onDuration + this.offDuration) {
-			this.animations.visible = false;
+			this.animations.visible = true;
 			this.timer = 0;
 		}
 

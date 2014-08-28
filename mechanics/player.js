@@ -121,8 +121,8 @@ function Player() {
 		};
 	};
 
-	var playerSpriteSheet = new createjs.SpriteSheet({
-		"images": ["images/businessmanspritesheet.png"],
+	this.playerSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("businessman")],
 		"frames": {
 			"width": 30, "height": 30, "count": 22
 		},
@@ -195,7 +195,7 @@ function Player() {
 		}
 	});
 
-	this.animations                        = new createjs.Sprite(playerSpriteSheet, "dropin");
+	this.animations                        = new createjs.Sprite(this.playerSpriteSheet, "dropin");
 	this.damageSprite                      = new createjs.Sprite(damageSpriteSheet, "damage");
 	this.touchDown                         = false;
 	this.blinkTimer                        = 10;
@@ -227,6 +227,7 @@ function Player() {
 	this.shotIndex                         = 0;
 	this.ignoreLeftRightCollisionThisFrame = 0;
 	this.fallThroughFloor                  = false;
+	this.currentWeapon                     = "postit";
 	var skipThisCheck                      = false;
 
 	this.shots = [	new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
