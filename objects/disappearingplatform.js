@@ -77,7 +77,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 
 	this.playerCollisionActions = function() {
 		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 12)) || this.activated ||
-			!this.animations.isVisible() || player.jumpspeed < 0) { // player definitely missed the platform
+			!this.animations.visible || player.jumpspeed < 0) { // player definitely missed the platform
 			return;
 		}
 

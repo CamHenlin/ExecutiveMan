@@ -16,6 +16,58 @@ function PauseMenu() {
     this.exitStageTouchTarget.spriteSheet._frameHeight = 16;
     this.exitStageTouchTarget.spriteSheet._frameWidth = 80;
 
+   	this.setPostItBlasterTouchTarget = new createjs.Shape();
+    this.setPostItBlasterTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+    this.setPostItBlasterTouchTarget.x = 128;
+    this.setPostItBlasterTouchTarget.y = 64;
+    this.setPostItBlasterTouchTarget.spriteSheet = {};
+    this.setPostItBlasterTouchTarget.spriteSheet._frameHeight = 16;
+    this.setPostItBlasterTouchTarget.spriteSheet._frameWidth = 80;
+
+   	this.setStingingAuditTouchTarget = new createjs.Shape();
+    this.setStingingAuditTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+    this.setStingingAuditTouchTarget.x = gamestage.canvas.width - 160;
+    this.setStingingAuditTouchTarget.y = 64;
+    this.setStingingAuditTouchTarget.spriteSheet = {};
+    this.setStingingAuditTouchTarget.spriteSheet._frameHeight = 16;
+    this.setStingingAuditTouchTarget.spriteSheet._frameWidth = 80;
+
+	this.postItBlasterLabel = new createjs.Text("POST IT BLASTER", "bold 8px Arial", "#FFF");
+	this.stingingAuditLabel = new createjs.Text("STINGING AUDIT", "bold 8px Arial", "#FFF");
+
+	this.postItBlasterLabel.x = 64;
+	this.stingingAuditLabel.x = gamestage.canvas.width - 160;
+
+	this.postItBlasterLabel.y = 64;
+	this.stingingAuditLabel.y = 64;
+
+	this.setToxicProjectileTouchTarget = new createjs.Shape();
+    this.setToxicProjectileTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+    this.setToxicProjectileTouchTarget.x = 128;
+    this.setToxicProjectileTouchTarget.y = 80;
+    this.setToxicProjectileTouchTarget.spriteSheet = {};
+    this.setToxicProjectileTouchTarget.spriteSheet._frameHeight = 16;
+    this.setToxicProjectileTouchTarget.spriteSheet._frameWidth = 80;
+
+   	this.setOreTossTouchTarget = new createjs.Shape();
+    this.setOreTossTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+    this.setOreTossTouchTarget.x = gamestage.canvas.width - 160;
+    this.setOreTossTouchTarget.y = 80;
+    this.setOreTossTouchTarget.spriteSheet = {};
+    this.setOreTossTouchTarget.spriteSheet._frameHeight = 16;
+    this.setOreTossTouchTarget.spriteSheet._frameWidth = 80;
+
+	this.toxicProjectileLabel = new createjs.Text("TOXIC PROJECTILE", "bold 8px Arial", "#FFF");
+	this.oreTossLabel = new createjs.Text("ORE TOSS", "bold 8px Arial", "#FFF");
+
+	this.toxicProjectileLabel.x = 64;
+	this.oreTossLabel.x = gamestage.canvas.width - 160;
+
+	this.toxicProjectileLabel.y = 80;
+	this.oreTossLabel.y = 80;
+
+
+
 	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "bold 7px Arial", "#FFF");
 	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "bold 7px Arial", "#000");
 	var exitStageLabel = new createjs.Text("EXIT STAGE", "bold 7px Arial", "#FFF");
@@ -72,6 +124,14 @@ function PauseMenu() {
 	this.healthBriefCasesTouchTarget = buildTouchTarget(healthBriefCasesLabel);
 
     pausestage.addChild(shape);
+    pausestage.addChild(this.setPostItBlasterTouchTarget);
+    pausestage.addChild(this.setStingingAuditTouchTarget);
+	pausestage.addChild(this.postItBlasterLabel);
+	pausestage.addChild(this.stingingAuditLabel);
+	pausestage.addChild(this.setToxicProjectileTouchTarget);
+    pausestage.addChild(this.setOreTossTouchTarget);
+	pausestage.addChild(this.toxicProjectileLabel);
+	pausestage.addChild(this.oreTossLabel);
     pausestage.addChild(executivemanLabel2);
     pausestage.addChild(executivemanLabel);
     pausestage.addChild(this.exitStageTouchTarget);
@@ -150,5 +210,25 @@ function pauseClickHandler(event) {
     		this.remove();
     		this.show();
     	}
+    } else if (fastCollisionSprite(this.setPostItBlasterTouchTarget, touchSprite)) {
+    	player.changeWeapon('postit');
+		this.remove();
+		this.show();
+		event.target.removeEventListener(event.type, arguments.callee, false);
+    } else if (fastCollisionSprite(this.setStingingAuditTouchTarget, touchSprite)) {
+    	player.changeWeapon('stingingaudit');
+		this.remove();
+		this.show();
+		event.target.removeEventListener(event.type, arguments.callee, false);
+    } else if (fastCollisionSprite(this.setToxicProjectileTouchTarget, touchSprite)) {
+    	player.changeWeapon('toxicprojectile');
+		this.remove();
+		this.show();
+		event.target.removeEventListener(event.type, arguments.callee, false);
+    } else if (fastCollisionSprite(this.setOreTossTouchTarget, touchSprite)) {
+    	player.changeWeapon('oretoss');
+		this.remove();
+		this.show();
+		event.target.removeEventListener(event.type, arguments.callee, false);
     }
 }
