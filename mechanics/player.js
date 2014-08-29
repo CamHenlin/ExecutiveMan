@@ -34,7 +34,7 @@ function Player() {
 					var step = 1;
 					while (!enemy) {
 						for (var i in renderer.enemies) {
-							if (renderer.enemies[i].dead || renderer.enemies[i].y < 0 || renderer.enemies[i].y > renderer.gamestage.height) { continue; }
+							if (renderer.enemies[i].dead || renderer.enemies[i].y < 0 || renderer.enemies[i].y > renderer.gamestage.height || renderer.enemies[i].damage <= 0) { continue; }
 
 							var delta = renderer.enemies[i].x - this.x;
 							if (Math.abs(delta) < 32 * step) {
@@ -47,7 +47,7 @@ function Player() {
 					}
 
 					this.activated = true;
-					this.yspeed = Math.sin(Math.atan2((enemy.y - this.y), (enemy.x - this.x))) * 2.5;
+					this.yspeed = Math.sin(Math.atan2((enemy.y - this.y) + enemy.animations.spriteSheet._frameHeight / 2, (enemy.x - this.x) + enemy.animations.spriteSheet._frameWidth / 2)) * 2.5;
 					this.xspeed = Math.cos(Math.atan2((enemy.y - this.y), (enemy.x - this.x))) * 2.5;
 				} else {
 					this.y += this.yspeed;
