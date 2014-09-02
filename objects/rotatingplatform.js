@@ -18,7 +18,7 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(platformSpriteSheet, "still");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
 	this.xspeed           = xspeed;
 	this.lastx            = x;

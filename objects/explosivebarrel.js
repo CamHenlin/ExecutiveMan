@@ -17,7 +17,7 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(explosiveBarrelSpriteSheet, "still");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
 	this.activated        = false;
 	this.hardshell        = false;

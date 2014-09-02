@@ -18,7 +18,7 @@ function Copter(stage, x, y) {
 	this.animations       = new createjs.Sprite(copterSpriteSheet, "current");
 	this.x                = x;// - 32;
 	this.y                = y;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.activated        = false;
 	this.jumping          = false;
@@ -33,7 +33,7 @@ function Copter(stage, x, y) {
 	this.dead             = false;
 	this.movementTicks    = 0;
 	this.watchedElements  = [];
-	this.animations.x = this.x - renderer.completedMapsWidthOffset;
+	this.animations.x = this.x + parseInt(renderer.mapData.properties.stitchx);
 	this.animations.y = this.y;
 
 	this.animations.play();
@@ -79,7 +79,7 @@ function Copter(stage, x, y) {
 		} else {
 
 			var distanceFromPlayer = player.x - this.x;
-			if (Math.abs(distanceFromPlayer) <= 150) {
+			if (abs(distanceFromPlayer) <= 150) {
 				this.activated = true;
 				this.targetY = player.y + 10;
 				this.movementTicks = 100 / lowFramerate;

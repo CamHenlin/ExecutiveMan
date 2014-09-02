@@ -22,9 +22,9 @@ function ShieldGuy(stage, basicCollision, x, y) {
 	this.health           = 4;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
-	this.x                = x;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
 	this.y                = y;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.activated        = false;
 	this.jumping          = false;
@@ -97,7 +97,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 
 		// figure out if we can shoot or not
 		var distanceFromPlayer = player.x - this.x;
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225) {
+		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 225) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, renderer));
 			this.animations.gotoAndPlay("shoot");
 			this.hardshell = false;
@@ -111,7 +111,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		}
 
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;

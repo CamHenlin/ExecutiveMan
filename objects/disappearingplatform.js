@@ -17,7 +17,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(disappearingPlatformSpriteSheet, "still");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
 	this.startTimer       = startTimer;
 	this.onDuration       = onDuration;
@@ -29,7 +29,7 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 	this.goingup          = false;
 	this.goingright       = false;
 	this.watchedElements  = [];
-	this.animations.x = this.x - renderer.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset - parseInt(renderer.mapData.properties.stitchx);
 	this.animations.y = this.y;
 
 	this.animations.play();

@@ -29,9 +29,9 @@ function WallGun(stage, x, y, left) {
 
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(wallgunSpriteSheet, "current");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.activated        = false;
 	this.jumping          = false;
@@ -87,7 +87,7 @@ function WallGun(stage, x, y, left) {
 			this.movementTicks--;
 		} else {
 			var distanceFromPlayer = player.x - this.x;
-			if (Math.abs(distanceFromPlayer) <= 480) {
+			if (abs(distanceFromPlayer) <= 480) {
 				this.movementTicks = 600 / lowFramerate;
 				this.animations.gotoAndPlay('open');
 				this.hardshell = false;

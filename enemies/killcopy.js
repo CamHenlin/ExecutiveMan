@@ -23,9 +23,9 @@ function KillCopy(stage, basicCollision, x, y) {
 	this.health           = 72;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(killCopySpriteSheet, "sit");
-	this.x                = x;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
 	this.y                = y;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.activated        = false;
 	this.jumping          = false;
@@ -121,7 +121,7 @@ function KillCopy(stage, basicCollision, x, y) {
 		// figure out if we can shoot or not
 		// going to shoot 5 shots that the player has to jump over
 		var distanceFromPlayer = player.x - this.x;
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225) {
+		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 225) {
 			shotyOffset = 20;
 			shotxOffset = 32;
 			this.shoot();
@@ -246,7 +246,7 @@ function KillCopy(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		}
 
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;

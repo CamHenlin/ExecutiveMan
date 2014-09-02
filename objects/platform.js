@@ -17,7 +17,7 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(platformSpriteSheet, "still");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
 	this.initialY         = y;
 	this.initialX         = x;

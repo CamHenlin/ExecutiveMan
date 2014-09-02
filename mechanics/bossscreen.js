@@ -165,52 +165,52 @@ function initBossScreen() {
 	for (i = 0; i < 9; i++) {
 		if (i === 0) {
 			wastemanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 -2;
-			wastemanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -2;
+			wastemanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -2;
 			wastemanLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
-			wastemanLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			wastemanLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 1) {
 			accountingmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 ;
-			accountingmanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -2;
+			accountingmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -2;
 			accountingmanLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
-			accountingmanLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			accountingmanLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 2) {
 			materialmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 - 5;
-			materialmanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -5;
+			materialmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -5;
 			materialManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 5;
-			materialManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			materialManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 3) {
 			HRManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 9;
-			HRManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			HRManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 4) { // middle frame
 			shopFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + shopFrame.spriteSheet._frameWidth /2 -8;
-			shopFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + shopFrame.spriteSheet._frameWidth/2 -4;
+			shopFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + shopFrame.spriteSheet._frameWidth/2 -4;
 			shopLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 12;
-			shopLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			shopLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 5) {
 			salesManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
-			salesManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			salesManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 6) {
 			ITManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 10;
-			ITManLabel.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			ITManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 7) {
 			warehousemanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + warehousemanFrame.spriteSheet._frameWidth /2 + 2 ;
-			warehousemanFrame.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + warehousemanFrame.spriteSheet._frameWidth/2 ;
+			warehousemanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + warehousemanFrame.spriteSheet._frameWidth/2 ;
 			warehouseMan.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
-			warehouseMan.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			warehouseMan.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 8) {
 			visionaryMan.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 3;
-			visionaryMan.y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2 + framewidth + 5;
+			visionaryMan.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		bossframes[i].x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3);
-		bossframes[i].y = centery - width + (framewidth + framewidth / 2) * Math.floor(i / 3) - width / 2;
+		bossframes[i].y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2;
 	}
 	executivemanTopper.x = centerx - executivemanTopper.spriteSheet._frameWidth / 2 + width / 2 + 10;
 	executivemanTopper.y = centery - width * 2 - width / 2;

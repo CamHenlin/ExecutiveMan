@@ -18,8 +18,8 @@ function BasicCollision(renderer) {
 		var tilesize = 16; // this is used as width and height!
 
 		try {
-			var a = Math.floor((playerCollisionPoints.left.y - heightOffset) / tilesize);
-			var b = Math.floor((playerCollisionPoints.left.x - widthOffset) / tilesize);
+			var a = ~~((playerCollisionPoints.left.y - heightOffset) / tilesize);
+			var b = ~~((playerCollisionPoints.left.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -33,8 +33,8 @@ function BasicCollision(renderer) {
 				moves.left = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.bottom.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.bottom.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.bottom.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.bottom.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -48,8 +48,8 @@ function BasicCollision(renderer) {
 				moves.down = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.right.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.right.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.right.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.right.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -63,8 +63,8 @@ function BasicCollision(renderer) {
 				moves.right = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.top.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.top.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.top.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.top.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;

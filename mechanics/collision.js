@@ -5,8 +5,8 @@ function TileCollisionDetector() {
 		var tilesize = 16; // this is used as width and height!
 
 		try {
-			var a = Math.floor((playerCollisionPoints.leftTop.y - heightOffset) / tilesize);
-			var b = Math.floor((playerCollisionPoints.leftTop.x - widthOffset) / tilesize);
+			var a = ~~((playerCollisionPoints.leftTop.y - heightOffset) / tilesize);
+			var b = ~~((playerCollisionPoints.leftTop.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -20,8 +20,8 @@ function TileCollisionDetector() {
 				moves.leftmove = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.leftBottom.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.leftBottom.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.leftBottom.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.leftBottom.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -35,8 +35,8 @@ function TileCollisionDetector() {
 				moves.leftmove = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.bottomLeft.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.bottomLeft.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.bottomLeft.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.bottomLeft.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -50,8 +50,8 @@ function TileCollisionDetector() {
 				moves.downmove = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.bottomRight.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.bottomRight.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.bottomRight.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.bottomRight.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -65,8 +65,8 @@ function TileCollisionDetector() {
 				moves.downmove = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.rightBottom.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.rightBottom.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.rightBottom.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.rightBottom.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -80,8 +80,8 @@ function TileCollisionDetector() {
 				moves.rightmove = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.rightTop.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.rightTop.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.rightTop.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.rightTop.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -95,8 +95,8 @@ function TileCollisionDetector() {
 				moves.rightmove = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.topLeft.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.topLeft.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.topLeft.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.topLeft.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -111,8 +111,8 @@ function TileCollisionDetector() {
 				moves.upmove = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.topRight.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.topRight.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.topRight.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.topRight.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -138,8 +138,8 @@ function TileCollisionDetector() {
 		var tilesize = 16; // this is used as width and height!
 
 		try {
-			var a = Math.floor((playerCollisionPoints.bottomLeft.y - heightOffset) / tilesize);
-			var b = Math.floor((playerCollisionPoints.bottomLeft.x - widthOffset) / tilesize);
+			var a = ~~((playerCollisionPoints.bottomLeft.y - heightOffset) / tilesize);
+			var b = ~~((playerCollisionPoints.bottomLeft.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;
@@ -153,8 +153,8 @@ function TileCollisionDetector() {
 				moves.downmove = false;
 			}
 
-			a = Math.floor((playerCollisionPoints.bottomRight.y - heightOffset) / tilesize);
-			b = Math.floor((playerCollisionPoints.bottomRight.x - widthOffset) / tilesize);
+			a = ~~((playerCollisionPoints.bottomRight.y - heightOffset) / tilesize);
+			b = ~~((playerCollisionPoints.bottomRight.x - widthOffset) / tilesize);
 
 			if (a <= -1 || a > collisionArray.length) {
 				a = 0;

@@ -17,7 +17,7 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 	this.basicCollision     = basicCollision;
 	this.stage              = stage;
 	this.animations         = new createjs.Sprite(droppingPlatformSpriteSheet, "still");
-	this.x                  = x;// - 32;
+	this.x                  = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                  = y;
 	this.ySpeed             = 0;
 	this.timer              = 0;
@@ -29,7 +29,7 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 	this.playerLeftPlatform = false;
 	this.goingright         = false;
 	this.watchedElements    = [];
-	this.animations.x = this.x - renderer.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset - parseInt(renderer.mapData.properties.stitchx);
 	this.animations.y = this.y;
 
 	this.animations.play();

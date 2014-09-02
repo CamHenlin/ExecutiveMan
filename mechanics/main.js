@@ -108,6 +108,8 @@ var keyCodes = {
 	'pause' : 80
 };
 
+var abs = Math.abs;
+
 var clicked = false;
 var itemDropCount = 0;
 var lives = 2;

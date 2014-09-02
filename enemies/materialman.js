@@ -43,9 +43,9 @@ function MaterialMan(stage, basicCollision, x, y) {
 	this.damage           = 3;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(materialManSpriteShet, "stand");
-	this.x                = x;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
 	this.y                = y;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.xSpeed           = 0;
 	this.activated        = false;
@@ -167,7 +167,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		}
 
 		// figure out if we can shoot or not
@@ -215,7 +215,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 		}
 		this.runTicker--;
 
-		if (this.runTicker > 10 && this.shootTicks === 0 && Math.abs(distanceFromPlayer) > 196) {
+		if (this.runTicker > 10 && this.shootTicks === 0 && abs(distanceFromPlayer) > 196) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this));
 			this.animations.gotoAndPlay("shoot");
 			this.shootTicks = 200 / lowFramerate;
@@ -255,7 +255,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 			this.shootTicks--;
 		}
 
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225 && !this.runningLeft && !this.runningRight && this.y < player.y) {
+		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 225 && !this.runningLeft && !this.runningRight && this.y < player.y) {
 			this.watchedElements.push(new BigShot(stage, this.x, this.y, this.animations.scaleX, this, this.basicCollision));
 			this.animations.gotoAndPlay("shoot");
 			playSound("warehousemanshoot");
@@ -267,8 +267,8 @@ function MaterialMan(stage, basicCollision, x, y) {
 	};
 
 	this.havePlatformInColumn = function() {
-		a = Math.floor((this.x + this.animations.spriteSheet._frameWidth / 2 - renderer.widthOffset) / 16);
-		b = Math.floor((this.y + this.animations.spriteSheet._frameHeight / 2 - renderer.heightOffset) / 16);
+		a = ~~((this.x + this.animations.spriteSheet._frameWidth / 2 - renderer.widthOffset) / 16);
+		b = ~~((this.y + this.animations.spriteSheet._frameHeight / 2 - renderer.heightOffset) / 16);
 
 		for (var i = 0; i < renderer.collisionArray.length; i++) {
 			if (i == b) {

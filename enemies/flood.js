@@ -24,7 +24,7 @@ function Flood(stage, basicCollision, x, y, original) {
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(floodSpriteSheet, "current");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
 	this.activated        = false;
 	this.jumping          = false;
@@ -45,7 +45,7 @@ function Flood(stage, basicCollision, x, y, original) {
 		}
 
 		var distanceFromPlayer = player.x - this.x;
-		if (Math.abs(distanceFromPlayer) <= 300 || !this.original) {
+		if (abs(distanceFromPlayer) <= 300 || !this.original) {
 
 			if (this.advanceTicks !== 0) {
 				this.advanceTicks--;
@@ -53,14 +53,14 @@ function Flood(stage, basicCollision, x, y, original) {
 				this.x += 2.5;
 				var collisionResults = this.basicCollision.basicCollision(this);
 				if (collisionResults.right) {
-					renderer.enemies.push(new Flood(this.stage, this.basicCollision, this.x + 13.5, this.y, false));
+					renderer.enemies.push(new Flood(this.stage, this.basicCollision, this.x + 13.5 - parseInt(renderer.mapData.properties.stitchx), this.y, false));
 				}
 				this.x -= 2.5;
 				this.spent = true;
 				this.animations.gotoAndPlay("flooded");
 			}
 		}
-		this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+		this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 	};

@@ -22,9 +22,9 @@ function Phone(stage, basicCollision, x, y) {
 	this.damage           = 2;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(phoneSpriteSheet, "sit");
-	this.x                = x;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
 	this.y                = y;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.xSpeed           = 0;
 	this.activated        = false;
@@ -95,13 +95,13 @@ function Phone(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		}
 
 
 		// figure out if we can shoot or not
 		var distanceFromPlayer = player.x - this.x;
-		if (this.jumpTicks === 0 && Math.abs(distanceFromPlayer) < 64 && !this.jumping) {
+		if (this.jumpTicks === 0 && abs(distanceFromPlayer) < 64 && !this.jumping) {
 			this.jumpTicks = 90 / lowFramerate;
 			this.y -= 5;
 			this.jumping = true;

@@ -144,6 +144,7 @@ function Renderer(gamestage) {
 		this.backgroundContainer1.addChild(fillColor);
 
 		this.enemyContainer.removeAllChildren();
+		this.enemyContainer = new createjs.Container();
 		this.doneRendering = false;
 
 		player.fallThroughFloor = false;
@@ -188,10 +189,10 @@ function Renderer(gamestage) {
 
 	this.nextMapDown = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
+		var lastWidth = this.getMapWidth();
 		this.lastWidthOffset = this.widthOffset;
 
 		this.mapData = maps[++this.mapcounter];
-
 
 		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
@@ -207,13 +208,18 @@ function Renderer(gamestage) {
 		this.parentContainer.y = this.gameBottom;
 		this.enemyContainer.y = this.gameBottom;
 
-		if (this.widthOffset !== 0) {
-			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+		if (parseInt(this.mapData.properties.stitchx) !== 0) {
+			console.log('stitchx');
+			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
 		} else {
-			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + this.lastWidthOffset;
-			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
+			console.log('no stitchx');
+			this.stitchingoffset = this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += this.lastWidthOffset - this.widthOffset;
 		}
+
+console.log(this.stitchingoffset);
+console.log(this.completedMapsWidthOffset);
 		this.parentContainer.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
 
@@ -711,8 +717,8 @@ function Renderer(gamestage) {
 				player.animations.x -= this.screenWidthDelta;
 				player.x += player.animations.spriteSheet._frameWidth / 60;
 
-				if (this.container.x < 0) {
-					this.container.x = 0;
+				if (this.parentContainer.x < 0) {
+					this.parentContainer.x = 0;
 					this.enemyContainer.x = 0;
 				}
 
@@ -723,6 +729,7 @@ function Renderer(gamestage) {
 				}
 			} else {
 				this.enemyContainer.x = 0;
+				this.parentContainer.x = 0;
 				player.animations.x = this.widthOffset;
 				player.x = this.completedMapsWidthOffset + this.widthOffset;
 				player.lastx = player.x;
@@ -734,9 +741,7 @@ function Renderer(gamestage) {
 				this.lastParentContainer.removeAllChildren();
 				this.gamestage.removeChild(this.lastParentContainer);
 			}
-		}
-
-		if (this.transitiondown) {
+		} else if (this.transitiondown) {
 			if (this.transitioncount < 60) {
 				this.transitioncount++;
 				this.parentContainer.y -= this.screenHeightDelta;
@@ -756,7 +761,7 @@ function Renderer(gamestage) {
 				}
 
 
-				if (this.container.y < 0) {
+				if (this.parentContainer.y < 0) {
 					this.parentContainer.y = 0;
 				}
 
@@ -772,6 +777,7 @@ function Renderer(gamestage) {
 					this.stitchingoffset = 0;
                 } else {
 					this.parentContainer.x = 0;
+					this.enemyContainer.x = 0;
                 }
 				player.animations.y = 0;
 				player.y = 0;
@@ -783,9 +789,7 @@ function Renderer(gamestage) {
 				this.lastParentContainer.removeAllChildren();
 				this.gamestage.removeChild(this.lastParentContainer);
 			}
-		}
-
-        if (this.transitionup) {
+		} else if (this.transitionup) {
             if (this.transitioncount < 60) {
                 this.transitioncount++;
                 this.parentContainer.y += this.screenHeightDelta;
@@ -802,7 +806,7 @@ function Renderer(gamestage) {
 
 				}
 
-                if (this.container.y > 0) {
+                if (this.parentContainer.y > 0) {
                     this.parentContainer.y = 0;
                 }
 

@@ -60,6 +60,7 @@ function OptionsMenu() {
 
 	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "bold 7px Arial", "#FFF");
 	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "bold 7px Arial", "#000");
+	var hasJoystickLabel = new createjs.Text("Joystick Detected", "bold 7px Arial", "#FFF");
 	this.leftLabel = new createjs.Text("LEFT BUTTON", "bold 8px Arial", "#FFF");
 	this.leftSelected = new createjs.Text("LEFT ARROW", "bold 8px Arial", "#FFF");
 	this.rightLabel = new createjs.Text("RIGHT BUTTON", "bold 8px Arial", "#FFF");
@@ -98,6 +99,8 @@ function OptionsMenu() {
 	this.shootSelected.y = 112;
 	this.pauseLabel.y = 128;
 	this.pauseSelected.y = 128;
+	hasJoystickLabel.x = 64;
+	hasJoystickLabel.y = 144;
 
 	this.close.x = gamestage.canvas.width / 2 - 15;
 	this.close.y = 160;
@@ -117,6 +120,10 @@ function OptionsMenu() {
 	optionsstage.addChild(this.pauseLabel);
 	optionsstage.addChild(this.pauseSelected);
 	optionsstage.addChild(this.close);
+
+	if (hasJoystick) {
+		optionsstage.addChild(hasJoystickLabel);
+	}
 
     this.remove = function() {
 		optionsUp = false;
@@ -195,6 +202,10 @@ function optionsClickHandler(event) {
 		this.setKeyLabel = this.pauseSelected;
 		this.setKey = "pause";
 		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
+    }
+
+    if (hasJoystick) {
+    	window.setInterval(gamepadPoll_options.bind(this), 60);
     }
 }
 

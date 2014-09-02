@@ -42,9 +42,9 @@ function WasteMan(stage, basicCollision, x, y) {
 	this.damage           = 3;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(wasteManSpriteSheet, "stand");
-	this.x                = x;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
 	this.y                = y;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.xSpeed           = 0;
 	this.activated        = false;
@@ -186,7 +186,7 @@ function WasteMan(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		}
 
 		if ((this.runningLeft && player.goingRight) || this.runningRight && player.goingLeft) {
@@ -214,7 +214,7 @@ function WasteMan(stage, basicCollision, x, y) {
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningLeft && collisionResults.left) {
 			this.x -= (this.health < 14) ? 2.3 : 1.9; // faster than executiveman!
-			if (Math.abs(distanceFromPlayer) > 256 && !this.lastRunDirLeft) {
+			if (abs(distanceFromPlayer) > 256 && !this.lastRunDirLeft) {
 				this.lastRunDirLeft = true;
 				this.runningRight = false;
 				this.runningLeft = false;
@@ -236,7 +236,7 @@ function WasteMan(stage, basicCollision, x, y) {
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningRight && collisionResults.right) {
 			this.x += (this.health < 14) ? 1.9 : 1.5; // faster than executiveman!
-			if (Math.abs(distanceFromPlayer) > 256 && !this.lastRunDirRight) {
+			if (abs(distanceFromPlayer) > 256 && !this.lastRunDirRight) {
 				this.lastRunDirRight = true;
 				this.runningRight = false;
 				this.runningLeft = false;
@@ -254,14 +254,14 @@ function WasteMan(stage, basicCollision, x, y) {
 		}
 		this.runTicker--;
 
-		if (this.runTicker > 10 && this.shootTicks === 0 && Math.abs(distanceFromPlayer) > 196) {
+		if (this.runTicker > 10 && this.shootTicks === 0 && abs(distanceFromPlayer) > 196) {
 			//console.log("creating many shots down");
 			this.animations.gotoAndPlay("shoot");
 			this.createManyShotsDown();
 			this.shootTicks = 200 / lowFramerate;
 		}
 
-		if (this.jumpTicks === 0 && (Math.abs(distanceFromPlayer) < 64 || Math.abs(distanceFromPlayer) > 128) && !this.jumping) {
+		if (this.jumpTicks === 0 && (abs(distanceFromPlayer) < 64 || abs(distanceFromPlayer) > 128) && !this.jumping) {
 			this.jumpTicks = 40 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
@@ -285,7 +285,7 @@ function WasteMan(stage, basicCollision, x, y) {
 		if (this.shootTicks > 0) {
 			this.shootTicks--;
 		}
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 225 && !this.runningLeft && !this.runningRight) {
+		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 225 && !this.runningLeft && !this.runningRight) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			this.animations.gotoAndPlay("shoot");
 			this.shootTicks = 100 / lowFramerate;

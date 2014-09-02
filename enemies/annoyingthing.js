@@ -29,11 +29,11 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 	this.damage           = 4;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(annoyingthingSpriteSheet, "pause");
-	this.x                = x;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
 	this.y                = y;
 	this.direction        = true; // true is left
 	this.pausecounter     = 0;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.xSpeed           = 0;
 	this.activated        = false;
@@ -93,7 +93,7 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		}
 
 

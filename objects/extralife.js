@@ -15,7 +15,7 @@ function ExtraLife(stage, x, y, basicCollision) {
 
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(extraLifeSpriteSheet, "blink");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
 	this.activated        = false;
 	this.jumping          = false;
@@ -69,7 +69,7 @@ function ExtraLife(stage, x, y, basicCollision) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		}
 
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;

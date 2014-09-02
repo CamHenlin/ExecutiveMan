@@ -37,7 +37,7 @@ function Player() {
 							if (renderer.enemies[i].dead || renderer.enemies[i].y < 0 || renderer.enemies[i].y > renderer.gamestage.height || renderer.enemies[i].damage <= 0) { continue; }
 
 							var delta = renderer.enemies[i].x - this.x;
-							if (Math.abs(delta) < 32 * step) {
+							if (abs(delta) < 32 * step) {
 								enemy = renderer.enemies[i];
 								break;
 							}
@@ -55,44 +55,44 @@ function Player() {
 				}
 			} else {
 				renderer.enemies.forEach(function(enemy) {
-				if (enemy.dead) {
-					return;
-				}
-
-				//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
-				if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform) && enemy.constructor !== KillCopy && enemy.constructor !== Phone) {
-
-					if (enemy.constructor === AnnoyingThing) {
-						enemy.pauseTicks = 120;
-						enemy.animations.gotoAndPlay("pause");
-					}
-
-					if (enemy.hardshell) {
-						this.x -= this.xspeed * 5;
-						this.y -= this.yspeed * 5;
-						playSound("shotbounce");
+					if (enemy.dead) {
 						return;
 					}
 
-					if (enemy.constructor === ExplosiveBarrel) {
-						enemy.activated = true;
+					//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
+					if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform) && enemy.constructor !== KillCopy && enemy.constructor !== Phone) {
+
+						if (enemy.constructor === AnnoyingThing) {
+							enemy.pauseTicks = 120;
+							enemy.animations.gotoAndPlay("pause");
+						}
+
+						if (enemy.hardshell) {
+							this.x -= this.xspeed * 5;
+							this.y -= this.yspeed * 5;
+							playSound("shotbounce");
+							return;
+						}
+
+						if (enemy.constructor === ExplosiveBarrel) {
+							enemy.activated = true;
+						}
+						if (enemy.damage > 0) {
+							enemy.health -= 6 * damageModifier;
+						}
+						this.removeSelf();
+					} else if (enemy.constructor === KillCopy && fastCollisionKillCopy(this, enemy)) { // special case due to large overhang of the left side of sprite
+						if (enemy.damage > 0) {
+							enemy.health -= 6 * damageModifier;
+						}
+						this.removeSelf();
+					} else if (enemy.constructor === Phone && fastCollisionPhone(this, enemy)) { // special case due to large overhang of the left side of sprite
+						if (enemy.damage > 0) {
+							enemy.health -= 6 * damageModifier;
+						}
+						this.removeSelf();
 					}
-					if (enemy.damage > 0) {
-						enemy.health -= 6 * damageModifier;
-					}
-					this.removeSelf();
-				} else if (enemy.constructor === KillCopy && fastCollisionKillCopy(this, enemy)) { // special case due to large overhang of the left side of sprite
-					if (enemy.damage > 0) {
-						enemy.health -= 6 * damageModifier;
-					}
-					this.removeSelf();
-				} else if (enemy.constructor === Phone && fastCollisionPhone(this, enemy)) { // special case due to large overhang of the left side of sprite
-					if (enemy.damage > 0) {
-						enemy.health -= 6 * damageModifier;
-					}
-					this.removeSelf();
-				}
-			}.bind(this));
+				}.bind(this));
 
 
 				this.x += this.xspeed;
@@ -145,11 +145,11 @@ function Player() {
 		};
 
 		this.checkBounds = function() {
-			if (this.y < 0 || Math.abs(this.y - player.y) > renderer.gamestage.canvas.height) {
+			if (this.y < 0 || abs(this.y - player.y) > renderer.gamestage.canvas.height) {
 				return false;
 			}
 
-			return !(this.x < 0 || Math.abs(this.x - (player.x)) > 400);
+			return !(this.x < 0 || abs(this.x - (player.x)) > 400);
 		};
 	};
 
@@ -266,11 +266,11 @@ function Player() {
 		};
 
 		this.checkBounds = function() {
-			if (this.y < 0 || Math.abs(this.y - player.y) > renderer.gamestage.canvas.height) {
+			if (this.y < 0 || abs(this.y - player.y) > renderer.gamestage.canvas.height) {
 				return false;
 			}
 
-			return !(this.x < 0 || Math.abs(this.x - (player.x - renderer.completedMapsWidthOffset)) > 400);
+			return !(this.x < 0 || abs(this.x - (player.x - renderer.completedMapsWidthOffset)) > 400);
 		};
 	};
 
@@ -697,7 +697,7 @@ function Player() {
 				playSound("jumpland");
 
 				// correcting floor position after a jump/fall:
-				this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+				this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 				if (this.y + this.animations.spriteSheet._frameHeight > renderer.gamestage.canvas.height) {
 					this.y -= 16;
 				}
@@ -806,6 +806,16 @@ function Player() {
             return;
         }
 
+        if (hasJoystick && usingJoystick) {
+        	this.actions = gamepadPoll_game();
+        	if (this.actions.jumpReleased) {
+        		this.jumpreleased = true;
+        	}
+        	if (this.actions.attackReleased) {
+        		this.shootTicks = 1;
+        	}
+        }
+
         if (this.shootTicks > 0) {
             this.shootTicks--;
 
@@ -866,7 +876,7 @@ function Player() {
 			playSound("jumpland");
 
 			// correcting floor position after a jump/fall:
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 			if (this.y + this.animations.spriteSheet._frameHeight > renderer.gamestage.canvas.height) {
 				this.y -= 16;
 			}

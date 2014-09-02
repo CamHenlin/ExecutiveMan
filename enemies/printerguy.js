@@ -30,9 +30,9 @@ function PrinterGuy(stage, basicCollision, x, y) {
 	this.damage           = 1;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
-	this.x                = x;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
 	this.y                = y;
-	this.animations.x     = x;
+	this.animations.x     = x - renderer.completedMapsWidthOffset;
 	this.animations.y     = y;
 	this.activated        = false;
 	this.jumping          = false;
@@ -103,7 +103,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		}
 
 		var distanceFromPlayer = player.x - this.x;
-		if (Math.abs(distanceFromPlayer) <= 100 && this.animations.currentAnimation !== "move" && !this.lastDirectionChangeFromCollision && !this.activated) {
+		if (abs(distanceFromPlayer) <= 100 && this.animations.currentAnimation !== "move" && !this.lastDirectionChangeFromCollision && !this.activated) {
 			if (distanceFromPlayer > 0) {
 				this.animations.scaleX = -1;
 				this.animations.regX = this.animations.spriteSheet._frameWidth;
@@ -115,7 +115,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 			this.animations.gotoAndPlay("show");
 		}
 
-		if (this.shootTicks === 0 && Math.abs(distanceFromPlayer) < 175 && !this.activated && this.health > 0) {
+		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 175 && !this.activated && this.health > 0) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, renderer));
 			this.shootTicks = 300 / lowFramerate;
 			this.hardshell = false;
@@ -144,7 +144,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		}
 
 		if (!collisionResults.down) {
-			this.y -= (this.y + this.animations.spriteSheet._frameHeight) % 16;
+			this.y -= (this.y + this.animations.spriteSheet._frameHeight) & 15; // (numerator % divisor) === (numerator & (divisor - 1)); and we're doing: spriteSheet._frameHeight) % 16;
 		}
 
 		if (this.shootTicks > 0) {

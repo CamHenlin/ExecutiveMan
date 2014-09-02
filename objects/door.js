@@ -26,13 +26,13 @@ function Door(stage, basicCollision, x, y) {
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(doorSpriteSheet, "still");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
 	this.activated        = false;
 	this.down             = false;
 	this.hardshell        = true;
 	this.watchedElements  = [];
-	this.animations.x = this.x - renderer.completedMapsWidthOffset;
+	this.animations.x = this.x - renderer.completedMapsWidthOffset - parseInt(renderer.mapData.properties.stitchx);;
 	this.animations.y = this.y;
 
 	this.animations.play();

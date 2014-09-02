@@ -18,7 +18,7 @@ function HalfwayPoint(stage, basicCollision, x) {
 	this.basicCollision   = basicCollision;
 	this.stage            = stage;
 	this.animations       = new createjs.Sprite(droppingPlatformSpriteSheet, "still");
-	this.x                = x;// - 32;
+	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.ySpeed           = 0;
 	this.activated        = false;
 	this.hardshell        = true;
