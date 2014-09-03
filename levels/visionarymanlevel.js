@@ -1,4 +1,4 @@
-var visionarymanHalfwayPoint = -6;
+var visionarymanHalfwayPoint = 0
 var visionarymanBossPoint = -1;
 var visionarymanmaps = [];
 

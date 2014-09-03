@@ -1,4 +1,4 @@
-var maps = [];
+// var maps = [];
 
 function Renderer(gamestage) {
 	this.collisionArray = [[],[]];
@@ -209,13 +209,13 @@ function Renderer(gamestage) {
 		this.enemyContainer.y = this.gameBottom;
 
 		if (parseInt(this.mapData.properties.stitchx) !== 0) {
-			console.log('stitchx');
+			// console.log('stitchx');
 			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + this.lastWidthOffset - this.widthOffset;
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
 		} else {
-			console.log('no stitchx');
-			this.stitchingoffset = this.lastWidthOffset - this.widthOffset;
-			this.completedMapsWidthOffset += this.lastWidthOffset - this.widthOffset;
+			// console.log('no stitchx');
+			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth - this.completedMapsWidthOffset);
+			this.completedMapsWidthOffset += this.lastWidthOffset; // maybe lastOffScreenWidth shouldnt bethere
 		}
 
 console.log(this.stitchingoffset);

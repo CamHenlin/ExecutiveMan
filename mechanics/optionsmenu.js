@@ -6,10 +6,12 @@ function OptionsMenu() {
 	optionsstage = new createjs.Container();
 
 	var shape = new createjs.Shape();
-    shape.graphics.beginFill("#0000FF").drawRect(32, 32, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
+    shape.graphics.beginFill("#3366FF").drawRect(32, 32, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
+	var shape2 = new createjs.Shape();
+    shape2.graphics.beginFill("#000").drawRect(34, 34, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
 
 	var divider = new createjs.Shape();
-    divider.graphics.beginFill("#6699FF").drawRect(34, gamestage.canvas.height - 96, gamestage.canvas.width - 68, 3);
+    divider.graphics.beginFill("#5577FF").drawRect(34, gamestage.canvas.height - 96, gamestage.canvas.width - 68, 3);
 	this.setLeftButtonTouchTarget = new createjs.Shape();
     this.setLeftButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
     this.setLeftButtonTouchTarget.x = gamestage.canvas.width - 128;
@@ -62,15 +64,15 @@ function OptionsMenu() {
 	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "bold 7px Arial", "#000");
 	var hasJoystickLabel = new createjs.Text("Joystick Detected", "bold 7px Arial", "#FFF");
 	this.leftLabel = new createjs.Text("LEFT BUTTON", "bold 8px Arial", "#FFF");
-	this.leftSelected = new createjs.Text("LEFT ARROW", "bold 8px Arial", "#FFF");
+	this.leftSelected = new createjs.Text((keyCodes.left === 37) ? "LEFT ARROW" : String.fromCharCode(keyCodes.left), "bold 8px Arial", "#FFF");
 	this.rightLabel = new createjs.Text("RIGHT BUTTON", "bold 8px Arial", "#FFF");
-	this.rightSelected =  new createjs.Text("RIGHT ARROW", "bold 8px Arial", "#FFF");
+	this.rightSelected =  new createjs.Text((keyCodes.right === 39) ? "RIGHT ARROW" : String.fromCharCode(keyCodes.right), "bold 8px Arial", "#FFF");
 	this.jumpLabel =  new createjs.Text("JUMP BUTTON", "bold 8px Arial", "#FFF");
-	this.jumpSelected =  new createjs.Text("SPACE", "bold 8px Arial", "#FFF");
+	this.jumpSelected =  new createjs.Text((keyCodes.jump === 32) ? "SPACE" : String.fromCharCode(keyCodes.jump), "bold 8px Arial", "#FFF");
 	this.shootLabel =  new createjs.Text("SHOOT BUTTON", "bold 8px Arial", "#FFF");
-	this.shootSelected =  new createjs.Text("C", "bold 8px Arial", "#FFF");
+	this.shootSelected =  new createjs.Text(String.fromCharCode(keyCodes.attack), "bold 8px Arial", "#FFF");
 	this.pauseLabel =  new createjs.Text("PAUSE BUTTON", "bold 8px Arial", "#FFF");
-	this.pauseSelected =  new createjs.Text("P", "bold 8px Arial", "#FFF");
+	this.pauseSelected =  new createjs.Text(String.fromCharCode(keyCodes.pause), "bold 8px Arial", "#FFF");
 
 	this.close =  new createjs.Text("CLOSE", "bold 8px Arial", "#FFF");
 
@@ -105,6 +107,7 @@ function OptionsMenu() {
 	this.close.x = gamestage.canvas.width / 2 - 15;
 	this.close.y = 160;
 
+    optionsstage.addChild(shape2);
     optionsstage.addChild(shape);
     optionsstage.addChild(executivemanLabel2);
     optionsstage.addChild(executivemanLabel);
@@ -134,7 +137,13 @@ function OptionsMenu() {
     this.show = function() {
 		optionsUp = true;
 		playSound("pauseopen");
-
+		if (usingJoystick) {
+			this.leftSelected.text = "MAPPED TO JOYSTICK";
+			this.rightSelected.text = "MAPPED TO JOYSTICK";
+			this.jumpSelected.text = "MAPPED TO JOYSTICK";
+			this.shootSelected.text = "MAPPED TO JOYSTICK";
+			this.pauseSelected.text = "MAPPED TO JOYSTICK";
+		}
 		document.addEventListener('click', optionsClickHandler.bind(this), false);
 
 		gamestage.addChild(optionsstage);

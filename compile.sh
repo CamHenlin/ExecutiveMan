@@ -1,9 +1,9 @@
 cd leveljson
-./makelevel.sh accountingman
-./makelevel.sh materialman
-./makelevel.sh visionaryman
-./makelevel.sh warehouseman
-./makelevel.sh wasteman
+./makelevel.sh accountingman 7
+./makelevel.sh materialman 8
+./makelevel.sh visionaryman 0
+./makelevel.sh warehouseman 0
+./makelevel.sh wasteman 6
 cd ../
 java -jar compiler.jar \
 	--js=libs/easeljs-NEXT.min.js --js=libs/soundjs-0.5.2.min.js --js=libs/preload-NEXT.min.js \

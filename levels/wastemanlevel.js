@@ -1,4 +1,4 @@
-var wastemanHalfwayPoint = 4;
+var wastemanHalfwayPoint = 6
 var wastemanBossPoint = 9;
 var wastemanmaps = [];
 

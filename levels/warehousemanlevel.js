@@ -1,4 +1,4 @@
-var warehousemanHalfwayPoint = -6;
+var warehousemanHalfwayPoint = 0
 var warehousemanBossPoint = -1;
 var warehousemanmaps = [];
 
