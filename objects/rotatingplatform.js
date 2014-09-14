@@ -21,7 +21,7 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = y;
 	this.xspeed           = xspeed;
-	this.lastx            = x;
+	this.lastx            = x + parseInt(renderer.mapData.properties.stitchx);
 	this.lasty            = y;
 	this.yspeed           = yspeed;
 	this.activated        = false;
@@ -40,11 +40,11 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 		if (this.xspeed < 0 && this.x < renderer.completedMapsWidthOffset) {
 			this.x = renderer.getMapWidth() + renderer.completedMapsWidthOffset;
 			this.lastx = this.x;
-			this.animations.x = this.x -  renderer.completedMapsWidthOffset;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		}
 
-		if (this.yspeed < 0 && this.y < renderer.completedMapsWidthOffset) {
-			this.y = renderer.getMapHeight();
+		if (this.yspeed < 0 && this.y < 0) {
+			this.y = renderer.getMapHeight() + 16;
 			this.lasty = this.y;
 			this.animations.y = this.y;
 		}
@@ -57,15 +57,17 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 
 		if (this.yspeed > 0 && this.y > renderer.getMapHeight()) {
 			this.y = 0;
-			this.lastx = this.y;
+			this.lasty = this.y;
 			this.animations.y = this.y;
 		}
 
 		this.y += this.yspeed;
 		this.animations.y += this.y - this.lasty;
 
-		this.x += this.xspeed;
-		this.animations.x += this.x - this.lastx;
+		if (this.xspeed !== 0) {
+			this.x += this.xspeed;
+			this.animations.x += this.x - this.lastx;
+		}
 
 		if (this.activated) {
 			if (!fastCollisionPlatform(player, this)) { // player no longer on platform

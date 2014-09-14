@@ -83,6 +83,19 @@ function initBossScreen() {
 	var warehouseMan = new createjs.Text("WAREHOUSE \n        MAN", "bold 7px Arial", "#FFF");
 	var warehousemanFrame = new createjs.Sprite(warehousemanFrameSpriteSheet, "frame");
 
+	var visionarymanFrameSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("visionarymanframe")],
+		"frames": {
+			"width": 19, "height": 24, "count": 1
+		},
+		"animations": {
+			"frame": {
+				"frames" : [0],
+				"next" : "frame"
+			}
+		}
+	});
+	var visionarymanFrame = new createjs.Sprite(visionarymanFrameSpriteSheet, "frame");
 	var visionaryMan = new createjs.Text("VISIONARY \n      MAN", "bold 7px Arial", "#FFF");
 
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -170,8 +183,8 @@ function initBossScreen() {
 			wastemanLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 1) {
-			accountingmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 ;
-			accountingmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -2;
+			accountingmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + accountingmanFrame.spriteSheet._frameWidth /2 + 3;
+			accountingmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + accountingmanFrame.spriteSheet._frameWidth/2;
 			accountingmanLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
 			accountingmanLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
@@ -206,6 +219,8 @@ function initBossScreen() {
 			warehouseMan.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 8) {
+			visionarymanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + visionarymanFrame.spriteSheet._frameWidth /2 + 3;
+			visionarymanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + visionarymanFrame.spriteSheet._frameWidth/2;
 			visionaryMan.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 3;
 			visionaryMan.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
@@ -246,6 +261,7 @@ function initBossScreen() {
 	stage.addChild(optionsMenuLabel);
 	stage.addChild(loadGameLabel);
 	stage.addChild(accountingmanFrame);
+	stage.addChild(visionarymanFrame);
 	stage.addChild(accountingmanLabel);
 }
 

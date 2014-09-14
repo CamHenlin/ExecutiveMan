@@ -809,14 +809,13 @@ function Player() {
 
         if (hasJoystick && usingJoystick) {
         	this.actions = gamepadPoll_game();
+        	if (this.actions.jumpReleased) {
+        		this.jumpreleased = true;
+        	}
+        	if (this.actions.attackReleased) {
+        		this.shootTicks = 1;
+        	}
         }
-
-		if (this.actions.jumpReleased) {
-    		this.jumpreleased = true;
-    	}
-    	if (this.actions.attackReleased) {
-    		this.shootTicks = 1;
-    	}
 
         if (this.shootTicks > 0) {
             this.shootTicks--;

@@ -16,6 +16,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "map1", src: "images/map1.png"},
 						{id: "map2", src: "images/map2.png"},
 						{id: "map3", src: "images/map3.png"},
+						{id: "map6", src: "images/map6.png"},
 						{id: "buttons", src: "images/buttons.png"},
 						{id: "businessman", src: "images/businessmanspritesheet.png"},
 						{id: "businessman_green", src: "images/businessmanspritesheet_green.png"},
@@ -39,6 +40,7 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "wastemanframe", src: "images/wastemanframe.png"},
 						{id: "shopframe", src: "images/shopframe.png"},
 						{id: "accountingmanframe", src: "images/accountingmanframe.png"},
+						{id: "visionarymanframe", src: "images/visionarymanframe.png"},
 						{id: "warehousemanframe", src: "images/warehousemanframe.png"},
 						{id: "wasteman", src: "images/wastemanspritesheet.png"},
 						{id: "accountingman", src: "images/accountingmansprite.png"},
@@ -68,7 +70,6 @@ loader.loadManifest([	{id: "logo", src: "images/executivemanlogo.png"},
 						{id: "door", src: "images/door.png"},
 						{id: "platform", src: "images/platform.png"},
 						{id: "explosivebarrel", src: "images/explosivebarrel.png"},
-					//	{id: "wastemansoundloop", src: "sounds/wastemansoundloop.mp3"},
 						{id: "copter", src: "images/copter.png"}]);
 
 
@@ -130,7 +131,8 @@ var startgame;
 var startlevel = false;
 var bossscreenCounter = 0;
 var mobile = false;
-var musicOff = true;
+var musicOff = false;
+var soundOff = false;
 var dead = true;
 
 if (window.mobilecheck()) {
@@ -408,7 +410,7 @@ function handleTick(event) {
 	}
 
 	var modifier = 4;
-	var xmodifier = 6;
+	var xmodifier = 4;
 	var playerCollisionPoints = {
 		leftTop : { x: player.x + xmodifier, y: player.y + modifier + 2 },
 		leftBottom : { x: player.x + xmodifier, y: player.y + player.animations.spriteSheet._frameHeight - modifier - 2 },
@@ -419,9 +421,21 @@ function handleTick(event) {
 		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xmodifier - ((player.animations.scaleX === 1) ? 9 : 0), y: player.y + modifier },
 		topLeft : { x: player.x + xmodifier + ((player.animations.scaleX === 1) ? 0 : 12), y: player.y + modifier }
 	};
+	var deathmodifier = 10;
+	var xdeathmodifier = 10;
+	var playerDeathCollisionPoints = {
+		leftTop : { x: player.x + xdeathmodifier, y: player.y + deathmodifier + 2 },
+		leftBottom : { x: player.x + xdeathmodifier, y: player.y + player.animations.spriteSheet._frameHeight - deathmodifier - 2 },
+		bottomLeft : { x: player.x + xdeathmodifier + ((player.animations.scaleX === 1) ? -4 : 8), y: player.y + player.animations.spriteSheet._frameHeight  },
+		bottomRight : { x: player.x + player.animations.spriteSheet._frameWidth - xdeathmodifier - ((player.animations.scaleX === 1) ? 6 : -2), y: player.y + player.animations.spriteSheet._frameHeight },
+		rightBottom : { x: player.x + player.animations.spriteSheet._frameWidth - xdeathmodifier, y: player.y + player.animations.spriteSheet._frameHeight - deathmodifier - 2 },
+		rightTop : { x: player.x + player.animations.spriteSheet._frameWidth - xdeathmodifier, y: player.y + deathmodifier + 2 },
+		topRight : { x: player.x + player.animations.spriteSheet._frameWidth - xdeathmodifier - ((player.animations.scaleX === 1) ? 9 : 0), y: player.y + deathmodifier },
+		topLeft : { x: player.x + xdeathmodifier + ((player.animations.scaleX === 1) ? 0 : 12), y: player.y + deathmodifier }
+	};
 
 	actions.collisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, renderer.collisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
-	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerCollisionPoints, renderer.deathCollisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
+	actions.deathCollisionResults = tileCollisionDetector.checkCollisions(playerDeathCollisionPoints, renderer.deathCollisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
 
 	this.renderer.enemies.forEach(function(element) {
 		element.tickActions(actions);

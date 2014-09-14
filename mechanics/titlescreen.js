@@ -1,5 +1,5 @@
 function initTitleScreen() {
-	playSoundLoop("intro");
+	playSoundLoop("title");
 	var oneSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("slide_one")],
 		"frames": {

@@ -16,23 +16,30 @@ createjs.Sound.registerSound("sounds/warehousemanshoot.wav", "warehousemanshoot"
 createjs.Sound.registerSound("sounds/warehousemanshothit.wav", "warehousemanshothit");
 createjs.Sound.registerSound("sounds/warehousemanshothitsmall.wav", "warehousemanshothitsmall");
 
-createjs.Sound.registerSound("songs/trust.mp3", "wastemansong");
-createjs.Sound.registerSound("songs/psychotron.mp3", "accountingmansong");
+createjs.Sound.registerSound("songs/intro.mp3", "intro");
+createjs.Sound.registerSound("songs/title.mp3", "title");
+createjs.Sound.registerSound("songs/wasteman.mp3", "wastemansong");
+createjs.Sound.registerSound("songs/accountingman.mp3", "accountingmansong");
+createjs.Sound.registerSound("songs/warehouseman.mp3", "warehousemansong");
+createjs.Sound.registerSound("songs/materialman.mp3", "materialmansong");
+createjs.Sound.registerSound("songs/visionaryman.mp3", "visionarymansong");
 
 loader.installPlugin(createjs.SoundJS);
 
 function playSound(sound) {
+	if (soundOff) { return; }
     var fx = createjs.Sound.play(sound);
     fx.volume = 0.25;
 }
 
 function playSoundTwice(sound) {
+	if (soundOff) { return; }
 	var loop = createjs.Sound.play(sound, {loop:1});
 	loop.volume = 0.25;
 }
 
 function playSoundLoop(sound) {
-	if (musicOff) { return; }
+	if (musicOff || soundOff) { return; }
 
 	var loop = createjs.Sound.play(sound, {loop:-1});
 	loop.volume = 0.15;
@@ -41,3 +48,10 @@ function playSoundLoop(sound) {
 function stopMusic() {
 	createjs.Sound.stop();
 }
+
+(function() {
+	if (getParameterByName("soundoff") === "true") {
+		musicOff = true;
+		soundOff = true;
+	}
+})();

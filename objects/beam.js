@@ -29,7 +29,7 @@ function Beam(stage, basicCollision, x, y, xspeed, yspeed) {
 	this.goingup          = false;
 	this.goingright       = false;
 	this.watchedElements  = [];
-	this.animations.x = this.x - renderer.completedMapsWidthOffset;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
 	this.animations.play();
@@ -38,9 +38,9 @@ function Beam(stage, basicCollision, x, y, xspeed, yspeed) {
 
 	this.tickActions = function() {
 		if (this.xspeed < 0 && this.x < 0) {
-			this.x = renderer.getMapWidth();
+			this.x = renderer.getMapWidth() + renderer.completedMapsWidthOffset;
 			this.lastx = this.x;
-			this.animations.x = this.x;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		}
 
 		if (this.yspeed < 0 && this.y < 0) {
@@ -49,10 +49,10 @@ function Beam(stage, basicCollision, x, y, xspeed, yspeed) {
 			this.animations.y = this.y;
 		}
 
-		if (this.xspeed > 0 && this.x > renderer.getMapWidth()) {
-			this.x = 0;
+		if (this.xspeed > 0 && this.x > renderer.getMapWidth() + renderer.completedMapsWidthOffset) {
+			this.x = renderer.completedMapsWidthOffset;
 			this.lastx = this.x;
-			this.animations.x = this.x;
+			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		}
 
 		if (this.yspeed > 0 && this.y > renderer.getMapHeight()) {
