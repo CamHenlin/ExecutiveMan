@@ -263,7 +263,38 @@ function initBossScreen() {
 	stage.addChild(accountingmanFrame);
 	stage.addChild(visionarymanFrame);
 	stage.addChild(accountingmanLabel);
+
+	document.onkeydown = bossScreenKeyDownHandler.bind(this);
 }
+
+var bossScreenKeyDownHandler = function (event) {
+	switch (event.keyCode) {
+		case keyCodes.left:
+			// keyCode 37 is left arrow
+			bossNumber--;
+			break;
+
+		case keyCodes.right:
+			// keyCode 39 is right arrow
+			bossNumber++;
+			break;
+
+
+		case keyCodes.jump:
+			// keyCode 32 is space
+			if (bossNumber === 4 && fastCollisionSprite(bossframes[bossNumber], touchSprite)) {
+		    	this.shopMenu.show();
+	            //event.target.removeEventListener(event.type, arguments.callee);
+		    } else if (fastCollisionSprite(bossframes[k], touchSprite)) {
+		       	initVars();
+		       	initShowOffBossScreen(bossNumber);
+	            event.target.removeEventListener(event.type, arguments.callee);
+				bossScreenUp = false;
+        		playSound("pauseopen");
+		    }
+			break;
+	}
+};
 
 
 function buildSaveLoadTouchTarget(text) {

@@ -54,4 +54,8 @@ function stopMusic() {
 		musicOff = true;
 		soundOff = true;
 	}
+
+	if (getParameterByName("musicoff") === "true") {
+		musicOff = true;
+	}
 })();

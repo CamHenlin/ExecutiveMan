@@ -457,12 +457,12 @@ console.log(this.completedMapsWidthOffset);
 
 					if (layer.objects[j].type === "rotatingplatform") {
 						this.objects.push(new RotatingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
-																	parseInt(layer.objects[j].properties.xspeed), parseInt(layer.objects[j].properties.yspeed)));
+																	parseFloat(layer.objects[j].properties.xspeed), parseFloat(layer.objects[j].properties.yspeed)));
 					}
 
 					if (layer.objects[j].type === "beam") {
 						this.objects.push(new Beam(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
-																	parseInt(layer.objects[j].properties.xspeed), parseInt(layer.objects[j].properties.yspeed)));
+																	parseFloat(layer.objects[j].properties.xspeed), parseFloat(layer.objects[j].properties.yspeed)));
 					}
 
 					if (layer.objects[j].type === "halfwaypoint") {

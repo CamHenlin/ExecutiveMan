@@ -111,7 +111,7 @@ var keyCodes = {
 };
 
 var abs = Math.abs;
-
+var bossNumber = 0;
 var clicked = false;
 var itemDropCount = 0;
 var lives = 2;
