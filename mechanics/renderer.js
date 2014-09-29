@@ -117,28 +117,26 @@ function Renderer(gamestage) {
 	this.prepareRenderer = function() {
 		this.collisionArray = [[],[]];
 		this.deathCollisionArray = [[],[]];
-
-		/*this.lastContainer = this.container.clone(true);
-		this.lastbackgroundContainer1 = this.backgroundContainer1.clone(true);
-		this.lastbackgroundContainer2 = this.backgroundContainer2.clone(true);
-		this.gamestage.addChild(this.lastbackgroundContainer1);
-		this.gamestage.addChild(this.lastbackgroundContainer2);
-		this.gamestage.addChild(this.lastContainer);*/
 		this.lastParentContainer = this.parentContainer.clone(true);
 		this.gamestage.addChild(this.lastParentContainer);
 		this.gamestage.removeChild(this.parentContainer);
+/*
+		for (var i = 0; i < this.enemies.length; i++) {
+			this.enemyContainer.removeChild(this.enemies[i]);
+			this.enemies[i] = null;
+		}
+
+		for (i = 0; i < this.objects.length; i++) {
+			this.enemyContainer.removeChild(this.objects[i]);
+			this.objects[i] = null;
+		}
+*/
 		this.gamestage.removeChild(this.enemyContainer);
 
 		this.backgroundContainer1.removeAllChildren();
 		this.backgroundContainer2.removeAllChildren();
-		//this.container.removeAllChildren();
 		this.parentContainer.removeAllChildren();
-		/*this.gamestage.removeChild(this.backgroundContainer1);
-		this.gamestage.removeChild(this.backgroundContainer2);
-		this.gamestage.removeChild(this.container);*/
 		this.container = new createjs.Container();
-		//this.gamestage.addChild(this.container);
-		//this.parentContainer.addChild(this.container);
 		var fillColor = new createjs.Shape();
 		fillColor.graphics.beginFill('#' + this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
 		this.backgroundContainer1.addChild(fillColor);
@@ -155,13 +153,9 @@ function Renderer(gamestage) {
 		this.parentContainer.snapToPixel = true;
 		this.enemyContainer.tickEnabled = true;
 
-		//this.beginCaching(this.parentContainer);
-
 		this.parentContainer.addChild(this.backgroundContainer1);
 		this.parentContainer.addChild(this.backgroundContainer2);
 		this.parentContainer.addChild(this.container);
-		//this.parentContainer.addChild(this.lastContainer);
-		//this.parentContainer.removeChild(this.enemyContainer);
 		this.gamestage.addChild(this.parentContainer);
 		this.gamestage.addChild(this.enemyContainer);
 
@@ -233,6 +227,50 @@ console.log(this.completedMapsWidthOffset);
 		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
+	this.nextMapUp = function() {
+		var lastOffScreenWidth = this.getOffScreenWidth();
+		this.lastWidthOffset = this.widthOffset;
+
+		this.mapData = maps[++this.mapcounter];
+
+
+		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
+			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
+		} else {
+			this.widthOffset = 0;
+		}
+
+		this.prepareRenderer();
+
+		this.transitionup = true;
+
+		this.initLayers();
+		this.parentContainer.y = -this.gameBottom;
+		this.enemyContainer.y = -this.gameBottom;
+
+		if (parseInt(this.mapData.properties.stitchx) !== 0) {
+			// console.log('stitchx');
+			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
+		} else {
+			// console.log('no stitchx');
+			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth - this.completedMapsWidthOffset);
+			this.completedMapsWidthOffset += this.lastWidthOffset; // maybe lastOffScreenWidth shouldnt bethere
+		}
+
+		this.parentContainer.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset;
+
+		this.completeRenderer();
+
+		this.doneRendering = true;
+		if (mobile) {
+			initTouchControls();
+		}
+
+		this.screenWidthDelta = (this.stitchingoffset) / 60;
+	};
+
 	this.lastMapDown = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		this.lastWidthOffset = this.widthOffset;
@@ -272,48 +310,6 @@ console.log(this.completedMapsWidthOffset);
 		}
 
 		this.screenWidthDelta = (this.stitchingoffset) / 60;
-	};
-
-	this.nextMapUp = function() {
-		var lastOffScreenWidth = this.getOffScreenWidth();
-		this.lastWidthOffset = this.widthOffset;
-
-		this.mapData = maps[++this.mapcounter];
-
-
-		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
-			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
-		} else {
-			this.widthOffset = 0;
-		}
-
-		this.prepareRenderer();
-
-		this.transitionup = true;
-
-		this.initLayers();
-		this.parentContainer.y = -this.gameBottom;
-		this.enemyContainer.y = -this.gameBottom;
-
-		// build new map
-		if (this.widthOffset !== 0) {
-			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-		} else {
-			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
-			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset;
-		}
-		this.parentContainer.x = this.stitchingoffset;
-		this.enemyContainer.x = this.stitchingoffset;
-
-		this.completeRenderer();
-
-		this.doneRendering = true;
-		if (mobile) {
-			initTouchControls();
-		}
-
-		this.screenWidthDelta = (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
 	};
 
 	this.lastMapUp = function() {
@@ -356,7 +352,7 @@ console.log(this.completedMapsWidthOffset);
 			initTouchControls();
 		}
 
-		this.screenWidthDelta = (this.stitchingoffset - (this.widthOffset - this.lastWidthOffset)) / 60;
+		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
 	this.nextMapRight = function() {
@@ -521,6 +517,8 @@ console.log(this.completedMapsWidthOffset);
 						enemyArray.push(new WallGun(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, false));
 					} else if (layerData.data[idx] === 11) {
 						enemyArray.push(new ComputerGuy(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 97) {
+						enemyArray.push(new HealthBriefCase(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 98) {
 						enemyArray.push(new ExtraLife(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 99) {
@@ -804,7 +802,7 @@ console.log(this.completedMapsWidthOffset);
                     this.parentContainer.x -= this.screenWidthDelta;
                     this.enemyContainer.x -= this.screenWidthDelta;
                     this.lastParentContainer.x -= this.screenWidthDelta;
-					//player.animations.x -= this.screenWidthDelta;
+					player.animations.x -= this.screenWidthDelta;
 
 				}
 
@@ -823,6 +821,7 @@ console.log(this.completedMapsWidthOffset);
 					this.stitchingoffset = 0;
                 } else {
 					this.parentContainer.x = 0;
+					this.enemyContainer.x = 0;
                 }
                 //player.animations.y = 0;
                 //player.y = 0;

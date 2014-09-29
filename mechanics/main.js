@@ -182,11 +182,11 @@ function initVars() {
 }
 
 window.onresize = function(event) {
-	var zoomAmount = window.innerHeight / 256;
+	var zoomAmount = window.innerHeight / 240;
 
 	gamezoom = zoomAmount;
 	gamestage.canvas.width = window.innerWidth / zoomAmount;
-	gamestage.canvas.height = window.innerHeight / zoomAmount;
+	gamestage.canvas.height = gamestage.canvas.width * 1 / 16; // window.innerHeight / zoomAmount;
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
 	initTouchControls();
@@ -289,7 +289,6 @@ function beginGame(newGame) {
 			renderer.mapcounter = visionaryManHalfwayPoint;
 		}
 	}
-
     player = new Player();
 	renderer.initMap();
 	watchedElements.push(player);

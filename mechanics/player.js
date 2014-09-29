@@ -565,9 +565,9 @@ function Player() {
 
     if (mobile) {
         var touchEventSpriteSheet = new createjs.SpriteSheet({
-            "images": ["images/pixel.png"],
+            "images": [loader.getResult("businessman")],
             "frames": {
-                "width": 1, "height": 1, "count": 1
+                "width": 10, "height": 10, "count": 1
             },
             "animations": {
                 "exist": {
@@ -589,6 +589,53 @@ function Player() {
                 var touch = event.touches[i];
                 touchSprite.x = (event.pageX || touch.pageX) / gamezoom;
                 touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
+
+                if (fastCollisionSprite(leftButtonSprite, touchSprite)) {
+                    this.actions.playerLeft = true;
+                    this.actions.playerRight = false;
+                    this.touchIds[touch.identifier] = "left";
+                } else if (fastCollisionSprite(rightButtonSprite, touchSprite)) {
+                    this.actions.playerLeft = false;
+                    this.actions.playerRight = true;
+                    this.touchIds[touch.identifier] = "right";
+                } else if (fastCollisionSprite(shootButtonSprite, touchSprite)) {
+                    this.actions.playerAttack = true;
+                    this.touchIds[touch.identifier] = "shoot";
+                } else if (fastCollisionSprite(pauseButtonSprite, touchSprite)) {
+					if (this.paused) {
+						this.paused = false;
+						this.pauseMenu.remove();
+					} else {
+						this.paused = true;
+						this.pauseMenu.show();
+					}
+                } else {
+                    this.actions.playerJump = true;
+                    this.touchIds[touch.identifier] = "jump";
+                }
+            }
+        };
+
+        var moveEventHandler = function(event) {
+            if (!pauseUp && !bossScreenUp) {
+				event.preventDefault();
+            }
+
+            for (var i = 0; i < event.touches.length; i++) {
+                var touch = event.touches[i];
+                touchSprite.x = (event.pageX || touch.pageX) / gamezoom;
+                touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
+
+                if (this.touchIds[touch.identifier] !== "shoot") {
+                	if (this.touchIds[touch.identifier] === "left") {
+                		this.actions.playerLeft = false;
+                	} else if (this.touchIds[touch.identifier] === "right") {
+                		this.actions.playerRight = false;
+                	} else if (this.touchIds[touch.identifier] === "jump") {
+                		this.actions.playerJump = false;
+                	}
+                	this.touchIds[touch.identifier] = null;
+                }
 
                 if (fastCollisionSprite(leftButtonSprite, touchSprite)) {
                     this.actions.playerLeft = true;
@@ -643,7 +690,7 @@ function Player() {
         };
 
 		document.getElementById("gamecanvas").addEventListener('touchstart', 	eventHandler.bind(this), false);
-		document.getElementById("gamecanvas").addEventListener('touchmove',  	eventHandler.bind(this), false);
+		document.getElementById("gamecanvas").addEventListener('touchmove',  	moveEventHandler.bind(this), false);
 		document.getElementById("gamecanvas").addEventListener('touchend',   	endTouchEventHandler.bind(this), false);
 		document.getElementById("gamecanvas").addEventListener('touchcancel',	endTouchEventHandler.bind(this), false);
 		document.getElementById("gamecanvas").addEventListener('touchleave', 	endTouchEventHandler.bind(this), false);
@@ -658,7 +705,6 @@ function Player() {
 
     // lots of weird rules here to make the game as megaman-like as possible
     // as we're aming to be a reimplementation of megaman physics, and not realistic physics
-    // most values are doubled from their megaman values as i am using double sized sprites
     this.tickActions = function(actions) {
 		this.gameActions = actions;
 
@@ -934,8 +980,9 @@ function Player() {
 
 		if (this.actions.playerAttack && this.shootTicks <= 0) {
 			//this.watchedElements.push(new Shot(this.stage, this, renderer));
+			var shot;
 			if (this.currentWeapon === 'postit') {
-				var shot = this.shots[this.shotIndex++ % 27];
+				shot = this.shots[this.shotIndex++ % 27];
 				if (shot.disabled) {
 					shot.fireUp();
 					playSound("shoot");
@@ -950,7 +997,7 @@ function Player() {
 					}
 				}
 			} else if (this.currentWeapon === 'stingingaudit') {
-				var shot = this.stingingAuditShots[this.shotIndex++ % 3];
+				shot = this.stingingAuditShots[this.shotIndex++ % 3];
 				if (shot.disabled) {
 					shot.fireUp();
 					playSound("shoot");
