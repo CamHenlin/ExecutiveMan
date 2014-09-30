@@ -183,8 +183,7 @@ function Renderer(gamestage) {
 
 	this.nextMapDown = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
-		var lastWidth = this.getMapWidth();
-		this.lastWidthOffset = this.widthOffset;
+ 		this.lastWidthOffset = this.widthOffset;
 
 		this.mapData = maps[++this.mapcounter];
 
@@ -204,11 +203,11 @@ function Renderer(gamestage) {
 
 		if (parseInt(this.mapData.properties.stitchx) !== 0) {
 			// console.log('stitchx');
-			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + this.lastWidthOffset - this.widthOffset;
+			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth) + this.lastWidthOffset - this.widthOffset;
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
 		} else {
 			// console.log('no stitchx');
-			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth - this.completedMapsWidthOffset);
+			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth);
 			this.completedMapsWidthOffset += this.lastWidthOffset; // maybe lastOffScreenWidth shouldnt bethere
 		}
 
@@ -229,10 +228,9 @@ console.log(this.completedMapsWidthOffset);
 
 	this.nextMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
-		this.lastWidthOffset = this.widthOffset;
+ 		this.lastWidthOffset = this.widthOffset;
 
 		this.mapData = maps[++this.mapcounter];
-
 
 		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
@@ -250,14 +248,16 @@ console.log(this.completedMapsWidthOffset);
 
 		if (parseInt(this.mapData.properties.stitchx) !== 0) {
 			// console.log('stitchx');
-			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + this.lastWidthOffset - this.widthOffset;
+			this.stitchingoffset = parseInt(this.mapData.properties.stitchx) - (lastOffScreenWidth) + this.lastWidthOffset - this.widthOffset;
 			this.completedMapsWidthOffset += parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
 		} else {
 			// console.log('no stitchx');
-			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth - this.completedMapsWidthOffset);
+			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth);
 			this.completedMapsWidthOffset += this.lastWidthOffset; // maybe lastOffScreenWidth shouldnt bethere
 		}
 
+console.log(this.stitchingoffset);
+console.log(this.completedMapsWidthOffset);
 		this.parentContainer.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
 
@@ -294,10 +294,10 @@ console.log(this.completedMapsWidthOffset);
 
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
 		} else {
-			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset) + this.lastWidthOffset;
-			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
+			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth);
+			this.completedMapsWidthOffset += this.lastWidthOffset;
 		}
 		this.parentContainer.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
@@ -337,10 +337,10 @@ console.log(this.completedMapsWidthOffset);
 		// build new map
 		if (this.widthOffset !== 0) {
 			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
 		} else {
-			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth - this.completedMapsWidthOffset);
-			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset;
+			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth);
+			this.completedMapsWidthOffset += this.lastWidthOffset;
 		}
 		this.parentContainer.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
@@ -750,7 +750,7 @@ console.log(this.completedMapsWidthOffset);
 				player.animations.y -= this.screenHeightDelta;
 				player.y -= this.screenHeightDelta;
 
-				if (this.stitchingoffset > 0) {
+				if (parseInt(this.mapData.properties.stitchx) !== 0) {
 					this.parentContainer.x -= this.screenWidthDelta;
 					this.enemyContainer.x -= this.screenWidthDelta;
 					this.lastParentContainer.x -= this.screenWidthDelta;
@@ -798,7 +798,7 @@ console.log(this.completedMapsWidthOffset);
                 player.animations.y += this.screenHeightDelta;
                 player.y += this.screenHeightDelta;
 
-                if (this.stitchingoffset > 0) {
+                if (parseInt(this.mapData.properties.stitchx) !== 0) {
                     this.parentContainer.x -= this.screenWidthDelta;
                     this.enemyContainer.x -= this.screenWidthDelta;
                     this.lastParentContainer.x -= this.screenWidthDelta;
@@ -894,11 +894,11 @@ console.log(this.completedMapsWidthOffset);
 		if (this.gamestage.canvas.width > this.getMapWidth()) {
 			return 0;
 		} else if (player.animations.x - this.gamestage.canvas.width / 2 >= -2 && player.animations.x - this.gamestage.canvas.width / 2 <= 2) {
-			return player.x - this.gamestage.canvas.width / 2;
+			return (player.x - this.completedMapsWidthOffset) - this.gamestage.canvas.width / 2;
 		} else if (player.animations.x - this.gamestage.canvas.width / 2 < -1) {
-			return this.completedMapsWidthOffset;
+			return 0;
 		} else if (player.animations.x - this.gamestage.canvas.width / 2 > 1) {
-			return this.completedMapsWidthOffset + this.getMapWidth() - this.gamestage.canvas.width;
+			return this.getMapWidth() - this.gamestage.canvas.width;
 		}
 
 		return 0;

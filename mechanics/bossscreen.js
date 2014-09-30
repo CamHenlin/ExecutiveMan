@@ -142,8 +142,8 @@ function initBossScreen() {
 	var zoomAmount = window.innerHeight / 240;
 
 	gamezoom = zoomAmount;
-	gamestage.canvas.width = window.innerWidth / zoomAmount;
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
+	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
 	gamestage.canvas.style.backgroundColor = "#000";

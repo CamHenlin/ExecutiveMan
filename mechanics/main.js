@@ -185,8 +185,8 @@ window.onresize = function(event) {
 	var zoomAmount = window.innerHeight / 240;
 
 	gamezoom = zoomAmount;
-	gamestage.canvas.width = window.innerWidth / zoomAmount;
-	gamestage.canvas.height = gamestage.canvas.width * 1 / 16; // window.innerHeight / zoomAmount;
+	gamestage.canvas.height = window.innerHeight / zoomAmount;
+	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
 	initTouchControls();
@@ -244,7 +244,7 @@ function beginGame(newGame) {
 	var zoomAmount = window.innerHeight / ((mobile) ? 288 : 240);
 
 	gamezoom = zoomAmount;
-	gamestage.canvas.width = window.innerWidth / zoomAmount;
+	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
