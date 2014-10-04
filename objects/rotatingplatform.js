@@ -52,7 +52,7 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 		if (this.xspeed > 0 && this.x > renderer.getMapWidth() + renderer.completedMapsWidthOffset) {
 			this.x = renderer.completedMapsWidthOffset;
 			this.lastx = this.x;
-			this.animations.x = this.x;
+			this.animations.x = 0;
 		}
 
 		if (this.yspeed > 0 && this.y > renderer.getMapHeight()) {

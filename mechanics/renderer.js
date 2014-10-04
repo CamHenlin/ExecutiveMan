@@ -226,6 +226,50 @@ console.log(this.completedMapsWidthOffset);
 		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
+	this.lastMapDown = function() {
+		var lastOffScreenWidth = this.getOffScreenWidth();
+		this.lastWidthOffset = this.widthOffset;
+		this.lastMapData = this.mapData;
+
+		this.mapData = maps[--this.mapcounter];
+
+		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
+			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
+		} else {
+			this.widthOffset = 0;
+		}
+
+		this.prepareRenderer();
+
+		this.transitiondown = true;
+
+		this.initLayers();
+		this.parentContainer.y = this.gameBottom;
+		this.enemyContainer.y = this.gameBottom;
+
+		if (parseInt(this.mapData.properties.stitchx) !== 0) {
+			// console.log('stitchx');
+			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth) + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += -parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
+		} else {
+			// console.log('no stitchx');
+			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth);
+			this.completedMapsWidthOffset += this.lastWidthOffset; // maybe lastOffScreenWidth shouldnt bethere
+		}
+
+		this.parentContainer.x = this.stitchingoffset;
+		this.enemyContainer.x = this.stitchingoffset;
+
+		this.completeRenderer();
+
+		this.doneRendering = true;
+		if (mobile) {
+			initTouchControls();
+		}
+
+		this.screenWidthDelta = (this.stitchingoffset) / 60;
+	};
+
 	this.nextMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
  		this.lastWidthOffset = this.widthOffset;
@@ -271,47 +315,6 @@ console.log(this.completedMapsWidthOffset);
 		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
-	this.lastMapDown = function() {
-		var lastOffScreenWidth = this.getOffScreenWidth();
-		this.lastWidthOffset = this.widthOffset;
-		this.lastMapData = this.mapData;
-
-		this.mapData = maps[--this.mapcounter];
-
-		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
-			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
-		} else {
-			this.widthOffset = 0;
-		}
-
-		this.prepareRenderer();
-
-		this.transitiondown = true;
-
-		this.initLayers();
-		this.parentContainer.y = this.gameBottom;
-		this.enemyContainer.y = this.gameBottom;
-
-		if (this.widthOffset !== 0) {
-			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
-		} else {
-			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth);
-			this.completedMapsWidthOffset += this.lastWidthOffset;
-		}
-		this.parentContainer.x = this.stitchingoffset;
-		this.enemyContainer.x = this.stitchingoffset;
-
-		this.completeRenderer();
-
-		this.doneRendering = true;
-		if (mobile) {
-			initTouchControls();
-		}
-
-		this.screenWidthDelta = (this.stitchingoffset) / 60;
-	};
-
 	this.lastMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		console.log(this.getOffScreenWidth());
@@ -335,13 +338,16 @@ console.log(this.completedMapsWidthOffset);
 		this.enemyContainer.y = -this.gameBottom;
 
 		// build new map
-		if (this.widthOffset !== 0) {
-			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - lastOffScreenWidth + this.lastWidthOffset - this.widthOffset;
-			this.completedMapsWidthOffset += -parseInt(this.lastMapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
+		if (parseInt(this.mapData.properties.stitchx) !== 0) {
+			// console.log('stitchx');
+			this.stitchingoffset = -parseInt(this.lastMapData.properties.stitchx) - (lastOffScreenWidth) + this.lastWidthOffset - this.widthOffset;
+			this.completedMapsWidthOffset += -parseInt(this.mapData.properties.stitchx) + this.lastWidthOffset - this.widthOffset;
 		} else {
+			// console.log('no stitchx');
 			this.stitchingoffset = this.lastWidthOffset - this.widthOffset - (lastOffScreenWidth);
-			this.completedMapsWidthOffset += this.lastWidthOffset;
+			this.completedMapsWidthOffset += this.lastWidthOffset; // maybe lastOffScreenWidth shouldnt bethere
 		}
+
 		this.parentContainer.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
 
