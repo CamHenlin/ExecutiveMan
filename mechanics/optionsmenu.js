@@ -176,7 +176,7 @@ function optionsClickHandler(event) {
     });
     var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-    touchSprite.x = event.clientX / gamezoom;
+    touchSprite.x = event.offsetX / gamezoom;
     touchSprite.y = event.clientY / gamezoom;
     if (fastCollisionSprite(this.closeButtonTouchTarget, touchSprite)) {
 		this.remove();

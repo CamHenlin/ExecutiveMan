@@ -114,6 +114,7 @@ function initShowOffBossScreen(bossnumber) {
 	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 	gamestage.canvas.style.backgroundColor = "#FFF";
 	gamestage.addChild(altstage);
 	gamestage.addChild(stage);

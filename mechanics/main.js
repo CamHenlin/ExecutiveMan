@@ -189,6 +189,7 @@ window.onresize = function(event) {
 	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 	initTouchControls();
 };
 
@@ -248,6 +249,7 @@ function beginGame(newGame) {
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 
 	gamestage.canvas.style.backgroundColor = "#000";
 
@@ -330,7 +332,7 @@ function beginGame(newGame) {
 
 		leftButtonSprite.x = 16;
 		rightButtonSprite.x = 96;
-		shootButtonSprite.x = gamestage.canvas.width - 64;
+		shootButtonSprite.x = document.getElementById('controlcanvas').width - 64;
 		leftButtonSprite.y = gamestage.canvas.height - 64;
 		rightButtonSprite.y = gamestage.canvas.height - 64;
 		shootButtonSprite.y = gamestage.canvas.height - 64;
@@ -368,14 +370,21 @@ function beginGame(newGame) {
 }
 
 function initTouchControls() {
-	gamestage.removeChild(leftButtonSprite);
-	gamestage.removeChild(rightButtonSprite);
-	gamestage.removeChild(shootButtonSprite);
-	gamestage.removeChild(pauseButtonSprite);
-	gamestage.addChild(leftButtonSprite);
-	gamestage.addChild(rightButtonSprite);
-	gamestage.addChild(shootButtonSprite);
-	gamestage.addChild(pauseButtonSprite);
+	var controlstage = new createjs.Stage("controlcanvas");
+	controlstage.canvas.width = window.innerWidth / gamezoom;
+	controlstage.canvas.height = window.innerHeight / gamezoom;
+	document.getElementById("controlcanvas").style.zoom = gamezoom;
+	document.getElementById("controlcanvas").style.MozTransform = "scale("+gamezoom+")";
+	document.getElementById("controlcanvas").style.zIndex = "2";
+	controlstage.removeChild(leftButtonSprite);
+	controlstage.removeChild(rightButtonSprite);
+	controlstage.removeChild(shootButtonSprite);
+	controlstage.removeChild(pauseButtonSprite);
+	controlstage.addChild(leftButtonSprite);
+	controlstage.addChild(rightButtonSprite);
+	controlstage.addChild(shootButtonSprite);
+	controlstage.addChild(pauseButtonSprite);
+	controlstage.update();
 }
 
 

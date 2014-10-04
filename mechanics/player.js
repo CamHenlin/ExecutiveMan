@@ -689,11 +689,11 @@ function Player() {
             }
         };
 
-		document.getElementById("gamecanvas").addEventListener('touchstart', 	eventHandler.bind(this), false);
-		document.getElementById("gamecanvas").addEventListener('touchmove',  	moveEventHandler.bind(this), false);
-		document.getElementById("gamecanvas").addEventListener('touchend',   	endTouchEventHandler.bind(this), false);
-		document.getElementById("gamecanvas").addEventListener('touchcancel',	endTouchEventHandler.bind(this), false);
-		document.getElementById("gamecanvas").addEventListener('touchleave', 	endTouchEventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener('touchstart', 	eventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener('touchmove',  	moveEventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener('touchend',   	endTouchEventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener('touchcancel',	endTouchEventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener('touchleave', 	endTouchEventHandler.bind(this), false);
     }
 
     this.animations.play();

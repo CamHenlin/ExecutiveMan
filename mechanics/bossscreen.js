@@ -1,5 +1,6 @@
 var bossScreenUp = false;
 function initBossScreen() {
+	document.getElementById("controlcanvas").style.zIndex = "0";
 	stopMusic();
 
 	if (lives < 2) {
@@ -146,6 +147,7 @@ function initBossScreen() {
 	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(altstage);
 	gamestage.addChild(stage);
@@ -332,9 +334,10 @@ function bossClickHandler(event) {
     var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
     event.preventDefault();
-    //console.log(event);
+    console.log(event);
 
-	touchSprite.x = event.clientX / gamezoom;
+	touchSprite.x = (event.offsetX) / gamezoom;
+	console.log(touchSprite.x);
 	touchSprite.y = event.clientY / gamezoom;
 	if (fastCollisionSprite(this.saveGameTouchTarget, touchSprite)) {
 		saveGame();

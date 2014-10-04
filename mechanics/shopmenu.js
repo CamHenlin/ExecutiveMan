@@ -182,7 +182,7 @@ this.doubleHealthTouchTarget = b
 this.healthBriefCaseTouchTarget
  */
 
-    touchSprite.x = event.clientX / gamezoom;
+    touchSprite.x = event.offsetX / gamezoom;
     touchSprite.y = event.clientY / gamezoom;
     if (fastCollisionSprite(this.exitShopTouchTarget, touchSprite)) {
         this.remove();

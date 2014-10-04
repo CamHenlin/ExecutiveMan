@@ -1,5 +1,6 @@
 var pauseUp = false;
 function PauseMenu() {
+	document.getElementById("controlcanvas").style.zIndex = "0";
 	pauseUp = false;
 	pausestage = new createjs.Container();
 
@@ -146,6 +147,7 @@ function PauseMenu() {
     	pauseUp = false;
         playSound("pauseclose");
     	gamestage.removeChild(pausestage);
+    	initTouchControls();
     };
 
     this.show = function() {
@@ -195,7 +197,7 @@ function pauseClickHandler(event) {
     });
     var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-    touchSprite.x = event.clientX / gamezoom;
+    touchSprite.x = event.offsetX / gamezoom;
     touchSprite.y = event.clientY / gamezoom;
     if (fastCollisionSprite(this.exitStageTouchTarget, touchSprite)) {
 		lives = -1;
