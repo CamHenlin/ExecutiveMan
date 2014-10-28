@@ -336,7 +336,12 @@ function bossClickHandler(event) {
     event.preventDefault();
     console.log(event);
 
-	touchSprite.x = (event.offsetX) / gamezoom;
+    if (event.target) {
+		touchSprite.x = (event.clientX - event.target.getBoundingClientRect().left) / gamezoom;
+	} else {
+		touchSprite.x = (event.clientX - event.srcElement.getBoundingClientRect().left) / gamezoom;
+	}
+
 	console.log(touchSprite.x);
 	touchSprite.y = event.clientY / gamezoom;
 	if (fastCollisionSprite(this.saveGameTouchTarget, touchSprite)) {
