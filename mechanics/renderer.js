@@ -885,7 +885,7 @@ console.log(this.completedMapsWidthOffset);
 	};
 
 	this.getMapWidth = function() {
-		return this.mapData.tilewidth * (this.mapData.width - 1);
+		return this.mapData.tilewidth * (this.mapData.width);
 	};
 
 	this.getMapHeight = function() {
@@ -901,13 +901,13 @@ console.log(this.completedMapsWidthOffset);
 		if (this.gamestage.canvas.width > this.getMapWidth()) {
 			console.log('case 1');
 			return 0;
-		} else if (player.animations.x - this.gamestage.canvas.width / 2 >= -16 && player.animations.x - this.gamestage.canvas.width / 2 <= 16) {
+		} else if (player.animations.x - this.gamestage.canvas.width / 2 >= -4 && player.animations.x - this.gamestage.canvas.width / 2 <= 4) {
 			console.log('case 2');
 			return (player.x - this.completedMapsWidthOffset) - this.gamestage.canvas.width / 2;
-		} else if (player.animations.x - this.gamestage.canvas.width / 2 < -16) {
+		} else if (player.animations.x - this.gamestage.canvas.width / 2 < -4) {
 			console.log('case 3');
 			return 0;
-		} else if (player.animations.x - this.gamestage.canvas.width / 2 > 16) {
+		} else if (player.animations.x - this.gamestage.canvas.width / 2 > 4) {
 			console.log('case 4');
 			return this.getMapWidth() - this.gamestage.canvas.width;
 		}
