@@ -643,14 +643,20 @@ function Player() {
 				touchSprite.x = (event.pageX || touch.pageX) / gamezoom;
 				touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
 
-
 				if (this.touchIds[touch.identifier] === "left") {
 					if (!fastCollisionSprite(leftButtonSprite, touchSprite)) {
 						this.actions.playerLeft = false;
+						this.touchIds[touch.identifier] = null;
 					}
 				} else if (this.touchIds[touch.identifier] === "right") {
 					if (!fastCollisionSprite(rightButtonSprite, touchSprite)) {
 						this.actions.playerRight = false;
+						this.touchIds[touch.identifier] = null;
+					}
+				} else if (this.touchIds[touch.identifier] !== "shoot") {
+					if (!fastCollisionSprite(shootButtonSprite, touchSprite)) {
+						this.actions.playerAttack = false;
+						this.touchIds[touch.identifier] = null;
 					}
 				} else if (this.touchIds[touch.identifier] === "jump") {
 					if (fastCollisionSprite(leftButtonSprite, touchSprite) ||
@@ -658,12 +664,12 @@ function Player() {
 						fastCollisionSprite(shootButtonSprite, touchSprite)) {
 
 						this.actions.playerJump = false;
-					} else if (this.touchIds[touch.identifier] !== "shoot") {
-						if (!fastCollisionSprite(shootButtonSprite, touchSprite)) {
-							this.touchIds[touch.identifier] = null;
-						}
+						this.jumpreleased = true;
+						this.touchIds[touch.identifier] = null;
 					}
+				}
 
+				if (this.touchIds[touch.identifier] === null) {
 					if (fastCollisionSprite(leftButtonSprite, touchSprite)) {
 						this.actions.playerLeft = true;
 						this.actions.playerRight = false;
