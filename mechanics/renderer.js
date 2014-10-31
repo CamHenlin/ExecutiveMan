@@ -523,6 +523,8 @@ console.log(this.completedMapsWidthOffset);
 						enemyArray.push(new WallGun(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, false));
 					} else if (layerData.data[idx] === 11) {
 						enemyArray.push(new ComputerGuy(this.enemyContainer, this.basicCollision, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
+					} else if (layerData.data[idx] === 12) {
+						enemyArray.push(new SixShooter(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight));
 					} else if (layerData.data[idx] === 97) {
 						enemyArray.push(new HealthBriefCase(this.enemyContainer, widthOffset + this.completedMapsWidthOffset + x * tilewidth, heightOffset + y * tileheight, this.basicCollision));
 					} else if (layerData.data[idx] === 98) {

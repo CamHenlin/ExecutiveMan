@@ -28,6 +28,7 @@ loader.loadManifest([
 						{id: "damage", src: "images/damage.png"},
 						{id: "death", src: "images/death.png"},
 						{id: "door", src: "images/door.png"},
+						{id: "sixshooter", src: "images/sixshooter.png"},
 						{id: "enemyshot", src: "images/enemyshot.png"},
 						{id: "executivemantopper", src: "images/executivemantopper.png"},
 						{id: "explosion", src: "images/explosion.png"},
