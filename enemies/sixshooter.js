@@ -1,6 +1,6 @@
 function SixShooter(stage, x, y) {
 
-	var wallgunSpriteSheet = new createjs.SpriteSheet({
+	var sixShooterSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("sixshooter")],
 		"frames": {
 			"width": 16, "height": 20, "count": 2
@@ -18,7 +18,7 @@ function SixShooter(stage, x, y) {
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 	this.stage            = stage;
-	this.animations       = new createjs.Sprite(wallgunSpriteSheet, "current");
+	this.animations       = new createjs.Sprite(sixShooterSpriteSheet, "closed");
 	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
 	this.y                = parseInt(y);
 	this.animations.x     = x - renderer.completedMapsWidthOffset;
@@ -28,11 +28,11 @@ function SixShooter(stage, x, y) {
 	this.activated        = false;
 	this.jumping          = false;
 	this.jumpspeed        = 0;
-	this.damage           = 1;
+	this.damage           = 2;
 	this.health           = 2;
 	this.flee             = false;
 	this.targetY          = 0;
-	this.hardshell        = false;
+	this.hardshell        = true;
 	this.dead             = false;
 	this.movementTicks    = 0;
 	this.watchedElements  = [];

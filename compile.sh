@@ -19,7 +19,7 @@ java -jar compiler.jar \
 	--js=enemies/killcopy.js --js=enemies/wasteman.js  --js=enemies/accountingman.js --js=enemies/printerguy.js \
 	--js=enemies/flood.js --js=enemies/shieldguy.js --js=enemies/copter.js --js=enemies/phone.js \
 	--js=enemies/filingcabinet.js --js=enemies/warehouseman.js --js=enemies/materialman.js --js=enemies/wallgun.js \
-	--js=enemies/annoyingthing.js --js=enemies/computerguy.js --js=enemies/sixshooter.js \
+	--js=enemies/annoyingthing.js --js=enemies/computerguy.js --js=enemies/sixshooter.js --js=enemies/shootythingy.js \
 	\
 	 --js=mechanics/main.js --js=mechanics/collision.js --js=mechanics/fastCollision.js \
 	--js=mechanics/renderer.js --js=mechanics/player.js  --js=mechanics/titlescreen.js \

@@ -72,8 +72,8 @@
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":16,
-                 "x":112,
-                 "y":224
+                 "x":96,
+                 "y":226
                 }, 
                 {
                  "height":16,
@@ -87,8 +87,8 @@
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":16,
-                 "x":128,
-                 "y":224
+                 "x":112,
+                 "y":226
                 }, 
                 {
                  "height":16,
@@ -102,8 +102,8 @@
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":16,
-                 "x":176,
-                 "y":224
+                 "x":138,
+                 "y":225
                 }, 
                 {
                  "height":16,
@@ -117,8 +117,8 @@
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":16,
-                 "x":192,
-                 "y":224
+                 "x":154,
+                 "y":225
                 }, 
                 {
                  "height":16,
@@ -148,6 +148,36 @@
                  "visible":true,
                  "width":16,
                  "x":240,
+                 "y":224
+                }, 
+                {
+                 "height":16,
+                 "name":"",
+                 "properties":
+                    {
+                     "xspeed":"0",
+                     "yspeed":"-0.5"
+                    },
+                 "rotation":0,
+                 "type":"rotatingplatform",
+                 "visible":true,
+                 "width":16,
+                 "x":224,
+                 "y":224
+                }, 
+                {
+                 "height":16,
+                 "name":"",
+                 "properties":
+                    {
+                     "xspeed":"0",
+                     "yspeed":"-0.5"
+                    },
+                 "rotation":0,
+                 "type":"rotatingplatform",
+                 "visible":true,
+                 "width":16,
+                 "x":208,
                  "y":224
                 }],
          "opacity":1,
