@@ -278,7 +278,7 @@ function Player() {
 				return false;
 			}
 
-			return !(this.x < 0 || abs(this.x - (player.x - renderer.completedMapsWidthOffset)) > 400);
+			return !(this.x < 0 || abs(this.x - (player.x - renderer.completedMapsWidthOffset)) > player.gamestage.canvas.width / 2);
 		};
 	};
 

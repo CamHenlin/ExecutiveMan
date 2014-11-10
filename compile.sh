@@ -1,7 +1,7 @@
 cd leveljson
 ./makelevel.sh accountingman 7
 ./makelevel.sh materialman 8
-./makelevel.sh visionaryman 0
+./makelevel.sh visionaryman 8
 ./makelevel.sh warehouseman 0
 ./makelevel.sh wasteman 6
 cd ../
@@ -20,6 +20,7 @@ java -jar compiler.jar \
 	--js=enemies/flood.js --js=enemies/shieldguy.js --js=enemies/copter.js --js=enemies/phone.js \
 	--js=enemies/filingcabinet.js --js=enemies/warehouseman.js --js=enemies/materialman.js --js=enemies/wallgun.js \
 	--js=enemies/annoyingthing.js --js=enemies/computerguy.js --js=enemies/sixshooter.js --js=enemies/shootythingy.js \
+	--js=enemies/staplerdude.js --js=enemies/coffeecopter.js \
 	\
 	 --js=mechanics/main.js --js=mechanics/collision.js --js=mechanics/fastCollision.js \
 	--js=mechanics/renderer.js --js=mechanics/player.js  --js=mechanics/titlescreen.js \

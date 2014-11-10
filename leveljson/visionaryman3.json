@@ -34,7 +34,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":15,
          "name":"enemies",
          "opacity":1,
@@ -56,6 +56,7 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
          "height":15,
          "name":"Object Layer 1",
          "objects":[
@@ -66,6 +67,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -80,6 +82,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -93,6 +96,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -107,6 +111,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -120,6 +125,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -134,6 +140,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -147,6 +154,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -161,6 +169,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -174,6 +183,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -188,6 +198,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -201,6 +212,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -215,6 +227,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -228,6 +241,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -242,6 +256,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -255,6 +270,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -269,6 +285,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -282,6 +299,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -296,6 +314,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -310,6 +329,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -324,6 +344,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -338,6 +359,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -352,6 +374,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -366,6 +389,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -380,6 +404,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -393,6 +418,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -407,6 +433,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -421,6 +448,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -434,6 +462,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -447,6 +476,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -461,6 +491,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -474,6 +505,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -487,6 +519,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -500,6 +533,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -513,6 +547,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -527,6 +562,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -541,6 +577,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -555,6 +592,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -568,6 +606,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -582,6 +621,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -596,6 +636,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -610,6 +651,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -624,6 +666,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -638,6 +681,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -652,6 +696,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -666,6 +711,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -680,6 +726,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -693,6 +740,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -707,6 +755,7 @@
                      "xspeed":"0",
                      "yspeed":"-1"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -721,6 +770,7 @@
                      "xspeed":"0",
                      "yspeed":"-1"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -735,6 +785,7 @@
                      "xspeed":"0",
                      "yspeed":"-1"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -749,6 +800,7 @@
                      "xspeed":"0",
                      "yspeed":"-1.25"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -763,6 +815,7 @@
                      "xspeed":"0",
                      "yspeed":"-1.5"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -777,6 +830,7 @@
                      "xspeed":"0",
                      "yspeed":"-1.25"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -791,6 +845,7 @@
                      "xspeed":"0",
                      "yspeed":"-1.25"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -805,6 +860,7 @@
                      "xspeed":"0",
                      "yspeed":"-1.5"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -819,6 +875,7 @@
                      "xspeed":"0",
                      "yspeed":"-1.5"
                     },
+                 "rotation":0,
                  "type":"rotatingplatform",
                  "visible":true,
                  "width":0,
@@ -832,6 +889,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -846,6 +904,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -859,6 +918,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -873,6 +933,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -886,6 +947,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -900,6 +962,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -913,6 +976,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -927,6 +991,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -941,6 +1006,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -955,6 +1021,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -969,6 +1036,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -983,6 +1051,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -997,6 +1066,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1010,6 +1080,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1023,6 +1094,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1036,6 +1108,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1050,6 +1123,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1063,6 +1137,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1077,6 +1152,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1090,6 +1166,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1104,6 +1181,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1117,6 +1195,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1131,6 +1210,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1145,6 +1225,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1159,6 +1240,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1173,6 +1255,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1187,6 +1270,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1201,6 +1285,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1214,6 +1299,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1227,6 +1313,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1240,6 +1327,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1254,6 +1342,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1267,6 +1356,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1281,6 +1371,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1294,6 +1385,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1308,6 +1400,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1321,6 +1414,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1335,6 +1429,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1349,6 +1444,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1363,6 +1459,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1377,6 +1474,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1391,6 +1489,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1405,6 +1504,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1418,6 +1518,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1431,6 +1532,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1444,6 +1546,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1458,6 +1561,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1471,6 +1575,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1485,6 +1590,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1498,6 +1604,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1512,6 +1619,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1525,6 +1633,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1539,6 +1648,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1553,6 +1663,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1567,6 +1678,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1581,6 +1693,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1595,6 +1708,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1609,6 +1723,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1622,6 +1737,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1635,6 +1751,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1648,6 +1765,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1662,6 +1780,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1675,6 +1794,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1689,6 +1809,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1702,6 +1823,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1716,6 +1838,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1729,6 +1852,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1743,6 +1867,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1757,6 +1882,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1771,6 +1897,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1785,6 +1912,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1799,6 +1927,7 @@
                      "xspeed":"8",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1813,6 +1942,7 @@
                      "xspeed":"6",
                      "yspeed":"0"
                     },
+                 "rotation":0,
                  "type":"beam",
                  "visible":true,
                  "width":0,
@@ -1826,6 +1956,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1839,6 +1970,7 @@
                     {
 
                     },
+                 "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
@@ -1859,6 +1991,7 @@
      "nextMapDirection":"up",
      "stitchx":"0"
     },
+ "renderorder":"right-down",
  "tileheight":16,
  "tilesets":[
         {

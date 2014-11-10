@@ -8,8 +8,7 @@ function Copter(stage, x, y) {
 		"animations": {
 			"operate": {
 				"frames" : [0, 1],
-				"next" : "operate",
-				"speed" : (0.001 / lowFramerate) / skipFrames
+				"next" : "operate"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
