@@ -65,9 +65,50 @@ function initBossScreen() {
 	var materialmanFrame = new createjs.Sprite(materialmanFrameSpriteSheet, "frame");
 	var materialManLabel = new createjs.Text("MATERIAL \n     MAN", "bold 7px Arial", "#FFF");
 
+	var HRmanFrameSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("hrmanframe")],
+		"frames": {
+			"width": 19, "height": 26, "count": 1
+		},
+		"animations": {
+			"frame": {
+				"frames" : [0],
+				"next" : "frame"
+			}
+		}
+	});
 	var HRManLabel = new createjs.Text("HR MAN", "bold 7px Arial", "#FFF");
+	var HRmanFrame = new createjs.Sprite(HRmanFrameSpriteSheet, "frame");
+
+	var salesManFrameSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("salesmanframe")],
+		"frames": {
+			"width": 30, "height": 29, "count": 1
+		},
+		"animations": {
+			"frame": {
+				"frames" : [0],
+				"next" : "frame"
+			}
+		}
+	});
 	var salesManLabel = new createjs.Text("SALES MAN", "bold 7px Arial", "#FFF");
+	var salesManFrame = new createjs.Sprite(salesManFrameSpriteSheet, "frame");
+
+	var ITmanFrameSpriteSheet = new createjs.SpriteSheet({
+		"images": [loader.getResult("itmanframe")],
+		"frames": {
+			"width": 24, "height": 27, "count": 1
+		},
+		"animations": {
+			"frame": {
+				"frames" : [0],
+				"next" : "frame"
+			}
+		}
+	});
 	var ITManLabel = new createjs.Text("IT MAN", "bold 7px Arial", "#FFF");
+	var ITmanFrame = new createjs.Sprite(ITmanFrameSpriteSheet, "frame");
 
 	var warehousemanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("warehousemanframe")],
@@ -197,6 +238,8 @@ function initBossScreen() {
 			materialManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 3) {
+			HRmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + HRmanFrame.spriteSheet._frameWidth /2 + 3;
+			HRmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + HRmanFrame.spriteSheet._frameWidth/2;
 			HRManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 9;
 			HRManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
@@ -207,10 +250,14 @@ function initBossScreen() {
 			shopLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 5) {
+			salesManFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + salesManFrame.spriteSheet._frameWidth /2 - 8;
+			salesManFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + salesManFrame.spriteSheet._frameWidth/2 - 8;
 			salesManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
 			salesManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 6) {
+			ITmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + ITmanFrame.spriteSheet._frameWidth /2 - 2;
+			ITmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + ITmanFrame.spriteSheet._frameWidth /2 - 3;
 			ITManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 10;
 			ITManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
@@ -249,6 +296,9 @@ function initBossScreen() {
 	stage.addChild(materialmanFrame);
 	stage.addChild(materialManLabel);
 	stage.addChild(HRManLabel);
+	stage.addChild(HRmanFrame);
+	stage.addChild(ITmanFrame);
+	stage.addChild(salesManFrame);
 	stage.addChild(salesManLabel);
 	stage.addChild(ITManLabel);
 
@@ -320,7 +370,7 @@ function bossClickHandler(event) {
 	}
 
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
-        "images": ["images/businessmanspritesheet.png"],
+        "images": [loader.getResult("beam")],
         "frames": {
             "width": 1, "height": 1, "count": 1
         },
@@ -334,14 +384,10 @@ function bossClickHandler(event) {
     var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
     event.preventDefault();
-    console.log(event);
 
-    if (event.target) {
-		touchSprite.x = (event.clientX - event.target.getBoundingClientRect().left) / gamezoom;
-	} else {
-		touchSprite.x = (event.clientX - event.srcElement.getBoundingClientRect().left) / gamezoom;
-	}
-
+	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
+	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
+	console.log(event.pageX - document.getElementById('gamecanvas').offsetLeft);
 	console.log(touchSprite.x);
 	touchSprite.y = event.clientY / gamezoom;
 	if (fastCollisionSprite(this.saveGameTouchTarget, touchSprite)) {

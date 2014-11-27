@@ -1,4 +1,4 @@
-var materialmanHalfwayPoint = 8
+var materialmanHalfwayPoint = 8;
 var materialmanBossPoint = 10;
 var materialmanmaps = [];
 

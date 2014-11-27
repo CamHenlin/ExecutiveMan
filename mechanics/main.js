@@ -46,6 +46,7 @@ loader.loadManifest([
 						{id: "map1", src: "images/map1.png"},
 						{id: "map2", src: "images/map2.png"},
 						{id: "map3", src: "images/map3.png"},
+						{id: "hrmanmap", src: "images/hrmanmap.png"},
 						{id: "map6", src: "images/map6.png"},
 						{id: "materialman", src: "images/materialmanspritesheet.png"},
 						{id: "materialmanframe", src: "images/materialmanframe.png"},
@@ -62,6 +63,9 @@ loader.loadManifest([
 						{id: "stapler", src: "images/stapler.png"},
 						{id: "shotexplosion", src: "images/shotexplode.png"},
 						{id: "visionarymanframe", src: "images/visionarymanframe.png"},
+						{id: "hrmanframe", src: "images/hrmanframe.png"},
+						{id: "itmanframe", src: "images/itmanframe.png"},
+						{id: "salesmanframe", src: "images/salesmanframe.png"},
 						{id: "wallgun", src: "images/wallgun.png"},
 						{id: "warehouseman", src: "images/warehousemanspritesheet.png"},
 						{id: "warehousemanbigshot", src: "images/warehousemanbigshot.png"},
@@ -189,8 +193,11 @@ function initVars() {
 }
 
 window.onresize = function(event) {
+	document.getElementById("gamecanvas").style.zoom = 0.1;
+	document.getElementById("gamecanvas").style.MozTransform = "scale("+0.1+")";
 	var zoomAmount = window.innerHeight / 240;
-
+	document.getElementById("body").style.width = window.innerWidth;
+	document.getElementById("body").style.height = window.innerHeight;
 	gamezoom = zoomAmount;
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
 	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);

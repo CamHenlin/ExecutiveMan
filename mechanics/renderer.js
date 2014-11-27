@@ -211,8 +211,6 @@ function Renderer(gamestage) {
 			this.completedMapsWidthOffset += this.lastWidthOffset; // maybe lastOffScreenWidth shouldnt bethere
 		}
 
-console.log(this.stitchingoffset);
-console.log(this.completedMapsWidthOffset);
 		this.parentContainer.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
 
@@ -300,8 +298,6 @@ console.log(this.completedMapsWidthOffset);
 			this.completedMapsWidthOffset += this.lastWidthOffset; // maybe lastOffScreenWidth shouldnt bethere
 		}
 
-console.log(this.stitchingoffset);
-console.log(this.completedMapsWidthOffset);
 		this.parentContainer.x = this.stitchingoffset;
 		this.enemyContainer.x = this.stitchingoffset;
 

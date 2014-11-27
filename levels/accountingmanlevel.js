@@ -1,4 +1,4 @@
-var accountingmanHalfwayPoint = 7
+var accountingmanHalfwayPoint = 7;
 var accountingmanBossPoint = 14;
 var accountingmanmaps = [];
 
