@@ -176,13 +176,8 @@ function optionsClickHandler(event) {
     });
     var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-        if (event.target) {
-		touchSprite.x = (event.clientX - event.target.getBoundingClientRect().left) / gamezoom;
-	} else {
-		touchSprite.x = (event.clientX - event.srcElement.getBoundingClientRect().left) / gamezoom;
-	}
-
-    touchSprite.y = event.clientY / gamezoom;
+    touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
+	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
     if (fastCollisionSprite(this.closeButtonTouchTarget, touchSprite)) {
 		this.remove();
 		event.target.removeEventListener(event.type, arguments.callee, false);

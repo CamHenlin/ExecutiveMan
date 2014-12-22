@@ -387,9 +387,6 @@ function bossClickHandler(event) {
 
 	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
 	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
-	console.log(event.pageX - document.getElementById('gamecanvas').offsetLeft);
-	console.log(touchSprite.x);
-	touchSprite.y = event.clientY / gamezoom;
 	if (fastCollisionSprite(this.saveGameTouchTarget, touchSprite)) {
 		saveGame();
         playSound("pauseopen");

@@ -604,8 +604,8 @@ function Player() {
 
 			for (var i = 0; i < event.touches.length; i++) {
 				var touch = event.touches[i];
-				touchSprite.x = (event.pageX || touch.pageX) / gamezoom;
-				touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
+				touchSprite.x = touch.screenX / gamezoom;
+				touchSprite.y = touch.screenY / gamezoom;
 
 				if (fastCollisionSprite(leftButtonSprite, touchSprite)) {
 					this.actions.playerLeft = true;
@@ -638,10 +638,10 @@ function Player() {
 				event.preventDefault();
 			}
 
-			for (var i = 0; i < event.touches.length; i++) {
-				var touch = event.touches[i];
-				touchSprite.x = (event.pageX || touch.pageX) / gamezoom;
-				touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
+			for (var i = 0; i < event.changedTouches.length; i++) {
+				var touch = event.changedTouches[i];
+				touchSprite.x = touch.screenX / gamezoom;
+				touchSprite.y = touch.screenY / gamezoom;
 
 				if (this.touchIds[touch.identifier] === "left") {
 					if (!fastCollisionSprite(leftButtonSprite, touchSprite)) {

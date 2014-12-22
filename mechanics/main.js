@@ -110,7 +110,7 @@ function handleComplete() {
 	canvas.addEventListener("click", handleClick);*/
 	setTimeout(function() {
 		init();
-	}, 100);
+	}, 1000);
 }
 
 var keyCodes = {
@@ -184,14 +184,14 @@ function init() {
 }
 
 function initVars() {
-	stage = null;
-	gamestage = null;
+	stage = new createjs.Container();
+	gamestage = new createjs.Stage("gamecanvas");
 	watchedElements = null;
 	player = null;
 	renderer = null;
 	tileCollisionDetector = null;
 }
-
+gamestage = new createjs.Stage("gamecanvas");
 window.onresize = function(event) {
 	document.getElementById("gamecanvas").style.zoom = 0.1;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+0.1+")";

@@ -5,33 +5,33 @@ function PauseMenu() {
 	pausestage = new createjs.Container();
 
 	var shape = new createjs.Shape();
-    shape.graphics.beginFill("#0000FF").drawRect(32, 32, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
+	shape.graphics.beginFill("#0000FF").drawRect(32, 32, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
 
 	var divider = new createjs.Shape();
-    divider.graphics.beginFill("#6699FF").drawRect(34, gamestage.canvas.height - 96, gamestage.canvas.width - 68, 3);
+	divider.graphics.beginFill("#6699FF").drawRect(34, gamestage.canvas.height - 96, gamestage.canvas.width - 68, 3);
 	this.exitStageTouchTarget = new createjs.Shape();
-    this.exitStageTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.exitStageTouchTarget.x = gamestage.canvas.width / 2 + 5;
-    this.exitStageTouchTarget.y = gamestage.canvas.height - 48;
-    this.exitStageTouchTarget.spriteSheet = {};
-    this.exitStageTouchTarget.spriteSheet._frameHeight = 16;
-    this.exitStageTouchTarget.spriteSheet._frameWidth = 80;
+	this.exitStageTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.exitStageTouchTarget.x = gamestage.canvas.width / 2 + 5;
+	this.exitStageTouchTarget.y = gamestage.canvas.height - 48;
+	this.exitStageTouchTarget.spriteSheet = {};
+	this.exitStageTouchTarget.spriteSheet._frameHeight = 16;
+	this.exitStageTouchTarget.spriteSheet._frameWidth = 80;
 
-   	this.setPostItBlasterTouchTarget = new createjs.Shape();
-    this.setPostItBlasterTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setPostItBlasterTouchTarget.x = 128;
-    this.setPostItBlasterTouchTarget.y = 64;
-    this.setPostItBlasterTouchTarget.spriteSheet = {};
-    this.setPostItBlasterTouchTarget.spriteSheet._frameHeight = 16;
-    this.setPostItBlasterTouchTarget.spriteSheet._frameWidth = 80;
+	this.setPostItBlasterTouchTarget = new createjs.Shape();
+	this.setPostItBlasterTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setPostItBlasterTouchTarget.x = 128;
+	this.setPostItBlasterTouchTarget.y = 64;
+	this.setPostItBlasterTouchTarget.spriteSheet = {};
+	this.setPostItBlasterTouchTarget.spriteSheet._frameHeight = 16;
+	this.setPostItBlasterTouchTarget.spriteSheet._frameWidth = 80;
 
-   	this.setStingingAuditTouchTarget = new createjs.Shape();
-    this.setStingingAuditTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setStingingAuditTouchTarget.x = gamestage.canvas.width - 160;
-    this.setStingingAuditTouchTarget.y = 64;
-    this.setStingingAuditTouchTarget.spriteSheet = {};
-    this.setStingingAuditTouchTarget.spriteSheet._frameHeight = 16;
-    this.setStingingAuditTouchTarget.spriteSheet._frameWidth = 80;
+	this.setStingingAuditTouchTarget = new createjs.Shape();
+	this.setStingingAuditTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setStingingAuditTouchTarget.x = gamestage.canvas.width - 160;
+	this.setStingingAuditTouchTarget.y = 64;
+	this.setStingingAuditTouchTarget.spriteSheet = {};
+	this.setStingingAuditTouchTarget.spriteSheet._frameHeight = 16;
+	this.setStingingAuditTouchTarget.spriteSheet._frameWidth = 80;
 
 	this.postItBlasterLabel = new createjs.Text("POST IT BLASTER", "bold 8px Arial", "#FFF");
 	this.stingingAuditLabel = new createjs.Text("STINGING AUDIT", "bold 8px Arial", "#FFF");
@@ -43,20 +43,20 @@ function PauseMenu() {
 	this.stingingAuditLabel.y = 64;
 
 	this.setToxicProjectileTouchTarget = new createjs.Shape();
-    this.setToxicProjectileTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setToxicProjectileTouchTarget.x = 128;
-    this.setToxicProjectileTouchTarget.y = 80;
-    this.setToxicProjectileTouchTarget.spriteSheet = {};
-    this.setToxicProjectileTouchTarget.spriteSheet._frameHeight = 16;
-    this.setToxicProjectileTouchTarget.spriteSheet._frameWidth = 80;
+	this.setToxicProjectileTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setToxicProjectileTouchTarget.x = 128;
+	this.setToxicProjectileTouchTarget.y = 80;
+	this.setToxicProjectileTouchTarget.spriteSheet = {};
+	this.setToxicProjectileTouchTarget.spriteSheet._frameHeight = 16;
+	this.setToxicProjectileTouchTarget.spriteSheet._frameWidth = 80;
 
-   	this.setOreTossTouchTarget = new createjs.Shape();
-    this.setOreTossTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setOreTossTouchTarget.x = gamestage.canvas.width - 160;
-    this.setOreTossTouchTarget.y = 80;
-    this.setOreTossTouchTarget.spriteSheet = {};
-    this.setOreTossTouchTarget.spriteSheet._frameHeight = 16;
-    this.setOreTossTouchTarget.spriteSheet._frameWidth = 80;
+	this.setOreTossTouchTarget = new createjs.Shape();
+	this.setOreTossTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setOreTossTouchTarget.x = gamestage.canvas.width - 160;
+	this.setOreTossTouchTarget.y = 80;
+	this.setOreTossTouchTarget.spriteSheet = {};
+	this.setOreTossTouchTarget.spriteSheet._frameHeight = 16;
+	this.setOreTossTouchTarget.spriteSheet._frameWidth = 80;
 
 	this.toxicProjectileLabel = new createjs.Text("TOXIC PROJECTILE", "bold 8px Arial", "#FFF");
 	this.oreTossLabel = new createjs.Text("ORE TOSS", "bold 8px Arial", "#FFF");
@@ -124,42 +124,42 @@ function PauseMenu() {
 	healthBriefCasesSprite.y = gamestage.canvas.height - 65;
 	this.healthBriefCasesTouchTarget = buildTouchTarget(healthBriefCasesLabel);
 
-    pausestage.addChild(shape);
-    pausestage.addChild(this.setPostItBlasterTouchTarget);
-    pausestage.addChild(this.setStingingAuditTouchTarget);
+	pausestage.addChild(shape);
+	pausestage.addChild(this.setPostItBlasterTouchTarget);
+	pausestage.addChild(this.setStingingAuditTouchTarget);
 	pausestage.addChild(this.postItBlasterLabel);
 	pausestage.addChild(this.stingingAuditLabel);
 	pausestage.addChild(this.setToxicProjectileTouchTarget);
-    pausestage.addChild(this.setOreTossTouchTarget);
+	pausestage.addChild(this.setOreTossTouchTarget);
 	pausestage.addChild(this.toxicProjectileLabel);
 	pausestage.addChild(this.oreTossLabel);
-    pausestage.addChild(executivemanLabel2);
-    pausestage.addChild(executivemanLabel);
-    pausestage.addChild(this.exitStageTouchTarget);
-    pausestage.addChild(exitStageLabel);
-    pausestage.addChild(livesLabel);
-    pausestage.addChild(extraLifeSprite);
-    pausestage.addChild(healthBriefCasesLabel);
-    pausestage.addChild(healthBriefCasesSprite);
-    pausestage.addChild(divider);
+	pausestage.addChild(executivemanLabel2);
+	pausestage.addChild(executivemanLabel);
+	pausestage.addChild(this.exitStageTouchTarget);
+	pausestage.addChild(exitStageLabel);
+	pausestage.addChild(livesLabel);
+	pausestage.addChild(extraLifeSprite);
+	pausestage.addChild(healthBriefCasesLabel);
+	pausestage.addChild(healthBriefCasesSprite);
+	pausestage.addChild(divider);
 
-    this.remove = function() {
-    	pauseUp = false;
-        playSound("pauseclose");
-    	gamestage.removeChild(pausestage);
-    	initTouchControls();
-    };
+	this.remove = function() {
+		pauseUp = false;
+		playSound("pauseclose");
+		gamestage.removeChild(pausestage);
+		initTouchControls();
+	};
 
-    this.show = function() {
-    	pauseUp = true;
-        playSound("pauseopen");
+	this.show = function() {
+		pauseUp = true;
+		playSound("pauseopen");
 
 		document.addEventListener('click', pauseClickHandler.bind(this), false);
 
-    	livesLabel.text = lives;
-    	healthBriefCasesLabel.text = healthBriefCases;
-    	gamestage.addChild(pausestage);
-    };
+		livesLabel.text = lives;
+		healthBriefCasesLabel.text = healthBriefCases;
+		gamestage.addChild(pausestage);
+	};
 }
 
 function handlePauseScreenTick(event) {
@@ -184,58 +184,55 @@ function pauseClickHandler(event) {
 	setTimeout(function() { clicked = false; }, 250);
 
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
-        "images": ["images/businessmanspritesheet.png"],
-        "frames": {
-            "width": 1, "height": 1, "count": 1
-        },
-        "animations": {
-            "exist": {
-                "frames" : [0],
-                "next" : "exist"
-            }
-        }
-    });
-    var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
+		"images": ["images/businessmanspritesheet.png"],
+		"frames": {
+			"width": 1, "height": 1, "count": 1
+		},
+		"animations": {
+			"exist": {
+				"frames" : [0],
+				"next" : "exist"
+			}
+		}
+	});
 
-        if (event.target) {
-		touchSprite.x = (event.clientX - event.target.getBoundingClientRect().left) / gamezoom;
-	} else {
-		touchSprite.x = (event.clientX - event.srcElement.getBoundingClientRect().left) / gamezoom;
-	}
+	var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-    touchSprite.y = event.clientY / gamezoom;
-    if (fastCollisionSprite(this.exitStageTouchTarget, touchSprite)) {
+	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
+	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
+
+	if (fastCollisionSprite(this.exitStageTouchTarget, touchSprite)) {
 		lives = -1;
 		player.health = 0;
 		player.paused = false;
 		player.pauseMenu.remove();
 		event.target.removeEventListener(event.type, arguments.callee, false);
-    } if (fastCollisionSprite(this.healthBriefCasesTouchTarget, touchSprite)) {
-    	if (healthBriefCases > 0) {
-    		healthBriefCases--;
-    		player.health = 28;
-    		this.remove();
-    		this.show();
-    	}
-    } else if (fastCollisionSprite(this.setPostItBlasterTouchTarget, touchSprite)) {
-    	player.changeWeapon('postit');
+	} if (fastCollisionSprite(this.healthBriefCasesTouchTarget, touchSprite)) {
+		if (healthBriefCases > 0) {
+			healthBriefCases--;
+			player.health = 28;
+			this.remove();
+			this.show();
+		}
+	} else if (fastCollisionSprite(this.setPostItBlasterTouchTarget, touchSprite)) {
+		player.changeWeapon('postit');
 		this.remove();
 		this.show();
 		event.target.removeEventListener(event.type, arguments.callee, false);
-    } else if (fastCollisionSprite(this.setStingingAuditTouchTarget, touchSprite)) {
-    	player.changeWeapon('stingingaudit');
+	} else if (fastCollisionSprite(this.setStingingAuditTouchTarget, touchSprite)) {
+		player.changeWeapon('stingingaudit');
 		this.remove();
 		this.show();
 		event.target.removeEventListener(event.type, arguments.callee, false);
-    } else if (fastCollisionSprite(this.setToxicProjectileTouchTarget, touchSprite)) {
-    	player.changeWeapon('toxicprojectile');
+	} else if (fastCollisionSprite(this.setToxicProjectileTouchTarget, touchSprite)) {
+		player.changeWeapon('toxicprojectile');
 		this.remove();
 		this.show();
 		event.target.removeEventListener(event.type, arguments.callee, false);
-    } else if (fastCollisionSprite(this.setOreTossTouchTarget, touchSprite)) {
-    	player.changeWeapon('oretoss');
+	} else if (fastCollisionSprite(this.setOreTossTouchTarget, touchSprite)) {
+		player.changeWeapon('oretoss');
 		this.remove();
 		this.show();
 		event.target.removeEventListener(event.type, arguments.callee, false);
-    }
+	}
 }

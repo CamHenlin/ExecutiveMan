@@ -182,13 +182,10 @@ this.doubleHealthTouchTarget = b
 this.healthBriefCaseTouchTarget
  */
 
-        if (event.target) {
-		touchSprite.x = (event.clientX - event.target.getBoundingClientRect().left) / gamezoom;
-	} else {
-		touchSprite.x = (event.clientX - event.srcElement.getBoundingClientRect().left) / gamezoom;
-	}
+    
+    touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
+    touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
 
-    touchSprite.y = event.clientY / gamezoom;
     if (fastCollisionSprite(this.exitShopTouchTarget, touchSprite)) {
         this.remove();
         event.target.removeEventListener(event.type, arguments.callee, false);
