@@ -13,34 +13,10 @@ function Dialog(text, x, y, image) {
 			return;
 		}
 
-		if (clicked) {
-			return;
-		}
-
-		clicked = true;
-		setTimeout(function() { clicked = false; }, 250);
-
-		var touchEventSpriteSheet = new createjs.SpriteSheet({
-			"images": ["images/businessmanspritesheet.png"],
-			"frames": {
-				"width": 1, "height": 1, "count": 1
-			},
-			"animations": {
-				"exist": {
-					"frames" : [0],
-					"next" : "exist"
-				}
-			}
-		});
-
-		var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
-
-		touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
-		touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
-
 		if (this.currentText === this.targetText) {
 			this.remove();
 			document.removeEventListener('click', this.dialogClickHandler.bind(this), false);
+			document.removeEventListener('keydown', this.dialogKeyDownHandler.bind(this), false);
 		}
 	};
 
@@ -150,7 +126,7 @@ function Dialog(text, x, y, image) {
 		player.dialog = true;
 		this.dialogTicks = this.text.length * 3 + 3;
 		document.addEventListener('click', this.dialogClickHandler.bind(this), false);
-		document.onkeydown = dialogKeyDownHandler.bind(this);
+		document.addEventListener('keydown', this.dialogKeyDownHandler.bind(this), false);
 	};
 
 	this.dialogKeyDownHandler = function (event) {

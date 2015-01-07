@@ -1296,14 +1296,6 @@ function Player() {
 		}.bind(this));
 	};
 
-	this.stopAllActions = function() {
-		this.goingLeft = false;
-		this.goingRight = false;
-		this.jumping = false;
-		this.jumpspeed = 0;
-		this.jumpreleased = true;
-	};
-
 	this.defeatedBoss = function() {
 		this.ignoreDamage = true;
 		this.ignoreInput = true;
