@@ -1,19 +1,23 @@
 function initTitleScreen() {
 	playSoundLoop("title");
 	var oneSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("slide_one")],
+		"images": [loader.getResult("camh")],
 		"frames": {
-			"width": 320, "height": 240, "count": 1
+			"width": 110, "height": 34, "count": 4
 		},
 		"animations": {
 			"sit": {
+				"frames" : [0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 0, 0, 0, 1, 2, 3],
+				"next" : "still"
+			},
+			"still": {
 				"frames" : [0],
-				"next" : "sit"
+				"next" : "still"
 			}
 		}
 	});
 
-	titleSreenSprite = new createjs.Sprite(oneSpriteSheet, "shoot");
+	titleSreenSprite = new createjs.Sprite(oneSpriteSheet, "sit");
 	startgame = false;
 	stage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
@@ -33,7 +37,7 @@ function initTitleScreen() {
 	titleSreenSprite.y = gamestage.canvas.height / 2 - titleSreenSprite.spriteSheet._frameHeight / 2;
 
 	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
-	createjs.Ticker.setFPS(3);
+	createjs.Ticker.setFPS(30);
 
 	document.onkeydown = function (event) {
 		switch (event.keyCode) {
@@ -46,7 +50,7 @@ function initTitleScreen() {
 	}.bind(this);
 
 	document.getElementById("gamecanvas").addEventListener('click', startScreenListener.bind(this), false);
-
+	//titleSreenSprite.animations.play();
 	stage.addChild(titleSreenSprite);
 }
 
@@ -55,7 +59,7 @@ function startScreenListener() {
 	document.getElementById("gamecanvas").removeEventListener("click", startScreenListener);
 }
 
-var startscreenTickCounter = 10;
+var startscreenTickCounter = 120;
 function handleStartScreenTick(event) {
 	if (startscreenTickCounter > 0) {
 		startscreenTickCounter--;
@@ -155,9 +159,9 @@ function handleStartScreenTick(event) {
 		sixSprite.x = gamestage.canvas.width / 2 - sixSprite.spriteSheet._frameWidth / 2;
 		sixSprite.y = gamestage.canvas.height / 2 - sixSprite.spriteSheet._frameHeight / 2;
 		stage.addChild(sixSprite);
-	} else if (startscreenTickCounter === 0) {
+	} else */if (startscreenTickCounter === 0) {
 		var titlescreenSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("logo")],
+			"images": [loader.getResult("slide_one")],
 			"frames": {
 				"width": 320, "height": 240, "count": 2
 			},
@@ -181,7 +185,7 @@ function handleStartScreenTick(event) {
 		titleSprite.y = gamestage.canvas.height / 2 - titleSprite.spriteSheet._frameHeight / 2;
 		stage.addChild(titleSprite);
 	}
-*/
+
 	if (startgame) {
 		initMainMenuScreen();
 		event.remove();

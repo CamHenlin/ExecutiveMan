@@ -55,6 +55,7 @@ loader.loadManifest([
 						{id: "phone", src: "images/phone.png"},
 						{id: "execmanface", src: "images/execmanface.png"},
 						{id: "platform", src: "images/platform.png"},
+						{id: "camh", src: "images/camh.png"},
 						{id: "printerguy", src: "images/printerguy.png"},
 						{id: "rotatingplatform", src: "images/rotatingplatform.png"},
 						{id: "shieldguy", src: "images/shieldguy.png"},
