@@ -75,7 +75,7 @@ function initMainMenuScreen() {
 }
 
 var mainMenuScreenKeyDownHandler = function (event) {
-	if (optionsUp) {
+	if (optionsUp || !mainMenuScreenUp) {
 		return;
 	}
 
@@ -165,17 +165,18 @@ function mainMenuClickHandler(event) {
 		initVars();
 		initBossScreen();
         playSound("pauseopen");
+        mainMenuScreenUp = false;
         event.target.removeEventListener(event.type, arguments.callee);
 	} else if (fastCollisionSprite(this.loadGameTouchTarget, touchSprite)) {
 		loadGame();
 		initVars();
 		initBossScreen();
+		mainMenuScreenUp = false;
 		startbossscreen = true;
         playSound("pauseopen");
         event.target.removeEventListener(event.type, arguments.callee);
 	} else if (fastCollisionSprite(this.optionsMenuTouchTarget, touchSprite)) {
 		this.optionsMenu.show();
-		startbossscreen = true;
         playSound("pauseopen");
 	}
 }
