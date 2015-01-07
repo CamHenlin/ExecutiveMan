@@ -71,7 +71,7 @@ function initMainMenuScreen() {
 	stage.addChild(optionsMenuLabel);
 	stage.addChild(loadGameLabel);
 
-	document.onkeydown = mainMenuScreenKeyDownHandler.bind(this);
+	//document.onkeydown = mainMenuScreenKeyDownHandler.bind(this);
 }
 
 var mainMenuScreenKeyDownHandler = function (event) {
@@ -124,7 +124,6 @@ var mainMenuScreenKeyDownHandler = function (event) {
 	}
 };
 
-
 function buildMainMenuTouchTarget(text) {
     var touchTarget = {};
     touchTarget.x = text.x - 5;
@@ -134,7 +133,6 @@ function buildMainMenuTouchTarget(text) {
     touchTarget.spriteSheet._frameWidth = text.text.length * 12;
     return touchTarget;
 }
-
 
 function mainMenuClickHandler(event) {
 	if (!mainMenuScreenUp) {
@@ -182,6 +180,12 @@ function mainMenuClickHandler(event) {
 }
 
 function handleMainMenuScreenTick(event) {
+
+	if (!mainMenuScreenUp) {
+		event.remove();
+		return;
+	}
+
 	if (mainMenuScreenCounter > 0) {
 		stage.x += gamestage.canvas.width / 60;
 		altstage.x -= gamestage.canvas.width / 60;

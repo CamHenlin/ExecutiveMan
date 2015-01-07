@@ -155,7 +155,7 @@ function handleStartScreenTick(event) {
 		sixSprite.x = gamestage.canvas.width / 2 - sixSprite.spriteSheet._frameWidth / 2;
 		sixSprite.y = gamestage.canvas.height / 2 - sixSprite.spriteSheet._frameHeight / 2;
 		stage.addChild(sixSprite);
-	} else */if (startscreenTickCounter === 0) {
+	} else if (startscreenTickCounter === 0) {
 		var titlescreenSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("logo")],
 			"frames": {
@@ -181,7 +181,7 @@ function handleStartScreenTick(event) {
 		titleSprite.y = gamestage.canvas.height / 2 - titleSprite.spriteSheet._frameHeight / 2;
 		stage.addChild(titleSprite);
 	}
-
+*/
 	if (startgame) {
 		initMainMenuScreen();
 		event.remove();
