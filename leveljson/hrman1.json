@@ -54,6 +54,47 @@
          "width":90,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":15,
+         "name":"Object Layer 1",
+         "objects":[
+                {
+                 "height":0,
+                 "name":"",
+                 "properties":
+                    {
+
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":764,
+                 "y":455
+                }, 
+                {
+                 "height":0,
+                 "name":"dialog",
+                 "properties":
+                    {
+                     "image":"execmanface",
+                     "text":"LOREM IPSUM MOTHER FUCKER. DEHUMANIZE AND FACE TO BLOODSHED. BEEP BOOP BOP."
+                    },
+                 "rotation":0,
+                 "type":"dialog",
+                 "visible":true,
+                 "width":0,
+                 "x":597.5,
+                 "y":172.5
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":90,
+         "x":0,
+         "y":0
         }],
  "orientation":"orthogonal",
  "properties":

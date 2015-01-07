@@ -183,8 +183,7 @@ function handleStartScreenTick(event) {
 	}
 
 	if (startgame) {
-		initVars();
-		initBossScreen();
+		initMainMenuScreen();
 		event.remove();
 	}
 	gamestage.update();

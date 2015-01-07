@@ -53,6 +53,7 @@ loader.loadManifest([
 						{id: "moneyspin", src: "images/moneyspin.png"},
 						{id: "papershot", src: "images/papershot.png"},
 						{id: "phone", src: "images/phone.png"},
+						{id: "execmanface", src: "images/execmanface.png"},
 						{id: "platform", src: "images/platform.png"},
 						{id: "printerguy", src: "images/printerguy.png"},
 						{id: "rotatingplatform", src: "images/rotatingplatform.png"},
@@ -69,6 +70,7 @@ loader.loadManifest([
 						{id: "wallgun", src: "images/wallgun.png"},
 						{id: "warehouseman", src: "images/warehousemanspritesheet.png"},
 						{id: "warehousemanbigshot", src: "images/warehousemanbigshot.png"},
+						{id: "execmanlogo", src: "images/execmanlogo.png"},
 						{id: "warehousemanframe", src: "images/warehousemanframe.png"},
 						{id: "warehousemanshot", src: "images/warehousemanshot.png"},
 						{id: "wasteman", src: "images/wastemanspritesheet.png"},
@@ -132,6 +134,7 @@ var stage;
 var altstage;
 var gamestage;
 var pausestage;
+var dialogstage;
 var optionsstage;
 var watchedElements;
 var player;
@@ -140,6 +143,7 @@ var showOffBossScreenCounter = 0;
 var tileCollisionDetector;
 var startgame;
 var startlevel = false;
+var startbossscreen = false;
 var bossscreenCounter = 0;
 var mobile = false;
 var musicOff = false;
@@ -420,6 +424,14 @@ function handleTick(event) {
 		gamestage.update();
 		return;
 	} else if (renderer.showingReadyLabel || player.paused) {
+		if (player.dialog) {
+			for (var i = 0; i < renderer.objects.length; i++) {
+				if (renderer.objects[i].active) {
+					renderer.objects[i].tickActions();
+					break;
+				}
+			}
+		}
 		gamestage.update();
 		return;
 	}

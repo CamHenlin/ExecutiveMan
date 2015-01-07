@@ -475,7 +475,9 @@ function Renderer(gamestage) {
                         this.enemies.push(new ExplosiveBarrel(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, layer.objects[j].y));
                     }
 
-
+					if (layer.objects[j].type === "dialog") {
+						this.objects.push(new Dialog(layer.objects[j].properties.text, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y, layer.objects[j].properties.image));
+					}
 				}
 			}
 		}

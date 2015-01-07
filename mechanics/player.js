@@ -381,6 +381,7 @@ function Player() {
 	this.shootTicks = 0;
 	this.watchedElements = [];
 	this.paused = false;
+	this.dialog = false;
 	this.health = 28;
 	this.actions = {};
 	this.gameActions = {};
@@ -1293,6 +1294,14 @@ function Player() {
 				}
 			}.bind(this));
 		}.bind(this));
+	};
+
+	this.stopAllActions = function() {
+		this.goingLeft = false;
+		this.goingRight = false;
+		this.jumping = false;
+		this.jumpspeed = 0;
+		this.jumpreleased = true;
 	};
 
 	this.defeatedBoss = function() {

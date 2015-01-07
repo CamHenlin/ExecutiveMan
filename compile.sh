@@ -30,5 +30,6 @@ java -jar compiler.jar \
 	--js=mechanics/pausemenu.js --js=mechanics/shopmenu.js --js=mechanics/showoffboss.js \
 	--js=mechanics/bossscreen.js --js=mechanics/soundwrapper.js --js=mechanics/basiccollision.js \
 	--js=mechanics/savesystem.js --js=mechanics/optionsmenu.js --js=mechanics/joystick.js \
+	--js=mechanics/mainmenu.js --js=mechanics/dialog.js \
 	\
 	--js_output_file=game.min.js

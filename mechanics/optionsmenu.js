@@ -63,15 +63,15 @@ function OptionsMenu() {
 	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "bold 7px Arial", "#FFF");
 	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "bold 7px Arial", "#000");
 	var hasJoystickLabel = new createjs.Text("Joystick Detected", "bold 7px Arial", "#FFF");
-	this.leftLabel = new createjs.Text("LEFT BUTTON", "bold 8px Arial", "#FFF");
+	this.leftLabel = new createjs.Text("LEFT", "bold 8px Arial", "#FFF");
 	this.leftSelected = new createjs.Text((keyCodes.left === 37) ? "LEFT ARROW" : String.fromCharCode(keyCodes.left), "bold 8px Arial", "#FFF");
-	this.rightLabel = new createjs.Text("RIGHT BUTTON", "bold 8px Arial", "#FFF");
+	this.rightLabel = new createjs.Text("RIGHT", "bold 8px Arial", "#FFF");
 	this.rightSelected =  new createjs.Text((keyCodes.right === 39) ? "RIGHT ARROW" : String.fromCharCode(keyCodes.right), "bold 8px Arial", "#FFF");
-	this.jumpLabel =  new createjs.Text("JUMP BUTTON", "bold 8px Arial", "#FFF");
+	this.jumpLabel =  new createjs.Text("JUMP", "bold 8px Arial", "#FFF");
 	this.jumpSelected =  new createjs.Text((keyCodes.jump === 32) ? "SPACE" : String.fromCharCode(keyCodes.jump), "bold 8px Arial", "#FFF");
-	this.shootLabel =  new createjs.Text("SHOOT BUTTON", "bold 8px Arial", "#FFF");
+	this.shootLabel =  new createjs.Text("SHOOT", "bold 8px Arial", "#FFF");
 	this.shootSelected =  new createjs.Text(String.fromCharCode(keyCodes.attack), "bold 8px Arial", "#FFF");
-	this.pauseLabel =  new createjs.Text("PAUSE BUTTON", "bold 8px Arial", "#FFF");
+	this.pauseLabel =  new createjs.Text("PAUSE", "bold 8px Arial", "#FFF");
 	this.pauseSelected =  new createjs.Text(String.fromCharCode(keyCodes.pause), "bold 8px Arial", "#FFF");
 
 	this.close =  new createjs.Text("CLOSE", "bold 8px Arial", "#FFF");
@@ -132,6 +132,7 @@ function OptionsMenu() {
 		optionsUp = false;
         playSound("pauseclose");
 		gamestage.removeChild(optionsstage);
+		gamestage.update();
     };
 
     this.show = function() {
@@ -147,6 +148,7 @@ function OptionsMenu() {
 		document.addEventListener('click', optionsClickHandler.bind(this), false);
 
 		gamestage.addChild(optionsstage);
+		gamestage.update();
     };
 }
 
@@ -214,8 +216,10 @@ function optionsClickHandler(event) {
     }
 
     if (hasJoystick) {
-    	window.setInterval(gamepadPoll_options.bind(this), 60);
+	window.setInterval(gamepadPoll_options.bind(this), 60);
     }
+
+    gamestage.update();
 }
 
 function optionsKeyDownHandler(e) {
@@ -237,4 +241,5 @@ function optionsKeyDownHandler(e) {
 	event.target.removeEventListener(event.type, arguments.callee, false);
 	this.setKeyLabel = null;
 	this.setKey = null;
+    gamestage.update();
 }
