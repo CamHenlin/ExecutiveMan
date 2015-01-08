@@ -3,15 +3,15 @@ function initTitleScreen() {
 	var oneSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("camh")],
 		"frames": {
-			"width": 110, "height": 34, "count": 4
+			"width": 110, "height": 34, "count": 10
 		},
 		"animations": {
 			"sit": {
-				"frames" : [0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 0, 0, 0, 1, 2, 3],
+				"frames" : [ 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 6, 8 ],
 				"next" : "still"
 			},
 			"still": {
-				"frames" : [0],
+				"frames" : [2],
 				"next" : "still"
 			}
 		}
@@ -59,7 +59,7 @@ function startScreenListener() {
 	document.getElementById("gamecanvas").removeEventListener("click", startScreenListener);
 }
 
-var startscreenTickCounter = 120;
+var startscreenTickCounter = 140;
 function handleStartScreenTick(event) {
 	if (startscreenTickCounter > 0) {
 		startscreenTickCounter--;
