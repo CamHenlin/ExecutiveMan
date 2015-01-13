@@ -34,8 +34,8 @@ function Dialog(text, x, y, image) {
 	//var divider = new createjs.this.shape();
 	//divider.graphics.beginFill("#6699FF").drawRect(34, gamestage.canvas.height - 96, gamestage.canvas.width - 68, 3);
 
-	this.dialogLabel = new createjs.Text("", "12px Arial", "#FFF");
-	this.dialogLabel2 = new createjs.Text("", "12px Arial", "#000");
+	this.dialogLabel = new createjs.Text("", "12px 8-Bit Madness", "#FFF");
+	this.dialogLabel2 = new createjs.Text("", "12px 8-Bit Madness", "#000");
 
 	this.dialogLabel.x = 86;
 	this.dialogLabel.y = 48;

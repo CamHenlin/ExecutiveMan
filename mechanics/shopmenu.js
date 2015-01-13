@@ -18,19 +18,19 @@ function ShopMenu() {
     this.exitShopTouchTarget.spriteSheet._frameHeight = 16;
     this.exitShopTouchTarget.spriteSheet._frameWidth = 80;
 
-	var executivemanLabel = new createjs.Text("SHOP", "bold 7px Arial", "#FFF");
-	var executivemanLabel2 = new createjs.Text("SHOP", "bold 7px Arial", "#000");
-	var exitShopLabel = new createjs.Text("EXIT SHOP", "bold 7px Arial", "#FFF");
-	var livesLabel = new createjs.Text("", "bold 8px Arial", "#FFF");
-    var cashLabel = new createjs.Text("", "bold 10px Arial", "#FFF");
+	var executivemanLabel = new createjs.Text("SHOP", "bold 7px 8-Bit Madness", "#FFF");
+	var executivemanLabel2 = new createjs.Text("SHOP", "bold 7px 8-Bit Madness", "#000");
+	var exitShopLabel = new createjs.Text("EXIT SHOP", "bold 7px 8-Bit Madness", "#FFF");
+	var livesLabel = new createjs.Text("", "bold 8px 8-Bit Madness", "#FFF");
+    var cashLabel = new createjs.Text("", "bold 10px 8-Bit Madness", "#FFF");
 
     // things to buy:
-    var cashDoubler = new createjs.Text("", "bold 10px Arial", "#FFF");
-    var fourExtraLives = new createjs.Text("", "bold 10px Arial", "#FFF");
-    var doubleJump = new createjs.Text("", "bold 10px Arial", "#FFF");
-    var doubleDamage = new createjs.Text("", "bold 10px Arial", "#FFF");
-    var doubleHealth = new createjs.Text("", "bold 10px Arial", "#FFF");
-    var healthBriefCase = new createjs.Text("", "bold 10px Arial", "#FFF");
+    var cashDoubler = new createjs.Text("", "bold 10px 8-Bit Madness", "#FFF");
+    var fourExtraLives = new createjs.Text("", "bold 10px 8-Bit Madness", "#FFF");
+    var doubleJump = new createjs.Text("", "bold 10px 8-Bit Madness", "#FFF");
+    var doubleDamage = new createjs.Text("", "bold 10px 8-Bit Madness", "#FFF");
+    var doubleHealth = new createjs.Text("", "bold 10px 8-Bit Madness", "#FFF");
+    var healthBriefCase = new createjs.Text("", "bold 10px 8-Bit Madness", "#FFF");
 
     this.cashDoublerCost = 150000;
     this.fourExtraLivesCost = 5000;
@@ -182,7 +182,7 @@ this.doubleHealthTouchTarget = b
 this.healthBriefCaseTouchTarget
  */
 
-    
+
     touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
     touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
 

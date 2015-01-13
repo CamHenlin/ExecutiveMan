@@ -11,8 +11,8 @@ function initTitleScreen() {
 				"next" : "still"
 			},
 			"still": {
-				"frames" : [2],
-				"next" : "still"
+				"frames" : [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+				"next" : "sit"
 			}
 		}
 	});
@@ -60,6 +60,12 @@ function startScreenListener() {
 }
 
 var startscreenTickCounter = 140;
+if (getParameterByName('camh')) {
+	startscreenTickCounter = 65535;
+	musicOff = true;
+	soundOff = true;
+	stopMusic();
+}
 function handleStartScreenTick(event) {
 	if (startscreenTickCounter > 0) {
 		startscreenTickCounter--;

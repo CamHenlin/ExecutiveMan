@@ -36,7 +36,7 @@ body {
         color-stop(0.51, #E4E4E4)
     );
     background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, 8-Bit Madness, sans-serif;
     font-size:12px;
     height:100%;
     margin:0px;
@@ -102,13 +102,13 @@ h1 {
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 @-webkit-keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;

@@ -361,14 +361,14 @@ function beginGame(newGame) {
 	}
 
 	if (logFPS) {
-		fpsLabel = new createjs.Text("", "bold 14px Arial", "#FFF");
+		fpsLabel = new createjs.Text("", "bold 14px 8-Bit Madness", "#FFF");
 		gamestage.addChild(fpsLabel);
 
 		fpsLabel.x = gamestage.canvas.width - 50;
 		fpsLabel.y = 18;
 	}
 
-	scoreLabel = new createjs.Text("$ ", "bold 10px Arial", "#FFF");
+	scoreLabel = new createjs.Text("$ ", "bold 10px 8-Bit Madness", "#FFF");
 	gamestage.addChild(scoreLabel);
 
 	scoreLabel.x = gamestage.canvas.width - 256;

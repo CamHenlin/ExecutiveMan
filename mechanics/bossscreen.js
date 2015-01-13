@@ -48,7 +48,7 @@ function initBossScreen() {
 		}
 	});
 	var wastemanFrame = new createjs.Sprite(wastemanFrameSpriteSheet, "frame");
-	var wastemanLabel = new createjs.Text("WASTE MAN", "bold 7px Arial", "#FFF");
+	var wastemanLabel = new createjs.Text("WASTE MAN", "bold 7px 8-Bit Madness", "#FFF");
 
 	var materialmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("materialmanframe")],
@@ -63,7 +63,7 @@ function initBossScreen() {
 		}
 	});
 	var materialmanFrame = new createjs.Sprite(materialmanFrameSpriteSheet, "frame");
-	var materialManLabel = new createjs.Text("MATERIAL \n     MAN", "bold 7px Arial", "#FFF");
+	var materialManLabel = new createjs.Text("MATERIAL \n     MAN", "bold 7px 8-Bit Madness", "#FFF");
 
 	var HRmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("hrmanframe")],
@@ -77,7 +77,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var HRManLabel = new createjs.Text("HR MAN", "bold 7px Arial", "#FFF");
+	var HRManLabel = new createjs.Text("HR MAN", "bold 7px 8-Bit Madness", "#FFF");
 	var HRmanFrame = new createjs.Sprite(HRmanFrameSpriteSheet, "frame");
 
 	var salesManFrameSpriteSheet = new createjs.SpriteSheet({
@@ -92,7 +92,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var salesManLabel = new createjs.Text("SALES MAN", "bold 7px Arial", "#FFF");
+	var salesManLabel = new createjs.Text("SALES MAN", "bold 7px 8-Bit Madness", "#FFF");
 	var salesManFrame = new createjs.Sprite(salesManFrameSpriteSheet, "frame");
 
 	var ITmanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -107,7 +107,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var ITManLabel = new createjs.Text("IT MAN", "bold 7px Arial", "#FFF");
+	var ITManLabel = new createjs.Text("IT MAN", "bold 7px 8-Bit Madness", "#FFF");
 	var ITmanFrame = new createjs.Sprite(ITmanFrameSpriteSheet, "frame");
 
 	var warehousemanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -122,7 +122,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var warehouseMan = new createjs.Text("WAREHOUSE \n        MAN", "bold 7px Arial", "#FFF");
+	var warehouseMan = new createjs.Text("WAREHOUSE \n        MAN", "bold 7px 8-Bit Madness", "#FFF");
 	var warehousemanFrame = new createjs.Sprite(warehousemanFrameSpriteSheet, "frame");
 
 	var visionarymanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -138,7 +138,7 @@ function initBossScreen() {
 		}
 	});
 	var visionarymanFrame = new createjs.Sprite(visionarymanFrameSpriteSheet, "frame");
-	var visionaryMan = new createjs.Text("VISIONARY \n      MAN", "bold 7px Arial", "#FFF");
+	var visionaryMan = new createjs.Text("VISIONARY \n      MAN", "bold 7px 8-Bit Madness", "#FFF");
 
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("accountingmanframe")],
@@ -152,7 +152,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var accountingmanLabel = new createjs.Text("ACCOUNTING \n        MAN", "bold 7px Arial", "#FFF");
+	var accountingmanLabel = new createjs.Text("ACCOUNTING \n        MAN", "bold 7px 8-Bit Madness", "#FFF");
 	var accountingmanFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "frame");
 
 	var shopFrameSpriteSheet = new createjs.SpriteSheet({
@@ -167,7 +167,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var shopLabel = new createjs.Text("SHOP", "bold 7px Arial", "#FFF");
+	var shopLabel = new createjs.Text("SHOP", "bold 7px 8-Bit Madness", "#FFF");
 	var shopFrame = new createjs.Sprite(shopFrameSpriteSheet, "frame");
 
 	bossframes = [];
@@ -201,15 +201,15 @@ function initBossScreen() {
     altstage.addChild(fillColor);
 
 
-	var saveGameLabel = new createjs.Text("SAVE\nGAME", "bold 9px Arial", "#FFF");
+	var saveGameLabel = new createjs.Text("SAVE\nGAME", "bold 9px 8-Bit Madness", "#FFF");
 	saveGameLabel.x = 6;
 	saveGameLabel.y = 10;
 	this.saveGameTouchTarget = buildSaveLoadTouchTarget(saveGameLabel);
-	var loadGameLabel = new createjs.Text("LOAD\nGAME", "bold 9px Arial", "#FFF");
+	var loadGameLabel = new createjs.Text("LOAD\nGAME", "bold 9px 8-Bit Madness", "#FFF");
 	loadGameLabel.x = gamestage.canvas.width - 36;
 	loadGameLabel.y = 10;
 	this.loadGameTouchTarget = buildSaveLoadTouchTarget(loadGameLabel);
-	var optionsMenuLabel = new createjs.Text("OPTIONS", "bold 9px Arial", "#FFF");
+	var optionsMenuLabel = new createjs.Text("OPTIONS", "bold 9px 8-Bit Madness", "#FFF");
 	optionsMenuLabel.x = 6;
 	optionsMenuLabel.y = gamestage.canvas.height - 36;
 	this.optionsMenuTouchTarget = buildSaveLoadTouchTarget(optionsMenuLabel);
