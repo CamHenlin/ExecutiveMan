@@ -44,15 +44,15 @@ function initMainMenuScreen() {
     altstage.addChild(fillColor);
 
 
-	var newGameLabel = new createjs.Text("NEW GAME", "bold 14px 8-Bit Madness", "#FFF");
+	var newGameLabel = new createjs.Text("NEW GAME", "bold 14px '8-Bit Madness'", "#FFF");
 	newGameLabel.x = gamestage.canvas.width / 2 - 25;
 	newGameLabel.y = gamestage.canvas.height - 120;
 	this.newGameTouchTarget = buildMainMenuTouchTarget(newGameLabel);
-	var loadGameLabel = new createjs.Text("LOAD GAME", "bold 14px 8-Bit Madness", "#FFF");
+	var loadGameLabel = new createjs.Text("LOAD GAME", "bold 14px '8-Bit Madness'", "#FFF");
 	loadGameLabel.x = gamestage.canvas.width / 2 - 25;
 	loadGameLabel.y = gamestage.canvas.height - 90;
 	this.loadGameTouchTarget = buildMainMenuTouchTarget(loadGameLabel);
-	var optionsMenuLabel = new createjs.Text("OPTIONS", "bold 14px 8-Bit Madness", "#FFF");
+	var optionsMenuLabel = new createjs.Text("OPTIONS", "bold 14px '8-Bit Madness'", "#FFF");
 	optionsMenuLabel.x = gamestage.canvas.width / 2 - 25;
 	optionsMenuLabel.y = gamestage.canvas.height - 60;
 	this.optionsMenuTouchTarget = buildMainMenuTouchTarget(optionsMenuLabel);

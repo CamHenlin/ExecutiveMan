@@ -66,8 +66,8 @@ function Renderer(gamestage) {
 	};
 
 	this.showingReadyLabel = false;
-	var readyLabel = new createjs.Text("READY", "bold 10px 8-Bit Madness", "#FFF");
-	var readyLabel2 = new createjs.Text("READY", "bold 10px 8-Bit Madness", "#000");
+	var readyLabel = new createjs.Text("READY", "bold 10px '8-Bit Madness'", "#FFF");
+	var readyLabel2 = new createjs.Text("READY", "bold 10px '8-Bit Madness'", "#000");
 	readyLabel.x = this.gamestage.canvas.width / 2 - 10;
 	readyLabel.y = this.gamestage.canvas.height / 2;
 	readyLabel2.x = this.gamestage.canvas.width / 2 - 9;

@@ -60,21 +60,21 @@ function OptionsMenu() {
     this.closeButtonTouchTarget.spriteSheet._frameHeight = 16;
     this.closeButtonTouchTarget.spriteSheet._frameWidth = 80;
 
-	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "bold 7px 8-Bit Madness", "#FFF");
-	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "bold 7px 8-Bit Madness", "#000");
-	var hasJoystickLabel = new createjs.Text("Joystick Detected", "bold 7px 8-Bit Madness", "#FFF");
-	this.leftLabel = new createjs.Text("LEFT", "bold 8px 8-Bit Madness", "#FFF");
-	this.leftSelected = new createjs.Text((keyCodes.left === 37) ? "LEFT ARROW" : String.fromCharCode(keyCodes.left), "bold 8px 8-Bit Madness", "#FFF");
-	this.rightLabel = new createjs.Text("RIGHT", "bold 8px 8-Bit Madness", "#FFF");
-	this.rightSelected =  new createjs.Text((keyCodes.right === 39) ? "RIGHT ARROW" : String.fromCharCode(keyCodes.right), "bold 8px 8-Bit Madness", "#FFF");
-	this.jumpLabel =  new createjs.Text("JUMP", "bold 8px 8-Bit Madness", "#FFF");
-	this.jumpSelected =  new createjs.Text((keyCodes.jump === 32) ? "SPACE" : String.fromCharCode(keyCodes.jump), "bold 8px 8-Bit Madness", "#FFF");
-	this.shootLabel =  new createjs.Text("SHOOT", "bold 8px 8-Bit Madness", "#FFF");
-	this.shootSelected =  new createjs.Text(String.fromCharCode(keyCodes.attack), "bold 8px 8-Bit Madness", "#FFF");
-	this.pauseLabel =  new createjs.Text("PAUSE", "bold 8px 8-Bit Madness", "#FFF");
-	this.pauseSelected =  new createjs.Text(String.fromCharCode(keyCodes.pause), "bold 8px 8-Bit Madness", "#FFF");
+	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "bold 7px '8-Bit Madness'", "#FFF");
+	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "bold 7px '8-Bit Madness'", "#000");
+	var hasJoystickLabel = new createjs.Text("Joystick Detected", "bold 7px '8-Bit Madness'", "#FFF");
+	this.leftLabel = new createjs.Text("LEFT", "bold 8px '8-Bit Madness'", "#FFF");
+	this.leftSelected = new createjs.Text((keyCodes.left === 37) ? "LEFT ARROW" : String.fromCharCode(keyCodes.left), "bold 8px '8-Bit Madness'", "#FFF");
+	this.rightLabel = new createjs.Text("RIGHT", "bold 8px '8-Bit Madness'", "#FFF");
+	this.rightSelected =  new createjs.Text((keyCodes.right === 39) ? "RIGHT ARROW" : String.fromCharCode(keyCodes.right), "bold 8px '8-Bit Madness'", "#FFF");
+	this.jumpLabel =  new createjs.Text("JUMP", "bold 8px '8-Bit Madness'", "#FFF");
+	this.jumpSelected =  new createjs.Text((keyCodes.jump === 32) ? "SPACE" : String.fromCharCode(keyCodes.jump), "bold 8px '8-Bit Madness'", "#FFF");
+	this.shootLabel =  new createjs.Text("SHOOT", "bold 8px '8-Bit Madness'", "#FFF");
+	this.shootSelected =  new createjs.Text(String.fromCharCode(keyCodes.attack), "bold 8px '8-Bit Madness'", "#FFF");
+	this.pauseLabel =  new createjs.Text("PAUSE", "bold 8px '8-Bit Madness'", "#FFF");
+	this.pauseSelected =  new createjs.Text(String.fromCharCode(keyCodes.pause), "bold 8px '8-Bit Madness'", "#FFF");
 
-	this.close =  new createjs.Text("CLOSE", "bold 8px 8-Bit Madness", "#FFF");
+	this.close =  new createjs.Text("CLOSE", "bold 8px '8-Bit Madness'", "#FFF");
 
 	executivemanLabel.x = gamestage.canvas.width / 2 - 30;
 	executivemanLabel.y = 38;
