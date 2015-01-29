@@ -18,19 +18,19 @@ function ShopMenu() {
     this.exitShopTouchTarget.spriteSheet._frameHeight = 16;
     this.exitShopTouchTarget.spriteSheet._frameWidth = 80;
 
-	var executivemanLabel = new createjs.Text("SHOP", "bold 7px '8-Bit Madness'", "#FFF");
-	var executivemanLabel2 = new createjs.Text("SHOP", "bold 7px '8-Bit Madness'", "#000");
-	var exitShopLabel = new createjs.Text("EXIT SHOP", "bold 7px '8-Bit Madness'", "#FFF");
-	var livesLabel = new createjs.Text("", "bold 8px '8-Bit Madness'", "#FFF");
-    var cashLabel = new createjs.Text("", "bold 10px '8-Bit Madness'", "#FFF");
+	var executivemanLabel = new createjs.Text("SHOP", "7px '8-Bit Madness'", "#FFF");
+	var executivemanLabel2 = new createjs.Text("SHOP", "7px '8-Bit Madness'", "#000");
+	var exitShopLabel = new createjs.Text("EXIT SHOP", "7px '8-Bit Madness'", "#FFF");
+	var livesLabel = new createjs.Text("", "8px '8-Bit Madness'", "#FFF");
+    var cashLabel = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
 
     // things to buy:
-    var cashDoubler = new createjs.Text("", "bold 10px '8-Bit Madness'", "#FFF");
-    var fourExtraLives = new createjs.Text("", "bold 10px '8-Bit Madness'", "#FFF");
-    var doubleJump = new createjs.Text("", "bold 10px '8-Bit Madness'", "#FFF");
-    var doubleDamage = new createjs.Text("", "bold 10px '8-Bit Madness'", "#FFF");
-    var doubleHealth = new createjs.Text("", "bold 10px '8-Bit Madness'", "#FFF");
-    var healthBriefCase = new createjs.Text("", "bold 10px '8-Bit Madness'", "#FFF");
+    var cashDoubler = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
+    var fourExtraLives = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
+    var doubleJump = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
+    var doubleDamage = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
+    var doubleHealth = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
+    var healthBriefCase = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
 
     this.cashDoublerCost = 150000;
     this.fourExtraLivesCost = 5000;

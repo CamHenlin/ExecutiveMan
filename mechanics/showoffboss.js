@@ -124,28 +124,28 @@ function initShowOffBossScreen(bossnumber) {
 	var bossLabel;
 	if (bossnumber === 0) {
 		bossFrame = new createjs.Sprite(wastemanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("WASTE MAN", "bold 10px '8-Bit Madness'", "#FFF");
+		bossLabel = new createjs.Text("WASTE MAN", "10px '8-Bit Madness'", "#FFF");
 	} else if (bossnumber === 1) {
 		bossFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("ACCOUNTING MAN", "bold 10px '8-Bit Madness'", "#FFF");
+		bossLabel = new createjs.Text("ACCOUNTING MAN", "10px '8-Bit Madness'", "#FFF");
 	} else if (bossnumber === 2) {
 		bossFrame = new createjs.Sprite(materialmanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("MATERIAL MAN", "bold 10px '8-Bit Madness'", "#FFF");
+		bossLabel = new createjs.Text("MATERIAL MAN", "10px '8-Bit Madness'", "#FFF");
 	} else if (bossnumber === 3) {
 		bossFrame = new createjs.Sprite(HRmanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("HR MAN", "bold 10px '8-Bit Madness'", "#FFF");
+		bossLabel = new createjs.Text("HR MAN", "10px '8-Bit Madness'", "#FFF");
 	} else if (bossnumber === 5) {
 		bossFrame = new createjs.Sprite(salesManFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("SALES MAN", "bold 10px '8-Bit Madness'", "#FFF");
+		bossLabel = new createjs.Text("SALES MAN", "10px '8-Bit Madness'", "#FFF");
 	} else if (bossnumber === 6) {
 		bossFrame = new createjs.Sprite(ITmanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("IT MAN", "bold 10px '8-Bit Madness'", "#FFF");
+		bossLabel = new createjs.Text("IT MAN", "10px '8-Bit Madness'", "#FFF");
 	} else if (bossnumber === 7) {
 		bossFrame = new createjs.Sprite(warehousemanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("WAREHOUSE MAN", "bold 10px '8-Bit Madness'", "#FFF");
+		bossLabel = new createjs.Text("WAREHOUSE MAN", "10px '8-Bit Madness'", "#FFF");
 	} else if (bossnumber === 8) {
 		bossFrame = new createjs.Sprite(visionarymanFrameSpriteSheet, "still");
-		bossLabel = new createjs.Text("VISIONARY MAN", "bold 10px '8-Bit Madness'", "#FFF");
+		bossLabel = new createjs.Text("VISIONARY MAN", "10px '8-Bit Madness'", "#FFF");
 
 	}
 	showOffBossScreenCounter = 330;
@@ -231,21 +231,21 @@ function handleShowOffBossScreenTick(event) {
 	} else if (showOffBossScreenCounter === 170) {
 		var bossLabel;
 		if (this.bossnumber === 0) {
-			bossLabel = new createjs.Text("WASTE MAN", "bold 10px '8-Bit Madness'", "#FFF");
+			bossLabel = new createjs.Text("WASTE MAN", "10px '8-Bit Madness'", "#FFF");
 		} else if (this.bossnumber === 1) {
-			bossLabel = new createjs.Text("ACCOUNTING MAN", "bold 10px '8-Bit Madness'", "#FFF");
+			bossLabel = new createjs.Text("ACCOUNTING MAN", "10px '8-Bit Madness'", "#FFF");
 		} else if (this.bossnumber === 2) {
-			bossLabel = new createjs.Text("MATERIAL MAN", "bold 10px '8-Bit Madness'", "#FFF");
+			bossLabel = new createjs.Text("MATERIAL MAN", "10px '8-Bit Madness'", "#FFF");
 		} else if (this.bossnumber === 3) {
-			bossLabel = new createjs.Text("HR MAN", "bold 10px '8-Bit Madness'", "#FFF");
+			bossLabel = new createjs.Text("HR MAN", "10px '8-Bit Madness'", "#FFF");
 		} else if (this.bossnumber === 5) {
-			bossLabel = new createjs.Text("SALES MAN", "bold 10px '8-Bit Madness'", "#FFF");
+			bossLabel = new createjs.Text("SALES MAN", "10px '8-Bit Madness'", "#FFF");
 		} else if (this.bossnumber === 6) {
-			bossLabel = new createjs.Text("IT MAN", "bold 10px '8-Bit Madness'", "#FFF");
+			bossLabel = new createjs.Text("IT MAN", "10px '8-Bit Madness'", "#FFF");
 		} else if (this.bossnumber === 7) {
-			bossLabel = new createjs.Text("WAREHOUSE MAN", "bold 10px '8-Bit Madness'", "#FFF");
+			bossLabel = new createjs.Text("WAREHOUSE MAN", "10px '8-Bit Madness'", "#FFF");
 		} else if (this.bossnumber === 8) {
-			bossLabel = new createjs.Text("VISIONARY MAN", "bold 10px '8-Bit Madness'", "#FFF");
+			bossLabel = new createjs.Text("VISIONARY MAN", "10px '8-Bit Madness'", "#FFF");
 		}
 		bossLabel.y = gamestage.canvas.height / 2 + 20;
 		bossLabel.x = gamestage.canvas.width / 2 - 30;

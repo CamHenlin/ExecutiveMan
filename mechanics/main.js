@@ -197,12 +197,11 @@ function initVars() {
 	tileCollisionDetector = null;
 }
 gamestage = new createjs.Stage("gamecanvas");
+
 window.onresize = function(event) {
 	document.getElementById("gamecanvas").style.zoom = 0.1;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+0.1+")";
 	var zoomAmount = window.innerHeight / 240;
-	document.getElementById("body").style.width = window.innerWidth;
-	document.getElementById("body").style.height = window.innerHeight;
 	gamezoom = zoomAmount;
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
 	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
@@ -361,14 +360,14 @@ function beginGame(newGame) {
 	}
 
 	if (logFPS) {
-		fpsLabel = new createjs.Text("", "bold 14px '8-Bit Madness'", "#FFF");
+		fpsLabel = new createjs.Text("", "14px '8-Bit Madness'", "#FFF");
 		gamestage.addChild(fpsLabel);
 
 		fpsLabel.x = gamestage.canvas.width - 50;
 		fpsLabel.y = 18;
 	}
 
-	scoreLabel = new createjs.Text("$ ", "bold 10px '8-Bit Madness'", "#FFF");
+	scoreLabel = new createjs.Text("$ ", "10px '8-Bit Madness'", "#FFF");
 	gamestage.addChild(scoreLabel);
 
 	scoreLabel.x = gamestage.canvas.width - 256;
