@@ -6,59 +6,59 @@ function OptionsMenu() {
 	optionsstage = new createjs.Container();
 
 	var shape = new createjs.Shape();
-    shape.graphics.beginFill("#3366FF").drawRect(32, 32, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
+	shape.graphics.beginFill("#3366FF").drawRect(32, 32, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
 	var shape2 = new createjs.Shape();
-    shape2.graphics.beginFill("#000").drawRect(34, 34, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
+	shape2.graphics.beginFill("#000").drawRect(34, 34, gamestage.canvas.width - 64, gamestage.canvas.height - 64);
 
 	var divider = new createjs.Shape();
-    divider.graphics.beginFill("#5577FF").drawRect(34, gamestage.canvas.height - 96, gamestage.canvas.width - 68, 3);
+	divider.graphics.beginFill("#5577FF").drawRect(34, gamestage.canvas.height - 96, gamestage.canvas.width - 68, 3);
 	this.setLeftButtonTouchTarget = new createjs.Shape();
-    this.setLeftButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setLeftButtonTouchTarget.x = gamestage.canvas.width - 128;
-    this.setLeftButtonTouchTarget.y = 64;
-    this.setLeftButtonTouchTarget.spriteSheet = {};
-    this.setLeftButtonTouchTarget.spriteSheet._frameHeight = 16;
-    this.setLeftButtonTouchTarget.spriteSheet._frameWidth = 80;
+	this.setLeftButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setLeftButtonTouchTarget.x = gamestage.canvas.width - 128;
+	this.setLeftButtonTouchTarget.y = 64;
+	this.setLeftButtonTouchTarget.spriteSheet = {};
+	this.setLeftButtonTouchTarget.spriteSheet._frameHeight = 16;
+	this.setLeftButtonTouchTarget.spriteSheet._frameWidth = 80;
 
-    this.setRightButtonTouchTarget = new createjs.Shape();
-    this.setRightButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setRightButtonTouchTarget.x = gamestage.canvas.width - 128;
-    this.setRightButtonTouchTarget.y = 80;
-    this.setRightButtonTouchTarget.spriteSheet = {};
-    this.setRightButtonTouchTarget.spriteSheet._frameHeight = 16;
-    this.setRightButtonTouchTarget.spriteSheet._frameWidth = 80;
+	this.setRightButtonTouchTarget = new createjs.Shape();
+	this.setRightButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setRightButtonTouchTarget.x = gamestage.canvas.width - 128;
+	this.setRightButtonTouchTarget.y = 80;
+	this.setRightButtonTouchTarget.spriteSheet = {};
+	this.setRightButtonTouchTarget.spriteSheet._frameHeight = 16;
+	this.setRightButtonTouchTarget.spriteSheet._frameWidth = 80;
 
-    this.setJumpButtonTouchTarget = new createjs.Shape();
-    this.setJumpButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setJumpButtonTouchTarget.x = gamestage.canvas.width - 128;
-    this.setJumpButtonTouchTarget.y = 96;
-    this.setJumpButtonTouchTarget.spriteSheet = {};
-    this.setJumpButtonTouchTarget.spriteSheet._frameHeight = 16;
-    this.setJumpButtonTouchTarget.spriteSheet._frameWidth = 80;
+	this.setJumpButtonTouchTarget = new createjs.Shape();
+	this.setJumpButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setJumpButtonTouchTarget.x = gamestage.canvas.width - 128;
+	this.setJumpButtonTouchTarget.y = 96;
+	this.setJumpButtonTouchTarget.spriteSheet = {};
+	this.setJumpButtonTouchTarget.spriteSheet._frameHeight = 16;
+	this.setJumpButtonTouchTarget.spriteSheet._frameWidth = 80;
 
-    this.setShootButtonTouchTarget = new createjs.Shape();
-    this.setShootButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setShootButtonTouchTarget.x = gamestage.canvas.width - 128;
-    this.setShootButtonTouchTarget.y = 112;
-    this.setShootButtonTouchTarget.spriteSheet = {};
-    this.setShootButtonTouchTarget.spriteSheet._frameHeight = 16;
-    this.setShootButtonTouchTarget.spriteSheet._frameWidth = 80;
+	this.setShootButtonTouchTarget = new createjs.Shape();
+	this.setShootButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setShootButtonTouchTarget.x = gamestage.canvas.width - 128;
+	this.setShootButtonTouchTarget.y = 112;
+	this.setShootButtonTouchTarget.spriteSheet = {};
+	this.setShootButtonTouchTarget.spriteSheet._frameHeight = 16;
+	this.setShootButtonTouchTarget.spriteSheet._frameWidth = 80;
 
-    this.setPauseButtonTouchTarget = new createjs.Shape();
-    this.setPauseButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.setPauseButtonTouchTarget.x = gamestage.canvas.width - 128;
-    this.setPauseButtonTouchTarget.y = 128;
-    this.setPauseButtonTouchTarget.spriteSheet = {};
-    this.setPauseButtonTouchTarget.spriteSheet._frameHeight = 16;
-    this.setPauseButtonTouchTarget.spriteSheet._frameWidth = 80;
+	this.setPauseButtonTouchTarget = new createjs.Shape();
+	this.setPauseButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.setPauseButtonTouchTarget.x = gamestage.canvas.width - 128;
+	this.setPauseButtonTouchTarget.y = 128;
+	this.setPauseButtonTouchTarget.spriteSheet = {};
+	this.setPauseButtonTouchTarget.spriteSheet._frameHeight = 16;
+	this.setPauseButtonTouchTarget.spriteSheet._frameWidth = 80;
 
-    this.closeButtonTouchTarget = new createjs.Shape();
-    this.closeButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
-    this.closeButtonTouchTarget.x = gamestage.canvas.width / 2 - 40;
-    this.closeButtonTouchTarget.y = 160;
-    this.closeButtonTouchTarget.spriteSheet = {};
-    this.closeButtonTouchTarget.spriteSheet._frameHeight = 16;
-    this.closeButtonTouchTarget.spriteSheet._frameWidth = 80;
+	this.closeButtonTouchTarget = new createjs.Shape();
+	this.closeButtonTouchTarget.graphics.beginFill("#0000FF").drawRect(gamestage.canvas.width / 2 + 5, gamestage.canvas.height - 48, 80, 16);
+	this.closeButtonTouchTarget.x = gamestage.canvas.width / 2 - 40;
+	this.closeButtonTouchTarget.y = 160;
+	this.closeButtonTouchTarget.spriteSheet = {};
+	this.closeButtonTouchTarget.spriteSheet._frameHeight = 16;
+	this.closeButtonTouchTarget.spriteSheet._frameWidth = 80;
 
 	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "11px '8-Bit Madness'", "#FFF");
 	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "11px '8-Bit Madness'", "#000");
@@ -107,11 +107,11 @@ function OptionsMenu() {
 	this.close.x = gamestage.canvas.width / 2 - 15;
 	this.close.y = 160;
 
-    optionsstage.addChild(shape2);
-    optionsstage.addChild(shape);
-    optionsstage.addChild(executivemanLabel2);
-    optionsstage.addChild(executivemanLabel);
-    optionsstage.addChild(this.divider);
+	optionsstage.addChild(shape2);
+	optionsstage.addChild(shape);
+	optionsstage.addChild(executivemanLabel2);
+	optionsstage.addChild(executivemanLabel);
+	optionsstage.addChild(this.divider);
 	optionsstage.addChild(this.leftLabel);
 	optionsstage.addChild(this.leftSelected);
 	optionsstage.addChild(this.rightLabel);
@@ -128,14 +128,14 @@ function OptionsMenu() {
 		optionsstage.addChild(hasJoystickLabel);
 	}
 
-    this.remove = function() {
+	this.remove = function() {
 		optionsUp = false;
-        playSound("pauseclose");
+		playSound("pauseclose");
 		gamestage.removeChild(optionsstage);
 		gamestage.update();
-    };
+	};
 
-    this.show = function() {
+	this.show = function() {
 		optionsUp = true;
 		playSound("pauseopen");
 		if (usingJoystick) {
@@ -149,7 +149,7 @@ function OptionsMenu() {
 
 		gamestage.addChild(optionsstage);
 		gamestage.update();
-    };
+	};
 }
 
 function optionsClickHandler(event) {
@@ -165,61 +165,61 @@ function optionsClickHandler(event) {
 	setTimeout(function() { clicked = false; }, 250);
 
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
-        "images": ["images/businessmanspritesheet.png"],
-        "frames": {
-            "width": 1, "height": 1, "count": 1
-        },
-        "animations": {
-            "exist": {
-                "frames" : [0],
-                "next" : "exist"
-            }
-        }
-    });
-    var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
+		"images": ["images/businessmanspritesheet.png"],
+		"frames": {
+			"width": 1, "height": 1, "count": 1
+		},
+		"animations": {
+			"exist": {
+				"frames" : [0],
+				"next" : "exist"
+			}
+		}
+	});
+	var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-    touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
+	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
 	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
-    if (fastCollisionSprite(this.closeButtonTouchTarget, touchSprite)) {
+	if (fastCollisionSprite(this.closeButtonTouchTarget, touchSprite)) {
 		this.remove();
 		event.target.removeEventListener(event.type, arguments.callee, false);
-    } else if (fastCollisionSprite(this.setLeftButtonTouchTarget, touchSprite)) {
+	} else if (fastCollisionSprite(this.setLeftButtonTouchTarget, touchSprite)) {
 		this.leftSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.leftSelected;
 		this.setKey = "left";
 		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
-    } else if (fastCollisionSprite(this.setRightButtonTouchTarget, touchSprite)) {
+	} else if (fastCollisionSprite(this.setRightButtonTouchTarget, touchSprite)) {
 		this.rightSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.rightSelected;
 		this.setKey = "right";
 		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
-    } else if (fastCollisionSprite(this.setJumpButtonTouchTarget, touchSprite)) {
+	} else if (fastCollisionSprite(this.setJumpButtonTouchTarget, touchSprite)) {
 		this.jumpSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.jumpSelected;
 		this.setKey = "jump";
 		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
-    } else if (fastCollisionSprite(this.setShootButtonTouchTarget, touchSprite)) {
+	} else if (fastCollisionSprite(this.setShootButtonTouchTarget, touchSprite)) {
 		this.shootSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.shootSelected;
 		this.setKey = "shoot";
 		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
-    } else if (fastCollisionSprite(this.setJumpButtonTouchTarget, touchSprite)) {
+	} else if (fastCollisionSprite(this.setJumpButtonTouchTarget, touchSprite)) {
 		this.jumpSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.jumpSelected;
 		this.setKey = "jump";
 		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
-    } else if (fastCollisionSprite(this.setPauseButtonTouchTarget, touchSprite)) {
+	} else if (fastCollisionSprite(this.setPauseButtonTouchTarget, touchSprite)) {
 		this.pauseSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.pauseSelected;
 		this.setKey = "pause";
 		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
-    }
+	}
 
-    if (hasJoystick) {
-	window.setInterval(gamepadPoll_options.bind(this), 60);
-    }
+	if (hasJoystick) {
+		window.setInterval(gamepadPoll_options.bind(this), 60);
+	}
 
-    gamestage.update();
+	gamestage.update();
 }
 
 function optionsKeyDownHandler(e) {
@@ -241,5 +241,5 @@ function optionsKeyDownHandler(e) {
 	event.target.removeEventListener(event.type, arguments.callee, false);
 	this.setKeyLabel = null;
 	this.setKey = null;
-    gamestage.update();
+	gamestage.update();
 }
