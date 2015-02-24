@@ -196,6 +196,7 @@ function initVars() {
 	renderer = null;
 	tileCollisionDetector = null;
 }
+
 gamestage = new createjs.Stage("gamecanvas");
 
 window.onresize = function(event) {
