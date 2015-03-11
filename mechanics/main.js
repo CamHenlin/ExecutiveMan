@@ -1,99 +1,88 @@
-/**
- * this file should contain all global variables and the main game loop and the function for starting the main game loop
- */
-
-var loader = new createjs.LoadQueue(false);
-loader.addEventListener("complete", handleComplete);
-// preload.addEventListener("progress", handleProgress);
-
-loader.loadManifest([
-						{id: "accountingman", src: "images/accountingmansprite.png"},
-						{id: "accountingmanframe", src: "images/accountingmanframe.png"},
-						{id: "annoyingthing", src: "images/annoyingthing.png"},
-						{id: "beam", src: "images/beam.png"},
-						{id: "bighealth", src: "images/bighealth.png"},
-						{id: "bossframe", src: "images/bossframe.png"},
-						{id: "businessman", src: "images/businessmanspritesheet.png"},
-						{id: "businessman_black", src: "images/businessmanspritesheet_black.png"},
-						{id: "businessman_blue", src: "images/businessmanspritesheet_blue.png"},
-						{id: "businessman_brown", src: "images/businessmanspritesheet_brown.png"},
-						{id: "businessman_green", src: "images/businessmanspritesheet_green.png"},
-						{id: "businessman_pink", src: "images/businessmanspritesheet_pink.png"},
-						{id: "businessman_red", src: "images/businessmanspritesheet_red.png"},
-						{id: "businessman_teal", src: "images/businessmanspritesheet_teal.png"},
-						{id: "businessman_yellow", src: "images/businessmanspritesheet_yellow.png"},
-						{id: "buttons", src: "images/buttons.png"},
-						{id: "computerguy", src: "images/computerguy.png"},
-						{id: "copter", src: "images/copter.png"},
-						{id: "damage", src: "images/damage.png"},
-						{id: "death", src: "images/death.png"},
-						{id: "door", src: "images/door.png"},
-						{id: "sixshooter", src: "images/sixshooter.png"},
-						{id: "shootythingy", src: "images/shootythingy.png"},
-						{id: "enemyshot", src: "images/enemyshot.png"},
-						{id: "executivemantopper", src: "images/executivemantopper.png"},
-						{id: "explosion", src: "images/explosion.png"},
-						{id: "explosivebarrel", src: "images/explosivebarrel.png"},
-						{id: "extralife", src: "images/extralife.png"},
-						{id: "filingcabinet", src: "images/filingcabinet.png"},
-						{id: "flood", src: "images/flood.png"},
-						{id: "health", src: "images/healthbar.png"},
-						{id: "healthbriefcase", src: "images/healthbriefcase.png"},
-						{id: "killcopy", src: "images/killcopy.png"},
-						{id: "littlehealth", src: "images/littlehealth.png"},
-						{id: "logo", src: "images/executivemanlogo.png"},
-						{id: "coffeecopter", src: "images/coffeecopter.png"},
-						{id: "map1", src: "images/map1.png"},
-						{id: "map2", src: "images/map2.png"},
-						{id: "map3", src: "images/map3.png"},
-						{id: "hrmanmap", src: "images/hrmanmap.png"},
-						{id: "map6", src: "images/map6.png"},
-						{id: "materialman", src: "images/materialmanspritesheet.png"},
-						{id: "materialmanframe", src: "images/materialmanframe.png"},
-						{id: "moneyspin", src: "images/moneyspin.png"},
-						{id: "papershot", src: "images/papershot.png"},
-						{id: "phone", src: "images/phone.png"},
-						{id: "execmanface", src: "images/execmanface.png"},
-						{id: "platform", src: "images/platform.png"},
-						{id: "camh", src: "images/camh.png"},
-						{id: "printerguy", src: "images/printerguy.png"},
-						{id: "rotatingplatform", src: "images/rotatingplatform.png"},
-						{id: "shieldguy", src: "images/shieldguy.png"},
-						{id: "shopframe", src: "images/shopframe.png"},
-						{id: "shot", src: "images/shot.png"},
-						{id: "staplerdude", src: "images/staplerdude.png"},
-						{id: "stapler", src: "images/stapler.png"},
-						{id: "shotexplosion", src: "images/shotexplode.png"},
-						{id: "visionarymanframe", src: "images/visionarymanframe.png"},
-						{id: "hrmanframe", src: "images/hrmanframe.png"},
-						{id: "itmanframe", src: "images/itmanframe.png"},
-						{id: "salesmanframe", src: "images/salesmanframe.png"},
-						{id: "wallgun", src: "images/wallgun.png"},
-						{id: "warehouseman", src: "images/warehousemanspritesheet.png"},
-						{id: "warehousemanbigshot", src: "images/warehousemanbigshot.png"},
-						{id: "execmanlogo", src: "images/execmanlogo.png"},
-						{id: "warehousemanframe", src: "images/warehousemanframe.png"},
-						{id: "warehousemanshot", src: "images/warehousemanshot.png"},
-						{id: "wasteman", src: "images/wastemanspritesheet.png"},
-						{id: "wastemanframe", src: "images/wastemanframe.png"},
-						{id: "wastemanshot", src: "images/wastemanshot.png"},
-						{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
-						{id: "slide_five", src: "images/intro/5.png"},
-						{id: "slide_four", src: "images/intro/4.png"},
-						{id: "slide_one", src: "images/intro/1.png"},
-						{id: "slide_six", src: "images/intro/6.png"},
-						{id: "slide_three", src: "images/intro/3.png"},
-						{id: "slide_two", src: "images/intro/2.png"}
-					]);
-
-
-
+var loadFiles = [
+	{id: "accountingman", src: "images/accountingmansprite.png"},
+	{id: "accountingmanframe", src: "images/accountingmanframe.png"},
+	{id: "annoyingthing", src: "images/annoyingthing.png"},
+	{id: "beam", src: "images/beam.png"},
+	{id: "bighealth", src: "images/bighealth.png"},
+	{id: "bossframe", src: "images/bossframe.png"},
+	{id: "businessman", src: "images/businessmanspritesheet.png"},
+	{id: "businessman_black", src: "images/businessmanspritesheet_black.png"},
+	{id: "businessman_blue", src: "images/businessmanspritesheet_blue.png"},
+	{id: "businessman_brown", src: "images/businessmanspritesheet_brown.png"},
+	{id: "businessman_green", src: "images/businessmanspritesheet_green.png"},
+	{id: "businessman_pink", src: "images/businessmanspritesheet_pink.png"},
+	{id: "businessman_red", src: "images/businessmanspritesheet_red.png"},
+	{id: "businessman_teal", src: "images/businessmanspritesheet_teal.png"},
+	{id: "businessman_yellow", src: "images/businessmanspritesheet_yellow.png"},
+	{id: "buttons", src: "images/buttons.png"},
+	{id: "computerguy", src: "images/computerguy.png"},
+	{id: "copter", src: "images/copter.png"},
+	{id: "damage", src: "images/damage.png"},
+	{id: "death", src: "images/death.png"},
+	{id: "door", src: "images/door.png"},
+	{id: "sixshooter", src: "images/sixshooter.png"},
+	{id: "shootythingy", src: "images/shootythingy.png"},
+	{id: "enemyshot", src: "images/enemyshot.png"},
+	{id: "executivemantopper", src: "images/executivemantopper.png"},
+	{id: "explosion", src: "images/explosion.png"},
+	{id: "explosivebarrel", src: "images/explosivebarrel.png"},
+	{id: "extralife", src: "images/extralife.png"},
+	{id: "filingcabinet", src: "images/filingcabinet.png"},
+	{id: "flood", src: "images/flood.png"},
+	{id: "health", src: "images/healthbar.png"},
+	{id: "healthbriefcase", src: "images/healthbriefcase.png"},
+	{id: "killcopy", src: "images/killcopy.png"},
+	{id: "littlehealth", src: "images/littlehealth.png"},
+	{id: "logo", src: "images/executivemanlogo.png"},
+	{id: "coffeecopter", src: "images/coffeecopter.png"},
+	{id: "map1", src: "images/map1.png"},
+	{id: "map2", src: "images/map2.png"},
+	{id: "map3", src: "images/map3.png"},
+	{id: "hrmanmap", src: "images/hrmanmap.png"},
+	{id: "map6", src: "images/map6.png"},
+	{id: "materialman", src: "images/materialmanspritesheet.png"},
+	{id: "materialmanframe", src: "images/materialmanframe.png"},
+	{id: "moneyspin", src: "images/moneyspin.png"},
+	{id: "papershot", src: "images/papershot.png"},
+	{id: "phone", src: "images/phone.png"},
+	{id: "execmanface", src: "images/execmanface.png"},
+	{id: "platform", src: "images/platform.png"},
+	{id: "camh", src: "images/camh.png"},
+	{id: "printerguy", src: "images/printerguy.png"},
+	{id: "rotatingplatform", src: "images/rotatingplatform.png"},
+	{id: "shieldguy", src: "images/shieldguy.png"},
+	{id: "shopframe", src: "images/shopframe.png"},
+	{id: "shot", src: "images/shot.png"},
+	{id: "staplerdude", src: "images/staplerdude.png"},
+	{id: "stapler", src: "images/stapler.png"},
+	{id: "shotexplosion", src: "images/shotexplode.png"},
+	{id: "visionarymanframe", src: "images/visionarymanframe.png"},
+	{id: "hrmanframe", src: "images/hrmanframe.png"},
+	{id: "itmanframe", src: "images/itmanframe.png"},
+	{id: "salesmanframe", src: "images/salesmanframe.png"},
+	{id: "wallgun", src: "images/wallgun.png"},
+	{id: "warehouseman", src: "images/warehousemanspritesheet.png"},
+	{id: "warehousemanbigshot", src: "images/warehousemanbigshot.png"},
+	{id: "execmanlogo", src: "images/execmanlogo.png"},
+	{id: "warehousemanframe", src: "images/warehousemanframe.png"},
+	{id: "warehousemanshot", src: "images/warehousemanshot.png"},
+	{id: "wasteman", src: "images/wastemanspritesheet.png"},
+	{id: "wastemanframe", src: "images/wastemanframe.png"},
+	{id: "wastemanshot", src: "images/wastemanshot.png"},
+	{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
+	{id: "slide_five", src: "images/intro/5.png"},
+	{id: "slide_four", src: "images/intro/4.png"},
+	{id: "slide_one", src: "images/intro/1.png"},
+	{id: "slide_six", src: "images/intro/6.png"},
+	{id: "slide_three", src: "images/intro/3.png"},
+	{id: "slide_two", src: "images/intro/2.png"}
+];
 
 function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+		results = regex.exec(location.search);
+	return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 window.mobilecheck = function() {
@@ -103,17 +92,7 @@ window.mobilecheck = function() {
 };
 
 function handleComplete() {
-	/*backgroundImage = preload.getResult("background");
-	treesImage = preload.getResult("trees");
-	groundImage = preload.getResult("ground");
-
-	loadProgressLabel.text = "Loading complete click to start";
-	stage.update();
-
-	canvas.addEventListener("click", handleClick);*/
-	setTimeout(function() {
-		init();
-	}, 1000);
+	init();
 }
 
 var keyCodes = {
@@ -150,10 +129,6 @@ var mobile = false;
 var musicOff = false;
 var soundOff = false;
 var dead = true;
-
-if (window.mobilecheck()) {
-	mobile = true;
-}
 var fpsLabel;
 var scoreLabel;
 var logFPS = false;
@@ -180,8 +155,53 @@ var damageModifier = 1;
 var healthModifier = 1;
 var scoreModifier = 1;
 
+var bossnumber = 0;
 
 var titleScreenSprite;
+
+gamestage = new createjs.Stage("gamecanvas");
+gamestage.clear();
+gamestage.snapToPixelEnabled = true;
+
+var zoomAmount = window.innerHeight / 240;
+gamezoom = zoomAmount;
+gamestage.canvas.height = window.innerHeight / zoomAmount;
+gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
+document.getElementById("gamecanvas").style.zoom = zoomAmount;
+document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
+
+var progress;
+var loadProgress = 0;
+var executivemanLoadingText = new createjs.Text("Executive Man loading...", "20px '8-Bit Madness'", "#FFF");
+executivemanLoadingText.x = (gamestage.canvas.width / 2) - 90;
+executivemanLoadingText.y = 100;
+gamestage.addChild(executivemanLoadingText);
+
+var handleProgress = function(e) {
+	loadProgress = e.progress;
+}
+
+var loadTick = function() {
+	if (loadProgress === 1) {
+		createjs.Ticker.removeEventListener("tick", loadTick);
+		return;
+	}
+
+	progress = new createjs.Shape(); // Remember to define the progress variable at the top!
+	progress.graphics.beginStroke("#F00").beginFill("#F00").drawRect(0, gamestage.canvas.height - 60, gamestage.canvas.width * loadProgress, 20);
+	gamestage.addChild(progress);
+	gamestage.update();
+}
+
+createjs.Ticker.addEventListener("tick", loadTick);
+createjs.Ticker.useRAF = true;
+
+createjs.Ticker.setFPS(60);
+
+if (window.mobilecheck()) {
+	mobile = true;
+}
 
 function init() {
 	initVars();
@@ -196,8 +216,6 @@ function initVars() {
 	renderer = null;
 	tileCollisionDetector = null;
 }
-
-gamestage = new createjs.Stage("gamecanvas");
 
 window.onresize = function(event) {
 	document.getElementById("gamecanvas").style.zoom = 0.1;
@@ -224,37 +242,37 @@ function beginGame(newGame) {
 	}
 
 	var explosionSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("explosion")],
-			"frames": {
-				"width": 25, "height": 25, "count": 4
+		"images": [loader.getResult("explosion")],
+		"frames": {
+			"width": 25, "height": 25, "count": 4
+		},
+		"animations": {
+			"explode": {
+				"frames" : [0, 1, 2, 3],
+				"speed" : 0.125,
+				"next" : "nothing"
 			},
-			"animations": {
-				"explode": {
-					"frames" : [0, 1, 2, 3],
-					"speed" : 0.125,
-					"next" : "nothing"
-				},
-				"nothing": {
-					"frames" : [4],
-					"speed" : 0.125,
-					"next" : "nothing"
-				}
+			"nothing": {
+				"frames" : [4],
+				"speed" : 0.125,
+				"next" : "nothing"
 			}
-		});
+		}
+	});
 
 	explosionSprite = new createjs.Sprite(explosionSpriteSheet, "explode");
 	var shotExplosionSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("shotexplosion")],
-			"frames": {
-				"width": 16, "height": 16, "count": 1
-			},
-			"animations": {
-				"explode": {
-					"frames" : [0],
-					"next" : "explode"
-				}
+		"images": [loader.getResult("shotexplosion")],
+		"frames": {
+			"width": 16, "height": 16, "count": 1
+		},
+		"animations": {
+			"explode": {
+				"frames" : [0],
+				"next" : "explode"
 			}
-		});
+		}
+	});
 
 	shotExplosionSprite = new createjs.Sprite(shotExplosionSpriteSheet, "explode");
 	gamestage = new createjs.Stage("gamecanvas");
@@ -310,7 +328,7 @@ function beginGame(newGame) {
 			renderer.mapcounter = visionaryManHalfwayPoint;
 		}
 	}
-    player = new Player();
+	player = new Player();
 	renderer.initMap();
 	watchedElements.push(player);
 
@@ -319,7 +337,6 @@ function beginGame(newGame) {
 	watchedElements.push(renderer);
 
 	if (mobile) {
-
 		buttonSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("buttons")],
 			"frames": {
@@ -344,6 +361,7 @@ function beginGame(newGame) {
 				}
 			}
 		});
+
 		leftButtonSprite = new createjs.Sprite(buttonSpriteSheet, "left");
 		rightButtonSprite = new createjs.Sprite(buttonSpriteSheet, "right");
 		shootButtonSprite = new createjs.Sprite(buttonSpriteSheet, "shoot");
@@ -376,18 +394,14 @@ function beginGame(newGame) {
 
 	createjs.Ticker.addEventListener("tick", handleTick);
 	createjs.Ticker.useRAF = true;
-	if (getParameterByName('lowfps')) {
-		createjs.Ticker.setFPS(30); // NORMALLY 60
-		lowFramerate = 2;
-	} else {
-		createjs.Ticker.setFPS(60); // NORMALLY 60
-	}
 
-	if (getParameterByName('skipframes')) {
-		skipFrames = parseInt(getParameterByName('skipframes'));
-	}
+	createjs.Ticker.setFPS(60);
 }
 
+/**
+ * [initTouchControls used to add touch controls to the screen on a mobile canvas]
+ * @return {[type]} [description]
+ */
 function initTouchControls() {
 	var controlstage = new createjs.Stage("controlcanvas");
 	controlstage.canvas.width = window.innerWidth / gamezoom;
@@ -406,12 +420,11 @@ function initTouchControls() {
 	controlstage.update();
 }
 
-
-
-var bossnumber = 0;
-
-
-
+/**
+ * [handleTick essentially the main game loop for the entire game]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function handleTick(event) {
 	itemDropCount++;
 	if (itemDropCount === 5) {
@@ -516,3 +529,9 @@ function handleTick(event) {
 
 	gamestage.update();
 }
+
+var loader = new createjs.LoadQueue(false);
+loader.addEventListener("complete", handleComplete);
+loader.addEventListener("progress", handleProgress);
+loader.loadManifest(loadFiles);
+

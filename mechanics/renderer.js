@@ -177,13 +177,13 @@ function Renderer(gamestage) {
 		return this.mapData.properties.nextMapDirection;
 	};
 
-    this.getLastMapDirection = function() {
-        return this.mapData.properties.lastMapDirection;
-    };
+	this.getLastMapDirection = function() {
+		return this.mapData.properties.lastMapDirection;
+	};
 
 	this.nextMapDown = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
- 		this.lastWidthOffset = this.widthOffset;
+		this.lastWidthOffset = this.widthOffset;
 
 		this.mapData = maps[++this.mapcounter];
 
@@ -270,7 +270,7 @@ function Renderer(gamestage) {
 
 	this.nextMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
- 		this.lastWidthOffset = this.widthOffset;
+		this.lastWidthOffset = this.widthOffset;
 
 		this.mapData = maps[++this.mapcounter];
 
@@ -467,13 +467,13 @@ function Renderer(gamestage) {
 						this.enemies.push(new HalfwayPoint(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x));
 					}
 
-                    if (layer.objects[j].type === "bosspoint") {
-                        this.enemies.push(new BossPoint(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x));
-                    }
+					if (layer.objects[j].type === "bosspoint") {
+						this.enemies.push(new BossPoint(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x));
+					}
 
-                    if (layer.objects[j].type === "explosivebarrel") {
-                        this.enemies.push(new ExplosiveBarrel(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, layer.objects[j].y));
-                    }
+					if (layer.objects[j].type === "explosivebarrel") {
+						this.enemies.push(new ExplosiveBarrel(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, layer.objects[j].y));
+					}
 
 					if (layer.objects[j].type === "dialog") {
 						this.objects.push(new Dialog(layer.objects[j].properties.text, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y, layer.objects[j].properties.image));
@@ -787,10 +787,10 @@ function Renderer(gamestage) {
 				player.lastx = player.x;
 				if (this.stitchingoffset !== 0) {
 					this.stitchingoffset = 0;
-                } else {
+				} else {
 					this.parentContainer.x = 0;
 					this.enemyContainer.x = 0;
-                }
+				}
 				player.animations.y = 0;
 				player.y = 0;
 				this.transitioncount = 0;
@@ -802,63 +802,63 @@ function Renderer(gamestage) {
 				this.gamestage.removeChild(this.lastParentContainer);
 			}
 		} else if (this.transitionup) {
-            if (this.transitioncount < 60) {
-                this.transitioncount++;
-                this.parentContainer.y += this.screenHeightDelta;
-                this.enemyContainer.y += this.screenHeightDelta;
-                this.lastParentContainer.y += this.screenHeightDelta;
-                player.animations.y += this.screenHeightDelta;
-                player.y += this.screenHeightDelta;
+			if (this.transitioncount < 60) {
+				this.transitioncount++;
+				this.parentContainer.y += this.screenHeightDelta;
+				this.enemyContainer.y += this.screenHeightDelta;
+				this.lastParentContainer.y += this.screenHeightDelta;
+				player.animations.y += this.screenHeightDelta;
+				player.y += this.screenHeightDelta;
 
-                if (parseInt(this.mapData.properties.stitchx) !== 0) {
-                    this.parentContainer.x -= this.screenWidthDelta;
-                    this.enemyContainer.x -= this.screenWidthDelta;
-                    this.lastParentContainer.x -= this.screenWidthDelta;
+				if (parseInt(this.mapData.properties.stitchx) !== 0) {
+					this.parentContainer.x -= this.screenWidthDelta;
+					this.enemyContainer.x -= this.screenWidthDelta;
+					this.lastParentContainer.x -= this.screenWidthDelta;
 					player.animations.x -= this.screenWidthDelta;
 
 				}
 
-                if (this.parentContainer.y > 0) {
-                    this.parentContainer.y = 0;
-                }
+				if (this.parentContainer.y > 0) {
+					this.parentContainer.y = 0;
+				}
 
-                if (player.animations.y < 0) {
-                    player.animations.y = 0;
-                    player.y = 0;
-                }
+				if (player.animations.y < 0) {
+					player.animations.y = 0;
+					player.y = 0;
+				}
 
-            } else {
+			} else {
 				player.lastx = player.x;
 				if (this.stitchingoffset !== 0) {
 					this.stitchingoffset = 0;
-                } else {
+				} else {
 					this.parentContainer.x = 0;
 					this.enemyContainer.x = 0;
-                }
-                //player.animations.y = 0;
-                //player.y = 0;
-                player.jumping = true;
-                player.ignoreInput = true;
-                player.actions.playerJump = true;
-                player.jumpspeed = -4.875;
-                player.transitionedUp = true;
-                player.animations.gotoAndPlay("jump");
-                setTimeout(function() {
+				}
+				//player.animations.y = 0;
+				//player.y = 0;
+				player.jumping = true;
+				player.ignoreInput = true;
+				player.actions.playerJump = true;
+				player.jumpspeed = -4.875;
+				player.transitionedUp = true;
+				player.animations.gotoAndPlay("jump");
+				setTimeout(function() {
 					player.ignoreInput = false;
 					player.actions.playerJump = false;
 					player.actions.jumpReleased = true;
 					player.transitionedUp = false;
-                }.bind(this), 500);
-                this.transitioncount = 0;
-                this.transitionup = false;
+				}.bind(this), 500);
+				this.transitioncount = 0;
+				this.transitionup = false;
 
 				//this.lastParentContainer.removeChild(player.animations);
 				//this.parentContainer.addChild(player.animations);
 				this.lastParentContainer.removeAllChildren();
 				this.gamestage.removeChild(this.lastParentContainer);
 
-            }
-        }
+			}
+		}
 	};
 
 	this.bighealthCounter = 0;
