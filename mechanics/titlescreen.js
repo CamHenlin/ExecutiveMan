@@ -193,6 +193,9 @@ document.getElementById("gamecanvas").addEventListener('click', startScreenListe
 
 		},
 		function() {
+
+		},
+		function() {
 			demoEnded = true;
 		},
 		startScreenListener
