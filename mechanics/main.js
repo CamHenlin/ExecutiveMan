@@ -155,6 +155,9 @@ var damageModifier = 1;
 var healthModifier = 1;
 var scoreModifier = 1;
 
+var isDemo = false;
+var demoEnded = false;
+
 var bossnumber = 0;
 
 var titleScreenSprite;
@@ -168,11 +171,11 @@ gamestage.canvas.height = 240;
 gamestage.canvas.width = 256;
 document.getElementById("gamecanvas").style.zoom = zoomAmount;
 document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
-document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
+document.getElementById("gamecanvas").style.left = ((window.innerWidth / zoomAmount - document.getElementById("gamecanvas").width) / 2) + "px";
 
 var progress;
 var loadProgress = 0;
-var executivemanLoadingText = new createjs.Text("Executive Man loading...", "20px '8-Bit Madness'", "#FFF");
+var executivemanLoadingText = new createjs.Text("Executive Man loading...", "14px '8-Bit Madness'", "#FFF");
 executivemanLoadingText.x = (gamestage.canvas.width / 2) - 90;
 executivemanLoadingText.y = 100;
 gamestage.addChild(executivemanLoadingText);
@@ -230,6 +233,10 @@ window.onresize = function(event) {
 };
 
 function beginGame(newGame, demoMode) {
+	if (demoMode) {
+		isDemo = true;
+	}
+
 	dead = false;
 	if (newGame && lives < 2) {
 		lives = 2;
@@ -326,7 +333,7 @@ function beginGame(newGame, demoMode) {
 			renderer.mapcounter = visionaryManHalfwayPoint;
 		}
 	}
-	player = new Player(demoMode, {x: 200, y: 64});
+	player = new Player(demoMode, {x: 200, y: 66});
 	renderer.initMap();
 	watchedElements.push(player);
 
@@ -385,7 +392,7 @@ function beginGame(newGame, demoMode) {
 	}
 
 	scoreLabel = new createjs.Text("$ ", "10px '8-Bit Madness'", "#FFF");
-	gamestage.addChild(scoreLabel);
+	//gamestage.addChild(scoreLabel);
 
 	scoreLabel.x = gamestage.canvas.width - 256;
 	scoreLabel.y = 18;
@@ -519,6 +526,11 @@ function handleTick(event) {
 	watchedElements.forEach(function(element) {
 		element.tickActions(actions);
 	});
+
+	if (isDemo && demoEnded) {
+		event.remove();
+		isDemo = false;
+	}
 
 	if (logFPS) {
 		fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS()) + " / " + Math.round(createjs.Ticker.getFPS());

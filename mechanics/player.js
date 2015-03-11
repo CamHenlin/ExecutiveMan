@@ -399,6 +399,8 @@ function Player(demoMode, demoParams) {
 		this.healthbar = { draw: function() {}, tickActions: function() {} };
 		//this.x = demoParams.x;
 		this.y = demoParams.y;
+		this.animations.y = demoParams.y;
+		this.x++;
 	}
 	this.animations.x = this.x;
 	this.shotIndex = 0;
@@ -421,9 +423,13 @@ function Player(demoMode, demoParams) {
 	this.stingingAuditShots = [new StingingAuditShot(this, renderer), new StingingAuditShot(this, renderer), new StingingAuditShot(this, renderer)];
 
 	this.x += -this.animations.scaleX;
-	setTimeout(function() {
+	if (!demoMode) {
+		setTimeout(function() {
+			this.ignoreInput = false;
+		}.bind(this), 2000);
+	} else {
 		this.ignoreInput = false;
-	}.bind(this), 2000);
+	}
 
 	this.watchedElements.push(this.healthbar);
 
@@ -744,11 +750,15 @@ function Player(demoMode, demoParams) {
 	}
 
 	this.animations.play();
-	this.ignoreInput = true;
-	setTimeout(function() {
+	if (!demoMode) {
+		this.ignoreInput = true;
+		setTimeout(function() {
+			this.gamestage.addChild(this.animations);
+			this.ignoreInput = false;
+		}.bind(this), 1000);
+	} else {
 		this.gamestage.addChild(this.animations);
-		this.ignoreInput = false;
-	}.bind(this), 1000);
+	}
 
 	// lots of weird rules here to make the game as megaman-like as possible
 	// as we're aming to be a reimplementation of megaman physics, and not realistic physics

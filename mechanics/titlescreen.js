@@ -44,20 +44,25 @@ function initTitleScreen() {
 			case 32:
 				// keyCode 32 is space
 				startgame = true;
-				document.getElementById("gamecanvas").removeEventListener("click", startScreenListener);
+				document.getElementById("gamecanvas").removeEventListener('click', startScreenListener, false);
 				break;
 		}
 	}.bind(this);
 
-	document.getElementById("gamecanvas").addEventListener('click', startScreenListener.bind(this), false);
+	document.getElementById("gamecanvas").addEventListener('click', startScreenListener, false);
 	//titleSreenSprite.animations.play();
 	stage.addChild(titleSreenSprite);
 }
 
 function startScreenListener() {
+	console.log('click');
 	startgame = true;
-	document.getElementById("gamecanvas").removeEventListener("click", startScreenListener);
+	document.getElementById("gamecanvas").removeEventListener('click', startScreenListener, false);
+	demoEnded = true;
+	initVars();
+	initMainMenuScreen();
 }
+startScreenListener = startScreenListener.bind(this);
 
 var startscreenTickCounter = 140;
 if (getParameterByName('camh')) {
@@ -69,105 +74,11 @@ if (getParameterByName('camh')) {
 function handleStartScreenTick(event) {
 	if (startscreenTickCounter > 0) {
 		startscreenTickCounter--;
-	}/*
-	if (startscreenTickCounter === 100) {
-		var twoSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("slide_two")],
-			"frames": {
-				"width": 320, "height": 240, "count": 1
-			},
-			"animations": {
-				"sit": {
-					"frames" : [0],
-					"next" : "sit"
-				}
-			}
-		});
+	}
 
-		var twoSprite = new createjs.Sprite(twoSpriteSheet, "sit");
-
-		twoSprite.x = gamestage.canvas.width / 2 - twoSprite.spriteSheet._frameWidth / 2;
-		twoSprite.y = gamestage.canvas.height / 2 - twoSprite.spriteSheet._frameHeight / 2;
-		stage.addChild(twoSprite);
-	} else if (startscreenTickCounter === 80) {
-		var threeSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("slide_three")],
-			"frames": {
-				"width": 320, "height": 240, "count": 1
-			},
-			"animations": {
-				"sit": {
-					"frames" : [0],
-					"next" : "sit"
-				}
-			}
-		});
-
-		var threeSprite = new createjs.Sprite(threeSpriteSheet, "sit");
-
-		threeSprite.x = gamestage.canvas.width / 2 - threeSprite.spriteSheet._frameWidth / 2;
-		threeSprite.y = gamestage.canvas.height / 2 - threeSprite.spriteSheet._frameHeight / 2;
-		stage.addChild(threeSprite);
-	} else if (startscreenTickCounter === 60) {
-		var fourSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("slide_four")],
-			"frames": {
-				"width": 320, "height": 240, "count": 1
-			},
-			"animations": {
-				"sit": {
-					"frames" : [0],
-					"next" : "sit"
-				}
-			}
-		});
-
-		var fourSprite = new createjs.Sprite(fourSpriteSheet, "sit");
-
-		fourSprite.x = gamestage.canvas.width / 2 - fourSprite.spriteSheet._frameWidth / 2;
-		fourSprite.y = gamestage.canvas.height / 2 - fourSprite.spriteSheet._frameHeight / 2;
-		stage.addChild(fourSprite);
-	} else if (startscreenTickCounter === 40) {
-		var fiveSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("slide_five")],
-			"frames": {
-				"width": 320, "height": 240, "count": 1
-			},
-			"animations": {
-				"sit": {
-					"frames" : [0],
-					"next" : "sit"
-				}
-			}
-		});
-
-		var fiveSprite = new createjs.Sprite(fiveSpriteSheet, "sit");
-
-		fiveSprite.x = gamestage.canvas.width / 2 - fiveSprite.spriteSheet._frameWidth / 2;
-		fiveSprite.y = gamestage.canvas.height / 2 - fiveSprite.spriteSheet._frameHeight / 2;
-		stage.addChild(fiveSprite);
-	} else if (startscreenTickCounter === 20) {
-		var sixSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("slide_six")],
-			"frames": {
-				"width": 320, "height": 240, "count": 1
-			},
-			"animations": {
-				"sit": {
-					"frames" : [0],
-					"next" : "sit"
-				}
-			}
-		});
-
-		var sixSprite = new createjs.Sprite(sixSpriteSheet, "sit");
-
-		sixSprite.x = gamestage.canvas.width / 2 - sixSprite.spriteSheet._frameWidth / 2;
-		sixSprite.y = gamestage.canvas.height / 2 - sixSprite.spriteSheet._frameHeight / 2;
-		stage.addChild(sixSprite);
-	} else */if (startscreenTickCounter === 0) {
+	if (startscreenTickCounter === 0) {
 event.remove();
-document.getElementById("gamecanvas").addEventListener('click', initMainMenuScreen.bind(this), false);
+document.getElementById("gamecanvas").addEventListener('click', startScreenListener, false);
 	maps = demomaps;
 	beginGame(true, true);
 	var demoActions = [
@@ -208,65 +119,23 @@ document.getElementById("gamecanvas").addEventListener('click', initMainMenuScre
 
 		},
 		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
 			for (var i = 0; i < renderer.objects.length; i++) {
 				if (renderer.objects[i].constructor === Dialog) {
 					renderer.objects[i].remove();
 				}
 			}
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
 		},
 		function() {
 
@@ -324,17 +193,14 @@ document.getElementById("gamecanvas").addEventListener('click', initMainMenuScre
 
 		},
 		function() {
-
+			demoEnded = true;
 		},
-		function() {
-
-		},
-		initMainMenuScreen
+		startScreenListener
 	];
 
 	setTimeout(function() {
 		for (var i in demoActions) {
-			setTimeout(demoActions[i], i * 250);
+			setTimeout(demoActions[i].bind(this), i * 250);
 		}
 	}.bind(this), 5000);
 

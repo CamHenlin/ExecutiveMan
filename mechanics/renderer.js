@@ -66,11 +66,11 @@ function Renderer(gamestage) {
 	};
 
 	this.showingReadyLabel = false;
-	var readyLabel = new createjs.Text("READY", "10px '8-Bit Madness'", "#FFF");
-	var readyLabel2 = new createjs.Text("READY", "10px '8-Bit Madness'", "#000");
-	readyLabel.x = this.gamestage.canvas.width / 2 - 10;
+	var readyLabel = new createjs.Text("READY", "14px '8-Bit Madness'", "#FFF");
+	var readyLabel2 = new createjs.Text("READY", "14px '8-Bit Madness'", "#000");
+	readyLabel.x = this.gamestage.canvas.width / 2 - 14;
 	readyLabel.y = this.gamestage.canvas.height / 2;
-	readyLabel2.x = this.gamestage.canvas.width / 2 - 9;
+	readyLabel2.x = this.gamestage.canvas.width / 2 - 13;
 	readyLabel2.y = this.gamestage.canvas.height / 2 + 1;
 
 	this.initMap = function () {
@@ -81,6 +81,14 @@ function Renderer(gamestage) {
 		this.enemyContainer.visible = false;
 		player.animations.visible = false;
 		this.doneRendering = true;
+
+		if (isDemo) {
+			player.animations.visible = true;
+			this.enemyContainer.visible = true;
+			player.x += this.widthOffset;
+			return;
+		}
+
 		this.showingReadyLabel = true;
 
 		this.gamestage.addChild(readyLabel2);
@@ -165,7 +173,7 @@ function Renderer(gamestage) {
 		if (logFPS) {
 			gamestage.addChild(fpsLabel);
 		}
-		gamestage.addChild(scoreLabel);
+		//gamestage.addChild(scoreLabel);
 
 
 		if (mobile) {

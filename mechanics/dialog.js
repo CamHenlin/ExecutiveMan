@@ -144,6 +144,9 @@ function Dialog(text, x, y, image, top) {
 		player.paused = true;
 		player.dialog = true;
 		this.dialogTicks = this.text.length * 3 + 3;
+		if (isDemo) {
+			return;
+		}
 		document.addEventListener('click', this.dialogClickHandler.bind(this), false);
 		document.addEventListener('keydown', this.dialogKeyDownHandler.bind(this), false);
 	};
