@@ -41,7 +41,6 @@ function initShowOffBossScreen(bossnumber) {
 		}
 	});
 
-
 	var HRmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("hrmanframe")],
 		"frames": {
@@ -179,8 +178,8 @@ function initShowOffBossScreen(bossnumber) {
 	createjs.Ticker.setFPS(60);
 
 
-    var shape = new createjs.Shape();
-    shape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
+	var shape = new createjs.Shape();
+	shape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
 	altstage.addChild(shape);
 
 	stage.addChild(bossFrame);
@@ -386,36 +385,36 @@ function handleShowOffBossScreenTick(event) {
 		}
 		bossFrame.x = gamestage.canvas.width / 2 - bossFrame.spriteSheet._frameWidth / 2;
 		bossFrame.y = gamestage.canvas.height / 2 - bossFrame.spriteSheet._frameHeight / 2;
-	    bossShowOffScreenShape = new createjs.Shape();
-	    bossShowOffScreenShape.graphics.beginFill("#0000FF").drawRect(0, gamestage.canvas.height / 2 - 50, gamestage.canvas.width, 100);
-	    bossShowOffScreenShape.x = -gamestage.canvas.width;
-	    bossShowOffScreenShape.y = gamestage.canvas.height / 200 - 100;
-	    stage.addChild(bossShowOffScreenShape);
+		bossShowOffScreenShape = new createjs.Shape();
+		bossShowOffScreenShape.graphics.beginFill("#0000FF").drawRect(0, gamestage.canvas.height / 2 - 50, gamestage.canvas.width, 100);
+		bossShowOffScreenShape.x = -gamestage.canvas.width;
+		bossShowOffScreenShape.y = gamestage.canvas.height / 200 - 100;
+		stage.addChild(bossShowOffScreenShape);
 		stage.addChild(bossFrame);
 	} else if (showOffBossScreenCounter > 110 && showOffBossScreenCounter < 130) {
 		bossShowOffScreenShape.x += gamestage.canvas._frameWidth / 20;
 	} else if (showOffBossScreenCounter === 110) {
-	    bossShowOffScreenShape2 = new createjs.Shape();
-	    bossShowOffScreenShape2.graphics.beginFill("#FFF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	    bossShowOffScreenShape2.x = 0;
-	    altstage.addChild(bossShowOffScreenShape2);
+		bossShowOffScreenShape2 = new createjs.Shape();
+		bossShowOffScreenShape2.graphics.beginFill("#FFF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
+		bossShowOffScreenShape2.x = 0;
+		altstage.addChild(bossShowOffScreenShape2);
 	} else if (showOffBossScreenCounter === 105) {
-	    altstage.removeChild(bossShowOffScreenShape2);
-	    bossShowOffScreenShape = new createjs.Shape();
-	    bossShowOffScreenShape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	    bossShowOffScreenShape.x = 0;
-	    altstage.addChild(bossShowOffScreenShape);
+		altstage.removeChild(bossShowOffScreenShape2);
+		bossShowOffScreenShape = new createjs.Shape();
+		bossShowOffScreenShape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
+		bossShowOffScreenShape.x = 0;
+		altstage.addChild(bossShowOffScreenShape);
 	} else if (showOffBossScreenCounter === 100) {
-	    bossShowOffScreenShape2 = new createjs.Shape();
-	    bossShowOffScreenShape2.graphics.beginFill("#FFF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	    bossShowOffScreenShape2.x = 0;
-	    altstage.addChild(bossShowOffScreenShape2);
+		bossShowOffScreenShape2 = new createjs.Shape();
+		bossShowOffScreenShape2.graphics.beginFill("#FFF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
+		bossShowOffScreenShape2.x = 0;
+		altstage.addChild(bossShowOffScreenShape2);
 	} else if (showOffBossScreenCounter === 95) {
-	    altstage.removeChild(bossShowOffScreenShape2);
-	    bossShowOffScreenShape = new createjs.Shape();
-	    bossShowOffScreenShape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-	    bossShowOffScreenShape.x = 0;
-	    altstage.addChild(bossShowOffScreenShape);
+		altstage.removeChild(bossShowOffScreenShape2);
+		bossShowOffScreenShape = new createjs.Shape();
+		bossShowOffScreenShape.graphics.beginFill("#000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
+		bossShowOffScreenShape.x = 0;
+		altstage.addChild(bossShowOffScreenShape);
 	}
 	showOffBossScreenCounter--;
 	gamestage.update();

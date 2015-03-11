@@ -196,9 +196,9 @@ function initBossScreen() {
 	this.optionsMenu = new OptionsMenu();
 	stage.x = -gamestage.canvas.width;
 	altstage.x = gamestage.canvas.width;
-    var fillColor = new createjs.Shape();
-    fillColor.graphics.beginFill("#0000FF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-    altstage.addChild(fillColor);
+	var fillColor = new createjs.Shape();
+	fillColor.graphics.beginFill("#0000FF").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
+	altstage.addChild(fillColor);
 
 
 	var saveGameLabel = new createjs.Text("SAVE\nGAME", "11px '8-Bit Madness'", "#FFF");
@@ -336,27 +336,27 @@ var bossScreenKeyDownHandler = function (event) {
 			// keyCode 32 is space
 			if (bossNumber === 4) {
 				this.shopMenu.show();
-	            //event.target.removeEventListener(event.type, arguments.callee);
-		    } else {
+				//event.target.removeEventListener(event.type, arguments.callee);
+			} else {
 				initVars();
 				initShowOffBossScreen(bossNumber);
-	            event.target.removeEventListener(event.type, arguments.callee);
+				event.target.removeEventListener(event.type, arguments.callee);
 				bossScreenUp = false;
 				playSound("pauseopen");
-		    }
+			}
 			break;
 	}
 };
 
 
 function buildSaveLoadTouchTarget(text) {
-    var touchTarget = {};
-    touchTarget.x = text.x - 5;
-    touchTarget.y = text.y - 3;
-    touchTarget.spriteSheet = {};
-    touchTarget.spriteSheet._frameHeight = 32;
-    touchTarget.spriteSheet._frameWidth = 40;
-    return touchTarget;
+	var touchTarget = {};
+	touchTarget.x = text.x - 5;
+	touchTarget.y = text.y - 3;
+	touchTarget.spriteSheet = {};
+	touchTarget.spriteSheet._frameHeight = 32;
+	touchTarget.spriteSheet._frameWidth = 40;
+	return touchTarget;
 }
 
 
@@ -370,43 +370,43 @@ function bossClickHandler(event) {
 	}
 
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
-        "images": [loader.getResult("beam")],
-        "frames": {
-            "width": 1, "height": 1, "count": 1
-        },
-        "animations": {
-            "exist": {
-                "frames" : [0],
-                "next" : "exist"
-            }
-        }
-    });
-    var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
+		"images": [loader.getResult("beam")],
+		"frames": {
+			"width": 1, "height": 1, "count": 1
+		},
+		"animations": {
+			"exist": {
+				"frames" : [0],
+				"next" : "exist"
+			}
+		}
+	});
+	var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-    event.preventDefault();
+	event.preventDefault();
 
 	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
 	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
 	if (fastCollisionSprite(this.saveGameTouchTarget, touchSprite)) {
 		saveGame();
-        playSound("pauseopen");
+		playSound("pauseopen");
 	} else if (fastCollisionSprite(this.loadGameTouchTarget, touchSprite)) {
 		loadGame();
-        playSound("pauseopen");
+		playSound("pauseopen");
 	} else if (fastCollisionSprite(this.optionsMenuTouchTarget, touchSprite)) {
 		this.optionsMenu.show();
 	} else {
 		for (var k = 0; k < 9; k++) { // should be 9
-		    if (k === 4 && fastCollisionSprite(bossframes[k], touchSprite)) {
-		    	this.shopMenu.show();
-	            //event.target.removeEventListener(event.type, arguments.callee);
-		    } else if (fastCollisionSprite(bossframes[k], touchSprite)) {
-		       	initVars();
-		       	initShowOffBossScreen(k);
-	            event.target.removeEventListener(event.type, arguments.callee);
+			if (k === 4 && fastCollisionSprite(bossframes[k], touchSprite)) {
+				this.shopMenu.show();
+				//event.target.removeEventListener(event.type, arguments.callee);
+			} else if (fastCollisionSprite(bossframes[k], touchSprite)) {
+				initVars();
+				initShowOffBossScreen(k);
+				event.target.removeEventListener(event.type, arguments.callee);
 				bossScreenUp = false;
-        		playSound("pauseopen");
-		    }
+				playSound("pauseopen");
+			}
 		}
 	}
 }

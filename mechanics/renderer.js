@@ -476,7 +476,7 @@ function Renderer(gamestage) {
 					}
 
 					if (layer.objects[j].type === "dialog") {
-						this.objects.push(new Dialog(layer.objects[j].properties.text, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y, layer.objects[j].properties.image));
+						this.objects.push(new Dialog(layer.objects[j].properties.text, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y, layer.objects[j].properties.image, layer.objects[j].properties.top === "true"));
 					}
 				}
 			}

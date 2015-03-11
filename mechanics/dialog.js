@@ -1,10 +1,11 @@
 var dialogUp = false;
 
-function Dialog(text, x, y, image) {
+function Dialog(text, x, y, image, top) {
 	//player.stopAllActions();
 	this.triggered = false;
 	this.startTicks = 60;
 	this.text = text;
+	this.top = top;
 
 	this.dialogClickHandler = function(event) {
 		event.preventDefault();
@@ -29,13 +30,17 @@ function Dialog(text, x, y, image) {
 	dialogstage = new createjs.Container();
 
 	this.shape = new createjs.Shape();
-	this.shape.graphics.beginFill("#0000FF").drawRect(32, 32, 0, gamestage.canvas.height / 2 - 32);
+	if (top) {
+		this.shape.graphics.beginFill("#0000FF").drawRect(32, 32, 0, gamestage.canvas.height / 2 - 32);
+	} else {
+		this.shape.graphics.beginFill("#0000FF").drawRect(32, gamestage.canvas.height - 32, 0, gamestage.canvas.height / 2);
+	}
 
 	//var divider = new createjs.this.shape();
 	//divider.graphics.beginFill("#6699FF").drawRect(34, gamestage.canvas.height - 96, gamestage.canvas.width - 68, 3);
 
-	this.dialogLabel = new createjs.Text("", "12px '8-Bit Madness'", "#FFF");
-	this.dialogLabel2 = new createjs.Text("", "12px '8-Bit Madness'", "#000");
+	this.dialogLabel = new createjs.Text("", "14px '8-Bit Madness'", "#FFF");
+	this.dialogLabel2 = new createjs.Text("", "14px '8-Bit Madness'", "#000");
 
 	this.dialogLabel.x = 86;
 	this.dialogLabel.y = 48;
@@ -45,6 +50,8 @@ function Dialog(text, x, y, image) {
 
 	this.dialogLabel.lineWidth = gamestage.canvas.width - 138;
 	this.dialogLabel2.lineWidth = gamestage.canvas.width - 138;
+
+
 
 	dialogstage.addChild(this.shape);
 
@@ -75,7 +82,15 @@ function Dialog(text, x, y, image) {
 	this.x = x - renderer.completedMapsWidthOffset;
 	this.y = y;
 
+	if (!top) {
+		this.dialogLabel.y = 148;
+		this.dialogLabel2.y = 149;
+		this.imageSprite.y = 148;
+	}
+
+
 	this.remove = function() {
+		console.log('removing...');
 		this.active = false;
 		dialogUp = false;
 		playSound("dialogclose");
@@ -86,12 +101,15 @@ function Dialog(text, x, y, image) {
 	};
 
 	this.tickActions = function() {
-
 		if (this.dialogTicks > 0) {
 			if (this.startTicks > 0) {
 				this.shape = new createjs.Shape();
 				var w = (gamestage.canvas.width - 64);
-				this.shape.graphics.beginFill("#0000FF").drawRect(32, 32, w - (w / 60) * this.startTicks, gamestage.canvas.height / 2 - 32);
+				if (this.top) {
+					this.shape.graphics.beginFill("#0000FF").drawRect(32, 32, w - (w / 60) * this.startTicks, gamestage.canvas.height / 2 - 32);
+				} else {
+					this.shape.graphics.beginFill("#0000FF").drawRect(32, gamestage.canvas.height / 2, w - (w / 60) * this.startTicks, gamestage.canvas.height - 32);
+				}
 				dialogstage.addChild(this.shape);
 				this.startTicks--;
 				if (this.startTicks === 0) {
@@ -118,6 +136,7 @@ function Dialog(text, x, y, image) {
 		if (this.triggered) {
 			return;
 		}
+
 		this.triggered = true;
 		this.active = true;
 		gamestage.addChild(dialogstage);

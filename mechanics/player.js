@@ -1,4 +1,4 @@
-function Player() {
+function Player(demoMode, demoParams) {
 	var StingingAuditShot = function(player, renderer) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("moneyspin")],
@@ -363,9 +363,12 @@ function Player() {
 	this.animations = new createjs.Sprite(this.playerSpriteSheet, "dropin");
 	this.damageSprite = new createjs.Sprite(damageSpriteSheet, "damage");
 	this.touchDown = false;
+	if (demoMode) {
+		this.touchDown = true;
+		this.animations.gotoAndPlay("stand");
+	}
 	this.blinkTimer = 10;
 	this.x = 48;
-	this.animations.x = this.x;
 	this.lastx = this.x;
 	this.y = -32;
 	this.goingLeft = false;
@@ -390,7 +393,14 @@ function Player() {
 	this.gamestage = renderer.gamestage;
 	this.ignoreDamage = false;
 	this.ignoreInput = false;
-	this.healthbar = new HealthBar(gamestage, this);
+	if (!demoMode) {
+		this.healthbar = new HealthBar(gamestage, this);
+	} else {
+		this.healthbar = { draw: function() {}, tickActions: function() {} };
+		//this.x = demoParams.x;
+		this.y = demoParams.y;
+	}
+	this.animations.x = this.x;
 	this.shotIndex = 0;
 	this.ignoreLeftRightCollisionThisFrame = 0;
 	this.fallThroughFloor = false;
@@ -417,81 +427,83 @@ function Player() {
 
 	this.watchedElements.push(this.healthbar);
 
-	document.onkeydown = function(event) {
-		switch (event.keyCode) {
-			case keyCodes.left:
-				// keyCode 37 is left arrow
-				this.actions.playerLeft = true;
-				break;
+	if (!demoMode) {
+		document.onkeydown = function(event) {
+			switch (event.keyCode) {
+				case keyCodes.left:
+					// keyCode 37 is left arrow
+					this.actions.playerLeft = true;
+					break;
 
-			case keyCodes.right:
-				// keyCode 39 is right arrow
-				this.actions.playerRight = true;
-				break;
-
-
-			case keyCodes.jump:
-				// keyCode 32 is space
-				this.actions.playerJump = true;
-				break;
-
-			case keyCodes.shoot:
-				// keyCode 67 is c
-				this.actions.playerAttack = true;
-				break;
+				case keyCodes.right:
+					// keyCode 39 is right arrow
+					this.actions.playerRight = true;
+					break;
 
 
-			case 68:
-				// keyCode 68 is d
-				this.actions.playerDebug = true;
-				break;
+				case keyCodes.jump:
+					// keyCode 32 is space
+					this.actions.playerJump = true;
+					break;
 
-			case keyCodes.pause:
-				// keyCode 68 is p
-				if (this.paused) {
-					this.paused = false;
-					this.pauseMenu.remove();
-				} else {
-					this.paused = true;
-					this.pauseMenu.show();
-
-				}
-
-				break;
-		}
-	}.bind(this);
-
-	document.onkeyup = function(event) {
-		switch (event.keyCode) {
-			case keyCodes.left:
-				// keyCode 37 is left arrow
-				this.actions.playerLeft = false;
-				break;
-
-			case keyCodes.right:
-				// keyCode 39 is right arrow
-				this.actions.playerRight = false;
-				break;
-
-			case keyCodes.jump:
-				// keyCode 32 is space
-				this.actions.playerJump = false;
-				this.jumpreleased = true;
-				break;
-
-			case keyCodes.shoot:
-				// keyCode 67 is c
-				this.actions.playerAttack = false;
-				this.shootTicks = 1;
-				break;
+				case keyCodes.shoot:
+					// keyCode 67 is c
+					this.actions.playerAttack = true;
+					break;
 
 
-			case 68:
-				// keyCode 68 is d
-				this.actions.playerDebug = false;
-				break;
-		}
-	}.bind(this);
+				case 68:
+					// keyCode 68 is d
+					this.actions.playerDebug = true;
+					break;
+
+				case keyCodes.pause:
+					// keyCode 68 is p
+					if (this.paused) {
+						this.paused = false;
+						this.pauseMenu.remove();
+					} else {
+						this.paused = true;
+						this.pauseMenu.show();
+
+					}
+
+					break;
+			}
+		}.bind(this);
+
+		document.onkeyup = function(event) {
+			switch (event.keyCode) {
+				case keyCodes.left:
+					// keyCode 37 is left arrow
+					this.actions.playerLeft = false;
+					break;
+
+				case keyCodes.right:
+					// keyCode 39 is right arrow
+					this.actions.playerRight = false;
+					break;
+
+				case keyCodes.jump:
+					// keyCode 32 is space
+					this.actions.playerJump = false;
+					this.jumpreleased = true;
+					break;
+
+				case keyCodes.shoot:
+					// keyCode 67 is c
+					this.actions.playerAttack = false;
+					this.shootTicks = 1;
+					break;
+
+
+				case 68:
+					// keyCode 68 is d
+					this.actions.playerDebug = false;
+					break;
+			}
+		}.bind(this);
+	}
 
 	this.changeWeapon = function(weapon) {
 		var loaderRequest = "";
@@ -579,7 +591,7 @@ function Player() {
 		this.gamestage.addChild(this.animations);
 	};
 
-	if (mobile) {
+	if (mobile && !demoMode) {
 		var touchEventSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("businessman")],
 			"frames": {

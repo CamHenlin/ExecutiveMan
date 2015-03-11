@@ -163,10 +163,9 @@ gamestage = new createjs.Stage("gamecanvas");
 gamestage.clear();
 gamestage.snapToPixelEnabled = true;
 
-var zoomAmount = window.innerHeight / 240;
-gamezoom = zoomAmount;
-gamestage.canvas.height = window.innerHeight / zoomAmount;
-gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
+var zoomAmount = (window.innerHeight / 240 > window.innerHeight / 256) ? window.innerHeight / 240 : window.innerHeight / 256;
+gamestage.canvas.height = 240;
+gamestage.canvas.width = 256;
 document.getElementById("gamecanvas").style.zoom = zoomAmount;
 document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
 document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
@@ -220,17 +219,17 @@ function initVars() {
 window.onresize = function(event) {
 	document.getElementById("gamecanvas").style.zoom = 0.1;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+0.1+")";
-	var zoomAmount = window.innerHeight / 240;
+	var zoomAmount = (window.innerHeight / 240 > window.innerHeight / 256) ? window.innerHeight / 240 : window.innerHeight / 256;
 	gamezoom = zoomAmount;
-	gamestage.canvas.height = window.innerHeight / zoomAmount;
-	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
+	gamestage.canvas.height = 240;
+	gamestage.canvas.width = 256;
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
 	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 	initTouchControls();
 };
 
-function beginGame(newGame) {
+function beginGame(newGame, demoMode) {
 	dead = false;
 	if (newGame && lives < 2) {
 		lives = 2;
@@ -279,11 +278,10 @@ function beginGame(newGame) {
 	gamestage.clear();
 	gamestage.snapToPixelEnabled = true;
 
-	var zoomAmount = window.innerHeight / ((mobile) ? 288 : 240);
-
+	var zoomAmount = (window.innerHeight / 240 > window.innerHeight / 256) ? window.innerHeight / 240 : window.innerHeight / 256;
 	gamezoom = zoomAmount;
-	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
-	gamestage.canvas.height = window.innerHeight / zoomAmount;
+	gamestage.canvas.height = 240;
+	gamestage.canvas.width = 256;
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
 	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
@@ -328,7 +326,7 @@ function beginGame(newGame) {
 			renderer.mapcounter = visionaryManHalfwayPoint;
 		}
 	}
-	player = new Player();
+	player = new Player(demoMode, {x: 200, y: 64});
 	renderer.initMap();
 	watchedElements.push(player);
 

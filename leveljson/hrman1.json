@@ -62,6 +62,7 @@
          "objects":[
                 {
                  "height":0,
+                 "id":1,
                  "name":"",
                  "properties":
                     {
@@ -76,11 +77,13 @@
                 }, 
                 {
                  "height":0,
+                 "id":2,
                  "name":"dialog",
                  "properties":
                     {
                      "image":"execmanface",
-                     "text":"THIS IS A DIALOG BOX TEST. THIS IS A DIALOG BOX TEST. THIS IS A DIALOG BOX TEST."
+                     "text":"THIS IS A DIALOG BOX TEST. THIS IS A DIALOG BOX TEST. THIS IS A DIALOG BOX TEST.",
+                     "top":"true"
                     },
                  "rotation":0,
                  "type":"dialog",
@@ -96,6 +99,7 @@
          "x":0,
          "y":0
         }],
+ "nextobjectid":3,
  "orientation":"orthogonal",
  "properties":
     {

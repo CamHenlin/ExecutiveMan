@@ -40,9 +40,9 @@ function initMainMenuScreen() {
 	this.optionsMenu = new OptionsMenu();
 	stage.x = -gamestage.canvas.width;
 	altstage.x = gamestage.canvas.width;
-    var fillColor = new createjs.Shape();
-    fillColor.graphics.beginFill("#000000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
-    altstage.addChild(fillColor);
+	var fillColor = new createjs.Shape();
+	fillColor.graphics.beginFill("#000000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
+	altstage.addChild(fillColor);
 
 
 	var newGameLabel = new createjs.Text("NEW GAME", "18px '8-Bit Madness'", "#FFF");
@@ -105,34 +105,34 @@ var mainMenuScreenKeyDownHandler = function (event) {
 				initVars();
 				initBossScreen();
 				startbossscreen = true;
-		        playSound("pauseopen");
-		        event.target.removeEventListener(event.type, arguments.callee);
-		    } else if (selectionNumber === 1) {
+				playSound("pauseopen");
+				event.target.removeEventListener(event.type, arguments.callee);
+			} else if (selectionNumber === 1) {
 				// load game
 				loadGame();
 				initVars();
 				startbossscreen = true;
 				initBossScreen();
-		        playSound("pauseopen");
-		        event.target.removeEventListener(event.type, arguments.callee);
-		    } else if (selectionNumber === 2) {
+				playSound("pauseopen");
+				event.target.removeEventListener(event.type, arguments.callee);
+			} else if (selectionNumber === 2) {
 				// options
 				this.optionsMenu.show();
-		        playSound("pauseopen");
-		    }
+				playSound("pauseopen");
+			}
 
 			break;
 	}
 };
 
 function buildMainMenuTouchTarget(text) {
-    var touchTarget = {};
-    touchTarget.x = text.x - 5;
-    touchTarget.y = text.y;
-    touchTarget.spriteSheet = {};
-    touchTarget.spriteSheet._frameHeight = 28;
-    touchTarget.spriteSheet._frameWidth = text.text.length * 12;
-    return touchTarget;
+	var touchTarget = {};
+	touchTarget.x = text.x - 5;
+	touchTarget.y = text.y;
+	touchTarget.spriteSheet = {};
+	touchTarget.spriteSheet._frameHeight = 28;
+	touchTarget.spriteSheet._frameWidth = text.text.length * 12;
+	return touchTarget;
 }
 
 function mainMenuClickHandler(event) {
@@ -145,38 +145,38 @@ function mainMenuClickHandler(event) {
 	}
 
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
-        "images": [loader.getResult("beam")],
-        "frames": {
-            "width": 1, "height": 1, "count": 1
-        },
-        "animations": {
-            "exist": {
-                "frames" : [0],
-                "next" : "exist"
-            }
-        }
-    });
-    var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
+		"images": [loader.getResult("beam")],
+		"frames": {
+			"width": 1, "height": 1, "count": 1
+		},
+		"animations": {
+			"exist": {
+				"frames" : [0],
+				"next" : "exist"
+			}
+		}
+	});
+	var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
 	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
 	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
 	if (fastCollisionSprite(this.newGameTouchTarget, touchSprite)) {
 		initVars();
 		initBossScreen();
-        playSound("pauseopen");
-        mainMenuScreenUp = false;
-        event.target.removeEventListener(event.type, arguments.callee);
+		playSound("pauseopen");
+		mainMenuScreenUp = false;
+		event.target.removeEventListener(event.type, arguments.callee);
 	} else if (fastCollisionSprite(this.loadGameTouchTarget, touchSprite)) {
 		loadGame();
 		initVars();
 		initBossScreen();
 		mainMenuScreenUp = false;
 		startbossscreen = true;
-        playSound("pauseopen");
-        event.target.removeEventListener(event.type, arguments.callee);
+		playSound("pauseopen");
+		event.target.removeEventListener(event.type, arguments.callee);
 	} else if (fastCollisionSprite(this.optionsMenuTouchTarget, touchSprite)) {
 		this.optionsMenu.show();
-        playSound("pauseopen");
+		playSound("pauseopen");
 	}
 }
 

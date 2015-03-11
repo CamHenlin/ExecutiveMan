@@ -12,7 +12,7 @@ var joystick = {
 };
 
 function hasJoystickSupport() {
-    return "getGamepads" in navigator;
+	return "getGamepads" in navigator;
 }
 
 function gamepadPoll_options() {
@@ -20,7 +20,7 @@ function gamepadPoll_options() {
 		return;
 	}
 
-    var gp = navigator.getGamepads()[0];
+	var gp = navigator.getGamepads()[0];
 
 	for (var i = 0; i < gp.buttons.length; i++) {
 		if (gp.buttons[i].pressed) {
@@ -46,15 +46,15 @@ function gamepadPoll_options() {
 }
 
 function gamepadPoll_game() {
-    var gp = navigator.getGamepads()[0];
-    var actions = {
-    	"playerLeft" : false,
-    	"playerRight" : false,
-    	"playerJump" : false,
-    	"playerAttack" : false,
-    	"jumpReleased" : false,
-    	"attackReleased" : false
-    };
+	var gp = navigator.getGamepads()[0];
+	var actions = {
+		"playerLeft" : false,
+		"playerRight" : false,
+		"playerJump" : false,
+		"playerAttack" : false,
+		"jumpReleased" : false,
+		"attackReleased" : false
+	};
 
 	for (var i = 0; i < gp.buttons.length; i++) {
 		if (gp.buttons[i].pressed) {
@@ -110,15 +110,15 @@ function gamepadPoll_game() {
 
 		// every 1 seconds we're gonna poll for a new keyboard. may be a good idea to only do this when the options menu is up, look into that later
 		var checkGP = window.setInterval(function() {
-            if (navigator.getGamepads()[0]) {
-                if (!hasJoystick) {
-                	var event = new CustomEvent("gamepadconnected");
+			if (navigator.getGamepads()[0]) {
+				if (!hasJoystick) {
+					var event = new CustomEvent("gamepadconnected");
 
 					// Dispatch/Trigger/Fire the event
 					window.dispatchEvent(event);
-                }
-                window.clearInterval(checkGP);
-            }
-        }, 1000);
+				}
+				window.clearInterval(checkGP);
+			}
+		}, 1000);
 	}
 })();

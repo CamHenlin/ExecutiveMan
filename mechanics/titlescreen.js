@@ -166,6 +166,179 @@ function handleStartScreenTick(event) {
 		sixSprite.y = gamestage.canvas.height / 2 - sixSprite.spriteSheet._frameHeight / 2;
 		stage.addChild(sixSprite);
 	} else */if (startscreenTickCounter === 0) {
+event.remove();
+document.getElementById("gamecanvas").addEventListener('click', initMainMenuScreen.bind(this), false);
+	maps = demomaps;
+	beginGame(true, true);
+	var demoActions = [
+		function() {
+			player.actions.playerRight = true;
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+			for (var i = 0; i < renderer.objects.length; i++) {
+				if (renderer.objects[i].constructor === Dialog) {
+					renderer.objects[i].remove();
+				}
+			}
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+			player.actions.playerJump = true;
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+			player.actions.playerRight = false;
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		function() {
+
+		},
+		initMainMenuScreen
+	];
+
+	setTimeout(function() {
+		for (var i in demoActions) {
+			setTimeout(demoActions[i], i * 250);
+		}
+	}.bind(this), 5000);
+
+	/*
 		var titlescreenSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("slide_one")],
 			"frames": {
@@ -189,7 +362,7 @@ function handleStartScreenTick(event) {
 
 		titleSprite.x = gamestage.canvas.width / 2 - titleSprite.spriteSheet._frameWidth / 2;
 		titleSprite.y = gamestage.canvas.height / 2 - titleSprite.spriteSheet._frameHeight / 2;
-		stage.addChild(titleSprite);
+		stage.addChild(titleSprite);*/
 	}
 
 	if (startgame) {
