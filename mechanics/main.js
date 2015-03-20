@@ -207,7 +207,15 @@ if (window.mobilecheck()) {
 
 function init() {
 	initVars();
-	initTitleScreen();
+	if (getParameterByName('level') === "0") {
+		maps = wastemanmaps;
+		beginGame(true);
+	} else if (getParameterByName('level') === "1") {
+		bossScreenUp = false;
+		initShowOffBossScreen(1);		beginGame(true);
+	} else {
+		initTitleScreen();
+	}
 }
 
 function initVars() {
