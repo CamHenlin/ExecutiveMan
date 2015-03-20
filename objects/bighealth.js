@@ -3,30 +3,32 @@ function BigHealth(stage, x, y, basicCollision) {
 	var bigHealthSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("bighealth")],
 		"frames": {
-			"width": 12, "height": 12, "count": 2
+			"width": 12,
+			"height": 12,
+			"count": 2
 		},
 		"animations": {
 			"blink": {
-				"frames" : [0, 0, 1, 1, 1, 1],
-				"next" : "blink",
-				"speed" : (0.125 / lowFramerate) / skipFrames
+				"frames": [0, 0, 1, 1, 1, 1],
+				"next": "blink",
+				"speed": (0.125 / lowFramerate) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(bigHealthSpriteSheet, "blink");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.damage           = -10;
-	this.health           = 1;
-	this.basicCollision   = basicCollision;
-	this.hardshell        = false;
-	this.movementTicks    = 0;
-	this.watchedElements  = [];
+	this.stage = stage;
+	this.animations = new createjs.Sprite(bigHealthSpriteSheet, "blink");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.damage = -10;
+	this.health = 1;
+	this.basicCollision = basicCollision;
+	this.hardshell = false;
+	this.movementTicks = 0;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 

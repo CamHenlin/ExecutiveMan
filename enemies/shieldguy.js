@@ -3,37 +3,39 @@ function ShieldGuy(stage, basicCollision, x, y) {
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("shieldguy")],
 		"frames": {
-			"width": 26, "height": 25, "count": 2
+			"width": 26,
+			"height": 25,
+			"count": 2
 		},
 		"animations": {
 			"sit": {
-				"frames" : [0],
-				"next" : "sit"
+				"frames": [0],
+				"next": "sit"
 			},
-			"shoot" : {
-				"frames" : [1],
-				"next" : "shoot"
+			"shoot": {
+				"frames": [1],
+				"next": "shoot"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.damage	          = 2;
-	this.health           = 4;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.dead             = false;
-	this.shootTicks       = 0;
-	this.hardshell        = true;
-	this.dead             = false;
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.damage = 2;
+	this.health = 4;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(printerGuySpriteSheet, "sit");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.dead = false;
+	this.shootTicks = 0;
+	this.hardshell = true;
+	this.dead = false;
+	this.watchedElements = [];
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
@@ -122,24 +124,26 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("enemyshot")],
 			"frames": {
-				"width": 8, "height": 8, "count": 1
+				"width": 8,
+				"height": 8,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 4;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 4;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 11;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 11;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);

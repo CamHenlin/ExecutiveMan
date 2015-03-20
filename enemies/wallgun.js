@@ -3,49 +3,51 @@ function WallGun(stage, x, y, left) {
 	var wallgunSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("wallgun")],
 		"frames": {
-			"width": 15, "height": 16, "count": 4
+			"width": 15,
+			"height": 16,
+			"count": 4
 		},
 		"animations": {
 			"open": {
-				"frames" : [3, 2, 1, 0],
-				"next" : "opened",
-				"speed" : (0.125 / lowFramerate) / skipFrames
+				"frames": [3, 2, 1, 0],
+				"next": "opened",
+				"speed": (0.125 / lowFramerate) / skipFrames
 			},
 			"closed": {
-				"frames" : [3],
-				"next" : "closed"
+				"frames": [3],
+				"next": "closed"
 			},
-			"opened" : {
-				"frames" : [0],
-				"next" : "opened"
+			"opened": {
+				"frames": [0],
+				"next": "opened"
 			},
 			"close": {
-				"frames" : [0, 1, 2, 3],
-				"next" : "closed",
-				"speed" : (0.125 / lowFramerate) / skipFrames
+				"frames": [0, 1, 2, 3],
+				"next": "closed",
+				"speed": (0.125 / lowFramerate) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(wallgunSpriteSheet, "current");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.damage           = 1;
-	this.health           = 1;
-	this.flee             = false;
-	this.targetY          = 0;
-	this.yStepSize        = 0;
-	this.xStepSize        = 0;
-	this.hardshell        = false;
-	this.dead             = false;
-	this.movementTicks    = 0;
-	this.watchedElements  = [];
+	this.stage = stage;
+	this.animations = new createjs.Sprite(wallgunSpriteSheet, "current");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.damage = 1;
+	this.health = 1;
+	this.flee = false;
+	this.targetY = 0;
+	this.yStepSize = 0;
+	this.xStepSize = 0;
+	this.hardshell = false;
+	this.dead = false;
+	this.movementTicks = 0;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 
@@ -118,25 +120,27 @@ function WallGun(stage, x, y, left) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("enemyshot")],
 			"frames": {
-				"width": 8, "height": 8, "count": 1
+				"width": 8,
+				"height": 8,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 3;
-		this.xspeed     = xspeed;
-		this.yspeed     = yspeed;
+		this.stage = stage;
+		this.damage = 3;
+		this.xspeed = xspeed;
+		this.yspeed = yspeed;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 16 : -1);
-		this.y          = y + 8;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -1);
+		this.y = y + 8;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);

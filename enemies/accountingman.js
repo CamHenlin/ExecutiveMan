@@ -3,68 +3,70 @@ function AccountingMan(stage, basicCollision, x, y) {
 	var accountingManSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("accountingman")],
 		"frames": {
-			"width": 24, "height": 28, "count": 8
+			"width": 24,
+			"height": 28,
+			"count": 8
 		},
 		"animations": {
 			"stand": {
-				"frames" : [0],
-				"next" : "stand"
+				"frames": [0],
+				"next": "stand"
 			},
 			"run": {
-				"frames" : [1, 2, 3, 2],
-				"next" : "run",
-				"speed" : 0.09
+				"frames": [1, 2, 3, 2],
+				"next": "run",
+				"speed": 0.09
 			},
-			"jump" : {
-				"frames" : [6],
-				"next" : "jump"
+			"jump": {
+				"frames": [6],
+				"next": "jump"
 			},
-			"shoot" : {
-				"frames" : [4],
-				"next" : "stand",
-				"speed" : 0.0625
+			"shoot": {
+				"frames": [4],
+				"next": "stand",
+				"speed": 0.0625
 			},
-			"runshoot" : {
-				"frames" : [5],
-				"next" : "run",
-				"speed" : 0.0625
+			"runshoot": {
+				"frames": [5],
+				"next": "run",
+				"speed": 0.0625
 			},
-			"jumpshoot" : {
-				"frames" : [7],
-				"next" : "jumpshoot",
-				"speed" : 0.0625
+			"jumpshoot": {
+				"frames": [7],
+				"next": "jumpshoot",
+				"speed": 0.0625
 			}
 		}
 	});
 
-	this.basicCollision   = basicCollision;
-	this.health           = 28;
-	this.lasthealth       = 28;
-	this.damage           = 3;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(accountingManSpriteSheet, "stand");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x;
-	this.animations.y     = y;
-	this.xSpeed           = 0;
-	this.activated        = false;
-	this.jumping          = false;
-	this.runningLeft      = false;
-	this.runTicker        = 100;
-	this.runningRight     = false;
-	this.xspeed           = 0;
-	this.yspeed           = 0;
-	this.shootTicks       = 100;
-	this.jumpspeed        = 0;
-	this.jumpTicks        = 0;
-	this.hardshell        = false;
-	this.lastRunDirLeft   = false;
-	this.lastRunDirRight  = false;
-	this.dead             = false;
-	this.ignoreDamage     = false;
-	this.healthbar        = new BossHealthBar(gamestage, this);
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.health = 28;
+	this.lasthealth = 28;
+	this.damage = 3;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(accountingManSpriteSheet, "stand");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x;
+	this.animations.y = y;
+	this.xSpeed = 0;
+	this.activated = false;
+	this.jumping = false;
+	this.runningLeft = false;
+	this.runTicker = 100;
+	this.runningRight = false;
+	this.xspeed = 0;
+	this.yspeed = 0;
+	this.shootTicks = 100;
+	this.jumpspeed = 0;
+	this.jumpTicks = 0;
+	this.hardshell = false;
+	this.lastRunDirLeft = false;
+	this.lastRunDirRight = false;
+	this.dead = false;
+	this.ignoreDamage = false;
+	this.healthbar = new BossHealthBar(gamestage, this);
+	this.watchedElements = [];
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
@@ -230,7 +232,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 			this.jumpTicks = 160 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
-            this.jumpspeed = -4.875 * lowFramerate;
+			this.jumpspeed = -4.875 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 
 			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
@@ -242,7 +244,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 				this.animations.scaleX = 1;
 				this.animations.regX = 0;
 			} else {
-				this.animations.scaleX  = -1;
+				this.animations.scaleX = -1;
 				this.animations.regX = this.animations.spriteSheet._frameWidth;
 			}
 		}
@@ -262,30 +264,34 @@ function AccountingMan(stage, basicCollision, x, y) {
 
 
 	var Shot = function(stage, x, y, direction, owner) {
-		[stage, x, y, direction, owner].forEach(function(res) { console.log(res); });
+		[stage, x, y, direction, owner].forEach(function(res) {
+			console.log(res);
+		});
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("moneyspin")],
 			"frames": {
-				"width": 16, "height": 16, "count": 2
+				"width": 16,
+				"height": 16,
+				"count": 2
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0, 1],
-					"next" : "shot",
-					"speed" : 0.25
+					"frames": [0, 1],
+					"next": "shot",
+					"speed": 0.25
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 6;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 6;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.animations.regX = (this.animations.scaleX === -1) ? this.animations.spriteSheet._frameWidth : 0;
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 11;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 11;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
@@ -323,25 +329,27 @@ function AccountingMan(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("moneyspin")],
 			"frames": {
-				"width": 16, "height": 16, "count": 2
+				"width": 16,
+				"height": 16,
+				"count": 2
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0, 1],
-					"next" : "shot",
-					"speed" : 0.25
+					"frames": [0, 1],
+					"next": "shot",
+					"speed": 0.25
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 6;
+		this.stage = stage;
+		this.damage = 6;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x;
-		this.y          = y;
-		this.disabled   = false;
-		this.owner      = owner;
-		this.activated  = false;
+		this.x = x;
+		this.y = y;
+		this.disabled = false;
+		this.owner = owner;
+		this.activated = false;
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;

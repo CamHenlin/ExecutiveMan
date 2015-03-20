@@ -3,16 +3,18 @@ function initTitleScreen() {
 	var oneSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("camh")],
 		"frames": {
-			"width": 110, "height": 34, "count": 10
+			"width": 110,
+			"height": 34,
+			"count": 10
 		},
 		"animations": {
 			"sit": {
-				"frames" : [ 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 6, 8 ],
-				"next" : "still"
+				"frames": [0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 4, 5, 6, 7, 8, 9, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 6, 8],
+				"next": "still"
 			},
 			"still": {
-				"frames" : [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-				"next" : "sit"
+				"frames": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+				"next": "sit"
 			}
 		}
 	});
@@ -26,9 +28,9 @@ function initTitleScreen() {
 
 	gamezoom = zoomAmount;
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
-	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
+	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1 / 3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
-	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+	document.getElementById("gamecanvas").style.MozTransform = "scale(" + zoomAmount + ")";
 	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(stage);
@@ -39,7 +41,7 @@ function initTitleScreen() {
 	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
 	createjs.Ticker.setFPS(30);
 
-	document.onkeydown = function (event) {
+	document.onkeydown = function(event) {
 		switch (event.keyCode) {
 			case 32:
 				// keyCode 32 is space
@@ -71,167 +73,168 @@ if (getParameterByName('camh')) {
 	soundOff = true;
 	stopMusic();
 }
+
 function handleStartScreenTick(event) {
 	if (startscreenTickCounter > 0) {
 		startscreenTickCounter--;
 	}
 
 	if (startscreenTickCounter === 0) {
-event.remove();
-document.getElementById("gamecanvas").addEventListener('click', startScreenListener, false);
-	maps = demomaps;
-	beginGame(true, true);
-	var demoActions = [
-		function() {
-			player.actions.playerRight = true;
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-			for (var i = 0; i < renderer.objects.length; i++) {
-				if (renderer.objects[i].constructor === Dialog) {
-					renderer.objects[i].remove();
-				}
-			}
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-			player.actions.playerJump = true;
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-			player.actions.playerRight = false;
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-
-		},
-		function() {
-			demoEnded = true;
-		},
-		startScreenListener
-	];
-
-	setTimeout(function() {
-		for (var i in demoActions) {
-			setTimeout(demoActions[i].bind(this), i * 250);
-		}
-	}.bind(this), 5000);
-
-	/*
-		var titlescreenSpriteSheet = new createjs.SpriteSheet({
-			"images": [loader.getResult("slide_one")],
-			"frames": {
-				"width": 320, "height": 240, "count": 2
+		event.remove();
+		document.getElementById("gamecanvas").addEventListener('click', startScreenListener, false);
+		maps = demomaps;
+		beginGame(true, true);
+		var demoActions = [
+			function() {
+				player.actions.playerRight = true;
 			},
-			"animations": {
-				"sit": {
-					"frames" : [0],
-					"next" : "shoot",
-					"speed" : 0.15
-				},
-				"shoot" : {
-					"frames" : [1],
-					"next" : "sit",
-					"speed" : 0.075
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+				for (var i = 0; i < renderer.objects.length; i++) {
+					if (renderer.objects[i].constructor === Dialog) {
+						renderer.objects[i].remove();
+					}
 				}
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+				player.actions.playerJump = true;
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+				player.actions.playerRight = false;
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+
+			},
+			function() {
+				demoEnded = true;
+			},
+			startScreenListener
+		];
+
+		setTimeout(function() {
+			for (var i in demoActions) {
+				setTimeout(demoActions[i].bind(this), i * 250);
 			}
-		});
+		}.bind(this), 5000);
 
-		var titleSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
+		/*
+			var titlescreenSpriteSheet = new createjs.SpriteSheet({
+				"images": [loader.getResult("slide_one")],
+				"frames": {
+					"width": 320, "height": 240, "count": 2
+				},
+				"animations": {
+					"sit": {
+						"frames" : [0],
+						"next" : "shoot",
+						"speed" : 0.15
+					},
+					"shoot" : {
+						"frames" : [1],
+						"next" : "sit",
+						"speed" : 0.075
+					}
+				}
+			});
 
-		titleSprite.x = gamestage.canvas.width / 2 - titleSprite.spriteSheet._frameWidth / 2;
-		titleSprite.y = gamestage.canvas.height / 2 - titleSprite.spriteSheet._frameHeight / 2;
-		stage.addChild(titleSprite);*/
+			var titleSprite = new createjs.Sprite(titlescreenSpriteSheet, "shoot");
+
+			titleSprite.x = gamestage.canvas.width / 2 - titleSprite.spriteSheet._frameWidth / 2;
+			titleSprite.y = gamestage.canvas.height / 2 - titleSprite.spriteSheet._frameHeight / 2;
+			stage.addChild(titleSprite);*/
 	}
 
 	if (startgame) {

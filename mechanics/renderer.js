@@ -1,7 +1,10 @@
 // var maps = [];
 
 function Renderer(gamestage) {
-	this.collisionArray = [[],[]];
+	this.collisionArray = [
+		[],
+		[]
+	];
 	this.container = new createjs.Container();
 	this.container.x = 0;
 	this.container.y = 0;
@@ -21,7 +24,10 @@ function Renderer(gamestage) {
 	this.backgroundTicks = 1;
 	this.basicCollision = null;
 	this.completedMapsWidthOffset = 0;
-	this.deathCollisionArray = [[],[]];
+	this.deathCollisionArray = [
+		[],
+		[]
+	];
 	this.doneRendering = false;
 	this.enemies = [];
 	this.objects = [];
@@ -73,7 +79,7 @@ function Renderer(gamestage) {
 	readyLabel2.x = this.gamestage.canvas.width / 2 - 13;
 	readyLabel2.y = this.gamestage.canvas.height / 2 + 1;
 
-	this.initMap = function () {
+	this.initMap = function() {
 		this.prepareRenderer();
 		this.initLayers();
 		this.completeRenderer();
@@ -123,22 +129,28 @@ function Renderer(gamestage) {
 	};
 
 	this.prepareRenderer = function() {
-		this.collisionArray = [[],[]];
-		this.deathCollisionArray = [[],[]];
+		this.collisionArray = [
+			[],
+			[]
+		];
+		this.deathCollisionArray = [
+			[],
+			[]
+		];
 		this.lastParentContainer = this.parentContainer.clone(true);
 		this.gamestage.addChild(this.lastParentContainer);
 		this.gamestage.removeChild(this.parentContainer);
-/*
-		for (var i = 0; i < this.enemies.length; i++) {
-			this.enemyContainer.removeChild(this.enemies[i]);
-			this.enemies[i] = null;
-		}
+		/*
+				for (var i = 0; i < this.enemies.length; i++) {
+					this.enemyContainer.removeChild(this.enemies[i]);
+					this.enemies[i] = null;
+				}
 
-		for (i = 0; i < this.objects.length; i++) {
-			this.enemyContainer.removeChild(this.objects[i]);
-			this.objects[i] = null;
-		}
-*/
+				for (i = 0; i < this.objects.length; i++) {
+					this.enemyContainer.removeChild(this.objects[i]);
+					this.objects[i] = null;
+				}
+		*/
 		this.gamestage.removeChild(this.enemyContainer);
 
 		this.backgroundContainer1.removeAllChildren();
@@ -369,8 +381,14 @@ function Renderer(gamestage) {
 		this.lastWidthOffset = this.widthOffset;
 		this.mapData = maps[++this.mapcounter];
 
-		this.collisionArray = [[],[]];
-		this.deathCollisionArray = [[],[]];
+		this.collisionArray = [
+			[],
+			[]
+		];
+		this.deathCollisionArray = [
+			[],
+			[]
+		];
 
 		if (this.gamestage.canvas.width > this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) {
 			this.widthOffset = (this.gamestage.canvas.width - this.mapData.tilesets[0].tilewidth * this.mapData.layers[0].width) / 2;
@@ -412,10 +430,10 @@ function Renderer(gamestage) {
 		}
 
 		var imageData = {
-			images : [ loader.getResult(this.mapData.tilesets[0].image.split("/")[1].split(".")[0]) ],
-			frames : {
-				width : w,
-				height : h
+			images: [loader.getResult(this.mapData.tilesets[0].image.split("/")[1].split(".")[0])],
+			frames: {
+				width: w,
+				height: h
 			}
 		};
 
@@ -446,29 +464,29 @@ function Renderer(gamestage) {
 				for (var j = 0; j < layer.objects.length; j++) {
 					if (layer.objects[j].type === "platform") {
 						this.objects.push(new Platform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
-														parseInt(layer.objects[j].properties.yrange), parseInt(layer.objects[j].properties.yduration),
-														parseInt(layer.objects[j].properties.xrange), parseInt(layer.objects[j].properties.xduration), parseInt(layer.objects[j].properties.delay)));
+							parseInt(layer.objects[j].properties.yrange), parseInt(layer.objects[j].properties.yduration),
+							parseInt(layer.objects[j].properties.xrange), parseInt(layer.objects[j].properties.xduration), parseInt(layer.objects[j].properties.delay)));
 					}
 
 					if (layer.objects[j].type === "disappearingplatform") {
 						this.objects.push(new DisappearingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
-																	parseInt(layer.objects[j].properties.starttimer), parseInt(layer.objects[j].properties.onduration),
-																	parseInt(layer.objects[j].properties.offduration)));
+							parseInt(layer.objects[j].properties.starttimer), parseInt(layer.objects[j].properties.onduration),
+							parseInt(layer.objects[j].properties.offduration)));
 					}
 
 					if (layer.objects[j].type === "droppingplatform") {
 						this.objects.push(new DroppingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
-																	parseInt(layer.objects[j].properties.duration)));
+							parseInt(layer.objects[j].properties.duration)));
 					}
 
 					if (layer.objects[j].type === "rotatingplatform") {
 						this.objects.push(new RotatingPlatform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
-																	parseFloat(layer.objects[j].properties.xspeed), parseFloat(layer.objects[j].properties.yspeed)));
+							parseFloat(layer.objects[j].properties.xspeed), parseFloat(layer.objects[j].properties.yspeed)));
 					}
 
 					if (layer.objects[j].type === "beam") {
 						this.objects.push(new Beam(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
-																	parseFloat(layer.objects[j].properties.xspeed), parseFloat(layer.objects[j].properties.yspeed)));
+							parseFloat(layer.objects[j].properties.xspeed), parseFloat(layer.objects[j].properties.yspeed)));
 					}
 
 					if (layer.objects[j].type === "halfwaypoint") {
@@ -576,7 +594,7 @@ function Renderer(gamestage) {
 					// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
 					cellBitmap.gotoAndStop(layerData.data[idx] - 1);
 					// isometrix tile positioning based on X Y order from Tiled
-					cellBitmap.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+					cellBitmap.x = widthOffset + x * tilewidth; //300 + x * tilewidth/2 - y * tilewidth/2;
 					cellBitmap.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
 					// add bitmap to gamestage
 					container.addChild(cellBitmap);
@@ -605,7 +623,7 @@ function Renderer(gamestage) {
 					var spriteLocation = layerData.data[idx] - 1;
 					cellBitmap1.gotoAndStop(spriteLocation);
 					// isometrix tile positioning based on X Y order from Tiled
-					cellBitmap1.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+					cellBitmap1.x = widthOffset + x * tilewidth; //300 + x * tilewidth/2 - y * tilewidth/2;
 					cellBitmap1.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
 
 					if (spriteLocation <= 17) {
@@ -618,7 +636,7 @@ function Renderer(gamestage) {
 						// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
 						cellBitmap2.gotoAndStop(spriteLocation);
 						// isometrix tile positioning based on X Y order from Tiled
-						cellBitmap2.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+						cellBitmap2.x = widthOffset + x * tilewidth; //300 + x * tilewidth/2 - y * tilewidth/2;
 						cellBitmap2.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
 						this.backgroundContainer2.addChild(cellBitmap2);
 					}
@@ -683,9 +701,9 @@ function Renderer(gamestage) {
 		var container = new createjs.Container();
 
 		this.deathCollisionArray = new Array(layerData.height);
-		for ( var y = 0; y < layerData.height; y++) {
+		for (var y = 0; y < layerData.height; y++) {
 			this.deathCollisionArray[y] = new Array(layerData.width);
-			for ( var x = 0; x < layerData.width; x++) {
+			for (var x = 0; x < layerData.width; x++) {
 				// create a new Bitmap for each cell
 				// layer data has single dimension array
 				var idx = x + y * layerData.width;
@@ -694,7 +712,7 @@ function Renderer(gamestage) {
 					// tilemap data uses 1 as first value, EaselJS uses 0 (sub 1 to load correct tile)
 					cellBitmap.gotoAndStop(layerData.data[idx] - 1);
 					// isometrix tile positioning based on X Y order from Tiled
-					cellBitmap.x = widthOffset + x * tilewidth;//300 + x * tilewidth/2 - y * tilewidth/2;
+					cellBitmap.x = widthOffset + x * tilewidth; //300 + x * tilewidth/2 - y * tilewidth/2;
 					cellBitmap.y = heightOffset + y * tileheight; // * tileheight/2 + x * tileheight/2;
 					// add bitmap to gamestage
 					container.addChild(cellBitmap);
@@ -937,4 +955,3 @@ function Renderer(gamestage) {
 	this.gameBottom = this.heightOffset + this.getMapHeight();
 	this.screenHeightDelta = this.gameBottom / 60;
 }
-

@@ -3,68 +3,70 @@ function MaterialMan(stage, basicCollision, x, y) {
 	var materialManSpriteShet = new createjs.SpriteSheet({
 		"images": [loader.getResult("materialman")],
 		"frames": {
-			"width": 32, "height": 30, "count": 7
+			"width": 32,
+			"height": 30,
+			"count": 7
 		},
 		"animations": {
 			"stand": {
-				"frames" : [0],
-				"next" : "stand"
+				"frames": [0],
+				"next": "stand"
 			},
 			"run": {
-				"frames" : [1, 2, 3, 2],
-				"next" : "run",
-				"speed" : 0.09
+				"frames": [1, 2, 3, 2],
+				"next": "run",
+				"speed": 0.09
 			},
-			"jump" : {
-				"frames" : [2],
-				"next" : "jump"
+			"jump": {
+				"frames": [2],
+				"next": "jump"
 			},
-			"shoot" : {
-				"frames" : [6],
-				"next" : "stand",
-				"speed" : 0.0625
+			"shoot": {
+				"frames": [6],
+				"next": "stand",
+				"speed": 0.0625
 			},
-			"runshoot" : {
-				"frames" : [3],
-				"next" : "run",
-				"speed" : 0.0625
+			"runshoot": {
+				"frames": [3],
+				"next": "run",
+				"speed": 0.0625
 			},
-			"jumpshoot" : {
-				"frames" : [4],
-				"next" : "jumpshoot",
-				"speed" : 0.0625
+			"jumpshoot": {
+				"frames": [4],
+				"next": "jumpshoot",
+				"speed": 0.0625
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.health           = 28;
-	this.lasthealth       = 28;
-	this.damage           = 3;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(materialManSpriteShet, "stand");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.xSpeed           = 0;
-	this.activated        = false;
-	this.jumping          = false;
-	this.runningLeft      = false;
-	this.runTicker        = 100;
-	this.runningRight     = false;
-	this.xspeed           = 0;
-	this.yspeed           = 0;
-	this.shootTicks       = 100;
-	this.jumpspeed        = 0;
-	this.jumpTicks        = 0;
-	this.hardshell        = false;
-	this.lastRunDirLeft   = false;
-	this.lastRunDirRight  = false;
-	this.dead             = false;
-	this.ignoreDamage     = false;
-	this.healthbar        = new BossHealthBar(gamestage, this);
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.health = 28;
+	this.lasthealth = 28;
+	this.damage = 3;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(materialManSpriteShet, "stand");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.xSpeed = 0;
+	this.activated = false;
+	this.jumping = false;
+	this.runningLeft = false;
+	this.runTicker = 100;
+	this.runningRight = false;
+	this.xspeed = 0;
+	this.yspeed = 0;
+	this.shootTicks = 100;
+	this.jumpspeed = 0;
+	this.jumpTicks = 0;
+	this.hardshell = false;
+	this.lastRunDirLeft = false;
+	this.lastRunDirRight = false;
+	this.dead = false;
+	this.ignoreDamage = false;
+	this.healthbar = new BossHealthBar(gamestage, this);
+	this.watchedElements = [];
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
@@ -172,8 +174,8 @@ function MaterialMan(stage, basicCollision, x, y) {
 
 		// figure out if we can shoot or not
 		if (distanceFromPlayer < 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is left!
-		    //console.log("player is left");
-		    this.lastRunDirRight = false;                                                                                     // ''
+			//console.log("player is left");
+			this.lastRunDirRight = false; // ''
 			this.runningLeft = true;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningLeft && collisionResults.left) {
@@ -189,7 +191,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 		} else if (distanceFromPlayer > 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is right!
 			//console.log("player is right");
 			this.runningRight = true;
-		    this.lastRunDirLeft = false;
+			this.lastRunDirLeft = false;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningRight && collisionResults.right) {
 			this.x += (this.health < 14) ? 1.5 : 1.2; // faster than executiveman!
@@ -205,7 +207,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 			this.jumpTicks = 90 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
-            this.jumpspeed = -4.875 * lowFramerate;
+			this.jumpspeed = -4.875 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 			setTimeout(function() {
 				this.watchedElements.push(new BigShot(stage, this.x, this.y, this.animations.scaleX, this, this.basicCollision));
@@ -225,16 +227,16 @@ function MaterialMan(stage, basicCollision, x, y) {
 			this.jumpTicks = 40 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
-            this.jumpspeed = -4.875 * lowFramerate;
+			this.jumpspeed = -4.875 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 
 			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			//this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60) / lowFramerate;
-		}  else if (this.jumpTicks === 0 && !this.jumping && (!collisionResults.right || !collisionResults.left)) {
+		} else if (this.jumpTicks === 0 && !this.jumping && (!collisionResults.right || !collisionResults.left)) {
 			this.jumpTicks = 90 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
-            this.jumpspeed = -4.875 * lowFramerate;
+			this.jumpspeed = -4.875 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 
 			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
@@ -246,7 +248,7 @@ function MaterialMan(stage, basicCollision, x, y) {
 				this.animations.scaleX = 1;
 				this.animations.regX = 0;
 			} else {
-				this.animations.scaleX  = -1;
+				this.animations.scaleX = -1;
 				this.animations.regX = this.animations.spriteSheet._frameWidth;
 			}
 		}
@@ -287,25 +289,27 @@ function MaterialMan(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("warehousemanshot")],
 			"frames": {
-				"width": 8, "height": 8, "count": 1
+				"width": 8,
+				"height": 8,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 6;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 6;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		this.animations.regX = (this.animations.scaleX === -1) ? this.animations.spriteSheet._frameWidth : 0;
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 11;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 11;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
@@ -337,28 +341,30 @@ function MaterialMan(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("warehousemanbigshot")],
 			"frames": {
-				"width": 16, "height": 16, "count": 1
+				"width": 16,
+				"height": 16,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage            = stage;
-		this.damage           = 8;
-		this.direction        = direction;
-		this.animations       = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.basicCollision   = basicCollision;
-		this.watchedElements  = [];
+		this.stage = stage;
+		this.damage = 8;
+		this.direction = direction;
+		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
+		this.basicCollision = basicCollision;
+		this.watchedElements = [];
 
 		this.animations.regX = (direction === -1) ? this.animations.spriteSheet._frameWidth : 0;
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 11;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 11;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
@@ -403,28 +409,30 @@ function MaterialMan(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("warehousemanshot")],
 			"frames": {
-				"width": 8, "height": 8, "count": 1
+				"width": 8,
+				"height": 8,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage            = stage;
-		this.damage           = 4;
-		this.direction        = direction;
-		this.animations       = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.watchedElements  = [];
+		this.stage = stage;
+		this.damage = 4;
+		this.direction = direction;
+		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
+		this.watchedElements = [];
 
 		this.animations.regX = (direction === -1) ? this.animations.spriteSheet._frameWidth : 0;
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y;
-		this.disabled   = false;
-		this.owner      = owner;
-		this.yspeed =   -0.75;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y;
+		this.disabled = false;
+		this.owner = owner;
+		this.yspeed = -0.75;
 		this.basicCollision = basicCollision;
 		this.bounceCount = 0;
 

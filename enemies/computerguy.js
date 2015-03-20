@@ -2,55 +2,57 @@ function ComputerGuy(stage, basicCollision, x, y) {
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("computerguy")],
 		"frames": {
-			"width": 23, "height": 37, "count": 8
+			"width": 23,
+			"height": 37,
+			"count": 8
 		},
 		"animations": {
 			"sit": {
-				"frames" : [0],
-				"next" : "sit"
+				"frames": [0],
+				"next": "sit"
 			},
 			"startrun": {
-				"frames" : [5],
-				"next" : "run"
+				"frames": [5],
+				"next": "run"
 			},
-			"run" : {
-				"frames" : [2, 3],
-				"next" : "run",
-				"speed" : (0.05 / lowFramerate) / skipFrames
+			"run": {
+				"frames": [2, 3],
+				"next": "run",
+				"speed": (0.05 / lowFramerate) / skipFrames
 			},
 			"jump": {
-				"frames" : [7],
-				"next" : "jump",
-				"speed" : (0.15 / lowFramerate) / skipFrames
+				"frames": [7],
+				"next": "jump",
+				"speed": (0.15 / lowFramerate) / skipFrames
 			},
 			"startjump": {
-				"frames" : [4],
-				"next" : "jump"
+				"frames": [4],
+				"next": "jump"
 			},
-			"land" : {
-				"frames" : [6],
-				"next" : "sit"
+			"land": {
+				"frames": [6],
+				"next": "sit"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.health           = 3;
-	this.damage           = 2;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.jumpTicks        = 0;
-	this.shootTicks       = 0;
-	this.dead             = false;
-	this.hardshell        = false;
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.health = 3;
+	this.damage = 2;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(printerGuySpriteSheet, "sit");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.jumpTicks = 0;
+	this.shootTicks = 0;
+	this.dead = false;
+	this.hardshell = false;
+	this.watchedElements = [];
 	this.lastDirectionChangeFromCollision = false;
 
 	this.animations.play();
@@ -133,7 +135,7 @@ function ComputerGuy(stage, basicCollision, x, y) {
 					this.animations.regX = 0;
 				}
 			}
-			this.x += (this.animations.scaleX !== 1 ) ? 1.875 : -1.875;
+			this.x += (this.animations.scaleX !== 1) ? 1.875 : -1.875;
 		}
 
 		if (abs(distanceFromPlayer) <= 128 && this.animations.currentAnimation !== "run" && !this.lastDirectionChangeFromCollision && !this.activated && !this.jumping) {
@@ -141,7 +143,7 @@ function ComputerGuy(stage, basicCollision, x, y) {
 				this.animations.scaleX = -1;
 				this.animations.regX = this.animations.spriteSheet._frameWidth;
 			} else {
-				this.animations.scaleX  = 1;
+				this.animations.scaleX = 1;
 			}
 			this.activated = true;
 			this.animations.gotoAndPlay("startrun");

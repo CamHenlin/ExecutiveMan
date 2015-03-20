@@ -2,45 +2,47 @@ function PrinterGuy(stage, basicCollision, x, y) {
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("printerguy")],
 		"frames": {
-			"width": 18, "height": 22, "count": 4
+			"width": 18,
+			"height": 22,
+			"count": 4
 		},
 		"animations": {
 			"sit": {
-				"frames" : [0],
-				"next" : "sit"
+				"frames": [0],
+				"next": "sit"
 			},
-			"show" : {
-				"frames" : [1],
-				"next" : "move"
+			"show": {
+				"frames": [1],
+				"next": "move"
 			},
 			"move": {
-				"frames" : [2, 3],
-				"next" : "move",
-				"speed" : (0.15 / lowFramerate) / skipFrames
+				"frames": [2, 3],
+				"next": "move",
+				"speed": (0.15 / lowFramerate) / skipFrames
 			},
-			"showlong" : {
-				"frames" : [1],
-				"next" : "showlong"
+			"showlong": {
+				"frames": [1],
+				"next": "showlong"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.health           = 2;
-	this.damage           = 1;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.shootTicks       = 0;
-	this.dead             = false;
-	this.hardshell        = true;
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.health = 2;
+	this.damage = 1;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(printerGuySpriteSheet, "sit");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.shootTicks = 0;
+	this.dead = false;
+	this.hardshell = true;
+	this.watchedElements = [];
 	this.lastDirectionChangeFromCollision = false;
 
 	this.animations.play();
@@ -108,7 +110,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 				this.animations.scaleX = -1;
 				this.animations.regX = this.animations.spriteSheet._frameWidth;
 			} else {
-				this.animations.scaleX  = 1;
+				this.animations.scaleX = 1;
 			}
 			this.activated = true;
 			this.hardshell = false;
@@ -140,7 +142,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 					this.animations.regX = 0;
 				}
 			}
-			this.x += (this.animations.scaleX !== 1 ) ? 0.875 : -0.875;
+			this.x += (this.animations.scaleX !== 1) ? 0.875 : -0.875;
 		}
 
 		if (!collisionResults.down) {
@@ -159,24 +161,26 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("enemyshot")],
 			"frames": {
-				"width": 8, "height": 8, "count": 1
+				"width": 8,
+				"height": 8,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 4;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 4;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 6;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 6;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);

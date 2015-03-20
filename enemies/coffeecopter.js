@@ -3,35 +3,37 @@ function CoffeeCopter(stage, x, y) {
 	var copterSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("coffeecopter")],
 		"frames": {
-			"width": 21, "height": 21, "count": 2
+			"width": 21,
+			"height": 21,
+			"count": 2
 		},
 		"animations": {
 			"operate": {
-				"frames" : [0, 1],
-				"next" : "operate"
+				"frames": [0, 1],
+				"next": "operate"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(copterSpriteSheet, "current");
-	this.x                = x;// - 32;
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.damage           = 1;
-	this.health           = 1;
-	this.targetY          = 0;
-	this.yStepSize        = 0;
-	this.xStepSize        = 0;
-	this.shootTicks       = 0;
-	this.hardshell        = false;
-	this.dead             = false;
-	this.movementTicks    = 0;
-	this.watchedElements  = [];
+	this.stage = stage;
+	this.animations = new createjs.Sprite(copterSpriteSheet, "current");
+	this.x = x; // - 32;
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.damage = 1;
+	this.health = 1;
+	this.targetY = 0;
+	this.yStepSize = 0;
+	this.xStepSize = 0;
+	this.shootTicks = 0;
+	this.hardshell = false;
+	this.dead = false;
+	this.movementTicks = 0;
+	this.watchedElements = [];
 	this.animations.x = this.x + parseInt(renderer.mapData.properties.stitchx);
 	this.animations.y = this.y;
 
@@ -87,31 +89,32 @@ function CoffeeCopter(stage, x, y) {
 		this.animations.y = this.y;
 	};
 
-	this.playerCollisionActions = function() {
-	};
+	this.playerCollisionActions = function() {};
 
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("enemyshot")],
 			"frames": {
-				"width": 8, "height": 8, "count": 1
+				"width": 8,
+				"height": 8,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 4;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 4;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 14;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 14;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);

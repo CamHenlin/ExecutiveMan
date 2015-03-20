@@ -1,4 +1,5 @@
 var shopUp = false;
+
 function ShopMenu() {
 	shopUp = false;
 	shopstage = new createjs.Container();
@@ -64,12 +65,14 @@ function ShopMenu() {
 	var extraLifeSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("extralife")],
 		"frames": {
-			"width": 12, "height": 13, "count": 1
+			"width": 12,
+			"height": 13,
+			"count": 1
 		},
 		"animations": {
 			"shot": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -115,7 +118,9 @@ function ShopMenu() {
 	this.show = function() {
 
 		clicked = true;
-		setTimeout(function() { clicked = false; }, 250);
+		setTimeout(function() {
+			clicked = false;
+		}, 250);
 		shopUp = true;
 		playSound("pauseopen");
 
@@ -156,31 +161,35 @@ function shopClickHandler(event) {
 	}
 
 	clicked = true;
-	setTimeout(function() { clicked = false; }, 250);
+	setTimeout(function() {
+		clicked = false;
+	}, 250);
 
 	console.log(event);
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
 		"frames": {
-			"width": 1, "height": 1, "count": 1
+			"width": 1,
+			"height": 1,
+			"count": 1
 		},
 		"animations": {
 			"exist": {
-				"frames" : [0],
-				"next" : "exist"
+				"frames": [0],
+				"next": "exist"
 			}
 		}
 	});
 	var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-/*
-this.cashDoublerTouchTarget = bo
-this.fourExtraLivesTouchTarget =
-this.doubleJumpTouchTarget = bou
-this.doubleDamageTouchTarget = b
-this.doubleHealthTouchTarget = b
-this.healthBriefCaseTouchTarget
- */
+	/*
+	this.cashDoublerTouchTarget = bo
+	this.fourExtraLivesTouchTarget =
+	this.doubleJumpTouchTarget = bou
+	this.doubleDamageTouchTarget = b
+	this.doubleHealthTouchTarget = b
+	this.healthBriefCaseTouchTarget
+	 */
 
 
 	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
@@ -262,20 +271,3 @@ this.healthBriefCaseTouchTarget
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

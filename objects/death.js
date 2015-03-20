@@ -1,29 +1,30 @@
-
 function Death(stage, x, y) {
 
 	var deathSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("death")],
 		"frames": {
-			"width": 16, "height": 16, "count": 2
+			"width": 16,
+			"height": 16,
+			"count": 2
 		},
 		"animations": {
 			"death": {
-				"frames" : [0, 1],
-				"next" : "death",
-				"speed" : 0.05
+				"frames": [0, 1],
+				"next": "death",
+				"speed": 0.05
 			},
 			"altdeath": {
-				"frames" : [1, 0],
-				"next" : "altdeath",
-				"speed" : 0.05
+				"frames": [1, 0],
+				"next": "altdeath",
+				"speed": 0.05
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.damage           = 0;
-	this.stage            = stage;
-	this.x                = x;// - 32;
-	this.y                = y;
+	this.damage = 0;
+	this.stage = stage;
+	this.x = x; // - 32;
+	this.y = y;
 
 	this.animations = [];
 	for (var i = 0; i < 8; i++) {

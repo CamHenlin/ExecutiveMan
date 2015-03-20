@@ -4,11 +4,11 @@ var joystickPressedList = [];
 var joystickButtonLength = 0;
 
 var joystick = {
-	'left' : -1,
-	'right' : -1,
-	'pause' : -1,
-	'attack' : -1,
-	'jump' : -1
+	'left': -1,
+	'right': -1,
+	'pause': -1,
+	'attack': -1,
+	'jump': -1
 };
 
 function hasJoystickSupport() {
@@ -48,12 +48,12 @@ function gamepadPoll_options() {
 function gamepadPoll_game() {
 	var gp = navigator.getGamepads()[0];
 	var actions = {
-		"playerLeft" : false,
-		"playerRight" : false,
-		"playerJump" : false,
-		"playerAttack" : false,
-		"jumpReleased" : false,
-		"attackReleased" : false
+		"playerLeft": false,
+		"playerRight": false,
+		"playerJump": false,
+		"playerAttack": false,
+		"jumpReleased": false,
+		"attackReleased": false
 	};
 
 	for (var i = 0; i < gp.buttons.length; i++) {
@@ -99,8 +99,8 @@ function gamepadPoll_game() {
 				joystickPressedList[i] = false;
 			}
 			console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-			e.gamepad.index, e.gamepad.id,
-			e.gamepad.buttons.length, e.gamepad.axes.length);
+				e.gamepad.index, e.gamepad.id,
+				e.gamepad.buttons.length, e.gamepad.axes.length);
 		});
 
 		window.addEventListener("gamepaddisconnected", function(e) {

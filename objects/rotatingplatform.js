@@ -2,33 +2,35 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 	var platformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("rotatingplatform")],
 		"frames": {
-			"width": 16, "height": 16, "count": 2
+			"width": 16,
+			"height": 16,
+			"count": 2
 		},
 		"animations": {
 			"still": {
-				"frames" : [0, 1],
-				"next" : "still",
-				"speed" : 0.125
+				"frames": [0, 1],
+				"next": "still",
+				"speed": 0.125
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 
-	this.damage           = 0;
-	this.basicCollision   = basicCollision;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(platformSpriteSheet, "still");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.xspeed           = xspeed;
-	this.lastx            = x + parseInt(renderer.mapData.properties.stitchx);
-	this.lasty            = y;
-	this.yspeed           = yspeed;
-	this.activated        = false;
-	this.hardshell        = true;
-	this.goingup          = false;
-	this.goingright       = false;
-	this.watchedElements  = [];
+	this.damage = 0;
+	this.basicCollision = basicCollision;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(platformSpriteSheet, "still");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.xspeed = xspeed;
+	this.lastx = x + parseInt(renderer.mapData.properties.stitchx);
+	this.lasty = y;
+	this.yspeed = yspeed;
+	this.activated = false;
+	this.hardshell = true;
+	this.goingup = false;
+	this.goingright = false;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 

@@ -3,36 +3,38 @@ function Flood(stage, basicCollision, x, y, original) {
 	var floodSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("flood")],
 		"frames": {
-			"width": 16, "height": 16, "count": 4
+			"width": 16,
+			"height": 16,
+			"count": 4
 		},
 		"animations": {
 			"current": {
-				"frames" : [0, 1],
-				"next" : "current",
-				"speed" : (0.15 / lowFramerate) / skipFrames
+				"frames": [0, 1],
+				"next": "current",
+				"speed": (0.15 / lowFramerate) / skipFrames
 			},
-			"flooded" : {
-				"frames" : [2, 3],
-				"next" : "flooded",
-				"speed" : (0.15  / lowFramerate) / skipFrames
+			"flooded": {
+				"frames": [2, 3],
+				"next": "flooded",
+				"speed": (0.15 / lowFramerate) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.original         = original;
-	this.damage           = 3;
-	this.basicCollision   = basicCollision;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(floodSpriteSheet, "current");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.advanceTicks     = ((this.original) ? 60 : 20) / lowFramerate;
-	this.hardshell        = false;
-	this.watchedElements  = [];
-	this.spent            = false;
+	this.original = original;
+	this.damage = 3;
+	this.basicCollision = basicCollision;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(floodSpriteSheet, "current");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.advanceTicks = ((this.original) ? 60 : 20) / lowFramerate;
+	this.hardshell = false;
+	this.watchedElements = [];
+	this.spent = false;
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 

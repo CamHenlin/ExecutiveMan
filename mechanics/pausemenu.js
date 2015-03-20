@@ -1,4 +1,5 @@
 var pauseUp = false;
+
 function PauseMenu() {
 	document.getElementById("controlcanvas").style.zIndex = "0";
 	pauseUp = false;
@@ -80,12 +81,14 @@ function PauseMenu() {
 	var extraLifeSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("extralife")],
 		"frames": {
-			"width": 12, "height": 13, "count": 1
+			"width": 12,
+			"height": 13,
+			"count": 1
 		},
 		"animations": {
 			"shot": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -95,13 +98,15 @@ function PauseMenu() {
 	var healthBriefCaseSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("healthbriefcase")],
 		"frames": {
-			"width": 12, "height": 13, "count": 2
+			"width": 12,
+			"height": 13,
+			"count": 2
 		},
 		"animations": {
 			"still": {
-				"frames" : [0, 1],
-				"next" : "still",
-				"speed" : 0.05
+				"frames": [0, 1],
+				"next": "still",
+				"speed": 0.05
 			}
 		}
 	});
@@ -181,17 +186,21 @@ function pauseClickHandler(event) {
 	}
 
 	clicked = true;
-	setTimeout(function() { clicked = false; }, 250);
+	setTimeout(function() {
+		clicked = false;
+	}, 250);
 
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
 		"images": ["images/businessmanspritesheet.png"],
 		"frames": {
-			"width": 1, "height": 1, "count": 1
+			"width": 1,
+			"height": 1,
+			"count": 1
 		},
 		"animations": {
 			"exist": {
-				"frames" : [0],
-				"next" : "exist"
+				"frames": [0],
+				"next": "exist"
 			}
 		}
 	});
@@ -207,7 +216,8 @@ function pauseClickHandler(event) {
 		player.paused = false;
 		player.pauseMenu.remove();
 		event.target.removeEventListener(event.type, arguments.callee, false);
-	} if (fastCollisionSprite(this.healthBriefCasesTouchTarget, touchSprite)) {
+	}
+	if (fastCollisionSprite(this.healthBriefCasesTouchTarget, touchSprite)) {
 		if (healthBriefCases > 0) {
 			healthBriefCases--;
 			player.health = 28;

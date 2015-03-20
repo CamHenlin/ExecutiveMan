@@ -3,30 +3,32 @@ function HealthBriefCase(stage, x, y, basicCollision) {
 	var healthBriefCaseSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("healthbriefcase")],
 		"frames": {
-			"width": 12, "height": 13, "count": 2
+			"width": 12,
+			"height": 13,
+			"count": 2
 		},
 		"animations": {
 			"still": {
-				"frames" : [0, 1],
-				"next" : "still",
-				"speed" : 0.05
+				"frames": [0, 1],
+				"next": "still",
+				"speed": 0.05
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(healthBriefCaseSpriteSheet, "still");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.damage           = 0;
-	this.health           = 1;
-	this.basicCollision   = basicCollision;
-	this.hardshell        = false;
-	this.movementTicks    = 0;
-	this.watchedElements  = [];
+	this.stage = stage;
+	this.animations = new createjs.Sprite(healthBriefCaseSpriteSheet, "still");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.damage = 0;
+	this.health = 1;
+	this.basicCollision = basicCollision;
+	this.hardshell = false;
+	this.movementTicks = 0;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 

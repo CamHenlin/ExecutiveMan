@@ -3,35 +3,37 @@ function Door(stage, basicCollision, x, y) {
 	var doorSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("door")],
 		"frames": {
-			"width": 16, "height": 48, "count": 7
+			"width": 16,
+			"height": 48,
+			"count": 7
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			},
-			"open" : {
-				"frames" : [0, 1, 2, 3, 4, 5, 6],
-				"next" : "holdopen",
-				"speed" : (0.1  / lowFramerate) / skipFrames
+			"open": {
+				"frames": [0, 1, 2, 3, 4, 5, 6],
+				"next": "holdopen",
+				"speed": (0.1 / lowFramerate) / skipFrames
 			},
 			"holdopen": {
-				"frames" : [6],
-				"next" : "holdopen"
+				"frames": [6],
+				"next": "holdopen"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.damage           = 0;
-	this.basicCollision   = basicCollision;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(doorSpriteSheet, "still");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.activated        = false;
-	this.down             = false;
-	this.hardshell        = true;
-	this.watchedElements  = [];
+	this.damage = 0;
+	this.basicCollision = basicCollision;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(doorSpriteSheet, "still");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.activated = false;
+	this.down = false;
+	this.hardshell = true;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset - parseInt(renderer.mapData.properties.stitchx);;
 	this.animations.y = this.y;
 

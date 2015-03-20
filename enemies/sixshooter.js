@@ -3,39 +3,41 @@ function SixShooter(stage, x, y) {
 	var sixShooterSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("sixshooter")],
 		"frames": {
-			"width": 16, "height": 20, "count": 2
+			"width": 16,
+			"height": 20,
+			"count": 2
 		},
 		"animations": {
 			"closed": {
-				"frames" : [0],
-				"next" : "closed"
+				"frames": [0],
+				"next": "closed"
 			},
 			"open": {
-				"frames" : [1],
-				"next" : "open"
+				"frames": [1],
+				"next": "open"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(sixShooterSpriteSheet, "closed");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = parseInt(y);
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = parseInt(y);
-	this.xspeed           = -1;
-	this.yspeed           = 0;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.damage           = 2;
-	this.health           = 2;
-	this.flee             = false;
-	this.targetY          = 0;
-	this.hardshell        = true;
-	this.dead             = false;
-	this.movementTicks    = 0;
-	this.watchedElements  = [];
+	this.stage = stage;
+	this.animations = new createjs.Sprite(sixShooterSpriteSheet, "closed");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = parseInt(y);
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = parseInt(y);
+	this.xspeed = -1;
+	this.yspeed = 0;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.damage = 2;
+	this.health = 2;
+	this.flee = false;
+	this.targetY = 0;
+	this.hardshell = true;
+	this.dead = false;
+	this.movementTicks = 0;
+	this.watchedElements = [];
 	this.lasty = this.y;
 	this.lastx = this.x;
 	this.stopTicks = 0;
@@ -162,25 +164,27 @@ function SixShooter(stage, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("enemyshot")],
 			"frames": {
-				"width": 8, "height": 8, "count": 1
+				"width": 8,
+				"height": 8,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 3;
-		this.xspeed     = xspeed;
-		this.yspeed     = yspeed;
+		this.stage = stage;
+		this.damage = 3;
+		this.xspeed = xspeed;
+		this.yspeed = yspeed;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + 8;
-		this.y          = y + 8;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + 8;
+		this.y = y + 8;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);

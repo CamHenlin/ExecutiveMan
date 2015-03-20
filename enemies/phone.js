@@ -3,38 +3,40 @@ function Phone(stage, basicCollision, x, y) {
 	var phoneSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("phone")],
 		"frames": {
-			"width": 14, "height": 19, "count": 2
+			"width": 14,
+			"height": 19,
+			"count": 2
 		},
 		"animations": {
 			"sit": {
-				"frames" : [0],
-				"next" : "sit"
+				"frames": [0],
+				"next": "sit"
 			},
-			"jump" : {
-				"frames" : [1],
-				"next" : "jump"
+			"jump": {
+				"frames": [1],
+				"next": "jump"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.health           = 1;
-	this.damage           = 2;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(phoneSpriteSheet, "sit");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.xSpeed           = 0;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.dead             = false;
-	this.jumpTicks        = 0;
-	this.hardshell        = false;
-	this.dead             = false;
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.health = 1;
+	this.damage = 2;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(phoneSpriteSheet, "sit");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.xSpeed = 0;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.dead = false;
+	this.jumpTicks = 0;
+	this.hardshell = false;
+	this.dead = false;
+	this.watchedElements = [];
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
@@ -114,7 +116,7 @@ function Phone(stage, basicCollision, x, y) {
 			this.animations.scaleX = -1;
 			this.animations.regX = this.animations.spriteSheet._frameWidth;
 		} else {
-			this.animations.scaleX  = 1;
+			this.animations.scaleX = 1;
 			this.animations.regX = 0;
 		}
 

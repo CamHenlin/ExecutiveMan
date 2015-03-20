@@ -6,15 +6,32 @@ function BasicCollision(renderer) {
 		var xmodifier = 2;
 
 		return this.checkCollisions({
-			left : { x: object.x + xmodifier - this.renderer.completedMapsWidthOffset, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
-			bottom : { x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2 , y: object.y + object.animations.spriteSheet._frameHeight },
-			right : { x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth - xmodifier, y: object.y + object.animations.spriteSheet._frameHeight / 2 },
-			top : { x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2 , y: object.y + modifier }
+			left: {
+				x: object.x + xmodifier - this.renderer.completedMapsWidthOffset,
+				y: object.y + object.animations.spriteSheet._frameHeight / 2
+			},
+			bottom: {
+				x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2,
+				y: object.y + object.animations.spriteSheet._frameHeight
+			},
+			right: {
+				x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth - xmodifier,
+				y: object.y + object.animations.spriteSheet._frameHeight / 2
+			},
+			top: {
+				x: object.x - this.renderer.completedMapsWidthOffset + object.animations.spriteSheet._frameWidth / 2,
+				y: object.y + modifier
+			}
 		}, this.renderer.collisionArray, this.renderer.heightOffset, this.renderer.widthOffset);
 	};
 
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
-		var moves = { left : true, down : true, right : true, up : true };
+		var moves = {
+			left: true,
+			down: true,
+			right: true,
+			up: true
+		};
 		var tilesize = 16; // this is used as width and height!
 
 		try {
@@ -98,4 +115,3 @@ function BasicCollision(renderer) {
 		return true;
 	};
 }
-

@@ -3,7 +3,7 @@
 // could use some cleanup
 // cameron henlin, cam.henlin@gmail.com
 
-(function () {
+(function() {
 	if (typeof(window.ontouchstart) === "object") {
 		return;
 	}
@@ -40,19 +40,19 @@
 
 	var previousTargets = {};
 
-	var checkPreventDefault = function (node) {
+	var checkPreventDefault = function(node) {
 		while (node && !node.handJobjs_forcePreventDefault) {
 			node = node.parentNode;
 		}
 		return !!node || window.handJobjs_forcePreventDefault;
 	};
 
-	var generateTouchEventProxy = function (name, touchPoint, target, eventObject, canBubble, relatedTarget) {
+	var generateTouchEventProxy = function(name, touchPoint, target, eventObject, canBubble, relatedTarget) {
 		generateTouchClonedEvent(touchPoint, name, canBubble, target, relatedTarget);
 	};
 
 	// Touch events
-	var generateTouchClonedEvent = function (sourceEvent, newName, canBubble, target, relatedTarget) {
+	var generateTouchClonedEvent = function(sourceEvent, newName, canBubble, target, relatedTarget) {
 		// console.log("generating touch cloned");
 		var touchHandler = function(event) {
 			// console.log("touch!");
@@ -69,7 +69,10 @@
 			}
 
 			event.type = eventType;
-			var touchEvent = new CustomEvent(eventType, { bubbles: true, cancelable: true });
+			var touchEvent = new CustomEvent(eventType, {
+				bubbles: true,
+				cancelable: true
+			});
 			touchEvent.touches = event.touches;
 			touchEvent.type = eventType;
 
@@ -92,7 +95,10 @@
 			}
 
 			event.type = eventType;
-			var touchEvent = new CustomEvent(eventType, { bubbles: true, cancelable: true });
+			var touchEvent = new CustomEvent(eventType, {
+				bubbles: true,
+				cancelable: true
+			});
 			touchEvent.changedTouches = event.changedTouches;
 			touchEvent.type = eventType;
 
@@ -107,7 +113,7 @@
 		}
 
 		// PreventDefault
-		evObj.preventDefault = function () {
+		evObj.preventDefault = function() {
 			if (sourceEvent.preventDefault !== undefined)
 				sourceEvent.preventDefault();
 		};
@@ -118,13 +124,13 @@
 	};
 
 	// Intercept addEventListener calls by changing the prototype
-	var interceptAddEventListener = function (root) {
+	var interceptAddEventListener = function(root) {
 		var current = root.prototype ? root.prototype.addEventListener : root.addEventListener;
 
 		// console.log("intercepting add event listener!");
 		// console.log(root);
 
-		var customAddEventListener = function (name, func, capture) {
+		var customAddEventListener = function(name, func, capture) {
 			// console.log("customAddEventListener");
 			// console.log(name);
 
@@ -164,7 +170,7 @@
 		interceptAddEventListener(SVGElement);
 	}
 
-	var handleOtherEvent = function (eventObject, name) {
+	var handleOtherEvent = function(eventObject, name) {
 		// console.log("handle other event");
 		if (eventObject.preventManipulation) {
 			eventObject.preventManipulation();
@@ -174,10 +180,10 @@
 	};
 
 	// Intercept removeEventListener calls by changing the prototype
-	var interceptRemoveEventListener = function (root) {
+	var interceptRemoveEventListener = function(root) {
 		var current = root.prototype ? root.prototype.removeEventListener : root.removeEventListener;
 
-		var customRemoveEventListener = function (name, func, capture) {
+		var customRemoveEventListener = function(name, func, capture) {
 			// Branch when a PointerXXX is used
 			if (supportedEventsNames.indexOf(name) !== -1) {
 				removeTouchAware(this, name);
@@ -213,7 +219,7 @@
 		interceptRemoveEventListener(SVGElement);
 	}
 
-	var removeTouchAware = function (item, eventName) {
+	var removeTouchAware = function(item, eventName) {
 		// If item is already touch aware, do nothing
 		if (item.ontouchdown !== undefined) {
 			return;
@@ -223,22 +229,30 @@
 		if (item.ontouchstart !== undefined) {
 			switch (eventName.toLowerCase()) {
 				case "touchstart":
-					item.removeEventListener("pointerdown", function (evt) { handleOtherEvent(evt, eventName); });
+					item.removeEventListener("pointerdown", function(evt) {
+						handleOtherEvent(evt, eventName);
+					});
 					break;
 				case "touchmove":
-					item.removeEventListener("pointermove", function (evt) { handleOtherEvent(evt, eventName); });
+					item.removeEventListener("pointermove", function(evt) {
+						handleOtherEvent(evt, eventName);
+					});
 					break;
 				case "touchend":
-					item.removeEventListener("pointerup", function (evt) { handleOtherEvent(evt, eventName); });
+					item.removeEventListener("pointerup", function(evt) {
+						handleOtherEvent(evt, eventName);
+					});
 					break;
 				case "touchcancel":
-					item.removeEventListener("pointercancel", function (evt) { handleOtherEvent(evt, eventName); });
+					item.removeEventListener("pointercancel", function(evt) {
+						handleOtherEvent(evt, eventName);
+					});
 					break;
 			}
 		}
 	};
 
-	var registerOrUnregisterEvent = function (item, name, func, enable) {
+	var registerOrUnregisterEvent = function(item, name, func, enable) {
 		// console.log("registerOrUnregisterEvent");
 		if (item.__handJobjsRegisteredEvents === undefined) {
 			item.__handJobjsRegisteredEvents = [];
@@ -246,7 +260,7 @@
 
 		if (enable) {
 			if (item.__handJobjsRegisteredEvents[name] !== undefined) {
-				item.__handJobjsRegisteredEvents[name]++;
+				item.__handJobjsRegisteredEvents[name] ++;
 				return;
 			}
 
@@ -256,7 +270,7 @@
 		} else {
 
 			if (item.__handJobjsRegisteredEvents.indexOf(name) !== -1) {
-				item.__handJobjsRegisteredEvents[name]--;
+				item.__handJobjsRegisteredEvents[name] --;
 
 				if (item.__handJobjsRegisteredEvents[name] !== 0) {
 					return;
@@ -268,14 +282,14 @@
 		}
 	};
 
-	var getPrefixEventName = function (prefix, eventName) {
+	var getPrefixEventName = function(prefix, eventName) {
 		var upperCaseIndex = supportedEventsNames.indexOf(eventName);
 		var newEventName = prefix + upperCaseEventsNames[upperCaseIndex];
 
 		return newEventName;
 	};
 
-	var setTouchAware = function (item, eventName, enable) {
+	var setTouchAware = function(item, eventName, enable) {
 		// console.log("setTouchAware " + enable + " " +eventName);
 		// Leaving tokens
 		if (!item.__handJobjsGlobalRegisteredEvents) {
@@ -283,7 +297,7 @@
 		}
 		if (enable) {
 			if (item.__handJobjsGlobalRegisteredEvents[eventName] !== undefined) {
-				item.__handJobjsGlobalRegisteredEvents[eventName]++;
+				item.__handJobjsGlobalRegisteredEvents[eventName] ++;
 				return;
 			}
 			item.__handJobjsGlobalRegisteredEvents[eventName] = 1;
@@ -291,14 +305,16 @@
 			// console.log(item.__handJobjsGlobalRegisteredEvents[eventName]);
 		} else {
 			if (item.__handJobjsGlobalRegisteredEvents[eventName] !== undefined) {
-				item.__handJobjsGlobalRegisteredEvents[eventName]--;
+				item.__handJobjsGlobalRegisteredEvents[eventName] --;
 				if (item.__handJobjsGlobalRegisteredEvents[eventName] < 0) {
 					item.__handJobjsGlobalRegisteredEvents[eventName] = 0;
 				}
 			}
 		}
 
-		var nameGenerator = function (name) { return name; }; // easier than doing this right and replacing all the references
+		var nameGenerator = function(name) {
+			return name;
+		}; // easier than doing this right and replacing all the references
 		var eventGenerator = generateTouchClonedEvent;
 
 		//switch (eventName) {
@@ -307,20 +323,22 @@
 		//    	break;
 		//    case "touchleave":
 		//    	// console.log("touchleave");
-				var targetEvent = nameGenerator(eventName);
-				if (item['on' + targetEvent.toLowerCase()] !== undefined) {
-					registerOrUnregisterEvent(item, targetEvent, function (evt) { eventGenerator(evt, eventName); }, enable);
-				}
+		var targetEvent = nameGenerator(eventName);
+		if (item['on' + targetEvent.toLowerCase()] !== undefined) {
+			registerOrUnregisterEvent(item, targetEvent, function(evt) {
+				eventGenerator(evt, eventName);
+			}, enable);
+		}
 		//        break;
 		//}
 	};
 
-	var checkEventRegistration = function (node, eventName) {
+	var checkEventRegistration = function(node, eventName) {
 		// console.log("checkEventRegistration");
 		return node.__handJobjsGlobalRegisteredEvents && node.__handJobjsGlobalRegisteredEvents[eventName];
 	};
 
-	var findEventRegisteredNode = function (node, eventName) {
+	var findEventRegisteredNode = function(node, eventName) {
 		// console.log("findEventRegisteredNode");
 		while (node && !checkEventRegistration(node, eventName))
 			node = node.parentNode;
@@ -330,7 +348,7 @@
 			return window;
 	};
 
-	var generateTouchEventProxyIfRegistered = function (eventName, touchPoint, target, eventObject, canBubble, relatedTarget) { // Check if user registered this event
+	var generateTouchEventProxyIfRegistered = function(eventName, touchPoint, target, eventObject, canBubble, relatedTarget) { // Check if user registered this event
 		// console.log("generateTouchEventProxyIfRegistered");
 		if (findEventRegisteredNode(target, eventName)) {
 			generateTouchEventProxy(eventName, touchPoint, target, eventObject, canBubble, relatedTarget);
@@ -366,7 +384,7 @@
 		var commonParent = getFirstCommonNode(currentTarget, relatedTarget);
 		var node = currentTarget;
 		var nodelist = [];
-		while (node && node != commonParent) {//target range: this to the direct child of parent relatedTarget
+		while (node && node != commonParent) { //target range: this to the direct child of parent relatedTarget
 			if (checkEventRegistration(node, "touchenter")) //check if any parent node has pointerenter
 				nodelist.push(node);
 			node = node.parentNode;
@@ -380,8 +398,8 @@
 		// console.log("dispatchPointerLeave");
 		var commonParent = getFirstCommonNode(currentTarget, relatedTarget);
 		var node = currentTarget;
-		while (node && node != commonParent) {//target range: this to the direct child of parent relatedTarget
-			if (checkEventRegistration(node, "touchleave"))//check if any parent node has pointerleave
+		while (node && node != commonParent) { //target range: this to the direct child of parent relatedTarget
+			if (checkEventRegistration(node, "touchleave")) //check if any parent node has pointerleave
 				generateProxy(node);
 			node = node.parentNode;
 		}
@@ -391,54 +409,54 @@
 	// All mouse events are affected by touch fallback
 	function applySimpleEventTunnels(nameGenerator, eventGenerator) {
 		// console.log("applySimpleEventTunnels");
-		["touchstart", "touchmove", "touchend", "touchmove", "touchleave"].forEach(function (eventName) {
-			window.addEventListener(nameGenerator(eventName), function (evt) {
+		["touchstart", "touchmove", "touchend", "touchmove", "touchleave"].forEach(function(eventName) {
+			window.addEventListener(nameGenerator(eventName), function(evt) {
 				if (!touching && findEventRegisteredNode(evt.target, eventName))
 					eventGenerator(evt, eventName, true);
 			});
 		});
 		if (window['on' + nameGenerator("touchenter").toLowerCase()] === undefined)
-			window.addEventListener(nameGenerator("touchmove"), function (evt) {
+			window.addEventListener(nameGenerator("touchmove"), function(evt) {
 				if (touching)
 					return;
 				var foundNode = findEventRegisteredNode(evt.target, "touchenter");
 				if (!foundNode || foundNode === window)
 					return;
 				else if (!foundNode.contains(evt.relatedTarget)) {
-					dispatchPointerEnter(foundNode, evt.relatedTarget, function (targetNode) {
+					dispatchPointerEnter(foundNode, evt.relatedTarget, function(targetNode) {
 						eventGenerator(evt, "touchenter", false, targetNode, evt.relatedTarget);
 					});
 				}
 			});
 		if (window['on' + nameGenerator("touchleave").toLowerCase()] === undefined)
-			window.addEventListener(nameGenerator("touchleave"), function (evt) {
+			window.addEventListener(nameGenerator("touchleave"), function(evt) {
 				if (touching)
 					return;
 				var foundNode = findEventRegisteredNode(evt.target, "touchleave");
 				if (!foundNode || foundNode === window)
 					return;
 				else if (!foundNode.contains(evt.relatedTarget)) {
-					dispatchPointerLeave(foundNode, evt.relatedTarget, function (targetNode) {
+					dispatchPointerLeave(foundNode, evt.relatedTarget, function(targetNode) {
 						eventGenerator(evt, "touchleave", false, targetNode, evt.relatedTarget);
 					});
 				}
 			});
 	}
 
-	(function () {
+	(function() {
 		if (typeof(window.ontouchstart) === "object") {
 			return;
 		}
 		// Handling move on window to detect pointerleave/out/over
 		if (typeof(window.ontouchstart) === "undefined") {
-			window.addEventListener('pointerdown', function (eventObject) {
+			window.addEventListener('pointerdown', function(eventObject) {
 				// console.log("pointerdownfired");
 				var touchPoint = eventObject;
 				previousTargets[touchPoint.identifier] = touchPoint.target;
 				generateTouchEventProxyIfRegistered("touchenter", touchPoint, touchPoint.target, eventObject, true);
 
 				//pointerenter should not be bubbled
-				dispatchPointerEnter(touchPoint.target, null, function (targetNode) {
+				dispatchPointerEnter(touchPoint.target, null, function(targetNode) {
 					generateTouchEventProxy("touchenter", touchPoint, targetNode, eventObject, false);
 				});
 
@@ -446,7 +464,7 @@
 
 			});
 
-			window.addEventListener('pointerup', function (eventObject) {
+			window.addEventListener('pointerup', function(eventObject) {
 				// console.log("pointer up fired");
 				var touchPoint = eventObject;
 				var currentTarget = previousTargets[touchPoint.identifier];
@@ -455,13 +473,13 @@
 				generateTouchEventProxyIfRegistered("touchleave", touchPoint, currentTarget, eventObject, true);
 
 				//pointerleave should not be bubbled
-				dispatchPointerLeave(currentTarget, null, function (targetNode) {
+				dispatchPointerLeave(currentTarget, null, function(targetNode) {
 					generateTouchEventProxy("touchleave", touchPoint, targetNode, eventObject, false);
 				});
 
 			});
 
-			window.addEventListener('pointermove', function (eventObject) {
+			window.addEventListener('pointermove', function(eventObject) {
 				// console.log("pointer move fired");
 				var touchPoint = eventObject;
 				var currentTarget = previousTargets[touchPoint.identifier];

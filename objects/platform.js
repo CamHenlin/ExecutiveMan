@@ -2,35 +2,37 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	var platformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("platform")],
 		"frames": {
-			"width": 16, "height": 16, "count": 1
+			"width": 16,
+			"height": 16,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 
-	this.damage           = 0;
-	this.basicCollision   = basicCollision;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(platformSpriteSheet, "still");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.initialY         = y;
-	this.initialX         = x;
-	this.xrange           = xrange;
-	this.xSpeed           = (xduration !== 0) ? xrange / xduration : 0;
-	this.lastx            = x;
-	this.lasty            = y;
-	this.yrange           = yrange;
-	this.ySpeed           = (yduration !== 0) ? yrange / yduration : 0;
-	this.activated        = false;
-	this.hardshell        = true;
-	this.goingup          = false;
-	this.goingright       = false;
+	this.damage = 0;
+	this.basicCollision = basicCollision;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(platformSpriteSheet, "still");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.initialY = y;
+	this.initialX = x;
+	this.xrange = xrange;
+	this.xSpeed = (xduration !== 0) ? xrange / xduration : 0;
+	this.lastx = x;
+	this.lasty = y;
+	this.yrange = yrange;
+	this.ySpeed = (yduration !== 0) ? yrange / yduration : 0;
+	this.activated = false;
+	this.hardshell = true;
+	this.goingup = false;
+	this.goingright = false;
 	if (xrange > 0) {
 		this.goingright = false;
 	} else {
@@ -41,8 +43,8 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	} else {
 		this.goingup = true;
 	}
-	this.delay            = delay;
-	this.watchedElements  = [];
+	this.delay = delay;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 

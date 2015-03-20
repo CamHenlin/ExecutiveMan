@@ -3,35 +3,37 @@ function Copter(stage, x, y) {
 	var copterSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("copter")],
 		"frames": {
-			"width": 17, "height": 14, "count": 2
+			"width": 17,
+			"height": 14,
+			"count": 2
 		},
 		"animations": {
 			"operate": {
-				"frames" : [0, 1],
-				"next" : "operate"
+				"frames": [0, 1],
+				"next": "operate"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(copterSpriteSheet, "current");
-	this.x                = x;// - 32;
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.damage           = 1;
-	this.health           = 1;
-	this.flee             = false;
-	this.targetY          = 0;
-	this.yStepSize        = 0;
-	this.xStepSize        = 0;
-	this.hardshell        = false;
-	this.dead             = false;
-	this.movementTicks    = 0;
-	this.watchedElements  = [];
+	this.stage = stage;
+	this.animations = new createjs.Sprite(copterSpriteSheet, "current");
+	this.x = x; // - 32;
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.damage = 1;
+	this.health = 1;
+	this.flee = false;
+	this.targetY = 0;
+	this.yStepSize = 0;
+	this.xStepSize = 0;
+	this.hardshell = false;
+	this.dead = false;
+	this.movementTicks = 0;
+	this.watchedElements = [];
 	this.animations.x = this.x + parseInt(renderer.mapData.properties.stitchx);
 	this.animations.y = this.y;
 

@@ -3,48 +3,50 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 	var annoyingthingSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("annoyingthing")],
 		"frames": {
-			"width": 16, "height": 8, "count": 4
+			"width": 16,
+			"height": 8,
+			"count": 4
 		},
 		"animations": {
 			"left": {
-				"frames" : [0, 1],
-				"next" : "left",
-				"speed" : (4 / lowFramerate) / skipFrames
+				"frames": [0, 1],
+				"next": "left",
+				"speed": (4 / lowFramerate) / skipFrames
 			},
-			"right" : {
-				"frames" : [3, 2],
-				"next" : "right",
-				"speed" : (4 / lowFramerate) / skipFrames
+			"right": {
+				"frames": [3, 2],
+				"next": "right",
+				"speed": (4 / lowFramerate) / skipFrames
 			},
-			"pause" : {
-				"frames" : [0, 3],
-				"next" : "pause",
-				"speed" : (2 / lowFramerate) / skipFrames
+			"pause": {
+				"frames": [0, 3],
+				"next": "pause",
+				"speed": (2 / lowFramerate) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.health           = 1;
-	this.damage           = 4;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(annoyingthingSpriteSheet, "pause");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.direction        = true; // true is left
-	this.pausecounter     = 0;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.xSpeed           = 0;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.dead             = false;
-	this.lastHit          = false;
-	this.pauseTicks       = -1;
-	this.hardshell        = true;
-	this.watchedElements  = [];
-	this.directionTimer   = 0;
+	this.basicCollision = basicCollision;
+	this.health = 1;
+	this.damage = 4;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(annoyingthingSpriteSheet, "pause");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.direction = true; // true is left
+	this.pausecounter = 0;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.xSpeed = 0;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.dead = false;
+	this.lastHit = false;
+	this.pauseTicks = -1;
+	this.hardshell = true;
+	this.watchedElements = [];
+	this.directionTimer = 0;
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
@@ -121,14 +123,38 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 
 			var futurex = this.x + ((this.direction) ? -14 : 14);
 			var futureCollisionPoints = {
-				leftTop : { x: this.x, y: this.y },
-				leftBottom : { x: this.x, y: this.y + this.animations.spriteSheet._frameHeight - 4 },
-				bottomLeft : { x: futurex, y: this.y + this.animations.spriteSheet._frameHeight + 8 },
-				bottomRight : { x: futurex + this.animations.spriteSheet._frameWidth, y: this.y + this.animations.spriteSheet._frameHeight + 8 },
-				rightBottom : { x: this.x + this.animations.spriteSheet._frameWidth, y: this.y + this.animations.spriteSheet._frameHeight - 4 },
-				rightTop : { x: this.x + this.animations.spriteSheet._frameWidth, y: this.y },
-				topRight : { x: this.x + this.animations.spriteSheet._frameWidth, y: this.y },
-				topLeft : { x: this.x, y: this.y }
+				leftTop: {
+					x: this.x,
+					y: this.y
+				},
+				leftBottom: {
+					x: this.x,
+					y: this.y + this.animations.spriteSheet._frameHeight - 4
+				},
+				bottomLeft: {
+					x: futurex,
+					y: this.y + this.animations.spriteSheet._frameHeight + 8
+				},
+				bottomRight: {
+					x: futurex + this.animations.spriteSheet._frameWidth,
+					y: this.y + this.animations.spriteSheet._frameHeight + 8
+				},
+				rightBottom: {
+					x: this.x + this.animations.spriteSheet._frameWidth,
+					y: this.y + this.animations.spriteSheet._frameHeight - 4
+				},
+				rightTop: {
+					x: this.x + this.animations.spriteSheet._frameWidth,
+					y: this.y
+				},
+				topRight: {
+					x: this.x + this.animations.spriteSheet._frameWidth,
+					y: this.y
+				},
+				topLeft: {
+					x: this.x,
+					y: this.y
+				}
 			};
 			var checkDirectionChangeCollisionResults = tileCollisionDetector.checkDownCollisions(futureCollisionPoints, renderer.collisionArray, renderer.getCurrentHeightOffset(), (renderer.widthOffset + renderer.completedMapsWidthOffset));
 			if (checkDirectionChangeCollisionResults.downmove) {

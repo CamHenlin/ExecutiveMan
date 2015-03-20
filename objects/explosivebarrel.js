@@ -2,26 +2,28 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 	var explosiveBarrelSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("explosivebarrel")],
 		"frames": {
-			"width": 24, "height": 32, "count": 1
+			"width": 24,
+			"height": 32,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
 
-	this.damage           = 0;
-	this.basicCollision   = basicCollision;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(explosiveBarrelSpriteSheet, "still");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.activated        = false;
-	this.hardshell        = false;
-	this.watchedElements  = [];
+	this.damage = 0;
+	this.basicCollision = basicCollision;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(explosiveBarrelSpriteSheet, "still");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.activated = false;
+	this.hardshell = false;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 

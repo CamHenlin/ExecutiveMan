@@ -1,4 +1,5 @@
 var bossScreenUp = false;
+
 function initBossScreen() {
 	document.getElementById("controlcanvas").style.zIndex = "0";
 	stopMusic();
@@ -10,12 +11,14 @@ function initBossScreen() {
 	var bossframeSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("bossframe")],
 		"frames": {
-			"width": 45, "height": 45, "count": 1
+			"width": 45,
+			"height": 45,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -23,12 +26,14 @@ function initBossScreen() {
 	var executivemanTopperSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("executivemantopper")],
 		"frames": {
-			"width": 160, "height": 45, "count": 1
+			"width": 160,
+			"height": 45,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -37,13 +42,15 @@ function initBossScreen() {
 	var wastemanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("wastemanframe")],
 		"frames": {
-			"width": 24, "height": 24, "count": 2
+			"width": 24,
+			"height": 24,
+			"count": 2
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame",
-				"speed" : 0.01
+				"frames": [0],
+				"next": "frame",
+				"speed": 0.01
 			}
 		}
 	});
@@ -53,12 +60,14 @@ function initBossScreen() {
 	var materialmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("materialmanframe")],
 		"frames": {
-			"width": 30, "height": 30, "count": 1
+			"width": 30,
+			"height": 30,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -68,12 +77,14 @@ function initBossScreen() {
 	var HRmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("hrmanframe")],
 		"frames": {
-			"width": 19, "height": 26, "count": 1
+			"width": 19,
+			"height": 26,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -83,12 +94,14 @@ function initBossScreen() {
 	var salesManFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("salesmanframe")],
 		"frames": {
-			"width": 30, "height": 29, "count": 1
+			"width": 30,
+			"height": 29,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -98,12 +111,14 @@ function initBossScreen() {
 	var ITmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("itmanframe")],
 		"frames": {
-			"width": 24, "height": 27, "count": 1
+			"width": 24,
+			"height": 27,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -113,12 +128,14 @@ function initBossScreen() {
 	var warehousemanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("warehousemanframe")],
 		"frames": {
-			"width": 20, "height": 24, "count": 1
+			"width": 20,
+			"height": 24,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -128,12 +145,14 @@ function initBossScreen() {
 	var visionarymanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("visionarymanframe")],
 		"frames": {
-			"width": 19, "height": 24, "count": 1
+			"width": 19,
+			"height": 24,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -143,12 +162,14 @@ function initBossScreen() {
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("accountingmanframe")],
 		"frames": {
-			"width": 19, "height": 24, "count": 1
+			"width": 19,
+			"height": 24,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -158,12 +179,14 @@ function initBossScreen() {
 	var shopFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("shopframe")],
 		"frames": {
-			"width": 30, "height": 24, "count": 1
+			"width": 30,
+			"height": 24,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -185,9 +208,9 @@ function initBossScreen() {
 
 	gamezoom = zoomAmount;
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
-	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
+	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1 / 3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
-	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+	document.getElementById("gamecanvas").style.MozTransform = "scale(" + zoomAmount + ")";
 	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(altstage);
@@ -220,60 +243,60 @@ function initBossScreen() {
 	var centery = 10 + gamestage.canvas.height / 2 - bossframes[0].spriteSheet._frameWidth / 2;
 	for (i = 0; i < 9; i++) {
 		if (i === 0) {
-			wastemanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 -2;
-			wastemanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -2;
-			wastemanLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
+			wastemanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth / 2 - 2;
+			wastemanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth / 2 - 2;
+			wastemanLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 1;
 			wastemanLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 1) {
-			accountingmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + accountingmanFrame.spriteSheet._frameWidth /2 + 3;
-			accountingmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + accountingmanFrame.spriteSheet._frameWidth/2;
-			accountingmanLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
+			accountingmanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + accountingmanFrame.spriteSheet._frameWidth / 2 + 3;
+			accountingmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + accountingmanFrame.spriteSheet._frameWidth / 2;
+			accountingmanLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) - 1;
 			accountingmanLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 2) {
-			materialmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth /2 - 5;
-			materialmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth/2 -5;
-			materialManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 5;
+			materialmanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth / 2 - 5;
+			materialmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth / 2 - 5;
+			materialManLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 5;
 			materialManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 3) {
-			HRmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + HRmanFrame.spriteSheet._frameWidth /2 + 3;
-			HRmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + HRmanFrame.spriteSheet._frameWidth/2;
-			HRManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 9;
+			HRmanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + HRmanFrame.spriteSheet._frameWidth / 2 + 3;
+			HRmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + HRmanFrame.spriteSheet._frameWidth / 2;
+			HRManLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 9;
 			HRManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 4) { // middle frame
-			shopFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + shopFrame.spriteSheet._frameWidth /2 -8;
-			shopFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + shopFrame.spriteSheet._frameWidth/2 -4;
-			shopLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 12;
+			shopFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + shopFrame.spriteSheet._frameWidth / 2 - 8;
+			shopFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + shopFrame.spriteSheet._frameWidth / 2 - 4;
+			shopLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 12;
 			shopLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 5) {
-			salesManFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + salesManFrame.spriteSheet._frameWidth /2 - 8;
-			salesManFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + salesManFrame.spriteSheet._frameWidth/2 - 8;
-			salesManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 1;
+			salesManFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + salesManFrame.spriteSheet._frameWidth / 2 - 8;
+			salesManFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + salesManFrame.spriteSheet._frameWidth / 2 - 8;
+			salesManLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 1;
 			salesManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 6) {
-			ITmanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + ITmanFrame.spriteSheet._frameWidth /2 - 2;
-			ITmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + ITmanFrame.spriteSheet._frameWidth /2 - 3;
-			ITManLabel.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 10;
+			ITmanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + ITmanFrame.spriteSheet._frameWidth / 2 - 2;
+			ITmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + ITmanFrame.spriteSheet._frameWidth / 2 - 3;
+			ITManLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 10;
 			ITManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 7) {
-			warehousemanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + warehousemanFrame.spriteSheet._frameWidth /2 + 2 ;
-			warehousemanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + warehousemanFrame.spriteSheet._frameWidth/2 ;
-			warehouseMan.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) - 1;
+			warehousemanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + warehousemanFrame.spriteSheet._frameWidth / 2 + 2;
+			warehousemanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + warehousemanFrame.spriteSheet._frameWidth / 2;
+			warehouseMan.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) - 1;
 			warehouseMan.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
 		if (i === 8) {
-			visionarymanFrame.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + visionarymanFrame.spriteSheet._frameWidth /2 + 3;
-			visionarymanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + visionarymanFrame.spriteSheet._frameWidth/2;
-			visionaryMan.x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3) + 3;
+			visionarymanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + visionarymanFrame.spriteSheet._frameWidth / 2 + 3;
+			visionarymanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + visionarymanFrame.spriteSheet._frameWidth / 2;
+			visionaryMan.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 3;
 			visionaryMan.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
 		}
-		bossframes[i].x = centerx - 4/3 * width  + (framewidth + framewidth / 2) * (i % 3);
+		bossframes[i].x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3);
 		bossframes[i].y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2;
 	}
 	executivemanTopper.x = centerx - executivemanTopper.spriteSheet._frameWidth / 2 + width / 2 + 10;
@@ -319,7 +342,7 @@ function initBossScreen() {
 	document.onkeydown = bossScreenKeyDownHandler.bind(this);
 }
 
-var bossScreenKeyDownHandler = function (event) {
+var bossScreenKeyDownHandler = function(event) {
 	switch (event.keyCode) {
 		case keyCodes.left:
 			// keyCode 37 is left arrow
@@ -372,12 +395,14 @@ function bossClickHandler(event) {
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("beam")],
 		"frames": {
-			"width": 1, "height": 1, "count": 1
+			"width": 1,
+			"height": 1,
+			"count": 1
 		},
 		"animations": {
 			"exist": {
-				"frames" : [0],
-				"next" : "exist"
+				"frames": [0],
+				"next": "exist"
 			}
 		}
 	});

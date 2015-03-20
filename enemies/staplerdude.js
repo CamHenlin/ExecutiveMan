@@ -3,42 +3,44 @@ function StaplerDude(stage, basicCollision, x, y) {
 	var printerGuySpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("staplerdude")],
 		"frames": {
-			"width": 41, "height": 40, "count": 3
+			"width": 41,
+			"height": 40,
+			"count": 3
 		},
 		"animations": {
 			"sit": {
-				"frames" : [0],
-				"next" : "sit"
+				"frames": [0],
+				"next": "sit"
 			},
-			"ready" : {
-				"frames" : [1],
-				"next" : "ready"
+			"ready": {
+				"frames": [1],
+				"next": "ready"
 			},
-			"throw" : {
-				"frames" : [2],
-				"next" : "throw"
+			"throw": {
+				"frames": [2],
+				"next": "throw"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.damage	          = 2;
-	this.health           = 6;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(printerGuySpriteSheet, "sit");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.dead             = false;
-	this.shootTicks       = 0;
-	this.hardshell        = false;
-	this.dead             = false;
-	this.throwSwitch      = false;
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.damage = 2;
+	this.health = 6;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(printerGuySpriteSheet, "sit");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.dead = false;
+	this.shootTicks = 0;
+	this.hardshell = false;
+	this.dead = false;
+	this.throwSwitch = false;
+	this.watchedElements = [];
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
@@ -137,24 +139,26 @@ function StaplerDude(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("stapler")],
 			"frames": {
-				"width": 15, "height": 5, "count": 1
+				"width": 15,
+				"height": 5,
+				"count": 1
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0],
-					"next" : "shot"
+					"frames": [0],
+					"next": "shot"
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 4;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 4;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 13;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 13;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);

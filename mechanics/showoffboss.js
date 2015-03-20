@@ -8,22 +8,24 @@ function initShowOffBossScreen(bossnumber) {
 	var wastemanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("wastemanframe")],
 		"frames": {
-			"width": 24, "height": 24, "count": 2
+			"width": 24,
+			"height": 24,
+			"count": 2
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "breathout",
-				"speed" : 0.01
+				"frames": [0],
+				"next": "breathout",
+				"speed": 0.01
 			},
-			"breathout" : {
-				"frames" : [1],
-				"next" : "frame",
-				"speed" : 0.09
+			"breathout": {
+				"frames": [1],
+				"next": "frame",
+				"speed": 0.09
 			},
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -31,12 +33,14 @@ function initShowOffBossScreen(bossnumber) {
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("accountingmanframe")],
 		"frames": {
-			"width": 20, "height": 24, "count": 1
+			"width": 20,
+			"height": 24,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -44,12 +48,14 @@ function initShowOffBossScreen(bossnumber) {
 	var HRmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("hrmanframe")],
 		"frames": {
-			"width": 19, "height": 26, "count": 1
+			"width": 19,
+			"height": 26,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -57,12 +63,14 @@ function initShowOffBossScreen(bossnumber) {
 	var ITmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("itmanframe")],
 		"frames": {
-			"width": 24, "height": 27, "count": 1
+			"width": 24,
+			"height": 27,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -70,12 +78,14 @@ function initShowOffBossScreen(bossnumber) {
 	var salesManFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("salesmanframe")],
 		"frames": {
-			"width": 30, "height": 29, "count": 1
+			"width": 30,
+			"height": 29,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -83,12 +93,14 @@ function initShowOffBossScreen(bossnumber) {
 	var warehousemanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("warehousemanframe")],
 		"frames": {
-			"width": 20, "height": 24, "count": 1
+			"width": 20,
+			"height": 24,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -96,12 +108,14 @@ function initShowOffBossScreen(bossnumber) {
 	var materialmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("materialmanframe")],
 		"frames": {
-			"width": 30, "height": 30, "count": 1
+			"width": 30,
+			"height": 30,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -109,12 +123,14 @@ function initShowOffBossScreen(bossnumber) {
 	var visionarymanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("visionarymanframe")],
 		"frames": {
-			"width": 20, "height": 24, "count": 1
+			"width": 20,
+			"height": 24,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	});
@@ -159,9 +175,9 @@ function initShowOffBossScreen(bossnumber) {
 
 	gamezoom = zoomAmount;
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
-	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
+	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1 / 3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
-	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+	document.getElementById("gamecanvas").style.MozTransform = "scale(" + zoomAmount + ")";
 	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 	gamestage.canvas.style.backgroundColor = "#FFF";
 	gamestage.addChild(altstage);
@@ -189,10 +205,11 @@ function initShowOffBossScreen(bossnumber) {
 
 var bossShowOffScreenShape;
 var bossShowOffScreenShape2;
+
 function handleShowOffBossScreenTick(event) {
 
-	document.getElementById("gamecanvas").removeEventListener('touchstart', function () {}, false);
-	document.getElementById("gamecanvas").removeEventListener('click', function () {}, false);
+	document.getElementById("gamecanvas").removeEventListener('touchstart', function() {}, false);
+	document.getElementById("gamecanvas").removeEventListener('click', function() {}, false);
 	if (showOffBossScreenCounter < 0) {
 		initVars();
 
@@ -253,22 +270,24 @@ function handleShowOffBossScreenTick(event) {
 		var wastemanFrameSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("wastemanframe")],
 			"frames": {
-				"width": 24, "height": 24, "count": 2
+				"width": 24,
+				"height": 24,
+				"count": 2
 			},
 			"animations": {
 				"frame": {
-					"frames" : [0],
-					"next" : "breathout",
-					"speed" : 0.01
+					"frames": [0],
+					"next": "breathout",
+					"speed": 0.01
 				},
-				"breathout" : {
-					"frames" : [1],
-					"next" : "frame",
-					"speed" : 0.09
+				"breathout": {
+					"frames": [1],
+					"next": "frame",
+					"speed": 0.09
 				},
 				"still": {
-					"frames" : [0],
-					"next" : "still"
+					"frames": [0],
+					"next": "still"
 				}
 			}
 		});
@@ -276,12 +295,14 @@ function handleShowOffBossScreenTick(event) {
 		var accountingmanSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("accountingmanframe")],
 			"frames": {
-				"width": 20, "height": 24, "count": 1
+				"width": 20,
+				"height": 24,
+				"count": 1
 			},
 			"animations": {
 				"still": {
-					"frames" : [0],
-					"next" : "still"
+					"frames": [0],
+					"next": "still"
 				}
 			}
 		});
@@ -289,12 +310,14 @@ function handleShowOffBossScreenTick(event) {
 		var warehousemanSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("warehousemanframe")],
 			"frames": {
-				"width": 20, "height": 24, "count": 1
+				"width": 20,
+				"height": 24,
+				"count": 1
 			},
 			"animations": {
 				"still": {
-					"frames" : [0],
-					"next" : "still"
+					"frames": [0],
+					"next": "still"
 				}
 			}
 		});
@@ -302,12 +325,14 @@ function handleShowOffBossScreenTick(event) {
 		var materialmanFrameSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("materialmanframe")],
 			"frames": {
-				"width": 30, "height": 30, "count": 1
+				"width": 30,
+				"height": 30,
+				"count": 1
 			},
 			"animations": {
 				"still": {
-					"frames" : [0],
-					"next" : "still"
+					"frames": [0],
+					"next": "still"
 				}
 			}
 		});
@@ -315,12 +340,14 @@ function handleShowOffBossScreenTick(event) {
 		var visionarymanFrameSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("visionarymanframe")],
 			"frames": {
-				"width": 20, "height": 24, "count": 1
+				"width": 20,
+				"height": 24,
+				"count": 1
 			},
 			"animations": {
 				"still": {
-					"frames" : [0],
-					"next" : "still"
+					"frames": [0],
+					"next": "still"
 				}
 			}
 		});
@@ -328,12 +355,14 @@ function handleShowOffBossScreenTick(event) {
 		var HRmanFrameSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("hrmanframe")],
 			"frames": {
-				"width": 19, "height": 26, "count": 1
+				"width": 19,
+				"height": 26,
+				"count": 1
 			},
 			"animations": {
 				"still": {
-					"frames" : [0],
-					"next" : "still"
+					"frames": [0],
+					"next": "still"
 				}
 			}
 		});
@@ -341,12 +370,14 @@ function handleShowOffBossScreenTick(event) {
 		var ITmanFrameSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("itmanframe")],
 			"frames": {
-				"width": 24, "height": 27, "count": 1
+				"width": 24,
+				"height": 27,
+				"count": 1
 			},
 			"animations": {
 				"still": {
-					"frames" : [0],
-					"next" : "still"
+					"frames": [0],
+					"next": "still"
 				}
 			}
 		});
@@ -354,12 +385,14 @@ function handleShowOffBossScreenTick(event) {
 		var salesManFrameSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("salesmanframe")],
 			"frames": {
-				"width": 30, "height": 29, "count": 1
+				"width": 30,
+				"height": 29,
+				"count": 1
 			},
 			"animations": {
 				"still": {
-					"frames" : [0],
-					"next" : "still"
+					"frames": [0],
+					"next": "still"
 				}
 			}
 		});

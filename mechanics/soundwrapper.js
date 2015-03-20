@@ -27,21 +27,31 @@ createjs.Sound.registerSound("songs/visionaryman_small.mp3", "visionarymansong")
 loader.installPlugin(createjs.SoundJS);
 
 function playSound(sound) {
-	if (soundOff) { return; }
+	if (soundOff) {
+		return;
+	}
 	var fx = createjs.Sound.play(sound);
 	fx.volume = 0.4;
 }
 
 function playSoundTwice(sound) {
-	if (soundOff) { return; }
-	var loop = createjs.Sound.play(sound, {loop:1});
+	if (soundOff) {
+		return;
+	}
+	var loop = createjs.Sound.play(sound, {
+		loop: 1
+	});
 	loop.volume = 0.4;
 }
 
 function playSoundLoop(sound) {
-	if (musicOff || soundOff) { return; }
+	if (musicOff || soundOff) {
+		return;
+	}
 
-	var loop = createjs.Sound.play(sound, {loop:-1});
+	var loop = createjs.Sound.play(sound, {
+		loop: -1
+	});
 	loop.volume = 0.25;
 }
 

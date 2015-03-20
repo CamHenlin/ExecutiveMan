@@ -1,7 +1,14 @@
 function TileCollisionDetector() {
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
 
-		var moves = { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false, nextmapup : false };
+		var moves = {
+			leftmove: true,
+			downmove: true,
+			rightmove: true,
+			upmove: true,
+			nextmap: false,
+			nextmapup: false
+		};
 		var tilesize = 16; // this is used as width and height!
 
 		try {
@@ -126,7 +133,14 @@ function TileCollisionDetector() {
 				moves.upmove = false;
 			}
 		} catch (error) {
-			moves = { leftmove : false, downmove : false, rightmove : false, upmove : false, nextmap : true, nextmapup : false };
+			moves = {
+				leftmove: false,
+				downmove: false,
+				rightmove: false,
+				upmove: false,
+				nextmap: true,
+				nextmapup: false
+			};
 		}
 
 		return moves;
@@ -134,7 +148,14 @@ function TileCollisionDetector() {
 
 	this.checkDownCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
 
-		var moves = { leftmove : true, downmove : true, rightmove : true, upmove : true, nextmap : false, nextmapup : false };
+		var moves = {
+			leftmove: true,
+			downmove: true,
+			rightmove: true,
+			upmove: true,
+			nextmap: false,
+			nextmapup: false
+		};
 		var tilesize = 16; // this is used as width and height!
 
 		try {
@@ -168,7 +189,14 @@ function TileCollisionDetector() {
 				moves.downmove = false;
 			}
 		} catch (error) {
-			moves = { leftmove : false, downmove : false, rightmove : false, upmove : false, nextmap : true, nextmapup : false };
+			moves = {
+				leftmove: false,
+				downmove: false,
+				rightmove: false,
+				upmove: false,
+				nextmap: true,
+				nextmapup: false
+			};
 		}
 
 		return moves;

@@ -3,29 +3,31 @@ function ExtraLife(stage, x, y, basicCollision) {
 	var extraLifeSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("extralife")],
 		"frames": {
-			"width": 12, "height": 13, "count": 1
+			"width": 12,
+			"height": 13,
+			"count": 1
 		},
 		"animations": {
 			"blink": {
-				"frames" : [0],
-				"next" : "blink"
+				"frames": [0],
+				"next": "blink"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(extraLifeSpriteSheet, "blink");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.damage           = 0;
-	this.health           = 1;
-	this.basicCollision   = basicCollision;
-	this.hardshell        = false;
-	this.movementTicks    = 0;
-	this.watchedElements  = [];
+	this.stage = stage;
+	this.animations = new createjs.Sprite(extraLifeSpriteSheet, "blink");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.damage = 0;
+	this.health = 1;
+	this.basicCollision = basicCollision;
+	this.hardshell = false;
+	this.movementTicks = 0;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset;
 	this.animations.y = this.y;
 

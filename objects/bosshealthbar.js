@@ -1,10 +1,10 @@
 var BossHealthBar = function(stage, boss) {
-	this.maxheight  = 14 * 4 + 1; // 28 bars taking 2px each vertically
-	this.stage      = stage;
-	this.boss       = boss;
-	this.bars       = 28;
-	this.x          = renderer.gamestage.canvas.width - 36;
-	this.y          = 48; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
+	this.maxheight = 14 * 4 + 1; // 28 bars taking 2px each vertically
+	this.stage = stage;
+	this.boss = boss;
+	this.bars = 28;
+	this.x = renderer.gamestage.canvas.width - 36;
+	this.y = 48; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
 
 	this.tickActions = function() {

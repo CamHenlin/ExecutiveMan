@@ -3,32 +3,34 @@ function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuratio
 	var disappearingPlatformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("platform")],
 		"frames": {
-			"width": 16, "height": 16, "count": 1
+			"width": 16,
+			"height": 16,
+			"count": 1
 		},
 		"animations": {
 			"still": {
-				"frames" : [0],
-				"next" : "still"
+				"frames": [0],
+				"next": "still"
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.damage           = 0;
-	this.basicCollision   = basicCollision;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(disappearingPlatformSpriteSheet, "still");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);// - 32;
-	this.y                = y;
-	this.startTimer       = startTimer;
-	this.onDuration       = onDuration;
-	this.offDuration      = offDuration;
-	this.started          = false;
-	this.timer            = 0;
-	this.activated        = false;
-	this.hardshell        = true;
-	this.goingup          = false;
-	this.goingright       = false;
-	this.watchedElements  = [];
+	this.damage = 0;
+	this.basicCollision = basicCollision;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(disappearingPlatformSpriteSheet, "still");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.y = y;
+	this.startTimer = startTimer;
+	this.onDuration = onDuration;
+	this.offDuration = offDuration;
+	this.started = false;
+	this.timer = 0;
+	this.activated = false;
+	this.hardshell = true;
+	this.goingup = false;
+	this.goingright = false;
+	this.watchedElements = [];
 	this.animations.x = this.x - renderer.completedMapsWidthOffset - parseInt(renderer.mapData.properties.stitchx);
 	this.animations.y = this.y;
 

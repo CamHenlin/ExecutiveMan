@@ -22,7 +22,10 @@ function Dialog(text, x, y, image, top) {
 	};
 
 	this.animations = {};
-	this.animations.spriteSheet = { _frameWidth: 32, _frameHeight: 128 };
+	this.animations.spriteSheet = {
+		_frameWidth: 32,
+		_frameHeight: 128
+	};
 	this.targetText = text;
 	this.currentText = "";
 	this.dialogTicks = 0;
@@ -59,12 +62,14 @@ function Dialog(text, x, y, image, top) {
 		var imageSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult(image)],
 			"frames": {
-				"width": 24, "height": 24, "count": 1
+				"width": 24,
+				"height": 24,
+				"count": 1
 			},
 			"animations": {
 				"exist": {
-					"frames" : [0],
-					"next" : "exist"
+					"frames": [0],
+					"next": "exist"
 				}
 			}
 		});
@@ -151,7 +156,7 @@ function Dialog(text, x, y, image, top) {
 		document.addEventListener('keydown', this.dialogKeyDownHandler.bind(this), false);
 	};
 
-	this.dialogKeyDownHandler = function (event) {
+	this.dialogKeyDownHandler = function(event) {
 		if (!dialogUp) {
 			return;
 		}

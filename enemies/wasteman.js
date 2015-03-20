@@ -3,68 +3,70 @@ function WasteMan(stage, basicCollision, x, y) {
 	var wasteManSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("wasteman")],
 		"frames": {
-			"width": 26, "height": 28, "count": 9
+			"width": 26,
+			"height": 28,
+			"count": 9
 		},
 		"animations": {
 			"stand": {
-				"frames" : [0],
-				"next" : "stand"
+				"frames": [0],
+				"next": "stand"
 			},
 			"defy": {
-				"frames" : [7],
-				"next" : "defy"
+				"frames": [7],
+				"next": "defy"
 			},
-			"jump" : {
-				"frames" : [8],
-				"next" : "jump"
+			"jump": {
+				"frames": [8],
+				"next": "jump"
 			},
-			"run" : {
-				"frames" : [4, 5, 6, 5],
-				"next" : "run",
-				"speed" : 0.09
+			"run": {
+				"frames": [4, 5, 6, 5],
+				"next": "run",
+				"speed": 0.09
 			},
-			"shoot" : {
-				"frames" : [1, 2],
-				"next" : "defy",
-				"speed" : 0.0625
+			"shoot": {
+				"frames": [1, 2],
+				"next": "defy",
+				"speed": 0.0625
 			},
-			"longshoot" : {
-				"frames" : [1, 2],
-				"next" : "longshoot",
-				"speed" : 0.0625
+			"longshoot": {
+				"frames": [1, 2],
+				"next": "longshoot",
+				"speed": 0.0625
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.health           = 28;
-	this.lasthealth       = 28;
-	this.damage           = 3;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(wasteManSpriteSheet, "stand");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.xSpeed           = 0;
-	this.activated        = false;
-	this.jumping          = false;
-	this.runningLeft      = false;
-	this.runTicker        = 100;
-	this.runningRight     = false;
-	this.xspeed           = 0;
-	this.yspeed           = 0;
-	this.masterShotTicks  = 0;
-	this.shootTicks       = 100;
-	this.jumpspeed        = 0;
-	this.jumpTicks        = 0;
-	this.hardshell        = false;
-	this.lastRunDirLeft   = false;
-	this.lastRunDirRight  = false;
-	this.dead             = false;
-	this.ignoreDamage     = false;
-	this.healthbar        = new BossHealthBar(gamestage, this);
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.health = 28;
+	this.lasthealth = 28;
+	this.damage = 3;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(wasteManSpriteSheet, "stand");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.xSpeed = 0;
+	this.activated = false;
+	this.jumping = false;
+	this.runningLeft = false;
+	this.runTicker = 100;
+	this.runningRight = false;
+	this.xspeed = 0;
+	this.yspeed = 0;
+	this.masterShotTicks = 0;
+	this.shootTicks = 100;
+	this.jumpspeed = 0;
+	this.jumpTicks = 0;
+	this.hardshell = false;
+	this.lastRunDirLeft = false;
+	this.lastRunDirRight = false;
+	this.dead = false;
+	this.ignoreDamage = false;
+	this.healthbar = new BossHealthBar(gamestage, this);
+	this.watchedElements = [];
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
@@ -208,8 +210,8 @@ function WasteMan(stage, basicCollision, x, y) {
 
 		// figure out if we can shoot or not
 		if (distanceFromPlayer < 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is left!
-		    //console.log("player is left");
-		    this.lastRunDirRight = false;                                                                                     // ''
+			//console.log("player is left");
+			this.lastRunDirRight = false; // ''
 			this.runningLeft = true;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningLeft && collisionResults.left) {
@@ -232,7 +234,7 @@ function WasteMan(stage, basicCollision, x, y) {
 		} else if (distanceFromPlayer > 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is right!
 			//console.log("player is right");
 			this.runningRight = true;
-		    this.lastRunDirLeft = false;
+			this.lastRunDirLeft = false;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningRight && collisionResults.right) {
 			this.x += (this.health < 14) ? 1.9 : 1.5; // faster than executiveman!
@@ -277,7 +279,7 @@ function WasteMan(stage, basicCollision, x, y) {
 				this.animations.scaleX = 1;
 				this.animations.regX = 0;
 			} else {
-				this.animations.scaleX  = -1;
+				this.animations.scaleX = -1;
 				this.animations.regX = this.animations.spriteSheet._frameWidth;
 			}
 		}
@@ -297,8 +299,8 @@ function WasteMan(stage, basicCollision, x, y) {
 
 	this.launchMasterShot = function() {
 		for (var i = 0; i < 4; i++) {
-			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight()/ 4) * i, 1, this));
-			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight()/ 4) * i, -1, this));
+			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight() / 4) * i, 1, this));
+			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight() / 4) * i, -1, this));
 		}
 	};
 
@@ -306,31 +308,33 @@ function WasteMan(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("wastemanshot")],
 			"frames": {
-				"width": 10, "height": 10, "count": 2
+				"width": 10,
+				"height": 10,
+				"count": 2
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0, 1],
-					"next" : "shot",
-					"speed" : 0.25
+					"frames": [0, 1],
+					"next": "shot",
+					"speed": 0.25
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 6;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 6;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
 		if (!owner.masterShot) {
 			this.animations.scaleX = -owner.animations.scaleX;
-	    } else {
+		} else {
 			this.animations.scaleX = -direction;
-	    }
+		}
 		this.animations.regX = (this.animations.scaleX === -1) ? this.animations.spriteSheet._frameWidth : 0;
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 11;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 11;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
@@ -368,23 +372,25 @@ function WasteMan(stage, basicCollision, x, y) {
 		var shotDownSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("wastemanshotdown")],
 			"frames": {
-				"width": 10, "height": 10, "count": 2
+				"width": 10,
+				"height": 10,
+				"count": 2
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0, 1],
-					"next" : "shot",
-					"speed" : 0.25
+					"frames": [0, 1],
+					"next": "shot",
+					"speed": 0.25
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 5;
+		this.stage = stage;
+		this.damage = 5;
 		this.animations = new createjs.Sprite(shotDownSpriteSheet, "shot");
-		this.x          = x;
-		this.y          = -50;
-		this.disabled   = false;
+		this.x = x;
+		this.y = -50;
+		this.disabled = false;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);

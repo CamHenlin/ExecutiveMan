@@ -3,40 +3,42 @@ function KillCopy(stage, basicCollision, x, y) {
 	var killCopySpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("killcopy")],
 		"frames": {
-			"width": 144, "height": 128, "count": 5
+			"width": 144,
+			"height": 128,
+			"count": 5
 		},
 		"animations": {
 			"sit": {
-				"frames" : [0],
-				"next" : "sit"
+				"frames": [0],
+				"next": "sit"
 			},
-			"shoot" : {
-				"frames" : [1, 2, 3, 4],
-				"next" : "shoot",
-				"speed" : 0.75
+			"shoot": {
+				"frames": [1, 2, 3, 4],
+				"next": "shoot",
+				"speed": 0.75
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
 
-	this.basicCollision   = basicCollision;
-	this.damage           = 4;
-	this.health           = 72;
-	this.stage            = stage;
-	this.animations       = new createjs.Sprite(killCopySpriteSheet, "sit");
-	this.x                = x + parseInt(renderer.mapData.properties.stitchx);
-	this.y                = y;
-	this.animations.x     = x - renderer.completedMapsWidthOffset;
-	this.animations.y     = y;
-	this.activated        = false;
-	this.jumping          = false;
-	this.jumpspeed        = 0;
-	this.shootTicks       = 120;
-	this.dead             = false;
-	this.subShootTicks    = 0;
-	this.shotCounter      = 0;
-	this.hardshell        = false;
-	this.dead             = false;
-	this.watchedElements  = [];
+	this.basicCollision = basicCollision;
+	this.damage = 4;
+	this.health = 72;
+	this.stage = stage;
+	this.animations = new createjs.Sprite(killCopySpriteSheet, "sit");
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
+	this.y = y;
+	this.animations.x = x - renderer.completedMapsWidthOffset;
+	this.animations.y = y;
+	this.activated = false;
+	this.jumping = false;
+	this.jumpspeed = 0;
+	this.shootTicks = 120;
+	this.dead = false;
+	this.subShootTicks = 0;
+	this.shotCounter = 0;
+	this.hardshell = false;
+	this.dead = false;
+	this.watchedElements = [];
 
 	this.animations.play();
 	this.stage.addChild(this.animations);
@@ -265,26 +267,28 @@ function KillCopy(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("papershot")],
 			"frames": {
-				"width": 24, "height": 24, "count": 4
+				"width": 24,
+				"height": 24,
+				"count": 4
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0, 1, 2, 3],
-					"next" : "shot",
-					"speed" : 0.5
+					"frames": [0, 1, 2, 3],
+					"next": "shot",
+					"speed": 0.5
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 4;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 4;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 1;
-		this.ySpeed     = 6.75;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 1;
+		this.ySpeed = 6.75;
+		this.disabled = false;
+		this.owner = owner;
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
@@ -322,26 +326,28 @@ function KillCopy(stage, basicCollision, x, y) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("papershot")],
 			"frames": {
-				"width": 24, "height": 24, "count": 4
+				"width": 24,
+				"height": 24,
+				"count": 4
 			},
 			"animations": {
 				"shot": {
-					"frames" : [0, 1, 2, 3],
-					"next" : "shot",
-					"speed" : 0.5
+					"frames": [0, 1, 2, 3],
+					"next": "shot",
+					"speed": 0.5
 				}
 			}
 		});
 
-		this.stage      = stage;
-		this.damage     = 4;
-		this.direction  = direction;
+		this.stage = stage;
+		this.damage = 4;
+		this.direction = direction;
 		this.animations = new createjs.Sprite(shotSpriteSheet, "shot");
-		this.x          = x + ((this.direction === 1) ? 16 : -2);
-		this.y          = y + 21;
-		this.ySpeed     = 2.5;
-		this.disabled   = false;
-		this.owner      = owner;
+		this.x = x + ((this.direction === 1) ? 16 : -2);
+		this.y = y + 21;
+		this.ySpeed = 2.5;
+		this.disabled = false;
+		this.owner = owner;
 		this.animations.play();
 		this.stage.addChild(this.animations);
 		this.x = this.x + (5 * this.direction) * lowFramerate;

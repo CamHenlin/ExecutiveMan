@@ -1,5 +1,6 @@
 var mainMenuScreenUp = false;
 var selectionNumber = 0;
+
 function initMainMenuScreen() {
 	var MAX_SELECTIONS = 2;
 	document.getElementById("controlcanvas").style.zIndex = "0";
@@ -8,12 +9,14 @@ function initMainMenuScreen() {
 	var executivemanTopperSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("execmanlogo")],
 		"frames": {
-			"width": 268, "height": 85, "count": 1
+			"width": 268,
+			"height": 85,
+			"count": 1
 		},
 		"animations": {
 			"frame": {
-				"frames" : [0],
-				"next" : "frame"
+				"frames": [0],
+				"next": "frame"
 			}
 		}
 	});
@@ -29,9 +32,9 @@ function initMainMenuScreen() {
 	startbossscreen = false;
 	gamezoom = zoomAmount;
 	gamestage.canvas.height = window.innerHeight / zoomAmount;
-	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1/3.4);
+	gamestage.canvas.width = gamestage.canvas.height + (gamestage.canvas.height * 1 / 3.4);
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
-	document.getElementById("gamecanvas").style.MozTransform = "scale("+zoomAmount+")";
+	document.getElementById("gamecanvas").style.MozTransform = "scale(" + zoomAmount + ")";
 	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(altstage);
@@ -75,7 +78,7 @@ function initMainMenuScreen() {
 	document.onkeydown = mainMenuScreenKeyDownHandler.bind(this);
 }
 
-var mainMenuScreenKeyDownHandler = function (event) {
+var mainMenuScreenKeyDownHandler = function(event) {
 	if (optionsUp || !mainMenuScreenUp) {
 		return;
 	}
@@ -147,12 +150,14 @@ function mainMenuClickHandler(event) {
 	var touchEventSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("beam")],
 		"frames": {
-			"width": 1, "height": 1, "count": 1
+			"width": 1,
+			"height": 1,
+			"count": 1
 		},
 		"animations": {
 			"exist": {
-				"frames" : [0],
-				"next" : "exist"
+				"frames": [0],
+				"next": "exist"
 			}
 		}
 	});

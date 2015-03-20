@@ -396,7 +396,10 @@ function Player(demoMode, demoParams) {
 	if (!demoMode) {
 		this.healthbar = new HealthBar(gamestage, this);
 	} else {
-		this.healthbar = { draw: function() {}, tickActions: function() {} };
+		this.healthbar = {
+			draw: function() {},
+			tickActions: function() {}
+		};
 		//this.x = demoParams.x;
 		this.y = demoParams.y;
 		this.animations.y = demoParams.y;

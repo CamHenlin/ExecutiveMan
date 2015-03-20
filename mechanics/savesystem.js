@@ -1,5 +1,3 @@
-
-
 function saveGame() {
 	localStorage.setItem("score", score);
 	localStorage.setItem("lives", lives);
