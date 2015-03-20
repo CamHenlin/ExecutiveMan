@@ -69,13 +69,7 @@ var loadFiles = [
 	{id: "wasteman", src: "images/wastemanspritesheet.png"},
 	{id: "wastemanframe", src: "images/wastemanframe.png"},
 	{id: "wastemanshot", src: "images/wastemanshot.png"},
-	{id: "wastemanshotdown", src: "images/wastemanshotdown.png"},
-	{id: "slide_five", src: "images/intro/5.png"},
-	{id: "slide_four", src: "images/intro/4.png"},
-	{id: "slide_one", src: "images/intro/1.png"},
-	{id: "slide_six", src: "images/intro/6.png"},
-	{id: "slide_three", src: "images/intro/3.png"},
-	{id: "slide_two", src: "images/intro/2.png"}
+	{id: "wastemanshotdown", src: "images/wastemanshotdown.png"}
 ];
 
 function getParameterByName(name) {
