@@ -152,7 +152,7 @@ function ComputerGuy(stage, basicCollision, x, y) {
 			this.jumpTicks = 160 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
-            this.jumpspeed = -3.875 * lowFramerate;
+			This.jumpspeed = -3.875 * lowFramerate;
 			this.animations.gotoAndPlay("startjump");
 		}
 

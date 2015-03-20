@@ -28,8 +28,8 @@ loader.installPlugin(createjs.SoundJS);
 
 function playSound(sound) {
 	if (soundOff) { return; }
-    var fx = createjs.Sound.play(sound);
-    fx.volume = 0.4;
+	var fx = createjs.Sound.play(sound);
+	fx.volume = 0.4;
 }
 
 function playSoundTwice(sound) {

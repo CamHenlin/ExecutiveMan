@@ -265,7 +265,7 @@ function WasteMan(stage, basicCollision, x, y) {
 			this.jumpTicks = 40 / lowFramerate;
 			this.y -= 2;
 			this.jumping = true;
-            this.jumpspeed = -4.875 * lowFramerate;
+			this.jumpspeed = -4.875 * lowFramerate;
 			this.animations.gotoAndPlay("jump");
 
 			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));

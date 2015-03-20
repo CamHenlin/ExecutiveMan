@@ -1,4 +1,4 @@
-var WeaponBar = function(stage, player) {
+	var WeaponBar = function(stage, player) {
 	this.maxheight  = 14 * 4 + 1; // 28 bars taking 2px each vertically
 	this.stage      = stage;
 	this.bars       = 28;
@@ -20,7 +20,7 @@ var WeaponBar = function(stage, player) {
 		var box = new createjs.Shape();
 		box.graphics.beginFill("#000000").drawRect(this.x, this.y, 8, this.maxheight);
 
-	    this.stage.addChild(box);
+		this.stage.addChild(box);
 
 		for (var i = 0; i < this.barAnimations.length; i++) {
 			this.stage.removeChild(this.barAnimations[i]);
@@ -37,5 +37,5 @@ var WeaponBar = function(stage, player) {
 		}
 	};
 
-    this.draw();
+	this.draw();
 };
