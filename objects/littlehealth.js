@@ -1,3 +1,10 @@
+/**
+ * [LittleHealth description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ * @param {[type]} basicCollision [description]
+ */
 function LittleHealth(stage, x, y, basicCollision) {
 
 	var littleHealthSpriteSheet = new createjs.SpriteSheet({

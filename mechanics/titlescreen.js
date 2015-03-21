@@ -1,3 +1,7 @@
+/**
+ * [initTitleScreen description]
+ * @return {[type]} [description]
+ */
 function initTitleScreen() {
 	playSoundLoop("title");
 	var oneSpriteSheet = new createjs.SpriteSheet({
@@ -56,6 +60,10 @@ function initTitleScreen() {
 	stage.addChild(titleSreenSprite);
 }
 
+/**
+ * [startScreenListener description]
+ * @return {[type]} [description]
+ */
 function startScreenListener() {
 	console.log('click');
 	startgame = true;
@@ -74,6 +82,11 @@ if (getParameterByName('camh')) {
 	stopMusic();
 }
 
+/**
+ * [handleStartScreenTick description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function handleStartScreenTick(event) {
 	if (startscreenTickCounter > 0) {
 		startscreenTickCounter--;

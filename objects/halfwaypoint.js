@@ -1,5 +1,11 @@
 var halfwayPointReached = false;
 
+/**
+ * [HalfwayPoint description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ */
 function HalfwayPoint(stage, basicCollision, x) {
 
 	var droppingPlatformSpriteSheet = new createjs.SpriteSheet({

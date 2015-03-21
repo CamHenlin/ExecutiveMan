@@ -1,3 +1,10 @@
+/**
+ * [Door description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function Door(stage, basicCollision, x, y) {
 
 	var doorSpriteSheet = new createjs.SpriteSheet({

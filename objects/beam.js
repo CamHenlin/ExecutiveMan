@@ -1,3 +1,12 @@
+/**
+ * [Beam description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ * @param {[type]} xspeed         [description]
+ * @param {[type]} yspeed         [description]
+ */
 function Beam(stage, basicCollision, x, y, xspeed, yspeed) {
 	var platformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("beam")],

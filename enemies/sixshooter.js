@@ -1,3 +1,9 @@
+/**
+ * [SixShooter description]
+ * @param {[type]} stage [description]
+ * @param {[type]} x     [description]
+ * @param {[type]} y     [description]
+ */
 function SixShooter(stage, x, y) {
 
 	var sixShooterSpriteSheet = new createjs.SpriteSheet({

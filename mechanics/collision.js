@@ -1,3 +1,6 @@
+/**
+ * [TileCollisionDetector description]
+ */
 function TileCollisionDetector() {
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
 

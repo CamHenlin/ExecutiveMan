@@ -1,3 +1,8 @@
+/**
+ * [Player description]
+ * @param {[type]} demoMode   [description]
+ * @param {[type]} demoParams [description]
+ */
 function Player(demoMode, demoParams) {
 	var StingingAuditShot = function(player, renderer) {
 		var shotSpriteSheet = new createjs.SpriteSheet({

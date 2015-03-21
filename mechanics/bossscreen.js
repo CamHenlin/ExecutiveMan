@@ -1,5 +1,9 @@
 var bossScreenUp = false;
 
+/**
+ * [initBossScreen description]
+ * @return {[type]} [description]
+ */
 function initBossScreen() {
 	document.getElementById("controlcanvas").style.zIndex = "0";
 	stopMusic();

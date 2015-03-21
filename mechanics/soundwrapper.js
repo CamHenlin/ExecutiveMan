@@ -26,6 +26,11 @@ createjs.Sound.registerSound("songs/visionaryman_small.mp3", "visionarymansong")
 
 loader.installPlugin(createjs.SoundJS);
 
+/**
+ * [playSound description]
+ * @param  {[type]} sound [description]
+ * @return {[type]}       [description]
+ */
 function playSound(sound) {
 	if (soundOff) {
 		return;
@@ -34,6 +39,11 @@ function playSound(sound) {
 	fx.volume = 0.4;
 }
 
+/**
+ * [playSoundTwice description]
+ * @param  {[type]} sound [description]
+ * @return {[type]}       [description]
+ */
 function playSoundTwice(sound) {
 	if (soundOff) {
 		return;
@@ -44,6 +54,11 @@ function playSoundTwice(sound) {
 	loop.volume = 0.4;
 }
 
+/**
+ * [playSoundLoop description]
+ * @param  {[type]} sound [description]
+ * @return {[type]}       [description]
+ */
 function playSoundLoop(sound) {
 	if (musicOff || soundOff) {
 		return;
@@ -55,6 +70,10 @@ function playSoundLoop(sound) {
 	loop.volume = 0.25;
 }
 
+/**
+ * [stopMusic description]
+ * @return {[type]} [description]
+ */
 function stopMusic() {
 	createjs.Sound.stop();
 }

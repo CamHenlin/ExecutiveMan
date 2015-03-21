@@ -1,3 +1,10 @@
+/**
+ * [HealthBriefCase description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ * @param {[type]} basicCollision [description]
+ */
 function HealthBriefCase(stage, x, y, basicCollision) {
 
 	var healthBriefCaseSpriteSheet = new createjs.SpriteSheet({

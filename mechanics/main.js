@@ -213,6 +213,11 @@ var loadFiles = [{
 	src: "images/wastemanshotdown.png"
 }];
 
+/**
+ * [getParameterByName description]
+ * @param  {[type]} name [description]
+ * @return {[type]}      [description]
+ */
 function getParameterByName(name) {
 	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -228,6 +233,10 @@ window.mobilecheck = function() {
 	return check;
 };
 
+/**
+ * [handleComplete description]
+ * @return {[type]} [description]
+ */
 function handleComplete() {
 	init();
 }
@@ -317,10 +326,19 @@ executivemanLoadingText.x = (gamestage.canvas.width / 2) - 90;
 executivemanLoadingText.y = 100;
 gamestage.addChild(executivemanLoadingText);
 
+/**
+ * [handleProgress description]
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
 var handleProgress = function(e) {
 	loadProgress = e.progress;
 }
 
+/**
+ * [loadTick description]
+ * @return {[type]} [description]
+ */
 var loadTick = function() {
 	if (loadProgress === 1) {
 		createjs.Ticker.removeEventListener("tick", loadTick);
@@ -342,6 +360,10 @@ if (window.mobilecheck()) {
 	mobile = true;
 }
 
+/**
+ * [init description]
+ * @return {[type]} [description]
+ */
 function init() {
 	initVars();
 	if (getParameterByName('level') === "0") {
@@ -356,6 +378,10 @@ function init() {
 	}
 }
 
+/**
+ * [initVars description]
+ * @return {[type]} [description]
+ */
 function initVars() {
 	stage = new createjs.Container();
 	gamestage = new createjs.Stage("gamecanvas");
@@ -378,6 +404,12 @@ window.onresize = function(event) {
 	initTouchControls();
 };
 
+/**
+ * [beginGame description]
+ * @param  {[type]} newGame  [description]
+ * @param  {[type]} demoMode [description]
+ * @return {[type]}          [description]
+ */
 function beginGame(newGame, demoMode) {
 	if (demoMode) {
 		isDemo = true;

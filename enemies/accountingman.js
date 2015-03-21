@@ -1,3 +1,10 @@
+/**
+ * [AccountingMan description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function AccountingMan(stage, basicCollision, x, y) {
 
 	var accountingManSpriteSheet = new createjs.SpriteSheet({

@@ -1,3 +1,9 @@
+/**
+ * [fastCollision description]
+ * @param  {[type]} object1 [description]
+ * @param  {[type]} object2 [description]
+ * @return {[type]}         [description]
+ */
 function fastCollision(object1, object2) {
 	var obj1 = object1.animations;
 	var obj2 = object2.animations;
@@ -10,6 +16,12 @@ function fastCollision(object1, object2) {
 	);
 }
 
+/**
+ * [fastCollisionX description]
+ * @param  {[type]} object1 [description]
+ * @param  {[type]} object2 [description]
+ * @return {[type]}         [description]
+ */
 function fastCollisionX(object1, object2) {
 	var obj1 = object1.animations;
 	var obj2 = object2.animations;
@@ -22,6 +34,12 @@ function fastCollisionX(object1, object2) {
 	);
 }
 
+/**
+ * [fastCollisionKillCopy description]
+ * @param  {[type]} object1 [description]
+ * @param  {[type]} object2 [description]
+ * @return {[type]}         [description]
+ */
 function fastCollisionKillCopy(object1, object2) {
 	var obj1 = object1.animations;
 	var obj2 = object2.animations;
@@ -34,6 +52,12 @@ function fastCollisionKillCopy(object1, object2) {
 	);
 }
 
+/**
+ * [fastCollisionPhone description]
+ * @param  {[type]} object1 [description]
+ * @param  {[type]} object2 [description]
+ * @return {[type]}         [description]
+ */
 function fastCollisionPhone(object1, object2) {
 	var obj1 = object1.animations;
 	var obj2 = object2.animations;
@@ -46,7 +70,12 @@ function fastCollisionPhone(object1, object2) {
 	);
 }
 
-
+/**
+ * [fastCollisionPlayer description]
+ * @param  {[type]} obj1 [description]
+ * @param  {[type]} obj2 [description]
+ * @return {[type]}      [description]
+ */
 function fastCollisionPlayer(obj1, obj2) {
 
 	return !(
@@ -57,6 +86,12 @@ function fastCollisionPlayer(obj1, obj2) {
 	);
 }
 
+/**
+ * [fastCollisionPlayerLoose description]
+ * @param  {[type]} obj1 [description]
+ * @param  {[type]} obj2 [description]
+ * @return {[type]}      [description]
+ */
 function fastCollisionPlayerLoose(obj1, obj2) {
 
 	return !(
@@ -67,6 +102,12 @@ function fastCollisionPlayerLoose(obj1, obj2) {
 	);
 }
 
+/**
+ * [fastCollisionPlatform description]
+ * @param  {[type]} obj1 [description]
+ * @param  {[type]} obj2 [description]
+ * @return {[type]}      [description]
+ */
 function fastCollisionPlatform(obj1, obj2) {
 
 	return !(
@@ -77,6 +118,12 @@ function fastCollisionPlatform(obj1, obj2) {
 	);
 }
 
+/**
+ * [fastInitialCollisionPlatform description]
+ * @param  {[type]} obj1 [description]
+ * @param  {[type]} obj2 [description]
+ * @return {[type]}      [description]
+ */
 function fastInitialCollisionPlatform(obj1, obj2) {
 
 	return !(
@@ -87,6 +134,12 @@ function fastInitialCollisionPlatform(obj1, obj2) {
 	);
 }
 
+/**
+ * [fastCollisionSprite description]
+ * @param  {[type]} obj1 [description]
+ * @param  {[type]} obj2 [description]
+ * @return {[type]}      [description]
+ */
 function fastCollisionSprite(obj1, obj2) {
 	return !(
 		obj1.y + obj1.spriteSheet._frameHeight < obj2.y ||

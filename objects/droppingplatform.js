@@ -1,3 +1,11 @@
+/**
+ * [DroppingPlatform description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ * @param {[type]} duration       [description]
+ */
 function DroppingPlatform(stage, basicCollision, x, y, duration) {
 
 	var droppingPlatformSpriteSheet = new createjs.SpriteSheet({

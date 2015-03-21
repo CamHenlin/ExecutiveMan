@@ -1,3 +1,10 @@
+/**
+ * [KillCopy description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function KillCopy(stage, basicCollision, x, y) {
 
 	var killCopySpriteSheet = new createjs.SpriteSheet({

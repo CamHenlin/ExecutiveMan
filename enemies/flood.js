@@ -1,3 +1,11 @@
+/**
+ * [Flood description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ * @param {[type]} original       [description]
+ */
 function Flood(stage, basicCollision, x, y, original) {
 
 	var floodSpriteSheet = new createjs.SpriteSheet({

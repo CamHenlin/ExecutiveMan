@@ -1,5 +1,13 @@
 var dialogUp = false;
 
+/**
+ * [Dialog description]
+ * @param {[type]} text  [description]
+ * @param {[type]} x     [description]
+ * @param {[type]} y     [description]
+ * @param {[type]} image [description]
+ * @param {[type]} top   [description]
+ */
 function Dialog(text, x, y, image, top) {
 	//player.stopAllActions();
 	this.triggered = false;

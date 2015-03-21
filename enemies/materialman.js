@@ -1,3 +1,10 @@
+/**
+ * [MaterialMan description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function MaterialMan(stage, basicCollision, x, y) {
 
 	var materialManSpriteShet = new createjs.SpriteSheet({

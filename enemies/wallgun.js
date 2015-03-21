@@ -1,3 +1,10 @@
+/**
+ * [WallGun description]
+ * @param {[type]} stage [description]
+ * @param {[type]} x     [description]
+ * @param {[type]} y     [description]
+ * @param {[type]} left  [description]
+ */
 function WallGun(stage, x, y, left) {
 
 	var wallgunSpriteSheet = new createjs.SpriteSheet({

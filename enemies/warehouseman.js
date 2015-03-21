@@ -1,3 +1,10 @@
+/**
+ * [WarehouseMan description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function WarehouseMan(stage, basicCollision, x, y) {
 
 	var warehouseManSpriteShet = new createjs.SpriteSheet({

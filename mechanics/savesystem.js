@@ -1,3 +1,7 @@
+/**
+ * [saveGame description]
+ * @return {[type]} [description]
+ */
 function saveGame() {
 	localStorage.setItem("score", score);
 	localStorage.setItem("lives", lives);
@@ -10,6 +14,10 @@ function saveGame() {
 	localStorage.setItem("keyCodes", JSON.stringify(keyCodes));
 }
 
+/**
+ * [loadGame description]
+ * @return {[type]} [description]
+ */
 function loadGame() {
 	score = localStorage.getItem("score");
 	lives = localStorage.getItem("lives");

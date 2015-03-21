@@ -1,5 +1,8 @@
 var optionsUp = false;
 
+/**
+ * [OptionsMenu description]
+ */
 function OptionsMenu() {
 	optionsUp = false;
 	this.setKeyLabel = null;

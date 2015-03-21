@@ -1,4 +1,9 @@
-	var WeaponBar = function(stage, player) {
+/**
+ * [WeaponBar description]
+ * @param {[type]} stage  [description]
+ * @param {[type]} player [description]
+ */
+var WeaponBar = function(stage, player) {
 		this.maxheight = 14 * 4 + 1; // 28 bars taking 2px each vertically
 		this.stage = stage;
 		this.bars = 28;

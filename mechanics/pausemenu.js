@@ -1,5 +1,8 @@
 var pauseUp = false;
 
+/**
+ * [PauseMenu description]
+ */
 function PauseMenu() {
 	document.getElementById("controlcanvas").style.zIndex = "0";
 	pauseUp = false;

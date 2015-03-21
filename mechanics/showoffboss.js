@@ -1,3 +1,8 @@
+/**
+ * [initShowOffBossScreen description]
+ * @param  {[type]} bossnumber [description]
+ * @return {[type]}            [description]
+ */
 function initShowOffBossScreen(bossnumber) {
 	console.log("BOSS #" + bossnumber);
 	if (!bossnumber) {

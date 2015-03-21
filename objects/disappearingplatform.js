@@ -1,3 +1,13 @@
+/**
+ * [DisappearingPlatform description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ * @param {[type]} startTimer     [description]
+ * @param {[type]} onDuration     [description]
+ * @param {[type]} offDuration    [description]
+ */
 function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuration, offDuration) {
 
 	var disappearingPlatformSpriteSheet = new createjs.SpriteSheet({

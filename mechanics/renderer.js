@@ -1,5 +1,7 @@
-// var maps = [];
-
+/**
+ * [Renderer description]
+ * @param {[type]} gamestage [description]
+ */
 function Renderer(gamestage) {
 	this.collisionArray = [
 		[],

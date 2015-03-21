@@ -1,3 +1,9 @@
+/**
+ * [Death description]
+ * @param {[type]} stage [description]
+ * @param {[type]} x     [description]
+ * @param {[type]} y     [description]
+ */
 function Death(stage, x, y) {
 
 	var deathSpriteSheet = new createjs.SpriteSheet({

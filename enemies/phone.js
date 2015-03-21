@@ -1,3 +1,10 @@
+/**
+ * [Phone description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function Phone(stage, basicCollision, x, y) {
 
 	var phoneSpriteSheet = new createjs.SpriteSheet({

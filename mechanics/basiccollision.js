@@ -1,3 +1,7 @@
+/**
+ * [BasicCollision description]
+ * @param {[type]} renderer [description]
+ */
 function BasicCollision(renderer) {
 	this.renderer = renderer;
 

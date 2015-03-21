@@ -1,3 +1,9 @@
+/**
+ * [CoffeeCopter description]
+ * @param {[type]} stage [description]
+ * @param {[type]} x     [description]
+ * @param {[type]} y     [description]
+ */
 function CoffeeCopter(stage, x, y) {
 
 	var copterSpriteSheet = new createjs.SpriteSheet({

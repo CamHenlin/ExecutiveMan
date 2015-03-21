@@ -1,3 +1,10 @@
+/**
+ * [ShootyThingy description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function ShootyThingy(stage, basicCollision, x, y) {
 
 	var printerGuySpriteSheet = new createjs.SpriteSheet({

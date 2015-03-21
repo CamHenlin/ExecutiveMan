@@ -1,3 +1,10 @@
+/**
+ * [WasteMan description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function WasteMan(stage, basicCollision, x, y) {
 
 	var wasteManSpriteSheet = new createjs.SpriteSheet({

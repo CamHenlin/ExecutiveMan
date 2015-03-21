@@ -1,6 +1,10 @@
 var mainMenuScreenUp = false;
 var selectionNumber = 0;
 
+/**
+ * [initMainMenuScreen description]
+ * @return {[type]} [description]
+ */
 function initMainMenuScreen() {
 	var MAX_SELECTIONS = 2;
 	document.getElementById("controlcanvas").style.zIndex = "0";

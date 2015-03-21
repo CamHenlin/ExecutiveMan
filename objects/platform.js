@@ -1,3 +1,15 @@
+/**
+ * [Platform description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ * @param {[type]} yrange         [description]
+ * @param {[type]} yduration      [description]
+ * @param {[type]} xrange         [description]
+ * @param {[type]} xduration      [description]
+ * @param {[type]} delay          [description]
+ */
 function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xduration, delay) {
 	var platformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("platform")],

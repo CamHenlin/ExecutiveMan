@@ -1,3 +1,8 @@
+/**
+ * [BossHealthBar description]
+ * @param {[type]} stage [description]
+ * @param {[type]} boss  [description]
+ */
 var BossHealthBar = function(stage, boss) {
 	this.maxheight = 14 * 4 + 1; // 28 bars taking 2px each vertically
 	this.stage = stage;

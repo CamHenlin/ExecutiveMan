@@ -1,5 +1,8 @@
 var shopUp = false;
 
+/**
+ * [ShopMenu description]
+ */
 function ShopMenu() {
 	shopUp = false;
 	shopstage = new createjs.Container();

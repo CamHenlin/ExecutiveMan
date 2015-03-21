@@ -1,3 +1,10 @@
+/**
+ * [AnnoyingThing description]
+ * @param {[type]} stage          [description]
+ * @param {[type]} basicCollision [description]
+ * @param {[type]} x              [description]
+ * @param {[type]} y              [description]
+ */
 function AnnoyingThing(stage, basicCollision, x, y) {
 
 	var annoyingthingSpriteSheet = new createjs.SpriteSheet({
