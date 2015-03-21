@@ -1,7 +1,7 @@
 # Executive Man
 Playable [here](http://executive-man.com/).
 
-To minified:
+To build minified game OR update levels after editing level json:
 ```
 git clone https://github.com/CamHenlin/ExecutiveMan.git
 
