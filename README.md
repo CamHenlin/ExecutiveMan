@@ -1,4 +1,4 @@
-# Executive Man
+# ExecutiveMan
 Playable [here](http://executive-man.com/).
 
 To build minified game OR update levels after editing level json:
