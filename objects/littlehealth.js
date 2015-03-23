@@ -42,6 +42,10 @@ function LittleHealth(stage, x, y, basicCollision) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);

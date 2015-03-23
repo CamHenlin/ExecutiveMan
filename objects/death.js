@@ -64,6 +64,10 @@ function Death(stage, x, y) {
 
 	renderer.enemies.push(this);
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 
 		for (var i in this.animations) {
@@ -72,6 +76,10 @@ function Death(stage, x, y) {
 		}
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 
 	};

@@ -38,6 +38,10 @@ function HalfwayPoint(stage, basicCollision, x) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (halfwayPointReached) {
 			return;
@@ -46,6 +50,10 @@ function HalfwayPoint(stage, basicCollision, x) {
 		}
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 
 	};

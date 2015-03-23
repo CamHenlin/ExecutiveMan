@@ -66,6 +66,10 @@ function WallGun(stage, x, y, left) {
 		this.animations.regX = this.animations.spriteSheet._frameWidth;
 	}
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		this.watchedElements.forEach(function(element) {
 			element.tickActions();
@@ -123,6 +127,16 @@ function WallGun(stage, x, y, left) {
 		this.animations.y = this.y;
 	};
 
+	/**
+	 * [Shot description]
+	 * @param {[type]} stage     [description]
+	 * @param {[type]} x         [description]
+	 * @param {[type]} y         [description]
+	 * @param {[type]} xspeed    [description]
+	 * @param {[type]} yspeed    [description]
+	 * @param {[type]} direction [description]
+	 * @param {[type]} owner     [description]
+	 */
 	var Shot = function(stage, x, y, xspeed, yspeed, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("enemyshot")],
@@ -154,6 +168,10 @@ function WallGun(stage, x, y, left) {
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			this.x += this.xspeed * lowFramerate;
 			this.y += this.yspeed * lowFramerate;
@@ -165,11 +183,19 @@ function WallGun(stage, x, y, left) {
 			}
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;
 		};
 
+		/**
+		 * [checkBounds description]
+		 * @return {[type]} [description]
+		 */
 		this.checkBounds = function() {
 			return !(this.x < 0 || this.x > player.x + 1000);
 		};

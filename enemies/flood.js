@@ -49,6 +49,10 @@ function Flood(stage, basicCollision, x, y, original) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.spent) {
 			return;

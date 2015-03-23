@@ -211,6 +211,11 @@ function initShowOffBossScreen(bossnumber) {
 var bossShowOffScreenShape;
 var bossShowOffScreenShape2;
 
+/**
+ * [handleShowOffBossScreenTick description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function handleShowOffBossScreenTick(event) {
 
 	document.getElementById("gamecanvas").removeEventListener('touchstart', function() {}, false);

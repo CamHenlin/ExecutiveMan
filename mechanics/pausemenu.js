@@ -71,8 +71,6 @@ function PauseMenu() {
 	this.toxicProjectileLabel.y = 80;
 	this.oreTossLabel.y = 80;
 
-
-
 	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "7px '8-Bit Madness'", "#FFF");
 	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "7px '8-Bit Madness'", "#000");
 	var exitStageLabel = new createjs.Text("EXIT STAGE", "7px '8-Bit Madness'", "#FFF");
@@ -151,6 +149,10 @@ function PauseMenu() {
 	pausestage.addChild(healthBriefCasesSprite);
 	pausestage.addChild(divider);
 
+	/**
+	 * [remove description]
+	 * @return {[type]} [description]
+	 */
 	this.remove = function() {
 		pauseUp = false;
 		playSound("pauseclose");
@@ -158,6 +160,10 @@ function PauseMenu() {
 		initTouchControls();
 	};
 
+	/**
+	 * [show description]
+	 * @return {[type]} [description]
+	 */
 	this.show = function() {
 		pauseUp = true;
 		playSound("pauseopen");
@@ -170,6 +176,11 @@ function PauseMenu() {
 	};
 }
 
+/**
+ * [handlePauseScreenTick description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function handlePauseScreenTick(event) {
 	if (startgame) {
 		initVars();
@@ -179,6 +190,11 @@ function handlePauseScreenTick(event) {
 	gamestage.update();
 }
 
+/**
+ * [pauseClickHandler description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function pauseClickHandler(event) {
 	if (!pauseUp) {
 		return;

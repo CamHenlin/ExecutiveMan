@@ -47,6 +47,10 @@ function Door(stage, basicCollision, x, y) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.activated) {
 			player.animations.x += 0.06115;
@@ -57,6 +61,10 @@ function Door(stage, basicCollision, x, y) {
 		}
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 		if (this.down) {
 			return;

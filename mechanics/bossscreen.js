@@ -346,6 +346,11 @@ function initBossScreen() {
 	document.onkeydown = bossScreenKeyDownHandler.bind(this);
 }
 
+/**
+ * [bossScreenKeyDownHandler description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 var bossScreenKeyDownHandler = function(event) {
 	switch (event.keyCode) {
 		case keyCodes.left:
@@ -375,7 +380,11 @@ var bossScreenKeyDownHandler = function(event) {
 	}
 };
 
-
+/**
+ * [buildSaveLoadTouchTarget description]
+ * @param  {[type]} text [description]
+ * @return {[type]}      [description]
+ */
 function buildSaveLoadTouchTarget(text) {
 	var touchTarget = {};
 	touchTarget.x = text.x - 5;
@@ -440,6 +449,11 @@ function bossClickHandler(event) {
 	}
 }
 
+/**
+ * [handleBossScreenTick description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function handleBossScreenTick(event) {
 	if (bossscreenCounter > 0) {
 		stage.x += gamestage.canvas.width / 60;

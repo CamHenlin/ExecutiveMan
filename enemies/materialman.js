@@ -77,6 +77,11 @@ function MaterialMan(stage, basicCollision, x, y) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @param  {[type]} actions [description]
+	 * @return {[type]}         [description]
+	 */
 	this.tickActions = function(actions) {
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
@@ -275,6 +280,10 @@ function MaterialMan(stage, basicCollision, x, y) {
 		this.animations.y = this.y;
 	};
 
+	/**
+	 * [havePlatformInColumn description]
+	 * @return {[type]} [description]
+	 */
 	this.havePlatformInColumn = function() {
 		a = ~~((this.x + this.animations.spriteSheet._frameWidth / 2 - renderer.widthOffset) / 16);
 		b = ~~((this.y + this.animations.spriteSheet._frameHeight / 2 - renderer.heightOffset) / 16);
@@ -292,6 +301,14 @@ function MaterialMan(stage, basicCollision, x, y) {
 		return false;
 	};
 
+	/**
+	 * [Shot description]
+	 * @param {[type]} stage     [description]
+	 * @param {[type]} x         [description]
+	 * @param {[type]} y         [description]
+	 * @param {[type]} direction [description]
+	 * @param {[type]} owner     [description]
+	 */
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("warehousemanshot")],
@@ -324,6 +341,10 @@ function MaterialMan(stage, basicCollision, x, y) {
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			this.x = this.x + (1.5 * this.direction) * lowFramerate;
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
@@ -334,16 +355,33 @@ function MaterialMan(stage, basicCollision, x, y) {
 			}
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;
 		};
 
+		/**
+		 * [checkBounds description]
+		 * @return {[type]} [description]
+		 */
 		this.checkBounds = function() {
 			return !(this.x < 0 || this.x > player.x + 1000);
 		};
 	};
 
+	/**
+	 * [BigShot description]
+	 * @param {[type]} stage          [description]
+	 * @param {[type]} x              [description]
+	 * @param {[type]} y              [description]
+	 * @param {[type]} direction      [description]
+	 * @param {[type]} owner          [description]
+	 * @param {[type]} basicCollision [description]
+	 */
 	var BigShot = function(stage, x, y, direction, owner, basicCollision) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("warehousemanbigshot")],
@@ -380,6 +418,10 @@ function MaterialMan(stage, basicCollision, x, y) {
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			if (this.disabled) {
 				return;
@@ -401,17 +443,34 @@ function MaterialMan(stage, basicCollision, x, y) {
 			}
 		};
 
+		/**
+		 * [breakApart description]
+		 * @return {[type]} [description]
+		 */
 		this.breakApart = function() {
 			this.removeSelf();
 			this.owner.watchedElements.push(new SmallShot(this.stage, this.x, this.y, this.direction, this, this.basicCollision));
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;
 		};
 	};
 
+	/**
+	 * [SmallShot description]
+	 * @param {[type]} stage          [description]
+	 * @param {[type]} x              [description]
+	 * @param {[type]} y              [description]
+	 * @param {[type]} direction      [description]
+	 * @param {[type]} owner          [description]
+	 * @param {[type]} basicCollision [description]
+	 */
 	var SmallShot = function(stage, x, y, direction, owner, basicCollision) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("warehousemanshot")],
@@ -449,6 +508,10 @@ function MaterialMan(stage, basicCollision, x, y) {
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			if (this.disabled) {
 				return;
@@ -479,6 +542,10 @@ function MaterialMan(stage, basicCollision, x, y) {
 			}
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;

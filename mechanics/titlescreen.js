@@ -45,6 +45,11 @@ function initTitleScreen() {
 	createjs.Ticker.addEventListener("tick", handleStartScreenTick);
 	createjs.Ticker.setFPS(30);
 
+	/**
+	 * [onkeydown description]
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	document.onkeydown = function(event) {
 		switch (event.keyCode) {
 			case 32:

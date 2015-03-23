@@ -30,6 +30,10 @@ function Player(demoMode, demoParams) {
 		this.xspeed = 0;
 		this.yspeed = -2;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			if (this.disabled) {
 				return;
@@ -118,6 +122,10 @@ function Player(demoMode, demoParams) {
 			this.animations.y = this.y;
 		};
 
+		/**
+		 * [fireUp description]
+		 * @return {[type]} [description]
+		 */
 		this.fireUp = function() {
 			//console.log(player.x - renderer.completedMapsWidthOffset);
 			this.x = player.x + ((player.animations.scaleX === 1) ? 26 : -3);
@@ -136,6 +144,10 @@ function Player(demoMode, demoParams) {
 			renderer.enemyContainer.addChild(this.animations);
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			//console.log("removing");
 			renderer.enemyContainer.removeChild(this.animations);
@@ -164,6 +176,11 @@ function Player(demoMode, demoParams) {
 		};
 	};
 
+	/**
+	 * [Shot description]
+	 * @param {[type]} player   [description]
+	 * @param {[type]} renderer [description]
+	 */
 	var Shot = function(player, renderer) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("shot")],
@@ -188,6 +205,10 @@ function Player(demoMode, demoParams) {
 		this.yspeed = 0;
 		this.bounced = false;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			if (this.disabled) {
 				return;
@@ -245,6 +266,10 @@ function Player(demoMode, demoParams) {
 			}.bind(this));
 		};
 
+		/**
+		 * [fireUp description]
+		 * @return {[type]} [description]
+		 */
 		this.fireUp = function() {
 			//console.log(player.x - renderer.completedMapsWidthOffset);
 			this.x = player.x - renderer.completedMapsWidthOffset + ((player.animations.scaleX === 1) ? 26 : -3);
@@ -259,6 +284,10 @@ function Player(demoMode, demoParams) {
 			renderer.enemyContainer.addChild(this.animations);
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			//console.log("removing");
 			renderer.enemyContainer.removeChild(this.animations);
@@ -278,6 +307,10 @@ function Player(demoMode, demoParams) {
 			this.disabled = true;
 		};
 
+		/**
+		 * [checkBounds description]
+		 * @return {[type]} [description]
+		 */
 		this.checkBounds = function() {
 			if (this.y < 0 || abs(this.y - player.y) > renderer.gamestage.canvas.height) {
 				return false;
@@ -519,6 +552,11 @@ function Player(demoMode, demoParams) {
 		}.bind(this);
 	}
 
+	/**
+	 * [changeWeapon description]
+	 * @param  {[type]} weapon [description]
+	 * @return {[type]}        [description]
+	 */
 	this.changeWeapon = function(weapon) {
 		var loaderRequest = "";
 		this.currentWeapon = weapon;
@@ -624,6 +662,11 @@ function Player(demoMode, demoParams) {
 
 		this.touchIds = [];
 
+		/**
+		 * [eventHandler description]
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
 		var eventHandler = function(event) {
 			if (!pauseUp && !bossScreenUp) {
 				event.preventDefault();
@@ -660,6 +703,11 @@ function Player(demoMode, demoParams) {
 			}
 		};
 
+		/**
+		 * [moveEventHandler description]
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
 		var moveEventHandler = function(event) {
 			if (!pauseUp && !bossScreenUp) {
 				event.preventDefault();
@@ -724,6 +772,11 @@ function Player(demoMode, demoParams) {
 			}
 		};
 
+		/**
+		 * [endTouchEventHandler description]
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
 		var endTouchEventHandler = function(event) {
 			if (!pauseUp && !bossScreenUp) {
 				event.preventDefault();
@@ -768,8 +821,12 @@ function Player(demoMode, demoParams) {
 		this.gamestage.addChild(this.animations);
 	}
 
-	// lots of weird rules here to make the game as megaman-like as possible
-	// as we're aming to be a reimplementation of megaman physics, and not realistic physics
+	/**
+	 * [tickActions lots of weird rules here to make the game as megaman-like as possible
+	 * as we're aming to be a reimplementation of megaman physics, and not realistic physics]
+	 * @param  {[type]} actions [description]
+	 * @return {[type]}         [description]
+	 */
 	this.tickActions = function(actions) {
 		this.gameActions = actions;
 
@@ -1200,6 +1257,10 @@ function Player(demoMode, demoParams) {
 		}
 	};
 
+	/**
+	 * [checkObjectCollisions description]
+	 * @return {[type]} [description]
+	 */
 	this.checkObjectCollisions = function() {
 		if (renderer.objects.length === 0) {
 			return;
@@ -1215,6 +1276,10 @@ function Player(demoMode, demoParams) {
 		}.bind(this));
 	};
 
+	/**
+	 * [checkEnemyCollisions description]
+	 * @return {[type]} [description]
+	 */
 	this.checkEnemyCollisions = function() {
 		renderer.enemies.forEach(function(enemy) {
 
@@ -1326,6 +1391,10 @@ function Player(demoMode, demoParams) {
 		}.bind(this));
 	};
 
+	/**
+	 * [defeatedBoss description]
+	 * @return {[type]} [description]
+	 */
 	this.defeatedBoss = function() {
 		this.ignoreDamage = true;
 		this.ignoreInput = true;

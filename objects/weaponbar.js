@@ -11,6 +11,10 @@ var WeaponBar = function(stage, player) {
 		this.y = 48; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 		this.barAnimations = [];
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			if (player.health > 28) {
 				player.health = 28;
@@ -21,6 +25,10 @@ var WeaponBar = function(stage, player) {
 			}
 		};
 
+		/**
+		 * [draw description]
+		 * @return {[type]} [description]
+		 */
 		this.draw = function() {
 			var box = new createjs.Shape();
 			box.graphics.beginFill("#000000").drawRect(this.x, this.y, 8, this.maxheight);

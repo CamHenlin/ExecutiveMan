@@ -38,6 +38,10 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 	this.stage.addChild(this.animations);
 	this.animations.visible = true;
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.activated) {
 			renderer.enemies.forEach(function(enemy) {
@@ -84,6 +88,10 @@ function ExplosiveBarrel(stage, basicCollision, x, y) {
 		}
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 16)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
 			return;

@@ -77,6 +77,11 @@ function WasteMan(stage, basicCollision, x, y) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @param  {[type]} actions [description]
+	 * @return {[type]}         [description]
+	 */
 	this.tickActions = function(actions) {
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
@@ -304,6 +309,10 @@ function WasteMan(stage, basicCollision, x, y) {
 		this.animations.y = this.y;
 	};
 
+	/**
+	 * [launchMasterShot description]
+	 * @return {[type]} [description]
+	 */
 	this.launchMasterShot = function() {
 		for (var i = 0; i < 4; i++) {
 			this.watchedElements.push(new Shot(this.stage, this.x + this.animations.spriteSheet._frameWidth / 2, (renderer.getMapHeight() / 4) * i, 1, this));
@@ -311,6 +320,14 @@ function WasteMan(stage, basicCollision, x, y) {
 		}
 	};
 
+	/**
+	 * [Shot description]
+	 * @param {[type]} stage     [description]
+	 * @param {[type]} x         [description]
+	 * @param {[type]} y         [description]
+	 * @param {[type]} direction [description]
+	 * @param {[type]} owner     [description]
+	 */
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("wastemanshot")],
@@ -349,6 +366,10 @@ function WasteMan(stage, basicCollision, x, y) {
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			this.x = this.x + (1.5 * this.direction) * lowFramerate;
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
@@ -359,22 +380,39 @@ function WasteMan(stage, basicCollision, x, y) {
 			}
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;
 		};
 
+		/**
+		 * [checkBounds description]
+		 * @return {[type]} [description]
+		 */
 		this.checkBounds = function() {
 			return !(this.x < 0 || this.x > player.x + 1000);
 		};
 	};
 
+	/**
+	 * [createManyShotsDown description]
+	 * @return {[type]} [description]
+	 */
 	this.createManyShotsDown = function() {
 		for (var i = 0; i < 8; i++) {
 			this.watchedElements.push(new ShotDown(stage, (renderer.getMapWidth() / 8) * i + renderer.widthOffset));
 		}
 	};
 
+	/**
+	 * [ShotDown description]
+	 * @param {[type]} stage [description]
+	 * @param {[type]} x     [description]
+	 */
 	var ShotDown = function(stage, x) {
 		var shotDownSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("wastemanshotdown")],
@@ -404,6 +442,10 @@ function WasteMan(stage, basicCollision, x, y) {
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			this.y += 5;
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
@@ -414,11 +456,19 @@ function WasteMan(stage, basicCollision, x, y) {
 			}
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;
 		};
 
+		/**
+		 * [checkBounds description]
+		 * @return {[type]} [description]
+		 */
 		this.checkBounds = function() {
 			return (this.y < player.y + 1000);
 		};

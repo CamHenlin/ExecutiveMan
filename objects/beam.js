@@ -47,6 +47,10 @@ function Beam(stage, basicCollision, x, y, xspeed, yspeed) {
 	this.stage.addChild(this.animations);
 	this.animations.visible = true;
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.xspeed < 0 && this.x < 0) {
 			this.x = renderer.getMapWidth() + renderer.completedMapsWidthOffset;
@@ -82,6 +86,10 @@ function Beam(stage, basicCollision, x, y, xspeed, yspeed) {
 		this.lastx = this.x;
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 
 	};

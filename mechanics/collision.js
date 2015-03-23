@@ -2,6 +2,14 @@
  * [TileCollisionDetector description]
  */
 function TileCollisionDetector() {
+	/**
+	 * [checkCollisions description]
+	 * @param  {[type]} playerCollisionPoints [description]
+	 * @param  {[type]} collisionArray        [description]
+	 * @param  {[type]} heightOffset          [description]
+	 * @param  {[type]} widthOffset           [description]
+	 * @return {[type]}                       [description]
+	 */
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
 
 		var moves = {
@@ -149,6 +157,14 @@ function TileCollisionDetector() {
 		return moves;
 	};
 
+	/**
+	 * [checkDownCollisions description]
+	 * @param  {[type]} playerCollisionPoints [description]
+	 * @param  {[type]} collisionArray        [description]
+	 * @param  {[type]} heightOffset          [description]
+	 * @param  {[type]} widthOffset           [description]
+	 * @return {[type]}                       [description]
+	 */
 	this.checkDownCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
 
 		var moves = {
@@ -205,6 +221,13 @@ function TileCollisionDetector() {
 		return moves;
 	};
 
+	/**
+	 * [isTop description]
+	 * @param  {[type]}  collisionArray [description]
+	 * @param  {[type]}  a              [description]
+	 * @param  {[type]}  b              [description]
+	 * @return {Boolean}                [description]
+	 */
 	this.isTop = function(collisionArray, a, b) {
 		if (collisionArray[a - 1][b]) {
 			return false;
@@ -213,6 +236,13 @@ function TileCollisionDetector() {
 		return true;
 	};
 
+	/**
+	 * [isBottom description]
+	 * @param  {[type]}  collisionArray [description]
+	 * @param  {[type]}  a              [description]
+	 * @param  {[type]}  b              [description]
+	 * @return {Boolean}                [description]
+	 */
 	this.isBottom = function(collisionArray, a, b) {
 		if (collisionArray[a + 1][b]) {
 			return false;

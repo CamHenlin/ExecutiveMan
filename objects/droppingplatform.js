@@ -45,6 +45,10 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.offScreen) {
 			return;
@@ -85,6 +89,10 @@ function DroppingPlatform(stage, basicCollision, x, y, duration) {
 		}
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 14)) || this.activated ||
 			player.jumpspeed < 0) { // player definitely missed the platform

@@ -64,10 +64,20 @@ function Renderer(gamestage) {
 
 	this.tileset.src = this.mapData.tilesets[0].image;
 
+	/**
+	 * [beginCaching description]
+	 * @param  {[type]} container [description]
+	 * @return {[type]}           [description]
+	 */
 	this.beginCaching = function(container) {
 		container.cache(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.gamestage.canvas.height); //this.mapData.tilesets[0].tileheight * this.mapData.layers[0].height);
 	};
 
+	/**
+	 * [advance description]
+	 * @param  {[type]} amount [description]
+	 * @return {[type]}        [description]
+	 */
 	this.advance = function(amount) {
 		this.parentContainer.x += amount;
 		this.enemyContainer.x += amount;
@@ -81,6 +91,10 @@ function Renderer(gamestage) {
 	readyLabel2.x = this.gamestage.canvas.width / 2 - 13;
 	readyLabel2.y = this.gamestage.canvas.height / 2 + 1;
 
+	/**
+	 * [initMap description]
+	 * @return {[type]} [description]
+	 */
 	this.initMap = function() {
 		this.prepareRenderer();
 		this.initLayers();
@@ -130,6 +144,10 @@ function Renderer(gamestage) {
 		}.bind(this), 3100);
 	};
 
+	/**
+	 * [prepareRenderer description]
+	 * @return {[type]} [description]
+	 */
 	this.prepareRenderer = function() {
 		this.collisionArray = [
 			[],
@@ -170,6 +188,10 @@ function Renderer(gamestage) {
 		player.fallThroughFloor = false;
 	};
 
+	/**
+	 * [completeRenderer description]
+	 * @return {[type]} [description]
+	 */
 	this.completeRenderer = function() {
 		this.parentContainer.tickEnabled = false;
 		this.parentContainer.snapToPixel = true;
@@ -195,14 +217,26 @@ function Renderer(gamestage) {
 		}
 	};
 
+	/**
+	 * [getNextMapDirection description]
+	 * @return {[type]} [description]
+	 */
 	this.getNextMapDirection = function() {
 		return this.mapData.properties.nextMapDirection;
 	};
 
+	/**
+	 * [getLastMapDirection description]
+	 * @return {[type]} [description]
+	 */
 	this.getLastMapDirection = function() {
 		return this.mapData.properties.lastMapDirection;
 	};
 
+	/**
+	 * [nextMapDown description]
+	 * @return {[type]} [description]
+	 */
 	this.nextMapDown = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		this.lastWidthOffset = this.widthOffset;
@@ -246,6 +280,10 @@ function Renderer(gamestage) {
 		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
+	/**
+	 * [lastMapDown description]
+	 * @return {[type]} [description]
+	 */
 	this.lastMapDown = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		this.lastWidthOffset = this.widthOffset;
@@ -290,6 +328,10 @@ function Renderer(gamestage) {
 		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
+	/**
+	 * [nextMapUp description]
+	 * @return {[type]} [description]
+	 */
 	this.nextMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		this.lastWidthOffset = this.widthOffset;
@@ -333,6 +375,10 @@ function Renderer(gamestage) {
 		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
+	/**
+	 * [lastMapUp description]
+	 * @return {[type]} [description]
+	 */
 	this.lastMapUp = function() {
 		var lastOffScreenWidth = this.getOffScreenWidth();
 		console.log(this.getOffScreenWidth());
@@ -379,6 +425,10 @@ function Renderer(gamestage) {
 		this.screenWidthDelta = (this.stitchingoffset) / 60;
 	};
 
+	/**
+	 * [nextMapRight description]
+	 * @return {[type]} [description]
+	 */
 	this.nextMapRight = function() {
 		this.lastWidthOffset = this.widthOffset;
 		this.mapData = maps[++this.mapcounter];
@@ -418,7 +468,10 @@ function Renderer(gamestage) {
 		this.screenWidthDelta = (this.gamestage.canvas.width - (this.lastWidthOffset)) / 60;
 	};
 
-	// loading layers
+	/**
+	 * [initLayers description]
+	 * @return {[type]} [description]
+	 */
 	this.initLayers = function() {
 		// console.log(this.mapData.tilesets[0].image.split("/")[1].split(".")[0]);
 		player.watchedElements = [player.healthbar];
@@ -518,7 +571,16 @@ function Renderer(gamestage) {
 		return this.container;
 	};
 
-	// layer initialization
+	/**
+	 * [initEnemies description]
+	 * @param  {[type]} layerData    [description]
+	 * @param  {[type]} tilesetSheet [description]
+	 * @param  {[type]} tilewidth    [description]
+	 * @param  {[type]} tileheight   [description]
+	 * @param  {[type]} heightOffset [description]
+	 * @param  {[type]} widthOffset  [description]
+	 * @return {[type]}              [description]
+	 */
 	this.initEnemies = function(layerData, tilesetSheet, tilewidth, tileheight, heightOffset, widthOffset) {
 		var enemyArray = [];
 		for (var y = 0; y < layerData.height; y++) {
@@ -581,7 +643,16 @@ function Renderer(gamestage) {
 		return enemyArray;
 	};
 
-	// layer initialization
+	/**
+	 * [initLayer description]
+	 * @param  {[type]} layerData    [description]
+	 * @param  {[type]} tilesetSheet [description]
+	 * @param  {[type]} tilewidth    [description]
+	 * @param  {[type]} tileheight   [description]
+	 * @param  {[type]} heightOffset [description]
+	 * @param  {[type]} widthOffset  [description]
+	 * @return {[type]}              [description]
+	 */
 	this.initLayer = function(layerData, tilesetSheet, tilewidth, tileheight, heightOffset, widthOffset) {
 		var container = new createjs.Container();
 
@@ -611,7 +682,16 @@ function Renderer(gamestage) {
 	};
 
 
-	// layer initialization  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+	/**
+	 * [initBackgroundLayer description]
+	 * @param  {[type]} layerData    [description]
+	 * @param  {[type]} tilesetSheet [description]
+	 * @param  {[type]} tilewidth    [description]
+	 * @param  {[type]} tileheight   [description]
+	 * @param  {[type]} heightOffset [description]
+	 * @param  {[type]} widthOffset  [description]
+	 * @return {[type]}              [description]
+	 */
 	this.initBackgroundLayer = function(layerData, tilesetSheet, tilewidth, tileheight, heightOffset, widthOffset) {
 		for (var y = 0; y < layerData.height; y++) {
 			for (var x = 0; x < layerData.width; x++) {
@@ -653,7 +733,16 @@ function Renderer(gamestage) {
 		this.beginCaching(this.backgroundContainer2);
 	};
 
-	// layer initialization
+	/**
+	 * [initLayerWithCollisionArray description]
+	 * @param  {[type]} layerData    [description]
+	 * @param  {[type]} tilesetSheet [description]
+	 * @param  {[type]} tilewidth    [description]
+	 * @param  {[type]} tileheight   [description]
+	 * @param  {[type]} heightOffset [description]
+	 * @param  {[type]} widthOffset  [description]
+	 * @return {[type]}              [description]
+	 */
 	this.initLayerWithCollisionArray = function(layerData, tilesetSheet, tilewidth, tileheight, heightOffset, widthOffset) {
 		var container = new createjs.Container();
 
@@ -698,7 +787,16 @@ function Renderer(gamestage) {
 		return container;
 	};
 
-	// layer initialization
+	/**
+	 * [initLayerWithDeathCollisionArray description]
+	 * @param  {[type]} layerData    [description]
+	 * @param  {[type]} tilesetSheet [description]
+	 * @param  {[type]} tilewidth    [description]
+	 * @param  {[type]} tileheight   [description]
+	 * @param  {[type]} heightOffset [description]
+	 * @param  {[type]} widthOffset  [description]
+	 * @return {[type]}              [description]
+	 */
 	this.initLayerWithDeathCollisionArray = function(layerData, tilesetSheet, tilewidth, tileheight, heightOffset, widthOffset) {
 		var container = new createjs.Container();
 
@@ -732,6 +830,10 @@ function Renderer(gamestage) {
 		return container;
 	};
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		this.backgroundTicks--;
 		if (this.backgroundTicks === 0) {
@@ -891,6 +993,12 @@ function Renderer(gamestage) {
 
 	this.bighealthCounter = 0;
 	this.littlehealthCounter = 0;
+	/**
+	 * [itemDrop description]
+	 * @param  {[type]} x [description]
+	 * @param  {[type]} y [description]
+	 * @return {[type]}   [description]
+	 */
 	this.itemDrop = function(x, y) {
 		if (itemDropCount === 1) {
 			this.bighealthCounter += 18;
@@ -918,18 +1026,34 @@ function Renderer(gamestage) {
 		}
 	};
 
+	/**
+	 * [getMapWidth description]
+	 * @return {[type]} [description]
+	 */
 	this.getMapWidth = function() {
 		return this.mapData.tilewidth * (this.mapData.width);
 	};
 
+	/**
+	 * [getMapHeight description]
+	 * @return {[type]} [description]
+	 */
 	this.getMapHeight = function() {
 		return this.mapData.tileheight * (this.mapData.height - 1);
 	};
 
+	/**
+	 * [getCurrentHeightOffset description]
+	 * @return {[type]} [description]
+	 */
 	this.getCurrentHeightOffset = function() {
 		return this.heightOffset;
 	};
 
+	/**
+	 * [getOffScreenWidth description]
+	 * @return {[type]} [description]
+	 */
 	this.getOffScreenWidth = function() {
 		console.log(player.animations.x - this.gamestage.canvas.width / 2);
 		if (this.gamestage.canvas.width > this.getMapWidth()) {
@@ -950,6 +1074,10 @@ function Renderer(gamestage) {
 	};
 
 	// the next variable is set up to repeat the top set of rows of the map to make it appear taller so map transitions look right on arbitrary sized screens
+	/**
+	 * [getRepeatedTopRows description]
+	 * @return {[type]} [description]
+	 */
 	this.getRepeatedTopRows = function() {
 		return this.heightOffset / this.mapData.tileheight;
 	};

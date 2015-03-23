@@ -47,6 +47,10 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 	this.stage.addChild(this.animations);
 	this.animations.visible = true;
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.xspeed < 0 && this.x < renderer.completedMapsWidthOffset) {
 			this.x = renderer.getMapWidth() + renderer.completedMapsWidthOffset;
@@ -98,6 +102,10 @@ function RotatingPlatform(stage, basicCollision, x, y, xspeed, yspeed) {
 		this.lastx = this.x;
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 16)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
 			return;

@@ -111,6 +111,10 @@ function ShopMenu() {
 	shopstage.addChild(extraLifeSprite);
 	shopstage.addChild(divider);
 
+	/**
+	 * [remove description]
+	 * @return {[type]} [description]
+	 */
 	this.remove = function() {
 		shopUp = false;
 		playSound("pauseclose");
@@ -118,6 +122,10 @@ function ShopMenu() {
 		gamestage.removeChild(shopstage);
 	};
 
+	/**
+	 * [show description]
+	 * @return {[type]} [description]
+	 */
 	this.show = function() {
 
 		clicked = true;
@@ -144,6 +152,11 @@ function ShopMenu() {
 	};
 }
 
+/**
+ * [buildTouchTarget description]
+ * @param  {[type]} text [description]
+ * @return {[type]}      [description]
+ */
 function buildTouchTarget(text) {
 	var touchTarget = {};
 	touchTarget.x = text.x - 5;
@@ -154,6 +167,11 @@ function buildTouchTarget(text) {
 	return touchTarget;
 }
 
+/**
+ * [shopClickHandler description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function shopClickHandler(event) {
 	if (!shopUp) {
 		return;

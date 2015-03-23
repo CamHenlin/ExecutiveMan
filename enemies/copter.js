@@ -46,6 +46,10 @@ function Copter(stage, x, y) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.dead) {
 			return;
@@ -102,6 +106,10 @@ function Copter(stage, x, y) {
 		this.animations.y = this.y;
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 		this.flee = true;
 	};

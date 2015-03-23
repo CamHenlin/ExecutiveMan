@@ -50,6 +50,11 @@ function KillCopy(stage, basicCollision, x, y) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @param  {[type]} actions [description]
+	 * @return {[type]}         [description]
+	 */
 	this.tickActions = function(actions) {
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);
@@ -262,6 +267,10 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.animations.y = this.y;
 	};
 
+	/**
+	 * [shoot description]
+	 * @return {[type]} [description]
+	 */
 	this.shoot = function() {
 		playSound("papershot");
 		this.animations.gotoAndPlay("shoot");
@@ -270,6 +279,14 @@ function KillCopy(stage, basicCollision, x, y) {
 		}.bind(this), 60);
 	};
 
+	/**
+	 * [Shot description]
+	 * @param {[type]} stage     [description]
+	 * @param {[type]} x         [description]
+	 * @param {[type]} y         [description]
+	 * @param {[type]} direction [description]
+	 * @param {[type]} owner     [description]
+	 */
 	var Shot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("papershot")],
@@ -303,6 +320,10 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			if (this.disabled) {
 				return;
@@ -319,16 +340,32 @@ function KillCopy(stage, basicCollision, x, y) {
 			}
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;
 		};
 
+		/**
+		 * [checkBounds description]
+		 * @return {[type]} [description]
+		 */
 		this.checkBounds = function() {
 			return !(this.x < 0 || this.x > player.x + 1000);
 		};
 	};
 
+	/**
+	 * [StraightShot description]
+	 * @param {[type]} stage     [description]
+	 * @param {[type]} x         [description]
+	 * @param {[type]} y         [description]
+	 * @param {[type]} direction [description]
+	 * @param {[type]} owner     [description]
+	 */
 	var StraightShot = function(stage, x, y, direction, owner) {
 		var shotSpriteSheet = new createjs.SpriteSheet({
 			"images": [loader.getResult("papershot")],
@@ -361,6 +398,10 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
+		/**
+		 * [tickActions description]
+		 * @return {[type]} [description]
+		 */
 		this.tickActions = function() {
 			if (this.disabled) {
 				return;
@@ -377,11 +418,19 @@ function KillCopy(stage, basicCollision, x, y) {
 			}
 		};
 
+		/**
+		 * [removeSelf description]
+		 * @return {[type]} [description]
+		 */
 		this.removeSelf = function() {
 			this.stage.removeChild(this.animations);
 			this.disabled = true;
 		};
 
+		/**
+		 * [checkBounds description]
+		 * @return {[type]} [description]
+		 */
 		this.checkBounds = function() {
 			return !(this.x < 0 || this.x > player.x + 1000);
 		};

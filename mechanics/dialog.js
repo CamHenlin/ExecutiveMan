@@ -15,6 +15,11 @@ function Dialog(text, x, y, image, top) {
 	this.text = text;
 	this.top = top;
 
+	/**
+	 * [dialogClickHandler description]
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	this.dialogClickHandler = function(event) {
 		event.preventDefault();
 
@@ -101,7 +106,10 @@ function Dialog(text, x, y, image, top) {
 		this.imageSprite.y = 148;
 	}
 
-
+	/**
+	 * [remove description]
+	 * @return {[type]} [description]
+	 */
 	this.remove = function() {
 		console.log('removing...');
 		this.active = false;
@@ -113,6 +121,10 @@ function Dialog(text, x, y, image, top) {
 		initTouchControls();
 	};
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.dialogTicks > 0) {
 			if (this.startTicks > 0) {
@@ -145,6 +157,10 @@ function Dialog(text, x, y, image, top) {
 		}
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 		if (this.triggered) {
 			return;
@@ -164,6 +180,11 @@ function Dialog(text, x, y, image, top) {
 		document.addEventListener('keydown', this.dialogKeyDownHandler.bind(this), false);
 	};
 
+	/**
+	 * [dialogKeyDownHandler description]
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
 	this.dialogKeyDownHandler = function(event) {
 		if (!dialogUp) {
 			return;

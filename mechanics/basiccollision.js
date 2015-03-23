@@ -5,6 +5,11 @@
 function BasicCollision(renderer) {
 	this.renderer = renderer;
 
+	/**
+	 * [basicCollision description]
+	 * @param  {[type]} object [description]
+	 * @return {[type]}        [description]
+	 */
 	this.basicCollision = function(object) {
 		var modifier = 2;
 		var xmodifier = 2;
@@ -29,6 +34,14 @@ function BasicCollision(renderer) {
 		}, this.renderer.collisionArray, this.renderer.heightOffset, this.renderer.widthOffset);
 	};
 
+	/**
+	 * [checkCollisions description]
+	 * @param  {[type]} playerCollisionPoints [description]
+	 * @param  {[type]} collisionArray        [description]
+	 * @param  {[type]} heightOffset          [description]
+	 * @param  {[type]} widthOffset           [description]
+	 * @return {[type]}                       [description]
+	 */
 	this.checkCollisions = function(playerCollisionPoints, collisionArray, heightOffset, widthOffset) {
 		var moves = {
 			left: true,
@@ -103,6 +116,13 @@ function BasicCollision(renderer) {
 		return moves;
 	};
 
+	/**
+	 * [isTop description]
+	 * @param  {[type]}  collisionArray [description]
+	 * @param  {[type]}  a              [description]
+	 * @param  {[type]}  b              [description]
+	 * @return {Boolean}                [description]
+	 */
 	this.isTop = function(collisionArray, a, b) {
 		if (collisionArray[a - 1][b]) {
 			return false;
@@ -111,6 +131,13 @@ function BasicCollision(renderer) {
 		return true;
 	};
 
+	/**
+	 * [isBottom description]
+	 * @param  {[type]}  collisionArray [description]
+	 * @param  {[type]}  a              [description]
+	 * @param  {[type]}  b              [description]
+	 * @return {Boolean}                [description]
+	 */
 	this.isBottom = function(collisionArray, a, b) {
 		if (collisionArray[a + 1][b]) {
 			return false;

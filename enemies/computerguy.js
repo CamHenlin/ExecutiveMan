@@ -65,6 +65,11 @@ function ComputerGuy(stage, basicCollision, x, y) {
 	this.animations.play();
 	this.stage.addChild(this.animations);
 
+	/**
+	 * [tickActions description]
+	 * @param  {[type]} actions [description]
+	 * @return {[type]}         [description]
+	 */
 	this.tickActions = function(actions) {
 		this.watchedElements.forEach(function(element) {
 			element.tickActions(actions);

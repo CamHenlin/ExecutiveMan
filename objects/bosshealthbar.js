@@ -12,6 +12,10 @@ var BossHealthBar = function(stage, boss) {
 	this.y = 48; //this.stage.canvas.height / 2 - this.maxheight / 2 - 2;
 	this.barAnimations = [];
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.bars !== this.boss.health) {
 			this.bars = this.boss.health;
@@ -19,6 +23,10 @@ var BossHealthBar = function(stage, boss) {
 		}
 	};
 
+	/**
+	 * [draw description]
+	 * @return {[type]} [description]
+	 */
 	this.draw = function() {
 		console.log("drawing boss health bar!");
 		var box = new createjs.Shape();

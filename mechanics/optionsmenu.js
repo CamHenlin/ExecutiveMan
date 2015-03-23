@@ -132,6 +132,10 @@ function OptionsMenu() {
 		optionsstage.addChild(hasJoystickLabel);
 	}
 
+	/**
+	 * [remove description]
+	 * @return {[type]} [description]
+	 */
 	this.remove = function() {
 		optionsUp = false;
 		playSound("pauseclose");
@@ -139,6 +143,10 @@ function OptionsMenu() {
 		gamestage.update();
 	};
 
+	/**
+	 * [show description]
+	 * @return {[type]} [description]
+	 */
 	this.show = function() {
 		optionsUp = true;
 		playSound("pauseopen");
@@ -156,6 +164,11 @@ function OptionsMenu() {
 	};
 }
 
+/**
+ * [optionsClickHandler description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function optionsClickHandler(event) {
 	if (!optionsUp) {
 		return;
@@ -230,6 +243,11 @@ function optionsClickHandler(event) {
 	gamestage.update();
 }
 
+/**
+ * [optionsKeyDownHandler description]
+ * @param  {[type]} e [description]
+ * @return {[type]}   [description]
+ */
 function optionsKeyDownHandler(e) {
 	if (!this.setKey) {
 		return;

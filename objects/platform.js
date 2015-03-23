@@ -64,6 +64,10 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 	this.stage.addChild(this.animations);
 	this.animations.visible = true;
 
+	/**
+	 * [tickActions description]
+	 * @return {[type]} [description]
+	 */
 	this.tickActions = function() {
 		if (this.delay > 0) {
 			this.delay--;
@@ -114,6 +118,10 @@ function Platform(stage, basicCollision, x, y, yrange, yduration, xrange, xdurat
 		this.lastx = this.x;
 	};
 
+	/**
+	 * [playerCollisionActions description]
+	 * @return {[type]} [description]
+	 */
 	this.playerCollisionActions = function() {
 		if ((this.y < player.y + (player.animations.spriteSheet._frameHeight - 16)) || this.activated || player.jumpspeed < 0) { // player definitely missed the platform
 			return;

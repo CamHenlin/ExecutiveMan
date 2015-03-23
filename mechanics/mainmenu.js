@@ -82,6 +82,11 @@ function initMainMenuScreen() {
 	document.onkeydown = mainMenuScreenKeyDownHandler.bind(this);
 }
 
+/**
+ * [mainMenuScreenKeyDownHandler description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 var mainMenuScreenKeyDownHandler = function(event) {
 	if (optionsUp || !mainMenuScreenUp) {
 		return;
@@ -132,6 +137,11 @@ var mainMenuScreenKeyDownHandler = function(event) {
 	}
 };
 
+/**
+ * [buildMainMenuTouchTarget description]
+ * @param  {[type]} text [description]
+ * @return {[type]}      [description]
+ */
 function buildMainMenuTouchTarget(text) {
 	var touchTarget = {};
 	touchTarget.x = text.x - 5;
@@ -142,6 +152,11 @@ function buildMainMenuTouchTarget(text) {
 	return touchTarget;
 }
 
+/**
+ * [mainMenuClickHandler description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function mainMenuClickHandler(event) {
 	if (!mainMenuScreenUp) {
 		return;
@@ -189,6 +204,11 @@ function mainMenuClickHandler(event) {
 	}
 }
 
+/**
+ * [handleMainMenuScreenTick description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
 function handleMainMenuScreenTick(event) {
 
 	if (!mainMenuScreenUp) {

@@ -11,10 +11,18 @@ var joystick = {
 	'jump': -1
 };
 
+/**
+ * [hasJoystickSupport description]
+ * @return {Boolean} [description]
+ */
 function hasJoystickSupport() {
 	return "getGamepads" in navigator;
 }
 
+/**
+ * [gamepadPoll_options description]
+ * @return {[type]} [description]
+ */
 function gamepadPoll_options() {
 	if (!optionsUp) {
 		return;
@@ -45,6 +53,10 @@ function gamepadPoll_options() {
 	}
 }
 
+/**
+ * [gamepadPoll_game description]
+ * @return {[type]} [description]
+ */
 function gamepadPoll_game() {
 	var gp = navigator.getGamepads()[0];
 	var actions = {
