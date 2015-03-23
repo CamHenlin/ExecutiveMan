@@ -249,7 +249,7 @@ var keyCodes = {
 	'pause': 80
 };
 
-var abs = Math.abs;
+
 var bossNumber = 0;
 var clicked = false;
 var itemDropCount = 0;
@@ -321,7 +321,7 @@ document.getElementById("gamecanvas").style.left = ((window.innerWidth / zoomAmo
 
 var progress;
 var loadProgress = 0;
-var executivemanLoadingText = new createjs.Text("Executive Man loading...", "14px '8-Bit Madness'", "#FFF");
+var executivemanLoadingText = new createjs.Text("Executive Man loading...", "14px '" + FONT + "'", "#FFF");
 executivemanLoadingText.x = (gamestage.canvas.width / 2) - 90;
 executivemanLoadingText.y = 100;
 gamestage.addChild(executivemanLoadingText);
@@ -571,14 +571,14 @@ function beginGame(newGame, demoMode) {
 	}
 
 	if (logFPS) {
-		fpsLabel = new createjs.Text("", "14px '8-Bit Madness'", "#FFF");
+		fpsLabel = new createjs.Text("", "14px '" + FONT + "'", "#FFF");
 		gamestage.addChild(fpsLabel);
 
 		fpsLabel.x = gamestage.canvas.width - 50;
 		fpsLabel.y = 18;
 	}
 
-	scoreLabel = new createjs.Text("$ ", "10px '8-Bit Madness'", "#FFF");
+	scoreLabel = new createjs.Text("$ ", "10px '" + FONT + "'", "#FFF");
 	//gamestage.addChild(scoreLabel);
 
 	scoreLabel.x = gamestage.canvas.width - 256;

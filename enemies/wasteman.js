@@ -222,8 +222,7 @@ function WasteMan(stage, basicCollision, x, y) {
 
 		// figure out if we can shoot or not
 		if (distanceFromPlayer < 0 && !this.runningLeft && !this.runningRight && this.runTicker < 0) { // player is left!
-			//console.log("player is left");
-			this.lastRunDirRight = false; // ''
+			this.lastRunDirRight = false;
 			this.runningLeft = true;
 			this.animations.gotoAndPlay("run");
 		} else if (this.runningLeft && collisionResults.left) {

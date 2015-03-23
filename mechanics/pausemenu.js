@@ -37,8 +37,8 @@ function PauseMenu() {
 	this.setStingingAuditTouchTarget.spriteSheet._frameHeight = 16;
 	this.setStingingAuditTouchTarget.spriteSheet._frameWidth = 80;
 
-	this.postItBlasterLabel = new createjs.Text("POST IT BLASTER", "8px '8-Bit Madness'", "#FFF");
-	this.stingingAuditLabel = new createjs.Text("STINGING AUDIT", "8px '8-Bit Madness'", "#FFF");
+	this.postItBlasterLabel = new createjs.Text("POST IT BLASTER", "8px '" + FONT + "'", "#FFF");
+	this.stingingAuditLabel = new createjs.Text("STINGING AUDIT", "8px '" + FONT + "'", "#FFF");
 
 	this.postItBlasterLabel.x = 64;
 	this.stingingAuditLabel.x = gamestage.canvas.width - 160;
@@ -62,8 +62,8 @@ function PauseMenu() {
 	this.setOreTossTouchTarget.spriteSheet._frameHeight = 16;
 	this.setOreTossTouchTarget.spriteSheet._frameWidth = 80;
 
-	this.toxicProjectileLabel = new createjs.Text("TOXIC PROJECTILE", "8px '8-Bit Madness'", "#FFF");
-	this.oreTossLabel = new createjs.Text("ORE TOSS", "8px '8-Bit Madness'", "#FFF");
+	this.toxicProjectileLabel = new createjs.Text("TOXIC PROJECTILE", "8px '" + FONT + "'", "#FFF");
+	this.oreTossLabel = new createjs.Text("ORE TOSS", "8px '" + FONT + "'", "#FFF");
 
 	this.toxicProjectileLabel.x = 64;
 	this.oreTossLabel.x = gamestage.canvas.width - 160;
@@ -71,12 +71,12 @@ function PauseMenu() {
 	this.toxicProjectileLabel.y = 80;
 	this.oreTossLabel.y = 80;
 
-	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "7px '8-Bit Madness'", "#FFF");
-	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "7px '8-Bit Madness'", "#000");
-	var exitStageLabel = new createjs.Text("EXIT STAGE", "7px '8-Bit Madness'", "#FFF");
-	var livesLabel = new createjs.Text("", "8px '8-Bit Madness'", "#FFF");
+	var executivemanLabel = new createjs.Text("EXECUTIVE MAN", "7px '" + FONT + "'", "#FFF");
+	var executivemanLabel2 = new createjs.Text("EXECUTIVE MAN", "7px '" + FONT + "'", "#000");
+	var exitStageLabel = new createjs.Text("EXIT STAGE", "7px '" + FONT + "'", "#FFF");
+	var livesLabel = new createjs.Text("", "8px '" + FONT + "'", "#FFF");
 
-	var healthBriefCasesLabel = new createjs.Text("", "8px '8-Bit Madness'", "#FFF");
+	var healthBriefCasesLabel = new createjs.Text("", "8px '" + FONT + "'", "#FFF");
 
 
 	var extraLifeSpriteSheet = new createjs.SpriteSheet({

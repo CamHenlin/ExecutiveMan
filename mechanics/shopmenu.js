@@ -22,19 +22,19 @@ function ShopMenu() {
 	this.exitShopTouchTarget.spriteSheet._frameHeight = 16;
 	this.exitShopTouchTarget.spriteSheet._frameWidth = 80;
 
-	var executivemanLabel = new createjs.Text("SHOP", "7px '8-Bit Madness'", "#FFF");
-	var executivemanLabel2 = new createjs.Text("SHOP", "7px '8-Bit Madness'", "#000");
-	var exitShopLabel = new createjs.Text("EXIT SHOP", "7px '8-Bit Madness'", "#FFF");
-	var livesLabel = new createjs.Text("", "8px '8-Bit Madness'", "#FFF");
-	var cashLabel = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
+	var executivemanLabel = new createjs.Text("SHOP", "7px '" + FONT + "'", "#FFF");
+	var executivemanLabel2 = new createjs.Text("SHOP", "7px '" + FONT + "'", "#000");
+	var exitShopLabel = new createjs.Text("EXIT SHOP", "7px '" + FONT + "'", "#FFF");
+	var livesLabel = new createjs.Text("", "8px '" + FONT + "'", "#FFF");
+	var cashLabel = new createjs.Text("", "10px '" + FONT + "'", "#FFF");
 
 	// things to buy:
-	var cashDoubler = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
-	var fourExtraLives = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
-	var doubleJump = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
-	var doubleDamage = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
-	var doubleHealth = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
-	var healthBriefCase = new createjs.Text("", "10px '8-Bit Madness'", "#FFF");
+	var cashDoubler = new createjs.Text("", "10px '" + FONT + "'", "#FFF");
+	var fourExtraLives = new createjs.Text("", "10px '" + FONT + "'", "#FFF");
+	var doubleJump = new createjs.Text("", "10px '" + FONT + "'", "#FFF");
+	var doubleDamage = new createjs.Text("", "10px '" + FONT + "'", "#FFF");
+	var doubleHealth = new createjs.Text("", "10px '" + FONT + "'", "#FFF");
+	var healthBriefCase = new createjs.Text("", "10px '" + FONT + "'", "#FFF");
 
 	this.cashDoublerCost = 150000;
 	this.fourExtraLivesCost = 5000;

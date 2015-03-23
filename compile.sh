@@ -27,7 +27,8 @@ java -jar compiler.jar \
 	--js=enemies/annoyingthing.js --js=enemies/computerguy.js --js=enemies/sixshooter.js --js=enemies/shootythingy.js \
 	--js=enemies/staplerdude.js --js=enemies/coffeecopter.js \
 	\
-	 --js=mechanics/main.js --js=mechanics/collision.js --js=mechanics/fastCollision.js \
+	--js=mechanics/constants.js --js=mechanics/common.js --js=mechanics/main.js  \
+	--js=mechanics/collision.js --js=mechanics/fastCollision.js \
 	--js=mechanics/renderer.js --js=mechanics/player.js  --js=mechanics/titlescreen.js \
 	--js=mechanics/pausemenu.js --js=mechanics/shopmenu.js --js=mechanics/showoffboss.js \
 	--js=mechanics/bossscreen.js --js=mechanics/soundwrapper.js --js=mechanics/basiccollision.js \
