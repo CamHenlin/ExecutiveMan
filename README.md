@@ -1,6 +1,8 @@
 ![Executive Man Logo](https://raw.githubusercontent.com/CamHenlin/ExecutiveMan/master/images/execmanlogobig.png "executive man logo")
 
-Playable [here](http://executive-man.com/).
+![Executive Man screenshot](https://raw.githubusercontent.com/CamHenlin/ExecutiveMan/master/images/screenshot.png "executive man screenshot")
+
+### Playable [here](http://executive-man.com/).
 
 To run locally:
 ```
