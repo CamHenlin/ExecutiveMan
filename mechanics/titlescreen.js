@@ -70,6 +70,9 @@ function initTitleScreen() {
  * @return {[type]} [description]
  */
 function startScreenListener() {
+	if (startame) {
+		return;
+	}
 	console.log('click');
 	startgame = true;
 	document.getElementById("gamecanvas").removeEventListener('click', startScreenListener, false);
