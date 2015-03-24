@@ -6,6 +6,7 @@
 - nearly 100% correct NES MegaMan gameplay
 - relatively easy to use touch controls
 - chrome, firefox, and internet explorer joystick support
+- save game support
 - easy to edit Tiled levels
 
 ### Playable [here](http://executive-man.com/).
@@ -29,4 +30,4 @@ cd ExecutiveMan
 ./compile.sh
 ```
 
-note: leveljson directory files are json Tiled maps
+![made with a mac](http://henlin.org/mac.gif "made with a mac")
