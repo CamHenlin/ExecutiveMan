@@ -1,4 +1,3 @@
-var optionsUp = false;
 
 /**
  * [OptionsMenu description]

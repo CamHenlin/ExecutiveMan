@@ -22,7 +22,7 @@ function Door(stage, basicCollision, x, y) {
 			"open": {
 				"frames": [0, 1, 2, 3, 4, 5, 6],
 				"next": "holdopen",
-				"speed": (0.1 / lowFramerate) / skipFrames
+				"speed": (0.1) / skipFrames
 			},
 			"holdopen": {
 				"frames": [6],

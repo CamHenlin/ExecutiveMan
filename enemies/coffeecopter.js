@@ -88,7 +88,7 @@ function CoffeeCopter(stage, x, y) {
 		var distanceFromPlayerY = player.y - this.y;
 		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 256 && !this.activated && this.health > 0 && abs(distanceFromPlayerY) < 32) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, renderer));
-			this.shootTicks = 100 / lowFramerate;
+			this.shootTicks = 100;
 		}
 
 		if (this.shootTicks > 0) {
@@ -140,7 +140,7 @@ function CoffeeCopter(stage, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (1.5 * this.direction) * lowFramerate;
+		this.x = this.x + (1.5 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -149,7 +149,7 @@ function CoffeeCopter(stage, x, y) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

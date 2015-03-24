@@ -19,12 +19,12 @@ function Flood(stage, basicCollision, x, y, original) {
 			"current": {
 				"frames": [0, 1],
 				"next": "current",
-				"speed": (0.15 / lowFramerate) / skipFrames
+				"speed": (0.15) / skipFrames
 			},
 			"flooded": {
 				"frames": [2, 3],
 				"next": "flooded",
-				"speed": (0.15 / lowFramerate) / skipFrames
+				"speed": (0.15) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -39,7 +39,7 @@ function Flood(stage, basicCollision, x, y, original) {
 	this.activated = false;
 	this.jumping = false;
 	this.jumpspeed = 0;
-	this.advanceTicks = ((this.original) ? 60 : 20) / lowFramerate;
+	this.advanceTicks = ((this.original) ? 60 : 20);
 	this.hardshell = false;
 	this.watchedElements = [];
 	this.spent = false;

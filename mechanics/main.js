@@ -250,63 +250,7 @@ var keyCodes = {
 };
 
 
-var bossNumber = 0;
-var clicked = false;
-var itemDropCount = 0;
-var lives = 2;
-var healthBriefCases = 0;
-var gamezoom = 2;
-var stage;
-var altstage;
-var gamestage;
-var pausestage;
-var dialogstage;
-var optionsstage;
-var watchedElements;
-var player;
-var renderer;
-var showOffBossScreenCounter = 0;
-var tileCollisionDetector;
-var startgame;
-var startlevel = false;
-var startbossscreen = false;
-var bossscreenCounter = 0;
-var mobile = false;
-var musicOff = false;
-var soundOff = false;
-var dead = true;
-var fpsLabel;
-var scoreLabel;
-var logFPS = false;
-var buttonSpriteSheet;
-var skipCounter = 0;
-var lowFramerate = 1; // 2 for 30FPS!
-var skipFrames = 1;
-var menuUp = false;
-var score = 0;
 
-var bossframes = [];
-
-var explosionSprite;
-var shotExplosionSprite;
-
-var leftButtonSprite;
-var rightButtonSprite;
-var shootButtonSprite;
-var pauseButtonSprite;
-
-// powerups:
-var doubleJump = false;
-var damageModifier = 1;
-var healthModifier = 1;
-var scoreModifier = 1;
-
-var isDemo = false;
-var demoEnded = false;
-
-var bossnumber = 0;
-
-var titleScreenSprite;
 
 gamestage = new createjs.Stage("gamecanvas");
 gamestage.clear();
@@ -319,9 +263,7 @@ document.getElementById("gamecanvas").style.zoom = zoomAmount;
 document.getElementById("gamecanvas").style.MozTransform = "scale(" + zoomAmount + ")";
 document.getElementById("gamecanvas").style.left = ((window.innerWidth / zoomAmount - document.getElementById("gamecanvas").width) / 2) + "px";
 
-var progress;
-var loadProgress = 0;
-var executivemanLoadingText = new createjs.Text("Executive Man loading...", "14px '" + FONT + "'", "#FFF");
+
 executivemanLoadingText.x = (gamestage.canvas.width / 2) - 90;
 executivemanLoadingText.y = 100;
 gamestage.addChild(executivemanLoadingText);

@@ -18,17 +18,17 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 			"left": {
 				"frames": [0, 1],
 				"next": "left",
-				"speed": (4 / lowFramerate) / skipFrames
+				"speed": (4) / skipFrames
 			},
 			"right": {
 				"frames": [3, 2],
 				"next": "right",
-				"speed": (4 / lowFramerate) / skipFrames
+				"speed": (4) / skipFrames
 			},
 			"pause": {
 				"frames": [0, 3],
 				"next": "pause",
-				"speed": (2 / lowFramerate) / skipFrames
+				"speed": (2) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -92,8 +92,8 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 
 		if (this.jumping && collisionResults.down) {
 			this.jumpspeed += 0.25;
-			if (this.jumpspeed > 8 * lowFramerate) {
-				this.jumpspeed = 8 * lowFramerate;
+			if (this.jumpspeed > 8) {
+				this.jumpspeed = 8;
 			}
 
 			this.y += this.jumpspeed;

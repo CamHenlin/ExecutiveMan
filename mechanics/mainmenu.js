@@ -1,5 +1,3 @@
-var mainMenuScreenUp = false;
-var selectionNumber = 0;
 
 /**
  * [initMainMenuScreen description]

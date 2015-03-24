@@ -80,7 +80,7 @@ function FilingCabinet(stage, basicCollision, x, y) {
 		}
 
 		if (this.jumpTicks > 0) {
-			if (this.jumpTicks > 60 / lowFramerate) {
+			if (this.jumpTicks > 60) {
 				this.x += this.xSpeed;
 			}
 			this.jumpTicks--;
@@ -94,8 +94,8 @@ function FilingCabinet(stage, basicCollision, x, y) {
 
 		if (this.jumping && collisionResults.down) {
 			this.jumpspeed += 0.125;
-			if (this.jumpspeed > 6 * lowFramerate) {
-				this.jumpspeed = 6 * lowFramerate;
+			if (this.jumpspeed > 6) {
+				this.jumpspeed = 6;
 			}
 
 			this.y += this.jumpspeed;
@@ -116,12 +116,12 @@ function FilingCabinet(stage, basicCollision, x, y) {
 		// figure out if we can shoot or not
 		var distanceFromPlayer = player.x - this.x;
 		if (this.jumpTicks === 0 && abs(distanceFromPlayer) < 175 && !this.jumping) {
-			this.jumpTicks = 90 / lowFramerate;
+			this.jumpTicks = 90;
 			this.y -= 5;
 			this.jumping = true;
-			this.jumpspeed = -5 * lowFramerate;
+			this.jumpspeed = -5;
 			this.animations.gotoAndPlay("jump");
-			this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60) / lowFramerate;
+			this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60);
 		}
 
 		if (distanceFromPlayer > 0) {

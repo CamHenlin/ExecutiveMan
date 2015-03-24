@@ -18,7 +18,7 @@ function WallGun(stage, x, y, left) {
 			"open": {
 				"frames": [3, 2, 1, 0],
 				"next": "opened",
-				"speed": (0.125 / lowFramerate) / skipFrames
+				"speed": (0.125) / skipFrames
 			},
 			"closed": {
 				"frames": [3],
@@ -31,7 +31,7 @@ function WallGun(stage, x, y, left) {
 			"close": {
 				"frames": [0, 1, 2, 3],
 				"next": "closed",
-				"speed": (0.125 / lowFramerate) / skipFrames
+				"speed": (0.125) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");
@@ -101,7 +101,7 @@ function WallGun(stage, x, y, left) {
 		} else {
 			var distanceFromPlayer = player.x - this.x;
 			if (abs(distanceFromPlayer) <= 480) {
-				this.movementTicks = 600 / lowFramerate;
+				this.movementTicks = 600;
 				this.animations.gotoAndPlay('open');
 				this.hardshell = false;
 				setTimeout(function() {
@@ -173,8 +173,8 @@ function WallGun(stage, x, y, left) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x += this.xspeed * lowFramerate;
-			this.y += this.yspeed * lowFramerate;
+			this.x += this.xspeed;
+			this.y += this.yspeed;
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

@@ -1,4 +1,3 @@
-var pauseUp = false;
 
 /**
  * [PauseMenu description]

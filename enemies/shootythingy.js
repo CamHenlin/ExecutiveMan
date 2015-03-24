@@ -125,7 +125,7 @@ function ShootyThingy(stage, basicCollision, x, y) {
 			}.bind(this), 500);
 
 			this.activated = true;
-			this.shootTicks = 150 / lowFramerate;
+			this.shootTicks = 150;
 			setTimeout(function() {
 				this.activated = false;
 			}.bind(this), 750);
@@ -174,7 +174,7 @@ function ShootyThingy(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction) * lowFramerate;
+		this.x = this.x + (3 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -183,7 +183,7 @@ function ShootyThingy(stage, basicCollision, x, y) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

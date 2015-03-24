@@ -116,7 +116,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 			this.animations.gotoAndPlay("shoot");
 			this.hardshell = false;
 			this.activated = true;
-			this.shootTicks = 200 / lowFramerate;
+			this.shootTicks = 200;
 			setTimeout(function() {
 				this.animations.gotoAndPlay("sit");
 				this.activated = false;
@@ -167,7 +167,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction) * lowFramerate;
+		this.x = this.x + (3 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -176,7 +176,7 @@ function ShieldGuy(stage, basicCollision, x, y) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

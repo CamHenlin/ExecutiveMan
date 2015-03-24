@@ -1,4 +1,3 @@
-var bossScreenUp = false;
 
 /**
  * [initBossScreen description]

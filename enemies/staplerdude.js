@@ -124,7 +124,7 @@ function StaplerDude(stage, basicCollision, x, y) {
 			if (abs(distanceFromPlayer) < 64) {
 				this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, renderer));
 				this.animations.gotoAndPlay("throw");
-				this.shootTicks = 200 / lowFramerate;
+				this.shootTicks = 200;
 				this.throwSwitch = true;
 				setTimeout(function() {
 					this.throwSwitch = false;
@@ -182,7 +182,7 @@ function StaplerDude(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction) * lowFramerate;
+		this.x = this.x + (3 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -191,7 +191,7 @@ function StaplerDude(stage, basicCollision, x, y) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

@@ -25,12 +25,12 @@ function ComputerGuy(stage, basicCollision, x, y) {
 			"run": {
 				"frames": [2, 3],
 				"next": "run",
-				"speed": (0.05 / lowFramerate) / skipFrames
+				"speed": (0.05) / skipFrames
 			},
 			"jump": {
 				"frames": [7],
 				"next": "jump",
-				"speed": (0.15 / lowFramerate) / skipFrames
+				"speed": (0.15) / skipFrames
 			},
 			"startjump": {
 				"frames": [4],
@@ -163,10 +163,10 @@ function ComputerGuy(stage, basicCollision, x, y) {
 
 
 		if (this.jumpTicks === 0 && abs(distanceFromPlayer) <= 32 && this.jumpspeed === 0 && !this.jumping) {
-			this.jumpTicks = 160 / lowFramerate;
+			this.jumpTicks = 160;
 			this.y -= 2;
 			this.jumping = true;
-			This.jumpspeed = -3.875 * lowFramerate;
+			This.jumpspeed = -3.875;
 			this.animations.gotoAndPlay("startjump");
 		}
 

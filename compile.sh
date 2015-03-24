@@ -10,7 +10,7 @@ cd leveljson
 ./makelevel.sh demo 0
 cd ../
 java -jar compiler.jar \
-	--js=libs/easeljs-NEXT.min.js --js=libs/soundjs-0.5.2.min.js --js=libs/preload-NEXT.min.js \
+	--js=libs/easeljs-0.8.0.min.js --js=libs/soundjs-0.6.0.min.js --js=libs/preload-NEXT.min.js \
 	\
 	--js=levels/wastemanlevel.js --js=levels/accountingmanlevel.js  --js=levels/materialmanlevel.js --js=levels/visionarymanlevel.js \
 	--js=levels/warehousemanlevel.js --js=levels/hrmanlevel.js --js=levels/itmanlevel.js --js=levels/salesmanlevel.js \
@@ -27,8 +27,8 @@ java -jar compiler.jar \
 	--js=enemies/annoyingthing.js --js=enemies/computerguy.js --js=enemies/sixshooter.js --js=enemies/shootythingy.js \
 	--js=enemies/staplerdude.js --js=enemies/coffeecopter.js \
 	\
-	--js=mechanics/constants.js --js=mechanics/common.js --js=mechanics/main.js  \
-	--js=mechanics/collision.js --js=mechanics/fastCollision.js \
+	--js=mechanics/constants.js --js=mechanics/common.js --js=mechanics/globals.js \
+	 --js=mechanics/main.js --js=mechanics/collision.js --js=mechanics/fastCollision.js \
 	--js=mechanics/renderer.js --js=mechanics/player.js  --js=mechanics/titlescreen.js \
 	--js=mechanics/pausemenu.js --js=mechanics/shopmenu.js --js=mechanics/showoffboss.js \
 	--js=mechanics/bossscreen.js --js=mechanics/soundwrapper.js --js=mechanics/basiccollision.js \

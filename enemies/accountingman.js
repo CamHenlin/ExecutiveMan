@@ -147,8 +147,8 @@ function AccountingMan(stage, basicCollision, x, y) {
 		var distanceFromPlayer = player.x - this.x;
 		if (this.jumping && collisionResults.down) {
 			this.jumpspeed += 0.25;
-			if (this.jumpspeed > 12 / lowFramerate) {
-				this.jumpspeed = 12 / lowFramerate;
+			if (this.jumpspeed > 12) {
+				this.jumpspeed = 12;
 				if (distanceFromPlayer < 0) {
 					this.runningLeft = true;
 				} else {
@@ -237,18 +237,15 @@ function AccountingMan(stage, basicCollision, x, y) {
 			//console.log("creating many shots down");
 			this.animations.gotoAndPlay("shoot");
 			this.createManyShotsDown();
-			this.shootTicks = 200 / lowFramerate;
+			this.shootTicks = 200;
 		}
 
 		if (this.jumpTicks === 0 && (abs(distanceFromPlayer) < 64 || abs(distanceFromPlayer) > 128) && !this.jumping) {
-			this.jumpTicks = 160 / lowFramerate;
+			this.jumpTicks = 160;
 			this.y -= 2;
 			this.jumping = true;
-			this.jumpspeed = -4.875 * lowFramerate;
+			this.jumpspeed = -4.875;
 			this.animations.gotoAndPlay("jump");
-
-			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
-			//this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60) / lowFramerate;
 		}
 
 		if (!this.runningLeft && !this.runningRight) {
@@ -267,7 +264,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 225 && !this.runningLeft && !this.runningRight) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
 			this.animations.gotoAndPlay("shoot");
-			this.shootTicks = 100 / lowFramerate;
+			this.shootTicks = 100;
 		}
 
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
@@ -314,7 +311,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction) * lowFramerate;
+		this.x = this.x + (3 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -323,7 +320,7 @@ function AccountingMan(stage, basicCollision, x, y) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x = this.x + (1.1 * this.direction) * lowFramerate;
+			this.x = this.x + (1.1 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

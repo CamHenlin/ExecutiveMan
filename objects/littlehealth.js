@@ -18,7 +18,7 @@ function LittleHealth(stage, x, y, basicCollision) {
 			"blink": {
 				"frames": [0, 0, 1, 1, 1, 1],
 				"next": "blink",
-				"speed": (0.125 / lowFramerate) / skipFrames
+				"speed": (0.125) / skipFrames
 			}
 		}
 	}); // new createjs.Bitmap("images/businessmanspritesheet.png");

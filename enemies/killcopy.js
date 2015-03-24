@@ -140,7 +140,7 @@ function KillCopy(stage, basicCollision, x, y) {
 			shotxOffset = 32;
 			this.shoot();
 			this.activated = true;
-			this.shootTicks = 150 / lowFramerate;
+			this.shootTicks = 150;
 
 			setTimeout(function() {
 				if (this.health === -1) {
@@ -316,7 +316,7 @@ function KillCopy(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (5 * this.direction) * lowFramerate;
+		this.x = this.x + (5 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -331,7 +331,7 @@ function KillCopy(stage, basicCollision, x, y) {
 
 			this.y += this.ySpeed;
 			this.ySpeed -= 0.25;
-			this.x = this.x + (4 * this.direction) * lowFramerate;
+			this.x = this.x + (4 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
@@ -394,7 +394,7 @@ function KillCopy(stage, basicCollision, x, y) {
 		this.owner = owner;
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (5 * this.direction) * lowFramerate;
+		this.x = this.x + (5 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -409,7 +409,7 @@ function KillCopy(stage, basicCollision, x, y) {
 
 			this.y += this.ySpeed;
 			this.ySpeed -= 0.09;
-			this.x = this.x + (4 * this.direction) * lowFramerate;
+			this.x = this.x + (4 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

@@ -845,7 +845,7 @@ function Renderer(gamestage) {
 				//this.backgroundContainer1.visible = false;
 			}
 
-			this.backgroundTicks = 16 / lowFramerate;
+			this.backgroundTicks = 16;
 		}
 
 		var halfIt = 1;

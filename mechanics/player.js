@@ -214,8 +214,8 @@ function Player(demoMode, demoParams) {
 				return;
 			}
 
-			this.x = this.x + (3.5 * this.direction) * lowFramerate;
-			this.y -= this.yspeed * lowFramerate;
+			this.x = this.x + (3.5 * this.direction);
+			this.y -= this.yspeed;
 			this.animations.x = this.x;
 			this.animations.y = this.y;
 
@@ -846,8 +846,8 @@ function Player(demoMode, demoParams) {
 
 		if (!this.touchDown) {
 			if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
-				this.y += this.jumpspeed * lowFramerate;
-				this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
+				this.y += this.jumpspeed;
+				this.jumpspeed = this.jumpspeed + 0.25;
 				if (this.jumpspeed > 3) {
 					this.jumpspeed = 3; // megaman's terminal velocity
 				}
@@ -917,15 +917,15 @@ function Player(demoMode, demoParams) {
 		}
 
 		if (this.transitionedUp) {
-			this.y += this.jumpspeed * lowFramerate;
-			this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
+			this.y += this.jumpspeed;
+			this.jumpspeed = this.jumpspeed + 0.25;
 			this.animations.y = this.y;
 		}
 
 		if (this.ignoreInput) {
 			if (!this.ignoreBounceBack) {
 				if ((actions.collisionResults.leftMove && this.animations.scaleX === 1) || (actions.collisionResults.rightMove && this.animations.scaleX === -1)) {
-					this.x += -this.animations.scaleX * lowFramerate;
+					this.x += -this.animations.scaleX;
 				}
 
 				// prevent us from moving left after a screen transition
@@ -1032,8 +1032,8 @@ function Player(demoMode, demoParams) {
 		}
 
 		if ((this.jumping && actions.collisionResults.downmove && actions.collisionResults.upmove) || (this.jumping && actions.collisionResults.downmove && this.jumpspeed > 0)) {
-			this.y += this.jumpspeed * lowFramerate;
-			this.jumpspeed = this.jumpspeed + 0.25 * lowFramerate;
+			this.y += this.jumpspeed;
+			this.jumpspeed = this.jumpspeed + 0.25;
 			if (this.jumpspeed > 7) {
 				this.jumpspeed = 7; // megaman's terminal velocity
 			}
@@ -1062,7 +1062,7 @@ function Player(demoMode, demoParams) {
 		} else if (this.jumping && !actions.collisionResults.upmove) {
 			this.jumpspeed = 0.5;
 			this.falling = true; // megaman's jumpspeed set to .5 when he bonks his head
-			//this.y += this.jumpspeed * lowFramerate;
+			//this.y += this.jumpspeed;
 			if ((actions.collisionResults.leftmove && this.actions.playerLeft) || (actions.collisionResults.rightmove && this.actions.playerRight)) {
 				this.ignoreLeftRightCollisionThisFrame = 0;
 			}
@@ -1143,22 +1143,22 @@ function Player(demoMode, demoParams) {
 		if (this.goingRight || this.goingLeft) {
 			if (this.goingRight && (actions.collisionResults.rightmove || this.ignoreLeftRightCollisionThisFrame !== 0)) {
 				if (this.movementTicks > 0) {
-					this.x += 0.2 * lowFramerate; // megaman moved slower as he began moving
+					this.x += 0.2; // megaman moved slower as he began moving
 					this.movementTicks--;
 				} else {
-					this.x += 1.375 * lowFramerate;
+					this.x += 1.375;
 				}
 			} else if (this.goingLeft && (actions.collisionResults.leftmove || this.ignoreLeftRightCollisionThisFrame !== 0)) {
 				if (this.movementTicks > 0) {
-					this.x += -0.2 * lowFramerate; // megaman moved slower as he began moving
+					this.x += -0.2; // megaman moved slower as he began moving
 					this.movementTicks--;
 				} else {
-					this.x += -1.375 * lowFramerate;
+					this.x += -1.375;
 				}
 			}
 		} else if (this.movementTicks > 0) {
 			if ((actions.collisionResults.rightmove && actions.collisionResults.leftmove) || this.ignoreLeftRightCollisionThisFrame !== 0) {
-				this.x += 0.8 * this.animations.scaleX * lowFramerate;
+				this.x += 0.8 * this.animations.scaleX;
 				this.movementTicks--;
 			} else {
 				this.movementTicks = 0;

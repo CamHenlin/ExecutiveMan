@@ -1,4 +1,4 @@
-var shopUp = false;
+
 
 /**
  * [ShopMenu description]

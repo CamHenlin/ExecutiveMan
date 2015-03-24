@@ -93,7 +93,7 @@ function Copter(stage, x, y) {
 			if (abs(distanceFromPlayer) <= 150) {
 				this.activated = true;
 				this.targetY = player.y + 10;
-				this.movementTicks = 100 / lowFramerate;
+				this.movementTicks = 100;
 
 				this.xStepSize = (this.x - player.x + (32 * this.animations.scaleX)) / this.movementTicks;
 				this.yStepSize = (this.y - this.targetY) / (this.movementTicks);

@@ -147,8 +147,8 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		var distanceFromPlayer = player.x - this.x;
 		if (this.jumping && collisionResults.down) {
 			this.jumpspeed += 0.25;
-			if (this.jumpspeed > 12 / lowFramerate) {
-				this.jumpspeed = 12 / lowFramerate;
+			if (this.jumpspeed > 12) {
+				this.jumpspeed = 12;
 				if (distanceFromPlayer < 0) {
 					this.runningLeft = true;
 				} else {
@@ -221,18 +221,18 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		if (this.runTicker > 10 && this.shootTicks === 0 && abs(distanceFromPlayer) > 196) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this));
 			this.animations.gotoAndPlay("shoot");
-			this.shootTicks = 200 / lowFramerate;
+			this.shootTicks = 200;
 		}
 
 		if (this.jumpTicks === 0 && !this.jumping && this.havePlatformInColumn()) {
-			this.jumpTicks = 40 / lowFramerate;
+			this.jumpTicks = 40;
 			this.y -= 2;
 			this.jumping = true;
-			this.jumpspeed = -7.05 * lowFramerate;
+			this.jumpspeed = -7.05;
 			this.animations.gotoAndPlay("jump");
 
 			//this.watchedElements.push(new Shot(stage, this.x, this.y, this.animations.scaleX, this, renderer));
-			//this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60) / lowFramerate;
+			//this.xSpeed = distanceFromPlayer / (this.jumpTicks - 60);
 		}
 
 		if (!this.runningLeft && !this.runningRight) {
@@ -253,7 +253,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 			this.watchedElements.push(new BigShot(stage, this.x, this.y, this.animations.scaleX, this, this.basicCollision));
 			this.animations.gotoAndPlay("shoot");
 			playSound("warehousemanshoot");
-			this.shootTicks = 2000 / lowFramerate;
+			this.shootTicks = 2000;
 		}
 
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
@@ -317,7 +317,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (3 * this.direction) * lowFramerate;
+		this.x = this.x + (3 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -326,7 +326,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
@@ -393,7 +393,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (2.5 * this.direction) * lowFramerate;
+		this.x = this.x + (2.5 * this.direction);
 		this.yspeed = -1;
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
@@ -407,12 +407,12 @@ function WarehouseMan(stage, basicCollision, x, y) {
 				return;
 			}
 
-			this.yspeed = this.yspeed + 0.075 * lowFramerate;
-			if (this.yspeed > 12 / lowFramerate) {
-				this.yspeed = 12 / lowFramerate;
+			this.yspeed = this.yspeed + 0.075;
+			if (this.yspeed > 12) {
+				this.yspeed = 12;
 			}
 			this.y += this.yspeed;
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
@@ -485,7 +485,7 @@ function WarehouseMan(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (1 * this.direction) * lowFramerate;
+		this.x = this.x + (1 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -498,12 +498,12 @@ function WarehouseMan(stage, basicCollision, x, y) {
 				return;
 			}
 
-			this.yspeed = this.yspeed + 0.0625 * lowFramerate;
-			if (this.yspeed > 12 / lowFramerate) {
-				this.yspeed = 12 / lowFramerate;
+			this.yspeed = this.yspeed + 0.0625;
+			if (this.yspeed > 12) {
+				this.yspeed = 12;
 			}
 			this.y += this.yspeed;
-			this.x = this.x + (1.55 * this.direction) * lowFramerate;
+			this.x = this.x + (1.55 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

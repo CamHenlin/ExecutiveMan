@@ -143,7 +143,7 @@ function SixShooter(stage, x, y) {
 			this.stopTicks--;
 		} else if (this.stopTicks === 50) {
 			this.stopTicks--;
-			this.movementTicks = 200 / lowFramerate;
+			this.movementTicks = 200;
 			this.animations.gotoAndPlay('open');
 			this.hardshell = false;
 
@@ -215,8 +215,8 @@ function SixShooter(stage, x, y) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x += this.xspeed * lowFramerate;
-			this.y += this.yspeed * lowFramerate;
+			this.x += this.xspeed;
+			this.y += this.yspeed;
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 

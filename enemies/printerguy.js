@@ -25,7 +25,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 			"move": {
 				"frames": [2, 3],
 				"next": "move",
-				"speed": (0.15 / lowFramerate) / skipFrames
+				"speed": (0.15) / skipFrames
 			},
 			"showlong": {
 				"frames": [1],
@@ -131,7 +131,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 
 		if (this.shootTicks === 0 && abs(distanceFromPlayer) < 175 && !this.activated && this.health > 0) {
 			this.watchedElements.push(new Shot(stage, this.x, this.y, -this.animations.scaleX, this, renderer));
-			this.shootTicks = 300 / lowFramerate;
+			this.shootTicks = 300;
 			this.hardshell = false;
 			this.animations.gotoAndPlay("showlong");
 
@@ -204,7 +204,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 
 		this.animations.play();
 		this.stage.addChild(this.animations);
-		this.x = this.x + (1.5 * this.direction) * lowFramerate;
+		this.x = this.x + (1.5 * this.direction);
 		this.animations.x = this.x - renderer.completedMapsWidthOffset;
 		this.animations.y = this.y;
 
@@ -213,7 +213,7 @@ function PrinterGuy(stage, basicCollision, x, y) {
 		 * @return {[type]} [description]
 		 */
 		this.tickActions = function() {
-			this.x = this.x + (1.5 * this.direction) * lowFramerate;
+			this.x = this.x + (1.5 * this.direction);
 			this.animations.x = this.x - renderer.completedMapsWidthOffset;
 			this.animations.y = this.y;
 
