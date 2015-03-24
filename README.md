@@ -2,13 +2,13 @@
 
 ![Executive Man screenshot](https://raw.githubusercontent.com/CamHenlin/ExecutiveMan/master/images/screenshot.png "executive man screenshot")
 
-### Playable [here](http://executive-man.com/).
-
 #### Features
 - nearly 100% correct NES MegaMan gameplay
 - relatively easy to use touch controls
 - chrome, firefox, and internet explorer joystick support
 - easy to edit Tiled levels
+
+### Playable [here](http://executive-man.com/).
 
 To run locally:
 ```
