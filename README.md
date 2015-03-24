@@ -4,6 +4,12 @@
 
 ### Playable [here](http://executive-man.com/).
 
+#### Features
+- nearly 100% correct NES MegaMan gameplay
+- relatively easy to use touch controls
+- chrome, firefox, and internet explorer joystick support
+- easy to edit Tiled levels
+
 To run locally:
 ```
 git clone https://github.com/CamHenlin/ExecutiveMan.git
