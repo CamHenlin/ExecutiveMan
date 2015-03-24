@@ -1,5 +1,3 @@
-# ExecutiveMan
-
 ![Executive Man Logo](https://raw.githubusercontent.com/CamHenlin/ExecutiveMan/master/images/execmanlogobig.png "executive man logo")
 
 Playable [here](http://executive-man.com/).
