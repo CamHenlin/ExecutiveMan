@@ -17,7 +17,7 @@ ExecutiveMan is a recreation of my favorite NES game, MegaMan. It's written in m
 The game is still a work in progress. However, it is very playable, and even has a couple of mostly complete levels for you to try out. The most complete at this time are:
 - [WasteMan](http://executive-man.com/?level=0)
 - [AccountingMan](http://executive-man.com/?level=1)
-- VisionaryMan (screenshot above)
+- [VisionaryMan](http://executive-man.com/?level=8) (screenshot of level above)
 
 To run locally:
 ```
