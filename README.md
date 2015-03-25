@@ -10,6 +10,7 @@
 - chrome, firefox, and internet explorer joystick support
 - save game support
 - easy to edit Tiled levels
+- easily hackable!
 
 #### About ExecutiveMan
 ExecutiveMan is a recreation of my favorite NES game, MegaMan. It's written in my favorite programming language, JavaScript. The ExecutiveMan engine aims to have 100% complete feature coverage of the original MegaMan games. The only thing that is missing at this point (outside of only having 14 types of enemies) is ladders, for one very simple reason: Ladders require extra up and down buttons which make the game very clumsy to play with touch controls.
