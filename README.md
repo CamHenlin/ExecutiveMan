@@ -3,6 +3,7 @@
 ![Executive Man screenshot](https://raw.githubusercontent.com/CamHenlin/ExecutiveMan/master/images/screenshot.png "executive man screenshot")
 
 #### Playable [here](http://executive-man.com/).
+#### OR HERE WITH NO SOUND: [here](http://executive-man.com/?soundoff=true).
 
 #### Features
 - nearly 100% correct NES MegaMan gameplay
