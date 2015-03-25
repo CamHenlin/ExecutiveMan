@@ -11,21 +11,6 @@ function initBossScreen() {
 		lives = 2;
 	}
 
-	var bossframeSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("bossframe")],
-		"frames": {
-			"width": 45,
-			"height": 45,
-			"count": 1
-		},
-		"animations": {
-			"frame": {
-				"frames": [0],
-				"next": "frame"
-			}
-		}
-	});
-
 	var executivemanTopperSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("executivemantopper")],
 		"frames": {
@@ -58,7 +43,7 @@ function initBossScreen() {
 		}
 	});
 	var wastemanFrame = new createjs.Sprite(wastemanFrameSpriteSheet, "frame");
-	var wastemanLabel = new createjs.Text("WASTE MAN", "11px '" + FONT + "'", "#FFF");
+	var wastemanLabel = new createjs.Text("WASTE MAN", "14px '" + FONT + "'", "#FFF");
 
 	var materialmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("materialmanframe")],
@@ -75,7 +60,7 @@ function initBossScreen() {
 		}
 	});
 	var materialmanFrame = new createjs.Sprite(materialmanFrameSpriteSheet, "frame");
-	var materialManLabel = new createjs.Text("MATERIAL \n     MAN", "11px '" + FONT + "'", "#FFF");
+	var materialManLabel = new createjs.Text("MATERIAL MAN", "14px '" + FONT + "'", "#FFF");
 
 	var HRmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("hrmanframe")],
@@ -91,7 +76,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var HRManLabel = new createjs.Text("HR MAN", "11px '" + FONT + "'", "#FFF");
+	var HRManLabel = new createjs.Text("HR MAN", "14px '" + FONT + "'", "#FFF");
 	var HRmanFrame = new createjs.Sprite(HRmanFrameSpriteSheet, "frame");
 
 	var salesManFrameSpriteSheet = new createjs.SpriteSheet({
@@ -108,7 +93,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var salesManLabel = new createjs.Text("SALES MAN", "11px '" + FONT + "'", "#FFF");
+	var salesManLabel = new createjs.Text("SALES MAN", "14px '" + FONT + "'", "#FFF");
 	var salesManFrame = new createjs.Sprite(salesManFrameSpriteSheet, "frame");
 
 	var ITmanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -125,7 +110,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var ITManLabel = new createjs.Text("IT MAN", "11px '" + FONT + "'", "#FFF");
+	var ITManLabel = new createjs.Text("IT MAN", "14px '" + FONT + "'", "#FFF");
 	var ITmanFrame = new createjs.Sprite(ITmanFrameSpriteSheet, "frame");
 
 	var warehousemanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -142,7 +127,7 @@ function initBossScreen() {
 			}
 		}
 	});
-	var warehouseMan = new createjs.Text("WAREHOUSE \n        MAN", "11px '" + FONT + "'", "#FFF");
+	var warehouseMan = new createjs.Text("WAREHOUSE MAN", "14px '" + FONT + "'", "#FFF");
 	var warehousemanFrame = new createjs.Sprite(warehousemanFrameSpriteSheet, "frame");
 
 	var visionarymanFrameSpriteSheet = new createjs.SpriteSheet({
@@ -160,7 +145,7 @@ function initBossScreen() {
 		}
 	});
 	var visionarymanFrame = new createjs.Sprite(visionarymanFrameSpriteSheet, "frame");
-	var visionaryMan = new createjs.Text("VISIONARY \n      MAN", "11px '" + FONT + "'", "#FFF");
+	var visionaryMan = new createjs.Text("VISIONARY MAN", "14px '" + FONT + "'", "#FFF");
 
 	var accountingmanFrameSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("accountingmanframe")],
@@ -176,30 +161,9 @@ function initBossScreen() {
 			}
 		}
 	});
-	var accountingmanLabel = new createjs.Text("ACCOUNTING \n        MAN", "11px '" + FONT + "'", "#FFF");
+	var accountingmanLabel = new createjs.Text("ACCOUNTING MAN", "14px '" + FONT + "'", "#FFF");
 	var accountingmanFrame = new createjs.Sprite(accountingmanFrameSpriteSheet, "frame");
 
-	var shopFrameSpriteSheet = new createjs.SpriteSheet({
-		"images": [loader.getResult("shopframe")],
-		"frames": {
-			"width": 30,
-			"height": 24,
-			"count": 1
-		},
-		"animations": {
-			"frame": {
-				"frames": [0],
-				"next": "frame"
-			}
-		}
-	});
-	var shopLabel = new createjs.Text("SHOP", "11px '" + FONT + "'", "#FFF");
-	var shopFrame = new createjs.Sprite(shopFrameSpriteSheet, "frame");
-
-	bossframes = [];
-	for (var i = 0; i < 9; i++) {
-		bossframes.push(new createjs.Sprite(bossframeSpriteSheet, "frame"));
-	}
 
 	bossScreenUp = true;
 	bossscreenCounter = 60;
@@ -218,7 +182,6 @@ function initBossScreen() {
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(altstage);
 	gamestage.addChild(stage);
-	this.shopMenu = new ShopMenu();
 	this.optionsMenu = new OptionsMenu();
 	stage.x = -gamestage.canvas.width;
 	altstage.x = gamestage.canvas.width;
@@ -227,83 +190,50 @@ function initBossScreen() {
 	altstage.addChild(fillColor);
 
 
-	var saveGameLabel = new createjs.Text("SAVE\nGAME", "11px '" + FONT + "'", "#FFF");
-	saveGameLabel.x = 6;
+	var saveGameLabel = new createjs.Text("SAVE\nGAME", "16px '" + FONT + "'", "#FFF");
+	saveGameLabel.x = 30;
 	saveGameLabel.y = 10;
 	this.saveGameTouchTarget = buildSaveLoadTouchTarget(saveGameLabel);
-	var loadGameLabel = new createjs.Text("LOAD\nGAME", "11px '" + FONT + "'", "#FFF");
-	loadGameLabel.x = gamestage.canvas.width - 36;
+	var loadGameLabel = new createjs.Text("LOAD\nGAME", "16px '" + FONT + "'", "#FFF");
+	loadGameLabel.x = gamestage.canvas.width - 62;
 	loadGameLabel.y = 10;
 	this.loadGameTouchTarget = buildSaveLoadTouchTarget(loadGameLabel);
-	var optionsMenuLabel = new createjs.Text("OPTIONS", "11px '" + FONT + "'", "#FFF");
-	optionsMenuLabel.x = 6;
-	optionsMenuLabel.y = gamestage.canvas.height - 36;
+	var optionsMenuLabel = new createjs.Text("OPTIONS", "16px '" + FONT + "'", "#FFF");
+	optionsMenuLabel.x = 30;
+	optionsMenuLabel.y = gamestage.canvas.height - 16;
 	this.optionsMenuTouchTarget = buildSaveLoadTouchTarget(optionsMenuLabel);
 
-	var width = bossframes[0].spriteSheet._frameWidth;
-	var framewidth = bossframes[0].spriteSheet._frameWidth;
-	var centerx = gamestage.canvas.width / 2 - bossframes[0].spriteSheet._frameWidth / 2;
-	var centery = 10 + gamestage.canvas.height / 2 - bossframes[0].spriteSheet._frameWidth / 2;
-	for (i = 0; i < 9; i++) {
-		if (i === 0) {
-			wastemanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth / 2 - 2;
-			wastemanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth / 2 - 2;
-			wastemanLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 1;
-			wastemanLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 1) {
-			accountingmanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + accountingmanFrame.spriteSheet._frameWidth / 2 + 3;
-			accountingmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + accountingmanFrame.spriteSheet._frameWidth / 2;
-			accountingmanLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) - 1;
-			accountingmanLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 2) {
-			materialmanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + wastemanFrame.spriteSheet._frameWidth / 2 - 5;
-			materialmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + wastemanFrame.spriteSheet._frameWidth / 2 - 5;
-			materialManLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 5;
-			materialManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 3) {
-			HRmanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + HRmanFrame.spriteSheet._frameWidth / 2 + 3;
-			HRmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + HRmanFrame.spriteSheet._frameWidth / 2;
-			HRManLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 9;
-			HRManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 4) { // middle frame
-			shopFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + shopFrame.spriteSheet._frameWidth / 2 - 8;
-			shopFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + shopFrame.spriteSheet._frameWidth / 2 - 4;
-			shopLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 12;
-			shopLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 5) {
-			salesManFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + salesManFrame.spriteSheet._frameWidth / 2 - 8;
-			salesManFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + salesManFrame.spriteSheet._frameWidth / 2 - 8;
-			salesManLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 1;
-			salesManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 6) {
-			ITmanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + ITmanFrame.spriteSheet._frameWidth / 2 - 2;
-			ITmanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + ITmanFrame.spriteSheet._frameWidth / 2 - 3;
-			ITManLabel.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 10;
-			ITManLabel.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 7) {
-			warehousemanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + warehousemanFrame.spriteSheet._frameWidth / 2 + 2;
-			warehousemanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + warehousemanFrame.spriteSheet._frameWidth / 2;
-			warehouseMan.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) - 1;
-			warehouseMan.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		if (i === 8) {
-			visionarymanFrame.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + visionarymanFrame.spriteSheet._frameWidth / 2 + 3;
-			visionarymanFrame.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + visionarymanFrame.spriteSheet._frameWidth / 2;
-			visionaryMan.x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3) + 3;
-			visionaryMan.y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2 + framewidth + 5;
-		}
-		bossframes[i].x = centerx - 4 / 3 * width + (framewidth + framewidth / 2) * (i % 3);
-		bossframes[i].y = centery - width + (framewidth + framewidth / 2) * ~~(i / 3) - width / 2;
+	var centerx = gamestage.canvas.width / 2;
+	var centery = 10 + gamestage.canvas.height / 2;
+
+	this.frames = [	wastemanFrame,
+					accountingmanFrame,
+					materialmanFrame,
+					HRmanFrame,
+					salesManFrame,
+					ITmanFrame,
+					warehousemanFrame,
+					visionarymanFrame ];
+	var labels = [	wastemanLabel,
+					accountingmanLabel,
+					materialManLabel,
+					HRManLabel,
+					salesManLabel,
+					ITManLabel,
+					warehouseMan,
+					visionaryMan ];
+
+	for (var i = 0; i < frames.length; i++) {
+		var offset = (i > 3) ? 150 : 0;
+		console.log(i);
+		this.frames[i].x = 30 - this.frames[i].spriteSheet._frameWidth / 2 + offset;
+		this.frames[i].y = (i % 4) * 35 + 59;
+		labels[i].x = 50 + offset;
+		labels[i].y = (i % 4) * 35 + 10 + 59;
 	}
-	executivemanTopper.x = centerx - executivemanTopper.spriteSheet._frameWidth / 2 + width / 2 + 10;
-	executivemanTopper.y = centery - width * 2 - width / 2;
+
+	executivemanTopper.x = centerx - executivemanTopper.spriteSheet._frameWidth / 2;
+	executivemanTopper.y = 0;
 	startlevel = false;
 
 	createjs.Ticker.addEventListener("tick", handleBossScreenTick);
@@ -312,9 +242,6 @@ function initBossScreen() {
 	document.getElementById("gamecanvas").addEventListener('click', bossClickHandler.bind(this), false);
 
 	stage.addChild(executivemanTopper);
-	for (i = 0; i < bossframes.length; i++) {
-		stage.addChild(bossframes[i]);
-	}
 
 	stage.addChild(wastemanFrame);
 	stage.addChild(wastemanLabel);
@@ -333,8 +260,6 @@ function initBossScreen() {
 
 	stage.addChild(visionaryMan);
 
-	stage.addChild(shopFrame);
-	stage.addChild(shopLabel);
 	stage.addChild(saveGameLabel);
 	stage.addChild(optionsMenuLabel);
 	stage.addChild(loadGameLabel);
@@ -365,16 +290,12 @@ var bossScreenKeyDownHandler = function(event) {
 
 		case keyCodes.jump:
 			// keyCode 32 is space
-			if (bossNumber === 4) {
-				this.shopMenu.show();
-				//event.target.removeEventListener(event.type, arguments.callee);
-			} else {
-				initVars();
-				initShowOffBossScreen(bossNumber);
-				event.target.removeEventListener(event.type, arguments.callee);
-				bossScreenUp = false;
-				playSound("pauseopen");
-			}
+
+			initVars();
+			initShowOffBossScreen(bossNumber);
+			event.target.removeEventListener(event.type, arguments.callee);
+			bossScreenUp = false;
+			playSound("pauseopen");
 			break;
 	}
 };
@@ -433,11 +354,8 @@ function bossClickHandler(event) {
 	} else if (fastCollisionSprite(this.optionsMenuTouchTarget, touchSprite)) {
 		this.optionsMenu.show();
 	} else {
-		for (var k = 0; k < 9; k++) { // should be 9
-			if (k === 4 && fastCollisionSprite(bossframes[k], touchSprite)) {
-				this.shopMenu.show();
-				//event.target.removeEventListener(event.type, arguments.callee);
-			} else if (fastCollisionSprite(bossframes[k], touchSprite)) {
+		for (var k = 0; k < frames.length; k++) {
+			if (fastCollisionSprite(this.frames[k], touchSprite)) {
 				initVars();
 				initShowOffBossScreen(k);
 				event.target.removeEventListener(event.type, arguments.callee);

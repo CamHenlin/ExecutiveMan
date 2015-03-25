@@ -41,7 +41,6 @@ function initMainMenuScreen() {
 	gamestage.canvas.style.backgroundColor = "#000";
 	gamestage.addChild(altstage);
 	gamestage.addChild(stage);
-	this.shopMenu = new ShopMenu();
 	this.optionsMenu = new OptionsMenu();
 	stage.x = -gamestage.canvas.width;
 	altstage.x = gamestage.canvas.width;

@@ -127,7 +127,7 @@ function PauseMenu() {
 	healthBriefCasesLabel.y = gamestage.canvas.height - 60;
 	healthBriefCasesSprite.x = 42;
 	healthBriefCasesSprite.y = gamestage.canvas.height - 65;
-	this.healthBriefCasesTouchTarget = buildTouchTarget(healthBriefCasesLabel);
+//	this.healthBriefCasesTouchTarget = buildTouchTarget(healthBriefCasesLabel);
 
 	pausestage.addChild(shape);
 	pausestage.addChild(this.setPostItBlasterTouchTarget);

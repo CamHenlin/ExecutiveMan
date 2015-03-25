@@ -30,7 +30,7 @@ java -jar compiler.jar \
 	--js=mechanics/constants.js --js=mechanics/common.js --js=mechanics/globals.js --js=mechanics/loader.js \
 	--js=mechanics/main.js --js=mechanics/collision.js --js=mechanics/fastCollision.js \
 	--js=mechanics/renderer.js --js=mechanics/player.js  --js=mechanics/titlescreen.js \
-	--js=mechanics/pausemenu.js --js=mechanics/shopmenu.js --js=mechanics/showoffboss.js \
+	--js=mechanics/pausemenu.js --js=mechanics/showoffboss.js \
 	--js=mechanics/bossscreen.js --js=mechanics/soundwrapper.js --js=mechanics/basiccollision.js \
 	--js=mechanics/savesystem.js --js=mechanics/optionsmenu.js --js=mechanics/joystick.js \
 	--js=mechanics/mainmenu.js --js=mechanics/dialog.js \

@@ -55,13 +55,12 @@ function initVars() {
 window.onresize = function(event) {
 	document.getElementById("gamecanvas").style.zoom = 0.1;
 	document.getElementById("gamecanvas").style.MozTransform = "scale(" + 0.1 + ")";
-	var zoomAmount = (window.innerHeight / 240 > window.innerHeight / 256) ? window.innerHeight / 240 : window.innerHeight / 256;
-	gamezoom = zoomAmount;
+	zoomAmount = (window.innerHeight / 240 > window.innerHeight / 256) ? window.innerHeight / 240 : window.innerHeight / 256;
 	gamestage.canvas.height = 240;
 	gamestage.canvas.width = 256;
 	document.getElementById("gamecanvas").style.zoom = zoomAmount;
 	document.getElementById("gamecanvas").style.MozTransform = "scale(" + zoomAmount + ")";
-	document.getElementById("gamecanvas").style.left = ((window.innerWidth / gamezoom - document.getElementById("gamecanvas").width) / 2) + "px";
+	document.getElementById("gamecanvas").style.left = ((window.innerWidth / zoomAmount - document.getElementById("gamecanvas").width) / 2) + "px";
 	initTouchControls();
 };
 
