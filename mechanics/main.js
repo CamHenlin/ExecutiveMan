@@ -29,8 +29,10 @@ function init() {
 		maps = wastemanmaps;
 		beginGame(true);
 	} else if (getParameterByName('level') === "1") {
-		bossScreenUp = false;
-		initShowOffBossScreen(1);
+		maps = accountingmanmaps;
+		beginGame(true);
+	}  else if (getParameterByName('level') === "8") {
+		maps = visionarymanmaps;
 		beginGame(true);
 	} else {
 		initTitleScreen();
