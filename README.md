@@ -23,6 +23,12 @@ The game is still a work in progress. However, it is very playable, and even has
 
 See the [wiki](https://github.com/CamHenlin/ExecutiveMan/wiki) for developer information.
 
+#### Planned Features
+- Add more enemy types
+- Add more weapons
+- Finish levels
+- Add ending sequence after levels
+
 To run locally:
 ```
 git clone https://github.com/CamHenlin/ExecutiveMan.git
