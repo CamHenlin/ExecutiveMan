@@ -14,7 +14,7 @@
 - easily hackable!
 
 #### About ExecutiveMan
-ExecutiveMan is a recreation of my favorite NES game, MegaMan. It's written in my favorite programming language, JavaScript. The ExecutiveMan engine aims to have 100% complete feature coverage of the original MegaMan games. The only thing that is missing at this point (outside of only having 14 types of enemies, and only one type of additional weapon) is ladders, for one very simple reason: Ladders require extra up and down buttons which make the game very clumsy to play with touch controls.
+ExecutiveMan is a clone of my favorite NES game, MegaMan, written in JavaScript. The ExecutiveMan engine aims to have 100% complete feature coverage of the original MegaMan games. The only thing that is missing at this point (outside of only having 14 types of enemies, and only one type of additional weapon) is ladders, for one very simple reason: Ladders require extra up and down buttons which make the game very clumsy to play with touch controls.
 
 The game is still a work in progress. However, it is very playable, and even has a couple of mostly complete levels for you to try out. The most complete at this time are:
 - [WasteMan](http://executive-man.com/?level=0)
@@ -28,6 +28,8 @@ See the [wiki](https://github.com/CamHenlin/ExecutiveMan/wiki) for developer inf
 - Add more weapons
 - Finish levels
 - Add ending sequence after levels
+- Add end of game sequence
+- Better developer docs
 
 To run locally:
 ```
