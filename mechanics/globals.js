@@ -71,6 +71,9 @@ var leftButtonSprite;
 var lives = 2;
 
 //
+var loader;
+
+//
 var loadProgress = 0;
 
 //
@@ -168,3 +171,6 @@ var titleScreenSprite;
 
 //
 var watchedElements;
+
+//
+var zoomAmount;

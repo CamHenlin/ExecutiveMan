@@ -70,7 +70,7 @@ function initTitleScreen() {
  * @return {[type]} [description]
  */
 function startScreenListener() {
-	if (startame) {
+	if (startgame) {
 		return;
 	}
 	console.log('click');
