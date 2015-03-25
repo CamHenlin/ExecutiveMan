@@ -8,7 +8,7 @@
 #### Features
 - nearly 100% correct NES MegaMan gameplay
 - relatively easy to use touch controls
-- chrome, firefox, and internet explorer joystick support
+- chrome, firefox, and internet explorer (including xbox) joystick support
 - save game support
 - easy to edit Tiled levels
 - easily hackable!
