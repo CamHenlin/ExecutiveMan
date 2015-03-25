@@ -19,6 +19,8 @@ The game is still a work in progress. However, it is very playable, and even has
 - [AccountingMan](http://executive-man.com/?level=1)
 - [VisionaryMan](http://executive-man.com/?level=8) (screenshot of level above)
 
+See the [wiki](https://github.com/CamHenlin/ExecutiveMan/wiki) for developer information.
+
 To run locally:
 ```
 git clone https://github.com/CamHenlin/ExecutiveMan.git
