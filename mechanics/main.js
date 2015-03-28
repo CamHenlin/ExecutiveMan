@@ -6,7 +6,6 @@ window.mobilecheck = function() {
 	return check;
 };
 
-
 // default keyboard keycodes
 var keyCodes = {
 	'left': 37,
@@ -15,9 +14,6 @@ var keyCodes = {
 	'shoot': 67,
 	'pause': 80
 };
-
-
-
 
 /**
  * [init description]
