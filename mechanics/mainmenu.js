@@ -48,7 +48,6 @@ function initMainMenuScreen() {
 	fillColor.graphics.beginFill("#000000").drawRect(0, 0, gamestage.canvas.width, gamestage.canvas.height);
 	altstage.addChild(fillColor);
 
-
 	var newGameLabel = new createjs.Text("NEW GAME", "18px '" + FONT + "'", "#FFF");
 	newGameLabel.x = gamestage.canvas.width / 2 - 25;
 	newGameLabel.y = gamestage.canvas.height - 120;

@@ -401,10 +401,12 @@ function Player(demoMode, demoParams) {
 	this.animations = new createjs.Sprite(this.playerSpriteSheet, "dropin");
 	this.damageSprite = new createjs.Sprite(damageSpriteSheet, "damage");
 	this.touchDown = false;
+
 	if (demoMode) {
 		this.touchDown = true;
 		this.animations.gotoAndPlay("stand");
 	}
+
 	this.blinkTimer = 10;
 	this.x = 48;
 	this.lastx = this.x;
