@@ -76,9 +76,9 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 			return;
 		} else {
 			if (this.direction) {
-				this.animations.gotoAndPlay('left');
+				this.animations.gotoAndPlay("left");
 			} else {
-				this.animations.gotoAndPlay('right');
+				this.animations.gotoAndPlay("right");
 			}
 
 			this.pauseTicks--;
@@ -122,9 +122,9 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 			this.directionTimer = 1;
 			this.direction = !this.direction;
 			if (this.direction) {
-				this.animations.gotoAndPlay('left');
+				this.animations.gotoAndPlay("left");
 			} else {
-				this.animations.gotoAndPlay('right');
+				this.animations.gotoAndPlay("right");
 			}
 		}
 
@@ -173,9 +173,9 @@ function AnnoyingThing(stage, basicCollision, x, y) {
 				this.directionTimer = 1;
 				this.direction = !this.direction;
 				if (this.direction) {
-					this.animations.gotoAndPlay('left');
+					this.animations.gotoAndPlay("left");
 				} else {
-					this.animations.gotoAndPlay('right');
+					this.animations.gotoAndPlay("right");
 				}
 			}
 		} else {
