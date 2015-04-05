@@ -88,7 +88,6 @@ function Copter(stage, x, y) {
 			this.x -= this.xStepSize;
 			this.movementTicks--;
 		} else {
-
 			var distanceFromPlayer = player.x - this.x;
 			if (abs(distanceFromPlayer) <= 150) {
 				this.activated = true;
