@@ -173,8 +173,6 @@ function CoffeeCopter(stage, x, y) {
 		 */
 		this.checkBounds = function() {
 			return !(this.x < 0 || this.x > player.x + 1000);
-
-
 		};
 	};
 }
