@@ -265,11 +265,11 @@ function WarehouseMan(stage, basicCollision, x, y) {
 	 * @return {[type]} [description]
 	 */
 	this.havePlatformInColumn = function() {
-		a = ~~((this.x + this.animations.spriteSheet._frameWidth / 2 - renderer.widthOffset) / 16);
-		b = ~~((this.y + this.animations.spriteSheet._frameHeight / 2 - renderer.heightOffset) / 16);
+		var a = ~~((this.x + this.animations.spriteSheet._frameWidth / 2 - renderer.widthOffset) / 16);
+		var b = ~~((this.y + this.animations.spriteSheet._frameHeight / 2 - renderer.heightOffset) / 16);
 
 		for (var i = 0; i < renderer.collisionArray.length; i++) {
-			if (i == b) {
+			if (i === b) {
 				break;
 			}
 

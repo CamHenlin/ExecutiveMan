@@ -102,7 +102,7 @@ function WallGun(stage, x, y, left) {
 			var distanceFromPlayer = player.x - this.x;
 			if (abs(distanceFromPlayer) <= 480) {
 				this.movementTicks = 600;
-				this.animations.gotoAndPlay('open');
+				this.animations.gotoAndPlay("open");
 				this.hardshell = false;
 				setTimeout(function() {
 					var yspeed = Math.sin(Math.atan2((player.y - this.y), (player.x - this.x))) * 2.5;
@@ -115,7 +115,7 @@ function WallGun(stage, x, y, left) {
 					this.watchedElements.push(new Shot(stage, this.x, this.y, xspeed, yspeed, -this.animations.scaleX, this));
 				}.bind(this), 3000);
 				setTimeout(function() {
-					this.animations.gotoAndPlay('close');
+					this.animations.gotoAndPlay("close");
 				}.bind(this), 4000);
 				setTimeout(function() {
 					this.hardshell = true;
