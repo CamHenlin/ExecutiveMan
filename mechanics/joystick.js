@@ -4,11 +4,11 @@ var joystickPressedList = [];
 var joystickButtonLength = 0;
 
 var joystick = {
-	'left': -1,
-	'right': -1,
-	'pause': -1,
-	'attack': -1,
-	'jump': -1
+	"left": -1,
+	"right": -1,
+	"pause": -1,
+	"attack": -1,
+	"jump": -1
 };
 
 /**
@@ -32,15 +32,15 @@ function gamepadPoll_options() {
 
 	for (var i = 0; i < gp.buttons.length; i++) {
 		if (gp.buttons[i].pressed) {
-			if (this.setKey === 'left') {
+			if (this.setKey === "left") {
 				joystick.left = i;
-			} else if (this.setKey === 'right') {
+			} else if (this.setKey === "right") {
 				joystick.right = i;
-			} else if (this.setKey === 'jump') {
+			} else if (this.setKey === "jump") {
 				joystick.jump = i;
-			} else if (this.setKey === 'shoot') {
+			} else if (this.setKey === "shoot") {
 				joystick.attack = i;
-			} else if (this.setKey === 'pause') {
+			} else if (this.setKey === "pause") {
 				joystick.pause = i;
 			}
 

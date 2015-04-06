@@ -228,7 +228,7 @@ function handleComplete() {
  */
 var handleProgress = function(e) {
 	loadProgress = e.progress;
-}
+};
 
 /**
  * [loadTick description]
@@ -244,7 +244,7 @@ var loadTick = function() {
 	progress.graphics.beginStroke("#F00").beginFill("#F00").drawRect(0, gamestage.canvas.height - 60, gamestage.canvas.width * loadProgress, 20);
 	gamestage.addChild(progress);
 	gamestage.update();
-}
+};
 
 // execute on load:
 loader = new createjs.LoadQueue(false);
