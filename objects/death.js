@@ -70,7 +70,7 @@ function Death(stage, x, y) {
 	 */
 	this.tickActions = function() {
 
-		for (var i in this.animations) {
+		for (var i = 0; i < this.animations.lenght; i++) {
 			this.animations[i].x += this.animations[i].xSpeed;
 			this.animations[i].y += this.animations[i].ySpeed;
 		}
