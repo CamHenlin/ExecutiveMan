@@ -279,12 +279,12 @@ var bossScreenKeyDownHandler = function(event) {
 	switch (event.keyCode) {
 		case keyCodes.left:
 			// keyCode 37 is left arrow
-			bossNumber--;
+			bossnumber--;
 			break;
 
 		case keyCodes.right:
 			// keyCode 39 is right arrow
-			bossNumber++;
+			bossnumber++;
 			break;
 
 
