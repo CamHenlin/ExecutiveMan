@@ -27,7 +27,7 @@ function SixShooter(stage, x, y) {
 
 	this.stage = stage;
 	this.animations = new createjs.Sprite(sixShooterSpriteSheet, "closed");
-	this.x = x + parseInt(renderer.mapData.properties.stitchx); // - 32;
+	this.x = x + parseInt(renderer.mapData.properties.stitchx);
 	this.y = parseInt(y);
 	this.animations.x = x - renderer.completedMapsWidthOffset;
 	this.animations.y = parseInt(y);
@@ -144,7 +144,7 @@ function SixShooter(stage, x, y) {
 		} else if (this.stopTicks === 50) {
 			this.stopTicks--;
 			this.movementTicks = 200;
-			this.animations.gotoAndPlay('open');
+			this.animations.gotoAndPlay("open");
 			this.hardshell = false;
 
 			setTimeout(function() {
@@ -155,11 +155,11 @@ function SixShooter(stage, x, y) {
 
 					this.watchedElements.push(new Shot(stage, this.x, this.y, xspeed, yspeed, this));
 				}
-			}.bind(this), 400)
+			}.bind(this), 400);
 
 
 			setTimeout(function() {
-				this.animations.gotoAndPlay('closed');
+				this.animations.gotoAndPlay("closed");
 			}.bind(this), 1000);
 
 			setTimeout(function() {
