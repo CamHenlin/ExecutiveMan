@@ -239,7 +239,7 @@ function initBossScreen() {
 	createjs.Ticker.addEventListener("tick", handleBossScreenTick);
 	createjs.Ticker.setFPS(60);
 
-	document.getElementById("gamecanvas").addEventListener('click', bossClickHandler.bind(this), false);
+	document.getElementById("gamecanvas").addEventListener("click", bossClickHandler, false);
 
 	stage.addChild(executivemanTopper);
 
@@ -267,7 +267,7 @@ function initBossScreen() {
 	stage.addChild(visionarymanFrame);
 	stage.addChild(accountingmanLabel);
 
-	document.onkeydown = bossScreenKeyDownHandler.bind(this);
+	document.getElementById("gamecanvas").addEventListener("keydown", bossClickHandler, false);
 }
 
 /**
@@ -291,14 +291,15 @@ var bossScreenKeyDownHandler = function(event) {
 		case keyCodes.jump:
 			// keyCode 32 is space
 
+			document.getElementById("gamecanvas").removeEventListener("keydown", bossClickHandler, false);
 			initVars();
 			initShowOffBossScreen(bossNumber);
-			event.target.removeEventListener(event.type, arguments.callee);
 			bossScreenUp = false;
 			playSound("pauseopen");
 			break;
 	}
 };
+bossScreenKeyDownHandler = bossScreenKeyDownHandler.bind(this);
 
 /**
  * [buildSaveLoadTouchTarget description]
@@ -343,7 +344,7 @@ function bossClickHandler(event) {
 
 	event.preventDefault();
 
-	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
+	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById("gamecanvas").offsetLeft;
 	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
 	if (fastCollisionSprite(this.saveGameTouchTarget, touchSprite)) {
 		saveGame();
@@ -358,13 +359,14 @@ function bossClickHandler(event) {
 			if (fastCollisionSprite(this.frames[k], touchSprite)) {
 				initVars();
 				initShowOffBossScreen(k);
-				event.target.removeEventListener(event.type, arguments.callee);
 				bossScreenUp = false;
 				playSound("pauseopen");
+				document.getElementById("gamecanvas").removeEventListener("click", bossClickHandler, false);
 			}
 		}
 	}
 }
+bossClickHandler = bossClickHandler.bind(this);
 
 /**
  * [handleBossScreenTick description]
