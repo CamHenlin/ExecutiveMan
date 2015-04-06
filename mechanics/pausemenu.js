@@ -167,7 +167,7 @@ function PauseMenu() {
 		pauseUp = true;
 		playSound("pauseopen");
 
-		document.addEventListener('click', pauseClickHandler.bind(this), false);
+		document.addEventListener("click", pauseClickHandler.bind(this), false);
 
 		livesLabel.text = lives;
 		healthBriefCasesLabel.text = healthBriefCases;
@@ -225,7 +225,7 @@ function pauseClickHandler(event) {
 
 	var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
+	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById("gamecanvas").offsetLeft;
 	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
 
 	if (fastCollisionSprite(this.exitStageTouchTarget, touchSprite)) {
@@ -243,22 +243,22 @@ function pauseClickHandler(event) {
 			this.show();
 		}
 	} else if (fastCollisionSprite(this.setPostItBlasterTouchTarget, touchSprite)) {
-		player.changeWeapon('postit');
+		player.changeWeapon("postit");
 		this.remove();
 		this.show();
 		event.target.removeEventListener(event.type, arguments.callee, false);
 	} else if (fastCollisionSprite(this.setStingingAuditTouchTarget, touchSprite)) {
-		player.changeWeapon('stingingaudit');
+		player.changeWeapon("stingingaudit");
 		this.remove();
 		this.show();
 		event.target.removeEventListener(event.type, arguments.callee, false);
 	} else if (fastCollisionSprite(this.setToxicProjectileTouchTarget, touchSprite)) {
-		player.changeWeapon('toxicprojectile');
+		player.changeWeapon("toxicprojectile");
 		this.remove();
 		this.show();
 		event.target.removeEventListener(event.type, arguments.callee, false);
 	} else if (fastCollisionSprite(this.setOreTossTouchTarget, touchSprite)) {
-		player.changeWeapon('oretoss');
+		player.changeWeapon("oretoss");
 		this.remove();
 		this.show();
 		event.target.removeEventListener(event.type, arguments.callee, false);

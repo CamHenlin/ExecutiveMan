@@ -44,7 +44,7 @@ function Player(demoMode, demoParams) {
 					var enemy = null;
 					var step = 1;
 					while (!enemy) {
-						for (var i in renderer.enemies) {
+						for (var i = 0; i < renderer.enemies.length; i++) {
 							if (renderer.enemies[i].dead || renderer.enemies[i].y < 0 || renderer.enemies[i].y > renderer.gamestage.height || renderer.enemies[i].damage <= 0) {
 								continue;
 							}
@@ -562,13 +562,13 @@ function Player(demoMode, demoParams) {
 	this.changeWeapon = function(weapon) {
 		var loaderRequest = "";
 		this.currentWeapon = weapon;
-		if (weapon === 'postit') {
+		if (weapon === "postit") {
 			loaderRequest = "businessman";
-		} else if (weapon === 'stingingaudit') {
+		} else if (weapon === "stingingaudit") {
 			loaderRequest = "businessman_green";
-		} else if (weapon === 'oretoss') {
+		} else if (weapon === "oretoss") {
 			loaderRequest = "businessman_brown";
-		} else if (weapon === 'toxicprojectile') {
+		} else if (weapon === "toxicprojectile") {
 			loaderRequest = "businessman_yellow";
 		}
 
@@ -805,11 +805,11 @@ function Player(demoMode, demoParams) {
 			}
 		};
 
-		document.getElementById("controlcanvas").addEventListener('touchstart', eventHandler.bind(this), false);
-		document.getElementById("controlcanvas").addEventListener('touchmove', moveEventHandler.bind(this), false);
-		document.getElementById("controlcanvas").addEventListener('touchend', endTouchEventHandler.bind(this), false);
-		document.getElementById("controlcanvas").addEventListener('touchcancel', endTouchEventHandler.bind(this), false);
-		document.getElementById("controlcanvas").addEventListener('touchleave', endTouchEventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener("touchstart", eventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener("touchmove", moveEventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener("touchend", endTouchEventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener("touchcancel", endTouchEventHandler.bind(this), false);
+		document.getElementById("controlcanvas").addEventListener("touchleave", endTouchEventHandler.bind(this), false);
 	}
 
 	this.animations.play();
@@ -896,11 +896,11 @@ function Player(demoMode, demoParams) {
 			console.log("dead");
 
 			if (mobile) {
-				document.getElementById("gamecanvas").removeEventListener('touchstart', eventHandler.bind(this), false);
-				document.getElementById("gamecanvas").removeEventListener('touchmove', eventHandler.bind(this), false);
-				document.getElementById("gamecanvas").removeEventListener('touchend', endTouchEventHandler.bind(this), false);
-				document.getElementById("gamecanvas").removeEventListener('touchcancel', endTouchEventHandler.bind(this), false);
-				document.getElementById("gamecanvas").removeEventListener('touchleave', endTouchEventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener("touchstart", eventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener("touchmove", eventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener("touchend", endTouchEventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener("touchcancel", endTouchEventHandler.bind(this), false);
+				document.getElementById("gamecanvas").removeEventListener("touchleave", endTouchEventHandler.bind(this), false);
 			}
 			actions.playerDeath = true;
 			return;
@@ -948,11 +948,11 @@ function Player(demoMode, demoParams) {
 					element.tickActions(actions);
 				}.bind(this));
 
-				if (this.currentWeapon === 'postit') {
+				if (this.currentWeapon === "postit") {
 					this.shots.forEach(function(shot) {
 						shot.tickActions(actions);
 					}.bind(this));
-				} else if (this.currentWeapon === 'stingingaudit') {
+				} else if (this.currentWeapon === "stingingaudit") {
 					this.stingingAuditShots.forEach(function(shot) {
 						shot.tickActions(actions);
 					}.bind(this));
@@ -1105,7 +1105,7 @@ function Player(demoMode, demoParams) {
 		if (this.actions.playerAttack && this.shootTicks <= 0) {
 			//this.watchedElements.push(new Shot(this.stage, this, renderer));
 			var shot;
-			if (this.currentWeapon === 'postit') {
+			if (this.currentWeapon === "postit") {
 				shot = this.shots[this.shotIndex++ % 27];
 				if (shot.disabled) {
 					shot.fireUp();
@@ -1120,7 +1120,7 @@ function Player(demoMode, demoParams) {
 						this.animations.gotoAndPlay("jumpshoot");
 					}
 				}
-			} else if (this.currentWeapon === 'stingingaudit') {
+			} else if (this.currentWeapon === "stingingaudit") {
 				shot = this.stingingAuditShots[this.shotIndex++ % 3];
 				if (shot.disabled) {
 					shot.fireUp();
@@ -1197,11 +1197,11 @@ function Player(demoMode, demoParams) {
 			element.tickActions(actions);
 		}.bind(this));
 
-		if (this.currentWeapon === 'postit') {
+		if (this.currentWeapon === "postit") {
 			this.shots.forEach(function(shot) {
 				shot.tickActions(actions);
 			}.bind(this));
-		} else if (this.currentWeapon === 'stingingaudit') {
+		} else if (this.currentWeapon === "stingingaudit") {
 			this.stingingAuditShots.forEach(function(shot) {
 				shot.tickActions(actions);
 			}.bind(this));

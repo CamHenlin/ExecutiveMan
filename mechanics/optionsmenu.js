@@ -155,7 +155,7 @@ function OptionsMenu() {
 			this.shootSelected.text = "MAPPED TO JOYSTICK";
 			this.pauseSelected.text = "MAPPED TO JOYSTICK";
 		}
-		document.addEventListener('click', optionsClickHandler.bind(this), false);
+		document.addEventListener("click", optionsClickHandler.bind(this), false);
 
 		gamestage.addChild(optionsstage);
 		gamestage.update();
@@ -206,32 +206,32 @@ function optionsClickHandler(event) {
 		this.leftSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.leftSelected;
 		this.setKey = "left";
-		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
+		document.addEventListener("keydown", optionsKeyDownHandler.bind(this), false);
 	} else if (fastCollisionSprite(this.setRightButtonTouchTarget, touchSprite)) {
 		this.rightSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.rightSelected;
 		this.setKey = "right";
-		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
+		document.addEventListener("keydown", optionsKeyDownHandler.bind(this), false);
 	} else if (fastCollisionSprite(this.setJumpButtonTouchTarget, touchSprite)) {
 		this.jumpSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.jumpSelected;
 		this.setKey = "jump";
-		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
+		document.addEventListener("keydown", optionsKeyDownHandler.bind(this), false);
 	} else if (fastCollisionSprite(this.setShootButtonTouchTarget, touchSprite)) {
 		this.shootSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.shootSelected;
 		this.setKey = "shoot";
-		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
+		document.addEventListener("keydown", optionsKeyDownHandler.bind(this), false);
 	} else if (fastCollisionSprite(this.setJumpButtonTouchTarget, touchSprite)) {
 		this.jumpSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.jumpSelected;
 		this.setKey = "jump";
-		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
+		document.addEventListener("keydown", optionsKeyDownHandler.bind(this), false);
 	} else if (fastCollisionSprite(this.setPauseButtonTouchTarget, touchSprite)) {
 		this.pauseSelected.text = "PRESS ANY KEY";
 		this.setKeyLabel = this.pauseSelected;
 		this.setKey = "pause";
-		document.addEventListener('keydown', optionsKeyDownHandler.bind(this), false);
+		document.addEventListener("keydown", optionsKeyDownHandler.bind(this), false);
 	}
 
 	if (hasJoystick) {

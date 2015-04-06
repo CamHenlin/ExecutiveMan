@@ -178,7 +178,7 @@ function mainMenuClickHandler(event) {
 	});
 	var touchSprite = new createjs.Sprite(touchEventSpriteSheet, "exist");
 
-	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById('gamecanvas').offsetLeft;
+	touchSprite.x = ((event.pageX || touch.pageX)) / gamezoom - document.getElementById("gamecanvas").offsetLeft;
 	touchSprite.y = (event.pageY || touch.pageY) / gamezoom;
 	if (fastCollisionSprite(this.newGameTouchTarget, touchSprite)) {
 		initVars();

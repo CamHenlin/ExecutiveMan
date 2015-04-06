@@ -16,7 +16,7 @@ var bossScreenUp = false;
 // holds sprite sheets for buttons for mobile controls
 var buttonSpriteSheet;
 
-// used to block future click events in certain situations
+// used to block future click events in optionsmenu.js
 var clicked = false;
 
 // used in game to determine if the player should deal more than 1x damage
