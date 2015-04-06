@@ -178,7 +178,7 @@ function Renderer(gamestage) {
 		this.parentContainer.removeAllChildren();
 		this.container = new createjs.Container();
 		var fillColor = new createjs.Shape();
-		fillColor.graphics.beginFill('#' + this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
+		fillColor.graphics.beginFill("#" + this.mapData.properties.backgroundColor).drawRect(0, 0, (this.getMapWidth() > gamestage.canvas.width) ? this.getMapWidth() : gamestage.canvas.width, this.getMapHeight() + this.heightOffset + this.mapData.tileheight);
 		this.backgroundContainer1.addChild(fillColor);
 
 		this.enemyContainer.removeAllChildren();
@@ -500,7 +500,7 @@ function Renderer(gamestage) {
 		for (var i = 0; i < this.mapData.layers.length; i++) {
 			var layer = this.mapData.layers[i];
 			// console.log(layer);
-			if (layer.type === 'tilelayer') {
+			if (layer.type === "tilelayer") {
 				if (i === 1) { // layer one is ground collision layer
 					this.container.addChild(this.initLayerWithCollisionArray(layer, tilesetSheet, this.mapData.tilewidth, this.mapData.tileheight, this.heightOffset, this.widthOffset));
 					this.basicCollision = new BasicCollision(this);
@@ -515,7 +515,7 @@ function Renderer(gamestage) {
 				}
 			}
 
-			if (layer.type === 'objectgroup') {
+			if (layer.type === "objectgroup") {
 				for (var j = 0; j < layer.objects.length; j++) {
 					if (layer.objects[j].type === "platform") {
 						this.objects.push(new Platform(this.enemyContainer, this.basicCollision, this.widthOffset + this.completedMapsWidthOffset + layer.objects[j].x, this.heightOffset + layer.objects[j].y,
@@ -1055,21 +1055,15 @@ function Renderer(gamestage) {
 	 * @return {[type]} [description]
 	 */
 	this.getOffScreenWidth = function() {
-		console.log(player.animations.x - this.gamestage.canvas.width / 2);
 		if (this.gamestage.canvas.width > this.getMapWidth()) {
-			console.log('case 1');
 			return 0;
 		} else if (player.animations.x - this.gamestage.canvas.width / 2 >= -4 && player.animations.x - this.gamestage.canvas.width / 2 <= 4) {
-			console.log('case 2');
 			return (player.x - this.completedMapsWidthOffset) - this.gamestage.canvas.width / 2;
 		} else if (player.animations.x - this.gamestage.canvas.width / 2 < -4) {
-			console.log('case 3');
 			return 0;
 		} else if (player.animations.x - this.gamestage.canvas.width / 2 > 4) {
-			console.log('case 4');
 			return this.getMapWidth() - this.gamestage.canvas.width;
 		}
-		console.log('case 5');
 		return 0;
 	};
 
