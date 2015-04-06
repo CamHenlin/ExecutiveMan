@@ -29,8 +29,8 @@ function Dialog(text, x, y, image, top) {
 
 		if (this.currentText === this.targetText) {
 			this.remove();
-			document.removeEventListener('click', this.dialogClickHandler.bind(this), false);
-			document.removeEventListener('keydown', this.dialogKeyDownHandler.bind(this), false);
+			document.removeEventListener("click", this.dialogClickHandler.bind(this), false);
+			document.removeEventListener("keydown", this.dialogKeyDownHandler.bind(this), false);
 		}
 	};
 
@@ -66,8 +66,6 @@ function Dialog(text, x, y, image, top) {
 
 	this.dialogLabel.lineWidth = gamestage.canvas.width - 138;
 	this.dialogLabel2.lineWidth = gamestage.canvas.width - 138;
-
-
 
 	dialogstage.addChild(this.shape);
 
@@ -111,7 +109,6 @@ function Dialog(text, x, y, image, top) {
 	 * @return {[type]} [description]
 	 */
 	this.remove = function() {
-		console.log('removing...');
 		this.active = false;
 		dialogUp = false;
 		playSound("dialogclose");
@@ -176,8 +173,8 @@ function Dialog(text, x, y, image, top) {
 		if (isDemo) {
 			return;
 		}
-		document.addEventListener('click', this.dialogClickHandler.bind(this), false);
-		document.addEventListener('keydown', this.dialogKeyDownHandler.bind(this), false);
+		document.addEventListener("click", this.dialogClickHandler.bind(this), false);
+		document.addEventListener("keydown", this.dialogKeyDownHandler.bind(this), false);
 	};
 
 	/**
