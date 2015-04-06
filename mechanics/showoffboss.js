@@ -218,8 +218,8 @@ var bossShowOffScreenShape2;
  */
 function handleShowOffBossScreenTick(event) {
 
-	document.getElementById("gamecanvas").removeEventListener('touchstart', function() {}, false);
-	document.getElementById("gamecanvas").removeEventListener('click', function() {}, false);
+	document.getElementById("gamecanvas").removeEventListener("touchstart", function() {}, false);
+	document.getElementById("gamecanvas").removeEventListener("click", function() {}, false);
 	if (showOffBossScreenCounter < 0) {
 		initVars();
 

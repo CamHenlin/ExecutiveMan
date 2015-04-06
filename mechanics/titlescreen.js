@@ -55,12 +55,12 @@ function initTitleScreen() {
 			case 32:
 				// keyCode 32 is space
 				startgame = true;
-				document.getElementById("gamecanvas").removeEventListener('click', startScreenListener, false);
+				document.getElementById("gamecanvas").removeEventListener("click", startScreenListener, false);
 				break;
 		}
 	}.bind(this);
 
-	document.getElementById("gamecanvas").addEventListener('click', startScreenListener, false);
+	document.getElementById("gamecanvas").addEventListener("click", startScreenListener, false);
 	//titleSreenSprite.animations.play();
 	stage.addChild(titleSreenSprite);
 }
@@ -73,9 +73,9 @@ function startScreenListener() {
 	if (startgame) {
 		return;
 	}
-	console.log('click');
+	console.log("click");
 	startgame = true;
-	document.getElementById("gamecanvas").removeEventListener('click', startScreenListener, false);
+	document.getElementById("gamecanvas").removeEventListener("click", startScreenListener, false);
 	demoEnded = true;
 	initVars();
 	initMainMenuScreen();
@@ -83,7 +83,7 @@ function startScreenListener() {
 startScreenListener = startScreenListener.bind(this);
 
 var startscreenTickCounter = 140;
-if (getParameterByName('camh')) {
+if (getParameterByName("camh")) {
 	startscreenTickCounter = 65535;
 	musicOff = true;
 	soundOff = true;
