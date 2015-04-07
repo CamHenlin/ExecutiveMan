@@ -7,7 +7,6 @@ var bosspointReached = false;
  * @param {[type]} x              [description]
  */
 function BossPoint(stage, basicCollision, x) {
-
 	var droppingPlatformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("door")],
 		"frames": {

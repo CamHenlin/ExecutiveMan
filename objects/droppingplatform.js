@@ -7,7 +7,6 @@
  * @param {[type]} duration       [description]
  */
 function DroppingPlatform(stage, basicCollision, x, y, duration) {
-
 	var droppingPlatformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("platform")],
 		"frames": {

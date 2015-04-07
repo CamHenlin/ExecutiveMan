@@ -7,7 +7,6 @@ var halfwayPointReached = false;
  * @param {[type]} x              [description]
  */
 function HalfwayPoint(stage, basicCollision, x) {
-
 	var droppingPlatformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("door")],
 		"frames": {

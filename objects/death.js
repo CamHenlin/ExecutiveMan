@@ -5,7 +5,6 @@
  * @param {[type]} y     [description]
  */
 function Death(stage, x, y) {
-
 	var deathSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("death")],
 		"frames": {

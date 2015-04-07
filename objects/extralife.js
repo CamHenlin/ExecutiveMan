@@ -6,7 +6,6 @@
  * @param {[type]} basicCollision [description]
  */
 function ExtraLife(stage, x, y, basicCollision) {
-
 	var extraLifeSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("extralife")],
 		"frames": {

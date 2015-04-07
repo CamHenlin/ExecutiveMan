@@ -6,7 +6,6 @@
  * @param {[type]} y              [description]
  */
 function Door(stage, basicCollision, x, y) {
-
 	var doorSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("door")],
 		"frames": {

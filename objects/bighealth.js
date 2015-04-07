@@ -6,7 +6,6 @@
  * @param {[type]} basicCollision [description]
  */
 function BigHealth(stage, x, y, basicCollision) {
-
 	var bigHealthSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("bighealth")],
 		"frames": {

@@ -9,7 +9,6 @@
  * @param {[type]} offDuration    [description]
  */
 function DisappearingPlatform(stage, basicCollision, x, y, startTimer, onDuration, offDuration) {
-
 	var disappearingPlatformSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("platform")],
 		"frames": {

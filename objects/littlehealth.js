@@ -6,7 +6,6 @@
  * @param {[type]} basicCollision [description]
  */
 function LittleHealth(stage, x, y, basicCollision) {
-
 	var littleHealthSpriteSheet = new createjs.SpriteSheet({
 		"images": [loader.getResult("littlehealth")],
 		"frames": {
