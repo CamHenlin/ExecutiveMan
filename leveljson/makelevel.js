@@ -20,7 +20,7 @@ let file;
 for(let i = 0; i < levelConfig.length; i++){
     file = fs.readFileSync(levelJsonPath + (i + 1) + '.json', 'utf-8');
     console.log(file);
-    levelData += `${levelName}maps[${i}] = ${file.replace(/(\r\n|\n|\r|\t)/gm,"")}\n`;
+    levelData += `${levelName}maps[${i}] = ${file.replace(/\s/g,'')}\n`;
 }
 
 const levelFile = fs.writeFileSync(levelpath, levelData)

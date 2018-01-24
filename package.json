@@ -16,7 +16,8 @@
     "url": "https://github.com/charleskilbourne/ExecutiveMan/issues"
   },
   "dependencies": {
-    "glob": "latest"
+    "glob": "latest",
+    "node-minify ":"latest"
   },
   "homepage": "https://github.com/charleskilbourne/ExecutiveMan#readme"
 }
