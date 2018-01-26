@@ -1,0 +1,3 @@
+All songs in this directory should have an _small version that is produced with the following command:
+
+lame --mp3input -b 96 -q0 materialman.mp3 materialman_small.mp3
