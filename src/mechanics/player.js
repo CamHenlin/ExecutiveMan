@@ -45,7 +45,8 @@ function Player(demoMode, demoParams) {
 					var step = 1;
 					while (!enemy) {
 						for (var i = 0; i < renderer.enemies.length; i++) {
-							if (renderer.enemies[i].dead || renderer.enemies[i].y < 0 || renderer.enemies[i].y > renderer.gamestage.height || renderer.enemies[i].damage <= 0) {
+							if (renderer.enemies[i].dead || renderer.enemies[i].y < 0 || 
+								renderer.enemies[i].y > renderer.gamestage.height || renderer.enemies[i].damage <= 0) {
 								continue;
 							}
 
@@ -75,7 +76,8 @@ function Player(demoMode, demoParams) {
 					}
 
 					//var intersection = ndgmrX.checkRectCollision(this.animations, enemy.animations);
-					if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform || enemy.constructor === DisappearingPlatform) && enemy.constructor !== KillCopy && enemy.constructor !== Phone) {
+					if (fastCollisionX(this, enemy) && !(enemy.constructor === Platform || enemy.constructor === DroppingPlatform
+						 || enemy.constructor === DisappearingPlatform) && enemy.constructor !== KillCopy && enemy.constructor !== Phone) {
 
 						if (enemy.constructor === AnnoyingThing) {
 							enemy.pauseTicks = 120;
@@ -96,12 +98,14 @@ function Player(demoMode, demoParams) {
 							enemy.health -= 6 * damageModifier;
 						}
 						this.removeSelf();
-					} else if (enemy.constructor === KillCopy && fastCollisionKillCopy(this, enemy)) { // special case due to large overhang of the left side of sprite
+					} else if (enemy.constructor === KillCopy && fastCollisionKillCopy(this, enemy)) { 
+						// special case due to large overhang of the left side of sprite
 						if (enemy.damage > 0) {
 							enemy.health -= 6 * damageModifier;
 						}
 						this.removeSelf();
-					} else if (enemy.constructor === Phone && fastCollisionPhone(this, enemy)) { // special case due to large overhang of the left side of sprite
+					} else if (enemy.constructor === Phone && fastCollisionPhone(this, enemy)) { 
+						// special case due to large overhang of the left side of sprite
 						if (enemy.damage > 0) {
 							enemy.health -= 6 * damageModifier;
 						}
@@ -300,6 +304,7 @@ function Player(demoMode, demoParams) {
 			if (this.checkBounds()) {
 				playSound("shotexplode");
 			}
+			player.shots.shift();
 			renderer.enemyContainer.addChild(explosion);
 			setTimeout(function() {
 				renderer.enemyContainer.removeChild(explosion);
@@ -407,6 +412,7 @@ function Player(demoMode, demoParams) {
 		this.animations.gotoAndPlay("stand");
 	}
 
+	//Init player variables
 	this.blinkTimer = 10;
 	this.x = 48;
 	this.lastx = this.x;
@@ -433,6 +439,7 @@ function Player(demoMode, demoParams) {
 	this.gamestage = renderer.gamestage;
 	this.ignoreDamage = false;
 	this.ignoreInput = false;
+	this.shots = [];
 	if (!demoMode) {
 		this.healthbar = new HealthBar(gamestage, this);
 	} else {
@@ -451,17 +458,6 @@ function Player(demoMode, demoParams) {
 	this.fallThroughFloor = false;
 	this.currentWeapon = "postit";
 	var skipThisCheck = false;
-
-	this.shots = [new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
-		new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
-		new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
-		new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
-		new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
-		new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
-		new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
-		new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer),
-		new Shot(this, renderer), new Shot(this, renderer), new Shot(this, renderer)
-	];
 
 	this.stingingAuditShots = [new StingingAuditShot(this, renderer), new StingingAuditShot(this, renderer), new StingingAuditShot(this, renderer)];
 
@@ -926,7 +922,8 @@ function Player(demoMode, demoParams) {
 
 		if (this.ignoreInput) {
 			if (!this.ignoreBounceBack) {
-				if ((actions.collisionResults.leftMove && this.animations.scaleX === 1) || (actions.collisionResults.rightMove && this.animations.scaleX === -1)) {
+				if ((actions.collisionResults.leftMove && this.animations.scaleX === 1) 
+				|| (actions.collisionResults.rightMove && this.animations.scaleX === -1)) {
 					this.x += -this.animations.scaleX;
 				}
 
@@ -1106,8 +1103,9 @@ function Player(demoMode, demoParams) {
 			//this.watchedElements.push(new Shot(this.stage, this, renderer));
 			var shot;
 			if (this.currentWeapon === "postit") {
-				shot = this.shots[this.shotIndex++ % 27];
-				if (shot.disabled) {
+				shot = new Shot(this, renderer);
+				if (this.shots.length < 3) {
+					this.shots.push(shot);
 					shot.fireUp();
 					playSound("shoot");
 					if (this.animations.currentAnimation === "jump") {
@@ -1197,7 +1195,7 @@ function Player(demoMode, demoParams) {
 			element.tickActions(actions);
 		}.bind(this));
 
-		if (this.currentWeapon === "postit") {
+		if (this.currentWeapon === "postit" && this.shots.length > 0) {
 			this.shots.forEach(function(shot) {
 				shot.tickActions(actions);
 			}.bind(this));

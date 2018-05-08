@@ -1,3 +1,4 @@
+const RESOURCE_ROOT = "resources/"
 var loadFiles = [{
 	id: "accountingman",
 	src: "images/accountingmansprite.png"
@@ -213,6 +214,10 @@ var loadFiles = [{
 	src: "images/wastemanshotdown.png"
 }];
 
+loadFiles.map(file => {
+	file.src = RESOURCE_ROOT += file.src;
+	return file;
+})
 /**
  * [handleComplete description]
  * @return {[type]} [description]

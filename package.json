@@ -1,0 +1,26 @@
+{
+  "name": "executive-man",
+  "version": "0.1.0",
+  "description": "Mega Man clone",
+  "main": "game.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js",
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charleskilbourne/ExecutiveMan.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charleskilbourne/ExecutiveMan/issues"
+  },
+  "dependencies": {
+    "glob": "latest",
+    "node-minify ":"latest",
+    "http-server": "latest"
+  },
+  "homepage": "https://github.com/charleskilbourne/ExecutiveMan#readme"
+}

@@ -55,4 +55,13 @@ cd ExecutiveMan
 ./compile.sh
 ```
 
+### Now with Node Support
+to build and run locally with node:
+```
+npm install
+npm run build
+npm run start
+```
+Then navigate to http://localhost:8080
+
 
